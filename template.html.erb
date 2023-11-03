@@ -376,7 +376,10 @@
         </table>
       </div>
       <div id="air">
-        <h1 class="fair">Air: Fair</h1>
+        <% if pollutants.nil? %>
+        <p>Data unavailable</p>
+        <% else %>
+        <h1 class="<%= pollutants[:aqi][:class] %>">Air: <%= pollutants[:aqi][:class] %>  </h1>
         <table>
           <tr>
             <th>SO<sub>2</sub></th>
@@ -387,14 +390,15 @@
             <th>CO</th>
           </tr>
           <tr>
-            <td class="good">0.64</td>
-            <td class="good">0.77</td>
-            <td class="good">0.54</td>
-            <td class="good">0.5</td>
-            <td class="good">68.66</td>
-            <td class="fair">4500</td>
+            <td class="<%= pollutants[:so2][:class] %>"><%= pollutants[:so2][:value] %></td>
+            <td class="<%= pollutants[:no2][:class] %>"><%= pollutants[:no2][:value] %></td>
+            <td class="<%= pollutants[:pm10][:class] %>"><%= pollutants[:pm10][:value] %></td>
+            <td class="<%= pollutants[:pm2_5][:class] %>"><%= pollutants[:pm2_5][:value] %></td>
+            <td class="<%= pollutants[:o3][:class] %>"><%= pollutants[:o3][:value] %></td>
+            <td class="<%= pollutants[:co][:class] %>"><%= pollutants[:co][:value] %></td>
           </tr>
         </table>
+        <% end %>
       </div>
     </main>
   </body>
