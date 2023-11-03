@@ -135,244 +135,35 @@
         <table>
           <tr>
             <th></th>
-            <th>00:00</th>
-            <th>03:00</th>
-            <th>06:00</th>
-            <th>09:00</th>
-            <th>12:00</th>
-            <th>15:00</th>
-            <th>18:00</th>
-            <th>21:00</th>
+            <th>01:00</th>
+            <th>04:00</th>
+            <th>07:00</th>
+            <th>10:00</th>
+            <th>13:00</th>
+            <th>16:00</th>
+            <th>19:00</th>
+            <th>22:00</th>
           </tr>
+          <% first = true %>
+          <% weather_forecast.each do |day, values| %>
           <tr>
-            <th>15.08.2023</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <th><%= day %></th>
+            <% if first == true %>
+              <% to_skip = 8 - values.length %>
+              <% if to_skip > 0 %>
+                <td colspan="<%= to_skip %>"></td>
+              <% end %>
+            <% end %>
+            <% values.each do |value| %>
             <td>
-              <img src="https://openweathermap.org/img/wn/10d.png" title="Light Rain"/>
-              <span class="temp">26°C</span>
-              <span class="rain">4.12mm</span>
+              <img src="https://openweathermap.org/img/wn/<%= value[:icon] %>.png" title="<%= value[:description] %>"/>
+              <span class="temp"><%= value[:temp] %>°C</span>
+              <span class="rain"><%= value[:rain] %>mm</span>
             </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/10d.png" title="Light Rain"/>
-              <span class="temp">24°C</span>
-              <span class="rain">0.12mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/04n.png" title="Broken Clouds"/>
-              <span class="temp">19°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
+            <% end %>
           </tr>
-          <tr>
-            <th>16.08.2023</th>
-            <td>
-              <img src="https://openweathermap.org/img/wn/02n.png" title="Few Clouds"/>
-              <span class="temp">18°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01n.png" title="Clear Sky"/>
-              <span class="temp">16°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01d.png" title="Clear Sky"/>
-              <span class="temp">16°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01d.png" title="Clear Sky"/>
-              <span class="temp">19°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01d.png" title="Clear Sky"/>
-              <span class="temp">24°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01d.png" title="Light Rain"/>
-              <span class="temp">26°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01d.png" title="Light Rain"/>
-              <span class="temp">24°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01n.png" title="Broken Clouds"/>
-              <span class="temp">19°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-          </tr>
-          <tr>
-            <th>17.08.2023</th>
-            <td>
-              <img src="https://openweathermap.org/img/wn/02n.png" title="Few Clouds"/>
-              <span class="temp">18°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01n.png" title="Clear Sky"/>
-              <span class="temp">16°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01d.png" title="Clear Sky"/>
-              <span class="temp">16°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01d.png" title="Clear Sky"/>
-              <span class="temp">19°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01d.png" title="Clear Sky"/>
-              <span class="temp">24°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01d.png" title="Light Rain"/>
-              <span class="temp">26°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01d.png" title="Light Rain"/>
-              <span class="temp">24°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01n.png" title="Broken Clouds"/>
-              <span class="temp">19°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-          </tr>
-          <tr>
-            <th>18.08.2023</th>
-            <td>
-              <img src="https://openweathermap.org/img/wn/02n.png" title="Few Clouds"/>
-              <span class="temp">18°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01n.png" title="Clear Sky"/>
-              <span class="temp">16°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01d.png" title="Clear Sky"/>
-              <span class="temp">16°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01d.png" title="Clear Sky"/>
-              <span class="temp">19°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01d.png" title="Clear Sky"/>
-              <span class="temp">24°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01d.png" title="Light Rain"/>
-              <span class="temp">26°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01d.png" title="Light Rain"/>
-              <span class="temp">24°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01n.png" title="Broken Clouds"/>
-              <span class="temp">19°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-          </tr>
-          <tr>
-            <th>19.08.2023</th>
-            <td>
-              <img src="https://openweathermap.org/img/wn/02n.png" title="Few Clouds"/>
-              <span class="temp">18°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01n.png" title="Clear Sky"/>
-              <span class="temp">16°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01d.png" title="Clear Sky"/>
-              <span class="temp">16°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01d.png" title="Clear Sky"/>
-              <span class="temp">19°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01d.png" title="Clear Sky"/>
-              <span class="temp">24°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01d.png" title="Light Rain"/>
-              <span class="temp">26°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01d.png" title="Light Rain"/>
-              <span class="temp">24°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01n.png" title="Broken Clouds"/>
-              <span class="temp">19°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-          </tr>
-          <tr>
-            <th>20.08.2023</th>
-            <td>
-              <img src="https://openweathermap.org/img/wn/02n.png" title="Few Clouds"/>
-              <span class="temp">18°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01n.png" title="Clear Sky"/>
-              <span class="temp">16°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01d.png" title="Clear Sky"/>
-              <span class="temp">16°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01d.png" title="Clear Sky"/>
-              <span class="temp">19°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-              <img src="https://openweathermap.org/img/wn/01d.png" title="Clear Sky"/>
-              <span class="temp">24°C</span>
-              <span class="rain">0.00mm</span>
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
-          </tr>
+           <% first = false %>
+          <% end %>
         </table>
       </div>
       <div id="air">

@@ -16,7 +16,7 @@ class WeatherAir
   CO = { good: 0...4400, fair: 4400...9400, moderate: 9400...12400, poor: 12400...15400, very_poor: 15400..100000 }
 
   def run
-    five_day_forcast
+    weather_forecast = five_day_forecast
     pollutants = air_pollution
     current_weather = current_data
     template = ERB.new(File.read('template.html.erb'))
@@ -29,6 +29,28 @@ class WeatherAir
   end
 
   private
+
+  def five_day_forecast
+    url = "https://api.openweathermap.org/data/2.5/forecast?lat=#{LAT}&lon=#{LON}&units=metric&appid=#{ENV['API_KEY']}" 
+    response_json = Faraday.get(url)
+    response = JSON.parse(response_json.body)
+
+    data = response["list"]
+    dates = {}
+    data.each do |e|
+      key = Time.at(e["dt"].to_i).to_datetime.strftime('%d.%m.%Y.')
+      interval = { description: e["weather"][0]["description"] ,
+                   icon: e["weather"][0]["icon"] ,
+                   temp: e["main"]["temp"],
+                   rain: e.dig("rain","3h") || 0 }
+      if dates.key?(key)
+        dates[key] << interval 
+      else
+        dates[key] = [interval]
+      end
+    end
+    dates
+  end
 
   def air_pollution
     url = "https://api.openweathermap.org/data/2.5/air_pollution?lat=#{LAT}&lon=#{LON}&appid=#{ENV['API_KEY']}" 
@@ -76,3 +98,4 @@ class WeatherAir
 end
 
 WeatherAir.new.run
+
