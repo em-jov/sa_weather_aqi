@@ -16,7 +16,7 @@ class WeatherAir
   CO = { good: 0...4400, fair: 4400...9400, moderate: 9400...12400, poor: 12400...15400, very_poor: 15400..100000 }
 
   def run
-    weather_forecast = five_day_forecast
+    weather_forecast = forecast
     pollutants = air_pollution
     current_weather = current_data
     template = ERB.new(File.read('template.html.erb'))
@@ -30,16 +30,28 @@ class WeatherAir
 
   private
 
-  def five_day_forecast
-    url = "https://api.openweathermap.org/data/2.5/forecast?lat=#{LAT}&lon=#{LON}&units=metric&appid=#{ENV['API_KEY']}" 
-    response_json = Faraday.get(url)
-    response = JSON.parse(response_json.body)
+  def forecast 
+    w_url = "https://api.openweathermap.org/data/2.5/forecast?lat=#{LAT}&lon=#{LON}&units=metric&appid=#{ENV['API_KEY']}" 
+    w_response_json = Faraday.get(w_url)
+    w_response = JSON.parse(w_response_json.body)
+    w_data = w_response["list"]
 
-    data = response["list"]
+    a_url = "https://api.openweathermap.org/data/2.5/air_pollution/forecast?lat=#{LAT}&lon=#{LON}&units=metric&appid=#{ENV['API_KEY']}" 
+    a_response_json = Faraday.get(a_url)
+    a_response = JSON.parse(a_response_json.body)
+    a_data = a_response["list"]
+
+    w_data.each do |w|
+      a = a_data.find { |ad| ad['dt'] == w['dt'] }
+      w['aqi'] = a.dig('main', "aqi") if a
+    end
+
     dates = {}
-    data.each do |e|
+    w_data.each do |e|
       key = Time.at(e["dt"].to_i).to_datetime.strftime('%d.%m.%Y.')
-      interval = { description: e["weather"][0]["description"] ,
+      interval = { aqi: e["aqi"],
+                   aqi_class: AQI.key(e["aqi"]),
+                   description: e["weather"][0]["description"] ,
                    icon: e["weather"][0]["icon"] ,
                    temp: e["main"]["temp"],
                    rain: e.dig("rain","3h") || 0 }

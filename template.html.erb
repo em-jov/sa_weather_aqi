@@ -76,10 +76,10 @@
       span.rain {
         color: blue;
       }
-      td.good, h1.good {
+      td.good, h1.good, span.good {
         color: lightgreen;
       }
-      td.fair, h1.fair {
+      td.fair, h1.fair, span.fair {
         color: green;
       }
       td.moderate, h1.moderate {
@@ -159,6 +159,7 @@
               <img src="https://openweathermap.org/img/wn/<%= value[:icon] %>.png" title="<%= value[:description] %>"/>
               <span class="temp"><%= value[:temp] %>°C</span>
               <span class="rain"><%= value[:rain] %>mm</span>
+              <span class="<%= value[:aqi_class] %>"><%if value[:aqi_class] %> AQI: <% end %> <%= value[:aqi_class] %> </span>
             </td>
             <% end %>
           </tr>
