@@ -192,6 +192,29 @@
         </table>
         <% end %>
       </div>
+
+      <h1> Latest air quality by monitoring stations</h1>
+      <table>
+        <tr>
+          <th>Station</th>
+          <th>SO<sub>2</sub></th>
+          <th>NO<sub>2</sub></th>
+          <th>PM<sub>10</sub></th>
+          <th>PM<sub>2.5</sub></th>
+          <th>0<sub>3</sub></th>
+          <th>CO</th>
+        </tr>
+        <% latest_aqi_values.each do |station, pollutants| %>
+          <tr>
+            <th><%= station %></th>
+            <% %w[ SO2 NO2 PM10 PM2.5 O3 CO].each do |pollutant| %>
+              <td class="<%= pollutants[pollutant][:class] %>">
+                <%= pollutants[pollutant][:content] %>
+              </td>            
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
     </main>
   </body>
 </html>

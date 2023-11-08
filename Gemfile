@@ -8,3 +8,4 @@ gem 'nokogiri'
 gem 'dotenv-rails'
 
 gem 'faraday'
+

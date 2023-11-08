@@ -2,6 +2,8 @@
 require 'erb'
 require 'dotenv/load'
 require 'faraday'
+require 'nokogiri'
+require 'open-uri'
 
 class WeatherAir
   LAT = 43.8519774
@@ -16,6 +18,7 @@ class WeatherAir
   CO = { good: 0...4400, fair: 4400...9400, moderate: 9400...12400, poor: 12400...15400, very_poor: 15400..100000 }
 
   def run
+    latest_aqi_values = latest_aqi_values_by_monitoring_stations
     weather_forecast = forecast
     pollutants = air_pollution
     current_weather = current_data
@@ -30,6 +33,28 @@ class WeatherAir
 
   private
 
+  def latest_aqi_values_by_monitoring_stations
+    hash = { 'Ilidža' => { latitude: 43.830 , longitude: 18.310 }, 
+             'Otoka' => { latitude: 43.848, longitude: 18.363 }, 
+             'Vijećnica' => { latitude: 43.859, longitude: 18.434 } }
+    doc = Nokogiri::HTML(URI.open('https://aqms.live/kvalitetzraka/index.php'))
+    table = doc.css('table:first tbody tr')
+    headers = table.first.css('td').map(&:content)
+    table.each do |tr|
+      name = tr.css('td').first.content
+      next unless hash.keys.include?(name)
+
+      headers.each_with_index do |header, index|
+        next if ['Stanica', 'Mreža'].include?(header)
+        content = tr.css('td')[index].content
+        value = content.split(' ').first
+        css_class = value == 'X' ? '' : pollutant_aqi_description(header, value)
+        hash[name][header] = { content: content , class: css_class } 
+      end
+    end
+    hash
+  end
+
   def forecast 
     w_url = "https://api.openweathermap.org/data/2.5/forecast?lat=#{LAT}&lon=#{LON}&units=metric&appid=#{ENV['API_KEY']}" 
     w_response_json = Faraday.get(w_url)
@@ -42,18 +67,18 @@ class WeatherAir
     a_data = a_response["list"]
 
     w_data.each do |w|
-      a = a_data.find { |ad| ad['dt'] == w['dt'] }
-      w['aqi'] = a.dig('main', "aqi") if a
+      a = a_data.find { |ad| ad["dt"] == w["dt"] }
+      w["aqi"] = a.dig("main", "aqi") if a
     end
 
     dates = {}
     w_data.each do |e|
-      key = Time.at(e["dt"].to_i).to_datetime.strftime('%d.%m.%Y.')
-      interval = { aqi: e["aqi"],
-                   aqi_class: AQI.key(e["aqi"]),
-                   description: e["weather"][0]["description"] ,
-                   icon: e["weather"][0]["icon"] ,
-                   temp: e["main"]["temp"],
+      key = Time.at(e["dt"].to_i).to_datetime.strftime("%d.%m.%Y.")
+      interval = { aqi: e.dig("aqi"),
+                   aqi_class: AQI.key(e.dig("aqi")),
+                   description: e.dig("weather", 0, "description"),
+                   icon: e.dig("weather", 0, "icon"),
+                   temp: e.dig("main", "temp"),
                    rain: e.dig("rain","3h") || 0 }
       if dates.key?(key)
         dates[key] << interval 
@@ -63,7 +88,7 @@ class WeatherAir
     end
     dates
   end
-
+  
   def air_pollution
     url = "https://api.openweathermap.org/data/2.5/air_pollution?lat=#{LAT}&lon=#{LON}&appid=#{ENV['API_KEY']}" 
     response = Faraday.get(url)
@@ -80,12 +105,12 @@ class WeatherAir
     co = data&.dig("list", 0, "components", "co") 
 
     { aqi: { value: aqi, class: AQI.key(aqi)},
-      so2: { value: so2 , class: SO2.select { |k,v| v.include?(so2) }.keys.first.to_s },
-      no2: { value: no2 , class: NO2.select { |k,v| v.include?(no2) }.keys.first.to_s },
-      pm10: { value: pm10 , class: PM10.select { |k,v| v.include?(pm10) }.keys.first.to_s },
-      pm2_5: { value: pm2_5 , class: PM2_5.select { |k,v| v.include?(pm2_5) }.keys.first.to_s },
-      o3: { value: o3 , class: O3.select { |k,v| v.include?(o3) }.keys.first.to_s },   
-      co: { value: co , class: CO.select { |k,v| v.include?(co) }.keys.first.to_s }}
+      so2: { value: so2 , class: pollutant_aqi_description('so2', so2)},
+      no2: { value: no2 , class: pollutant_aqi_description('no2', no2) },
+      pm10: { value: pm10 , class: pollutant_aqi_description('pm10', pm10) },
+      pm2_5: { value: pm2_5 , class: pollutant_aqi_description('pm2_5', pm2_5) },
+      o3: { value: o3 , class: pollutant_aqi_description('o3', o3) },   
+      co: { value: co , class: pollutant_aqi_description('co', co) }}
   end
 
   def current_data
@@ -93,21 +118,24 @@ class WeatherAir
     response_json = Faraday.get(url)
     response = JSON.parse(response_json.body)
 
-    { currenttemp: response["main"]["temp"].to_f.round,
-      feelslike: response["main"]["feels_like"].to_f.round,
-      humidity: response["main"]["humidity"],
-      description: response["weather"][0]["description"],
-      icon: response["weather"][0]["icon"],
+    { currenttemp: response.dig("main'", "temp").to_f.round,
+      feelslike: response.dig("main", "feels_like").to_f.round,
+      humidity: response.dig("main", "humidity"),
+      description: response.dig("weather", 0, "description"),
+      icon: response.dig("weather", 0, "icon"),
       rain: response.dig("rain, 1h") || 0,
-      wind: response["wind"]["speed"],
-      sunrise: utc_to_datetime(response["sys"]["sunrise"]),
-      sunset: utc_to_datetime(response["sys"]["sunset"]) }
+      wind: response.dig("wind", "speed"),
+      sunrise: utc_to_datetime(response.dig("sys", "sunrise")),
+      sunset: utc_to_datetime(response.dig("sys","sunset")) }
+  end
+
+  def pollutant_aqi_description(pollutant, value)
+    Kernel.const_get("WeatherAir::" + pollutant.upcase.gsub('.', '_')).select { |k,v| v.include?(value.to_f) }.keys.first.to_s
   end
 
   def utc_to_datetime(seconds)
-    Time.at(seconds.to_i).to_datetime.strftime('%H:%M:%S')
+    Time.at(seconds.to_i).to_datetime.strftime("%H:%M:%S")
   end
 end
 
 WeatherAir.new.run
-
