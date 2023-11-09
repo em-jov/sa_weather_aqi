@@ -207,10 +207,14 @@
         <% latest_aqi_values.each do |station, pollutants| %>
           <tr>
             <th><%= station %></th>
-            <% %w[ SO2 NO2 PM10 PM2.5 O3 CO].each do |pollutant| %>
+            <% %w[SO2 NO2 PM10 PM2.5 O3 CO].each do |pollutant| %>
+            <% if pollutants.key?(pollutant)%>
               <td class="<%= pollutants[pollutant][:class] %>">
                 <%= pollutants[pollutant][:content] %>
-              </td>            
+              </td>   
+            <% else %>
+              <td>X</td>
+            <% end %>         
             <% end %>
           </tr>
         <% end %>

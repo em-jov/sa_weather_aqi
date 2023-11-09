@@ -4,6 +4,7 @@ require 'dotenv/load'
 require 'faraday'
 require 'nokogiri'
 require 'open-uri'
+require 'time'
 
 class WeatherAir
   LAT = 43.8519774
@@ -34,25 +35,33 @@ class WeatherAir
   private
 
   def latest_aqi_values_by_monitoring_stations
-    hash = { 'Ilidža' => { latitude: 43.830 , longitude: 18.310 }, 
-             'Otoka' => { latitude: 43.848, longitude: 18.363 }, 
-             'Vijećnica' => { latitude: 43.859, longitude: 18.434 } }
-    doc = Nokogiri::HTML(URI.open('https://aqms.live/kvalitetzraka/index.php'))
-    table = doc.css('table:first tbody tr')
+    stations = { 'Ilidža' => { latitude: 43.830 , longitude: 18.310 }, 
+                 'Otoka' => { latitude: 43.848, longitude: 18.363 }, 
+                 'Vijećnica' => { latitude: 43.859, longitude: 18.434 },
+                 'US Embassy' => {} }
+
+    ks_website = Nokogiri::HTML(URI.open('https://aqms.live/kvalitetzraka/index.php'))
+    table = ks_website.css('table:first tbody tr')
     headers = table.first.css('td').map(&:content)
     table.each do |tr|
       name = tr.css('td').first.content
-      next unless hash.keys.include?(name)
+      next unless stations.keys.include?(name)
 
       headers.each_with_index do |header, index|
         next if ['Stanica', 'Mreža'].include?(header)
         content = tr.css('td')[index].content
         value = content.split(' ').first
         css_class = value == 'X' ? '' : pollutant_aqi_description(header, value)
-        hash[name][header] = { content: content , class: css_class } 
+        stations[name][header] = { content: content , class: css_class } 
       end
     end
-    hash
+    
+    iqair_website = Nokogiri::HTML(URI.open('https://www.iqair.com/bosnia-herzegovina/federation-of-b-h/sarajevo/us-embassy-in-sarajevo'))
+    pm2_5 = iqair_website.css('.pollutant-concentration-value').first.content
+    time = Time.parse(iqair_website.css('time').first['datetime']).strftime('%d.%m.%Y. %Hh')
+    stations['US Embassy']["PM2.5"] = { content: pm2_5 + ' ug/m3 ' + time, class: pollutant_aqi_description("pm2.5", pm2_5)}
+
+    stations
   end
 
   def forecast 
@@ -118,7 +127,7 @@ class WeatherAir
     response_json = Faraday.get(url)
     response = JSON.parse(response_json.body)
 
-    { currenttemp: response.dig("main'", "temp").to_f.round,
+    { currenttemp: response.dig("main", "temp").to_f.round,
       feelslike: response.dig("main", "feels_like").to_f.round,
       humidity: response.dig("main", "humidity"),
       description: response.dig("weather", 0, "description"),
