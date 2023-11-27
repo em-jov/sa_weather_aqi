@@ -5,6 +5,8 @@ require 'faraday'
 require 'nokogiri'
 require 'open-uri'
 require 'time'
+require 'aws-sdk-s3'
+require 'aws-sdk-cloudfront'
 
 class WeatherAir
   # Sarajevo coordinates
@@ -28,7 +30,20 @@ class WeatherAir
 
     template = ERB.new(File.read('template.html.erb'))
     result = template.result(binding)
-    File.write('index.html', result)
+    # File.write('index.html', result)
+    s3_object = Aws::S3::Object.new(ENV['BUCKET'], 'index.html')
+    s3_object.put({ body: result, content_type: 'text/html' })
+    cloudfront_client = Aws::CloudFront::Client.new
+    cloudfront_client.create_invalidation({
+      distribution_id: ENV['CLOUDFRONT_DISTRIBUTION'],
+      invalidation_batch: { 
+        paths: { 
+          quantity: 1, 
+          items: ["/"],
+        },
+        caller_reference: Time.now.to_s
+      }
+    })
   end
 
   def last_update 
@@ -43,7 +58,7 @@ class WeatherAir
                  'US Embassy' => { latitude: 43.856, longitude: 18.397 },
                  'Ilidža' => { latitude: 43.830 , longitude: 18.310 }}
 
-    # getting data for 3 monitoring stations: Vijećnica, Otoka, Ilidža
+    # scraping data for 3 monitoring stations: Vijećnica, Otoka, Ilidža
     ks_website = Nokogiri::HTML(URI.open('https://aqms.live/kvalitetzraka/index.php'))
     table = ks_website.css('table:first tbody tr')
     headers = table.first.css('td').map(&:content)
@@ -60,7 +75,7 @@ class WeatherAir
       end
     end
     
-    # getting data for US Embassy monitoring station (only pm2.5)
+    # scraping data for US Embassy monitoring station (only pm2.5)
     iqair_website = Nokogiri::HTML(URI.open('https://www.iqair.com/bosnia-herzegovina/federation-of-b-h/sarajevo/us-embassy-in-sarajevo'))
     pm2_5 = iqair_website.css('.pollutant-concentration-value').first.content
     time = Time.parse(iqair_website.css('time').first['datetime']).strftime('%d.%m.%Y. %Hh')

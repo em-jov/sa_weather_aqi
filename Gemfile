@@ -9,3 +9,5 @@ gem 'dotenv-rails'
 
 gem 'faraday'
 
+gem 'aws-sdk-s3'
+gem 'aws-sdk-cloudfront'
