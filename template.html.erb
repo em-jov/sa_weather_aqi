@@ -77,19 +77,22 @@
         color: blue;
       }
       td.good, h1.good, span.good {
-        color: lightgreen;
+        background: #00CC00;
       }
-      td.fair, h1.fair, span.fair {
-        color: green;
+      td.moderate, h2.moderate {
+        background: #FFCC00;
       }
-      td.moderate, h1.moderate {
-        color: orange;
+      td.unhealthy_for_sensitive_groups, h1.unhealthy_for_sensitive_groups, span.unhealthy_for_sensitive_groups{
+        background: #FF9900
       }
-      td.poor, h1.poor {
-        color: red;
+      td.unhealthy, h1.unhealthy, span.unhealthy{
+        background: #FF0000
       }
-      td.very_poor, h1.very_poor {
-        color: darkred;
+      td.very_unhealthy, h1.very_unhealthy, span.very_unhealthy{
+        background: #9966CC
+      }
+      td.hazardous, h1.hazardous, span.hazardous{
+        background: #990000
       }
       @media (max-width: 600px) {
         main {
@@ -122,32 +125,90 @@
         <p id="weather_description"><%= current_weather[:description] %></p>
         <p class="flex">
           <span class="temp">Feels like: <%= current_weather[:feelslike] %>°C</span>
-          <span class="temp">Humidity: <%= current_weather[:humidity] %>%</span>
+          <span>Humidity: <%= current_weather[:humidity] %>%</span>
         </p>
         <p class="flex">
           <span class="rain">Rain: <%= current_weather[:rain] %>mm</span>
-          <span class="rain">Wind: <%= current_weather[:wind] %>km/h</span>
+          <span>Wind: <%= current_weather[:wind] %>km/h</span>
         </p>
         <p class="flex">
           <span>Sunrise: <%= current_weather[:sunrise] %></span>
           <span>Sunset: <%= current_weather[:sunset] %></span>
         </p>
+      </div>
+
+      <div id="air">
+        <h2 class="<%= cityAQIclass %>">AQI: <%= cityAQIclass %> (<%= cityAQI %>)  </h2>
+        <table>
+          <tr>
+            <th>SO<sub>2</sub></th>
+            <th>NO<sub>2</sub></th>
+            <th>CO</th>
+            <th>O<sub>3</sub></th>
+            <th>PM<sub>10</sub></th>
+            <th>PM<sub>2.5</sub></th>
+          </tr>
+          <tr>
+            <td class="<%= pollutants[:so2][:class] %>"><%= pollutants[:so2][:value] %></td>
+            <td class="<%= pollutants[:no2][:class] %>"><%= pollutants[:no2][:value] %></td>
+            <td class="<%= pollutants[:co][:class] %>"><%= pollutants[:co][:value] %></td>
+            <td class="<%= pollutants[:o3][:class] %>"><%= pollutants[:o3][:value] %></td>
+            <td class="<%= pollutants[:pm10][:class] %>"><%= pollutants[:pm10][:value] %></td>
+            <td class="<%= pollutants[:pm2_5][:class] %>"><%= pollutants[:pm2_5][:value] %></td>
+          </tr>
+        </table>
+      </div>
+
+      <div>  
+        <h3> Latest AQI by monitoring stations</h3>
+        <table>
+          <tr>
+            <th>Station</th>
+            <th>AQI</th>
+            <th>SO<sub>2</sub></th>
+            <th>NO<sub>2</sub></th>
+            <th>CO</th>
+            <th>O<sub>3</sub></th>
+            <th>PM<sub>10</sub></th>
+            <th>PM<sub>2.5</sub></th>
+          </tr>
+          <% latest_aqi_values.each do |station, pollutants| %>
+            <tr>
+              <td><%= station %></td>
+              <% %i[aqi so2 no2 co o3 pm10 pm2_5].each do |pollutant| %>
+              <% if pollutants.key?(pollutant)%>
+                <td class="<%= pollutants[pollutant][:class] %>">
+                  <%= pollutants[pollutant][:value] %>
+                </td>   
+              <% else %>
+                <td></td>
+              <% end %>         
+              <% end %>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+
+      <sub>Data provided by <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php">Federal Hydro-Meteorological Institute</a></sub>
+
+      <div>
+        <h2> Weather forecast </h2>  
         <table>
           <tr>
             <th></th>
-            <th>01:00</th>
-            <th>04:00</th>
-            <th>07:00</th>
-            <th>10:00</th>
-            <th>13:00</th>
-            <th>16:00</th>
-            <th>19:00</th>
-            <th>22:00</th>
+            <th>01<sup>h</sup></th>
+            <th>04<sup>h</sup></th>
+            <th>07<sup>h</sup></th>
+            <th>10<sup>h</sup></th>
+            <th>13<sup>h</sup></th>
+            <th>16<sup>h</sup></th>
+            <th>19<sup>h</sup></th>
+            <th>22<sup>h</sup></th>
           </tr>
           <% first = true %>
           <% weather_forecast.each do |day, values| %>
           <tr>
-            <th><%= day %></th>
+            <td><%= day %></td>
             <% if first == true %>
               <% to_skip = 8 - values.length %>
               <% if to_skip > 0 %>
@@ -158,8 +219,12 @@
             <td>
               <img src="https://openweathermap.org/img/wn/<%= value[:icon] %>.png" title="<%= value[:description] %>"/>
               <span class="temp"><%= value[:temp] %>°C</span>
-              <span class="rain"><%= value[:rain] %>mm</span>
               <span class="<%= value[:aqi_class] %>"><%if value[:aqi_class] %> AQI: <% end %> <%= value[:aqi_class] %> </span>
+              <% if value[:rain] != 0 %>
+              <sub><span class="rain"><%= value[:rain] %>mm</span></sub>
+              <% else %>
+              <sub>&nbsp</sub>
+              <% end %>
             </td>
             <% end %>
           </tr>
@@ -167,58 +232,9 @@
           <% end %>
         </table>
       </div>
-      <div id="air">
-        <% if pollutants.nil? %>
-        <p>Data unavailable</p>
-        <% else %>
-        <h1 class="<%= pollutants[:aqi][:class] %>">Air: <%= pollutants[:aqi][:class] %>  </h1>
-        <table>
-          <tr>
-            <th>SO<sub>2</sub></th>
-            <th>NO<sub>2</sub></th>
-            <th>PM<sub>10</sub></th>
-            <th>PM<sub>2.5</sub></th>
-            <th>O<sub>3</sub></th>
-            <th>CO</th>
-          </tr>
-          <tr>
-            <td class="<%= pollutants[:so2][:class] %>"><%= pollutants[:so2][:value] %></td>
-            <td class="<%= pollutants[:no2][:class] %>"><%= pollutants[:no2][:value] %></td>
-            <td class="<%= pollutants[:pm10][:class] %>"><%= pollutants[:pm10][:value] %></td>
-            <td class="<%= pollutants[:pm2_5][:class] %>"><%= pollutants[:pm2_5][:value] %></td>
-            <td class="<%= pollutants[:o3][:class] %>"><%= pollutants[:o3][:value] %></td>
-            <td class="<%= pollutants[:co][:class] %>"><%= pollutants[:co][:value] %></td>
-          </tr>
-        </table>
-        <% end %>
-      </div>
+      
+      <sub>Data provided by <a href="https://openweathermap.org/city/3191281">OpenWeather</a></sub>
 
-      <h1> Latest air quality by monitoring stations</h1>
-      <table>
-        <tr>
-          <th>Station</th>
-          <th>SO<sub>2</sub></th>
-          <th>NO<sub>2</sub></th>
-          <th>PM<sub>10</sub></th>
-          <th>PM<sub>2.5</sub></th>
-          <th>0<sub>3</sub></th>
-          <th>CO</th>
-        </tr>
-        <% latest_aqi_values.each do |station, pollutants| %>
-          <tr>
-            <th><%= station %></th>
-            <% %w[SO2 NO2 PM10 PM2.5 O3 CO].each do |pollutant| %>
-            <% if pollutants.key?(pollutant)%>
-              <td class="<%= pollutants[pollutant][:class] %>">
-                <%= pollutants[pollutant][:content] %>
-              </td>   
-            <% else %>
-              <td>X</td>
-            <% end %>         
-            <% end %>
-          </tr>
-        <% end %>
-      </table>
     </main>
   </body>
 </html>

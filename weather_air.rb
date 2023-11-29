@@ -14,23 +14,20 @@ class WeatherAir
   LON = 18.3866868
 
   # AQI range descriptors
-  AQI = { good: 1, fair: 2, moderate: 3, poor: 4, very_poor: 5 }
-  SO2 = { good: 0...20, fair: 20...80, moderate: 80...250, poor: 250...350, very_poor: 350..1000 }
-  NO2 = { good: 0...40, fair: 40...70, moderate: 70...150, poor: 150...200, very_poor: 200..1000 }
-  PM10 = { good: 0...20, fair: 20...50, moderate: 50...100, poor: 100...200, very_poor: 200..1000 }
-  PM2_5 = { good: 0...10, fair: 10...25, moderate: 25...50, poor: 50...75, very_poor: 75..1000 }
-  O3 = { good: 0...60, fair: 60...100, moderate: 100...140, poor: 140...180, very_poor: 180..1000 }
-  CO = { good: 0...4400, fair: 4400...9400, moderate: 9400...12400, poor: 12400...15400, very_poor: 15400..100000 }
+  AQI = { good: 0..50, moderate: 51..100, unhealthy_for_sensitive_groups: 101..150, unhealthy: 151..200, very_unhealthy: 201..300, hazardous: 301..500 }
 
   def run
+    current_weather = current_weather_data
+    pollutants = current_air_pollution
     latest_aqi_values = latest_pollutant_values_by_monitoring_stations
     weather_forecast = forecast
-    pollutants = current_air_pollution
-    current_weather = current_weather_data
+    
+    cityAQI = current_air_pollution.values.map{ |v| v[:value]}.max
+    cityAQIclass = AQI.select{|k, v| v.include?(cityAQI) }.keys.first.to_s
 
     template = ERB.new(File.read('template.html.erb'))
-    result = template.result(binding)
-    # File.write('index.html', result)
+    result = template.result(binding)    
+    File.write('index.html', result)
     s3_object = Aws::S3::Object.new(ENV['BUCKET'], 'index.html')
     s3_object.put({ body: result, content_type: 'text/html' })
     cloudfront_client = Aws::CloudFront::Client.new
@@ -53,35 +50,112 @@ class WeatherAir
   private
 
   def latest_pollutant_values_by_monitoring_stations
-    stations = { 'Vijećnica' => { latitude: 43.859, longitude: 18.434 },
-                 'Otoka' => { latitude: 43.848, longitude: 18.363 },
-                 'US Embassy' => { latitude: 43.856, longitude: 18.397 },
-                 'Ilidža' => { latitude: 43.830 , longitude: 18.310 }}
+    monitoring_stations = { 'Vijećnica' => { latitude: 43.859, longitude: 18.434 },
+                             'Bjelave'  => { latitude: 43.867, longitude: 18.420 },                         
+                             'US Embassy' => { latitude: 43.856, longitude: 18.397 },
+                             'Otoka' => { latitude: 43.848, longitude: 18.363 },
+                             'Ilidža' => { latitude: 43.830 , longitude: 18.310 }}
 
-    # scraping data for 3 monitoring stations: Vijećnica, Otoka, Ilidža
-    ks_website = Nokogiri::HTML(URI.open('https://aqms.live/kvalitetzraka/index.php'))
-    table = ks_website.css('table:first tbody tr')
-    headers = table.first.css('td').map(&:content)
-    table.each do |tr|
-      name = tr.css('td').first.content
-      next unless stations.keys.include?(name)
+    fhmzbih_website = Nokogiri::HTML(URI.open('https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php'))
+    table = fhmzbih_website.css('table table').first
 
-      headers.each_with_index do |header, index|
-        next if ['Stanica', 'Mreža'].include?(header)
-        content = tr.css('td')[index].content
-        value = content.split(' ').first
-        css_class = value == 'X' ? '' : pollutant_aqi_description(header, value)
-        stations[name][header] = { content: content , class: css_class } 
+    embassy = table.css('tr')[2]
+    bjelave = table.css('tr')[4]
+    vijecnica = table.css('tr')[6]
+    otoka = table.css('tr')[7]
+    ilidza = table.css('tr')[8]
+
+    monitoring_stations['Bjelave'].merge!(scrape_pollutant_aqi(bjelave))
+    monitoring_stations['US Embassy'].merge!(scrape_pollutant_aqi(embassy))
+    monitoring_stations['Vijećnica'].merge!(scrape_pollutant_aqi(vijecnica))
+    monitoring_stations['Otoka'].merge!(scrape_pollutant_aqi(otoka))
+    monitoring_stations['Ilidža'].merge!(scrape_pollutant_aqi(ilidza))
+
+    monitoring_stations  
+  end
+
+  def scrape_pollutant_aqi (station)#, name)
+    pollutants = { so2: station.css('td')[3]&.content,
+                   no2: station.css('td')[5]&.content,
+                   co: station.css('td')[7]&.content,
+                   o3: station.css('td')[9]&.content,
+                   pm10: station.css('td')[11]&.content,
+                   pm2_5: station.css('td')[13]&.content }
+
+    pollutants.each do |k, v|
+      pollutants[k] =  if v == '*' or v == "" or v == nil or v == "0" # zero value should probably be checked differently
+                        { value: '', class: '' }
+                       else
+                        { value: v.to_i, class: AQI.select { |k,z| z.include?(v.to_i) }.keys.first.to_s }
+                       end
+    end
+    # pollutants
+    calculate_total_aqi_for_monitoring_station(pollutants)
+  end
+
+  def calculate_total_aqi_for_monitoring_station(pollutants)
+    #  https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-metodologija.php
+    #  A significant change compared to the American model is that in the case when two or more pollutants have measured 
+    #  concentrations that correspond to the Unhealthy or Very Unhealthy index categories, the value of the index of the 
+    #  measuring site is automatically transferred to the next category by 
+    #   - adding 50 index numbers (in the case when two or more pollutants in the category "Unhealthy"), 
+    #   - or 100 index numbers (in the case when two or more pollutants are in the category "Very unhealthy"). 
+    #  In the case when the concentrations of two or more pollutants are within the "Hazardous" category, 
+    #  a value of up to 100 index points is added, with the maximum total number of Index values ​​not exceeding 500. In this
+    #  case, the Index category remains the same ("Hazardous").
+    #  Index values ​​for each individual pollutant remain the same in these cases. 
+    #  In this case, floating particles of different dimensions (PM10 and PM2.5) if they are measured side by side at the 
+    #  same measuring point - are not treated as two pollutants.
+    
+    # if pollutant AQI is in the category "Good", "Moderate" or "Unhealthy for sensitive groups", 
+    # total AQI for measuring site is just the highest pollutant AQI 
+    msAQI = pollutants.values.reject{ |v| v[:value] == '' }.map{ |v| v[:value] }.max
+    msAQIclass = AQI.select{ |k, v| v.include?(msAQI) }.keys.first.to_s
+    pollutants[:aqi] = { value: msAQI, class: msAQIclass}
+
+    unhealthy = 0
+    very_unhealthy = 0
+    hazardous = 0
+
+    # pm 10 pm 2.5
+    measures_both_pms = pollutants[:pm10][:value] != '' && pollutants[:pm2_5][:value] != ''
+    measures_both_pms
+
+    pollutants.each do |pollutant,values|
+      if AQI.select{ |k,v| v.include?(values[:value]) }.keys.first.to_s == "unhealthy"
+        # pm 10 pm 2.5
+        unhealthy +=1  
+      elsif AQI.select{ |k,v| v.include?(values[:value]) }.keys.first.to_s == "very_unhealthy"
+        unhealthy +=1 # assumes 50 is added if one of two (or more) pollutants are in any category worst then "Unhealthy" 
+        very_unhealthy +=1
+      elsif AQI.select{ |k,v| v.include?(values[:value]) }.keys.first.to_s == "hazardous"
+        unhealthy +=1  
+        very_unhealthy +=1 # assumes 100 is added if one of two (or more) pollutants are in any category worst then "Very unhealthy"
+        hazardous += 1 
       end
     end
-    
-    # scraping data for US Embassy monitoring station (only pm2.5)
-    iqair_website = Nokogiri::HTML(URI.open('https://www.iqair.com/bosnia-herzegovina/federation-of-b-h/sarajevo/us-embassy-in-sarajevo'))
-    pm2_5 = iqair_website.css('.pollutant-concentration-value').first.content
-    time = Time.parse(iqair_website.css('time').first['datetime']).strftime('%d.%m.%Y. %Hh')
-    stations['US Embassy']['PM2.5'] = { content: pm2_5 + ' ug/m3 ' + time, class: pollutant_aqi_description('pm2.5', pm2_5)}
 
-    stations
+    # not okey 
+
+    if unhealthy >= 2
+      added_value = pollutants[:aqi] + 50
+      pollutants[:aqi] = { value: added_value , class: AQI.select{ |k, v| v.include?(added_value) }.keys.first.to_s }
+    end 
+    
+    if very_unhealthy >= 2
+      added_value = pollutants[:aqi] + 100
+      pollutants[:aqi] = { value: added_value , class: AQI.select{ |k, v| v.include?(added_value) }.keys.first.to_s }
+    end
+
+    if hazardous >= 2
+      added_value = pollutants[:aqi] + 100
+      if added_value > 500
+        added_value = 500
+      end
+      pollutants[:aqi] = { value: added_value , class: AQI.select{ |k, v| v.include?(added_value) }.keys.first.to_s }
+    end
+    
+    pollutants
   end
 
   def forecast 
@@ -90,24 +164,12 @@ class WeatherAir
     weather_response = conn.get('forecast', { units: 'metric' })
     weather_data = weather_response.body['list']
 
-    aqi_response = conn.get('air_pollution/forecast', { units: 'metric' })
-    aqi_data = aqi_response.body['list']
-
-    # adding aqi to weather data
-    weather_data.each do |w|
-      a = aqi_data.find { |ad| ad['dt'] == w['dt'] }
-      w['aqi'] = a.dig('main', 'aqi') if a
-    end
-
-    # creating 5 days forecast with 3 hours intervals 
     dates = {}
     weather_data.each do |e|
-      key = Time.at(e['dt'].to_i).to_datetime.strftime('%d.%m.%Y.')
-      interval = { aqi: e.dig('aqi'),
-                   aqi_class: AQI.key(e.dig('aqi')),
-                   description: e.dig('weather', 0, 'description'),
+      key = Time.at(e['dt'].to_i).to_datetime.strftime('%a %d.%m.')
+      interval = { description: e.dig('weather', 0, 'description'),
                    icon: e.dig('weather', 0, 'icon'),
-                   temp: e.dig('main', 'temp'),
+                   temp: e.dig('main', 'temp').to_f.round,
                    rain: e.dig('rain', '3h') || 0 }
       if dates.key?(key)
         dates[key] << interval 
@@ -118,29 +180,22 @@ class WeatherAir
     dates
   end
 
-  def current_air_pollution
-    conn = openweathermap_client
+  def current_air_pollution  
+    stations = latest_pollutant_values_by_monitoring_stations
 
-    aqi_response = conn.get('air_pollution')
-    data = aqi_response.body['list'][0]
+    so2 = stations.values.map{ |v| (v[:so2][:value]=="" ? 0 : v[:so2][:value])}.max
+    no2 = stations.values.map{ |v| (v[:no2][:value]=="" ? 0 : v[:no2][:value])}.max
+    co = stations.values.map{ |v| (v[:co][:value]=="" ? 0 : v[:co][:value])}.max
+    o3 = stations.values.map{ |v| (v[:o3][:value]=="" ? 0 : v[:o3][:value])}.max
+    pm10 = stations.values.map{ |v| (v[:pm10][:value]=="" ? 0 : v[:pm10][:value])}.max
+    pm2_5 = stations.values.map{ |v| (v[:pm2_5][:value]=="" ? 0 : v[:pm2_5][:value])}.max
 
-    return nil if aqi_response.status != 200
-
-    aqi = data&.dig('main', 'aqi') 
-    so2 = data&.dig('components', 'so2') 
-    no2 = data&.dig('components', 'no2') 
-    pm10 = data&.dig('components', 'pm10') 
-    pm2_5 = data&.dig('components', 'pm2_5') 
-    o3 = data&.dig('components', 'o3') 
-    co = data&.dig('components', 'co') 
-
-    { aqi: { value: aqi, class: AQI.key(aqi)},
-      so2: { value: so2 , class: pollutant_aqi_description('so2', so2)},
-      no2: { value: no2 , class: pollutant_aqi_description('no2', no2) },
-      pm10: { value: pm10 , class: pollutant_aqi_description('pm10', pm10) },
-      pm2_5: { value: pm2_5 , class: pollutant_aqi_description('pm2_5', pm2_5) },
-      o3: { value: o3 , class: pollutant_aqi_description('o3', o3) },   
-      co: { value: co , class: pollutant_aqi_description('co', co) }}
+    maxAQIs = {so2: { value: so2, class: AQI.select { |k,z| z.include?(so2) }.keys.first.to_s },
+               no2: { value: no2, class: AQI.select { |k,z| z.include?(no2) }.keys.first.to_s } ,
+               co: { value: co, class: AQI.select { |k,z| z.include?(co) }.keys.first.to_s } , 
+               o3: { value: o3, class: AQI.select { |k,z| z.include?(o3) }.keys.first.to_s } , 
+               pm10: { value: pm10, class: AQI.select { |k,z| z.include?(pm10) }.keys.first.to_s } , 
+               pm2_5: { value: pm2_5, class: AQI.select { |k,z| z.include?(pm2_5) }.keys.first.to_s } }
   end
 
   def current_weather_data
@@ -168,12 +223,8 @@ class WeatherAir
     end
   end
 
-  def pollutant_aqi_description(pollutant, value)
-    Kernel.const_get('WeatherAir::' + pollutant.upcase.gsub('.', '_')).select { |k,v| v.include?(value.to_f) }.keys.first.to_s
-  end
-
   def utc_to_datetime(seconds)
-    Time.at(seconds.to_i).to_datetime.strftime('%H:%M:%S')
+    Time.at(seconds.to_i).to_datetime.strftime('%H:%M')
   end
 end
 
