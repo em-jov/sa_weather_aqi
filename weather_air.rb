@@ -82,14 +82,19 @@ class WeatherAir
                    pm10: station.css('td')[11]&.content,
                    pm2_5: station.css('td')[13]&.content }
 
+   # save pollutant values as numbers ? fix template ? 
+   # try to do it with greatest two values
+   # pp pollutants.reject{ |k, v| k if  v == '' or v == nil or v == '*'}.sort_by {|_key, value| value}.to_h
+   # pp pollutants.key(pollutants.values.max)
+
     pollutants.each do |k, v|
-      pollutants[k] =  if v == '*' or v == "" or v == nil or v == "0" # zero value should probably be checked differently
+      pollutants[k] =  if v == '*' or v == "" or v.nil? or v == "0" # zero value should probably be checked differently
                         { value: '', class: '' }
                        else
                         { value: v.to_i, class: AQI.select { |k,z| z.include?(v.to_i) }.keys.first.to_s }
                        end
     end
-    # pollutants
+
     calculate_total_aqi_for_monitoring_station(pollutants)
   end
 
@@ -107,54 +112,43 @@ class WeatherAir
     #  In this case, floating particles of different dimensions (PM10 and PM2.5) if they are measured side by side at the 
     #  same measuring point - are not treated as two pollutants.
     
+
     # if pollutant AQI is in the category "Good", "Moderate" or "Unhealthy for sensitive groups", 
     # total AQI for measuring site is just the highest pollutant AQI 
     msAQI = pollutants.values.reject{ |v| v[:value] == '' }.map{ |v| v[:value] }.max
     msAQIclass = AQI.select{ |k, v| v.include?(msAQI) }.keys.first.to_s
-    pollutants[:aqi] = { value: msAQI, class: msAQIclass}
+    pollutants[:aqi] = { value: msAQI || "", class: msAQIclass}
 
-    unhealthy = 0
-    very_unhealthy = 0
-    hazardous = 0
+    unhealthy = pollutants.reject{ |k, v| k == :aqi }.count{|_, v| v[:class] == "unhealthy"} 
+    very_unhealthy = pollutants.reject{ |k, v| k == :aqi }.count{|_, v| v[:class] == "very_unhealthy"}
+    hazardous = pollutants.reject{ |k, v| k == :aqi }.count{|_, v| v[:class] == "hazardous"} 
 
-    # pm 10 pm 2.5
-    measures_both_pms = pollutants[:pm10][:value] != '' && pollutants[:pm2_5][:value] != ''
-    measures_both_pms
-
-    pollutants.each do |pollutant,values|
-      if AQI.select{ |k,v| v.include?(values[:value]) }.keys.first.to_s == "unhealthy"
-        # pm 10 pm 2.5
-        unhealthy +=1  
-      elsif AQI.select{ |k,v| v.include?(values[:value]) }.keys.first.to_s == "very_unhealthy"
-        unhealthy +=1 # assumes 50 is added if one of two (or more) pollutants are in any category worst then "Unhealthy" 
-        very_unhealthy +=1
-      elsif AQI.select{ |k,v| v.include?(values[:value]) }.keys.first.to_s == "hazardous"
-        unhealthy +=1  
-        very_unhealthy +=1 # assumes 100 is added if one of two (or more) pollutants are in any category worst then "Very unhealthy"
-        hazardous += 1 
-      end
+    if pollutants[:pm10][:class] == "unhealthy" && (pollutants[:pm2_5][:class] == "unhealthy" || pollutants[:pm2_5][:class] == "very_unhealthy" or pollutants[:pm2_5][:class] == "hazardous")
+      unhealthy =- 1 
+    elsif pollutants[:pm10][:class] == "very_unhealthy" && pollutants[:pm2_5][:class] == "hazardous"
+      very_unhealthy =- 1
+    elsif pollutants[:pm10][:class] == "hazardous" && pollutants[:pm2_5][:class] == "hazardous" 
+      hazardous =- 1
     end
 
-    # not okey 
-
-    if unhealthy >= 2
-      added_value = pollutants[:aqi] + 50
-      pollutants[:aqi] = { value: added_value , class: AQI.select{ |k, v| v.include?(added_value) }.keys.first.to_s }
-    end 
-    
-    if very_unhealthy >= 2
-      added_value = pollutants[:aqi] + 100
-      pollutants[:aqi] = { value: added_value , class: AQI.select{ |k, v| v.include?(added_value) }.keys.first.to_s }
-    end
-
-    if hazardous >= 2
-      added_value = pollutants[:aqi] + 100
+    added_value = 0
+    if hazardous >=2
+      added_value = pollutants[:aqi][:value].to_i + 100
       if added_value > 500
         added_value = 500
       end
       pollutants[:aqi] = { value: added_value , class: AQI.select{ |k, v| v.include?(added_value) }.keys.first.to_s }
+      return pollutants
+    elsif very_unhealthy >=2 || very_unhealthy == 1 && hazardous >=1     
+      added_value = pollutants[:aqi][:value].to_i + 100
+      pollutants[:aqi] = { value: added_value , class: AQI.select{ |k, v| v.include?(added_value) }.keys.first.to_s }
+      return pollutants
+    elsif unhealthy >= 2 || unhealthy == 1 && (very_unhealthy >=1 || hazardous >=1) 
+      added_value = pollutants[:aqi][:value].to_i + 50
+      pollutants[:aqi] = { value: added_value , class: AQI.select{ |k, v| v.include?(added_value) }.keys.first.to_s }
+      return pollutants
     end
-    
+ 
     pollutants
   end
 
