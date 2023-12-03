@@ -14,17 +14,24 @@ class WeatherAir
   LON = 18.3866868
 
   # AQI range descriptors
-  AQI = { good: 0..50, moderate: 51..100, unhealthy_for_sensitive_groups: 101..150, unhealthy: 151..200, very_unhealthy: 201..300, hazardous: 301..500 }
+  AQI = { good: 0..50, 
+          moderate: 51..100, 
+          unhealthy_for_sensitive_groups: 101..150, 
+          unhealthy: 151..200, 
+          very_unhealthy: 201..300, 
+          hazardous: 301..500 }
 
   def run
     current_weather = current_weather_data
-    pollutants = current_air_pollution
+
+    pollutants = current_air_pollution_for_city
+    cityAQI = pollutants[:aqi][:value]
+    cityAQIclass =  pollutants[:aqi][:class]
+
     latest_aqi_values = latest_pollutant_values_by_monitoring_stations
+
     weather_forecast = forecast
     
-    cityAQI = current_air_pollution.values.map{ |v| v[:value]}.max
-    cityAQIclass = AQI.select{|k, v| v.include?(cityAQI) }.keys.first.to_s
-
     template = ERB.new(File.read('template.html.erb'))
     result = template.result(binding)    
     File.write('index.html', result)
@@ -59,11 +66,13 @@ class WeatherAir
     fhmzbih_website = Nokogiri::HTML(URI.open('https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php'))
     table = fhmzbih_website.css('table table').first
 
+    # hard-coded, potential problems if source table changes
     embassy = table.css('tr')[2]
     bjelave = table.css('tr')[4]
     vijecnica = table.css('tr')[6]
     otoka = table.css('tr')[7]
     ilidza = table.css('tr')[8]
+    # ------------------------------------------------------ 
 
     monitoring_stations['Bjelave'].merge!(scrape_pollutant_aqi(bjelave))
     monitoring_stations['US Embassy'].merge!(scrape_pollutant_aqi(embassy))
@@ -74,82 +83,117 @@ class WeatherAir
     monitoring_stations  
   end
 
-  def scrape_pollutant_aqi (station)#, name)
-    pollutants = { so2: station.css('td')[3]&.content,
-                   no2: station.css('td')[5]&.content,
-                   co: station.css('td')[7]&.content,
-                   o3: station.css('td')[9]&.content,
-                   pm10: station.css('td')[11]&.content,
-                   pm2_5: station.css('td')[13]&.content }
+  def scrape_pollutant_aqi(station)
+    # hard-coded, potential problems if source table changes
+    pollutant_td_index = { so2: 3, no2: 5, co: 7, o3: 9, pm10: 11, pm2_5: 13}
+    pollutants = { so2: normalize_pollutant_value(station, pollutant_td_index[:so2]),
+                   no2: normalize_pollutant_value(station, pollutant_td_index[:no2]),
+                   co: normalize_pollutant_value(station, pollutant_td_index[:co]),
+                   o3: normalize_pollutant_value(station, pollutant_td_index[:o3]),
+                   pm10: normalize_pollutant_value(station, pollutant_td_index[:pm10]),
+                   pm2_5: normalize_pollutant_value(station, pollutant_td_index[:pm2_5]) }
+    # ------------------------------------------------------ 
 
-   # save pollutant values as numbers ? fix template ? 
-   # try to do it with greatest two values
-   # pp pollutants.reject{ |k, v| k if  v == '' or v == nil or v == '*'}.sort_by {|_key, value| value}.to_h
-   # pp pollutants.key(pollutants.values.max)
-
-    pollutants.each do |k, v|
-      pollutants[k] =  if v == '*' or v == "" or v.nil? or v == "0" # zero value should probably be checked differently
-                        { value: '', class: '' }
-                       else
-                        { value: v.to_i, class: AQI.select { |k,z| z.include?(v.to_i) }.keys.first.to_s }
-                       end
-    end
-
-    calculate_total_aqi_for_monitoring_station(pollutants)
+    pollutants[:aqi] = calculate_total_aqi(pollutants)
+    add_aqi_descriptor(pollutants)
   end
 
-  def calculate_total_aqi_for_monitoring_station(pollutants)
-    #  https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-metodologija.php
-    #  A significant change compared to the American model is that in the case when two or more pollutants have measured 
-    #  concentrations that correspond to the Unhealthy or Very Unhealthy index categories, the value of the index of the 
-    #  measuring site is automatically transferred to the next category by 
-    #   - adding 50 index numbers (in the case when two or more pollutants in the category "Unhealthy"), 
-    #   - or 100 index numbers (in the case when two or more pollutants are in the category "Very unhealthy"). 
-    #  In the case when the concentrations of two or more pollutants are within the "Hazardous" category, 
-    #  a value of up to 100 index points is added, with the maximum total number of Index values ​​not exceeding 500. In this
-    #  case, the Index category remains the same ("Hazardous").
-    #  Index values ​​for each individual pollutant remain the same in these cases. 
-    #  In this case, floating particles of different dimensions (PM10 and PM2.5) if they are measured side by side at the 
-    #  same measuring point - are not treated as two pollutants.
-    
+  def normalize_pollutant_value(station, index)
+    # hard-coded, potential problems if source table changes
+    # when pollutant AQI is not meassured, value is shown as "" or nil or "*" or "0"
+    # when pollutant AQI is meassured, value is shown as "some_number" or "0" 
+    # in order to know wether "0" represents actual value or lack of measurement, previous table's 'td' has to be checked, 
+    # if it contains "google_map/images/b.png" (green circle) it is an actual value, otherwise it's not
+    scraped_data = station.css('td')[index]&.content
 
-    # if pollutant AQI is in the category "Good", "Moderate" or "Unhealthy for sensitive groups", 
-    # total AQI for measuring site is just the highest pollutant AQI 
-    msAQI = pollutants.values.reject{ |v| v[:value] == '' }.map{ |v| v[:value] }.max
-    msAQIclass = AQI.select{ |k, v| v.include?(msAQI) }.keys.first.to_s
-    pollutants[:aqi] = { value: msAQI || "", class: msAQIclass}
-
-    unhealthy = pollutants.reject{ |k, v| k == :aqi }.count{|_, v| v[:class] == "unhealthy"} 
-    very_unhealthy = pollutants.reject{ |k, v| k == :aqi }.count{|_, v| v[:class] == "very_unhealthy"}
-    hazardous = pollutants.reject{ |k, v| k == :aqi }.count{|_, v| v[:class] == "hazardous"} 
-
-    if pollutants[:pm10][:class] == "unhealthy" && (pollutants[:pm2_5][:class] == "unhealthy" || pollutants[:pm2_5][:class] == "very_unhealthy" or pollutants[:pm2_5][:class] == "hazardous")
-      unhealthy =- 1 
-    elsif pollutants[:pm10][:class] == "very_unhealthy" && pollutants[:pm2_5][:class] == "hazardous"
-      very_unhealthy =- 1
-    elsif pollutants[:pm10][:class] == "hazardous" && pollutants[:pm2_5][:class] == "hazardous" 
-      hazardous =- 1
-    end
-
-    added_value = 0
-    if hazardous >=2
-      added_value = pollutants[:aqi][:value].to_i + 100
-      if added_value > 500
-        added_value = 500
+    if scraped_data == "0"
+      prior_td_field = station.css('td')[index-1]&.css('img')&.first&.attributes&.values&.first&.value
+      if prior_td_field == "google_map/images/b.png"
+        return 0
+      else
+        return nil
       end
-      pollutants[:aqi] = { value: added_value , class: AQI.select{ |k, v| v.include?(added_value) }.keys.first.to_s }
-      return pollutants
-    elsif very_unhealthy >=2 || very_unhealthy == 1 && hazardous >=1     
-      added_value = pollutants[:aqi][:value].to_i + 100
-      pollutants[:aqi] = { value: added_value , class: AQI.select{ |k, v| v.include?(added_value) }.keys.first.to_s }
-      return pollutants
-    elsif unhealthy >= 2 || unhealthy == 1 && (very_unhealthy >=1 || hazardous >=1) 
-      added_value = pollutants[:aqi][:value].to_i + 50
-      pollutants[:aqi] = { value: added_value , class: AQI.select{ |k, v| v.include?(added_value) }.keys.first.to_s }
-      return pollutants
     end
- 
+
+    scraped_data = if scraped_data == "*" or scraped_data&.empty? or scraped_data.nil? 
+                      nil
+                    else
+                      scraped_data.to_i
+                    end
+  end
+
+  def calculate_total_aqi(pollutants)
+    # https://en.wikipedia.org/w/index.php?title=Air_quality_index#Computing_the_AQI
+    # If multiple pollutants are measured at a monitoring site, 
+    # then the largest or "dominant" AQI value is reported for the location.
+
+    # https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-metodologija.php  
+    # A significant change compared to the American model is that in the case when two or more pollutants have measured 
+    # concentrations that correspond to the "unhealthy" or "very unhealthy" index categories, the value of the index of 
+    # the measuring site is automatically transferred to the next category by adding 50 index numbers (in the case when two 
+    # or more pollutants in the category "unhealthy"), or 100 index numbers (in the case when two or more pollutants are 
+    # in the category "very unhealthy"). In the case when the concentrations of two or more pollutants are within the 
+    # "hazardous" category, a value of up to 100 index points is added, with the maximum total number of Index values 
+    # ​​not exceeding 500. In this case, the Index category remains the same ("hazardous").
+    # Index values ​​for each individual pollutant remain the same in these cases. In this case, floating particles of 
+    # different dimensions (PM10 and PM2.5) if they are measured side by side at the same measuring point - are not 
+    # treated as two pollutants.
+    # ------------------------------------------------------------------------------------------------------------------
+
+    # replacing pm10 and pm2.5 with the highest value of the two, 
+    # if their AQI is "unhealthy" or worse, total AQI will only take the highest value of the two for calculation
+    # if it's not, total AQI just takes the highest AQI value from all pollutants anyway 
+    pollutants[:pm] = [pollutants[:pm10], pollutants[:pm2_5]].compact.max
+    #  ---------------------------------------------------------------------
+
+    # getting two max pollutants AQI values
+    pollutants = pollutants.reject{|k,v| k if k == :pm10 or k== :pm2_5 or v.nil? }
+    pollutants = pollutants.sort_by {|_key, value| -value}.first(2).to_h.values
+    #  ---------------------------------------------------------------------
+
+    max_value = pollutants.max
+    return max_value if max_value.nil?
+
+    if pollutants.all?{ |x| x >= AQI[:hazardous].first } #301
+    # In the case when the concentrations of two or more pollutants are within the "hazardous" category, 
+    # a value of up to 100 index points is added, with the maximum total number of Index values ​​not exceeding 500.
+      max_value += 100
+      if max_value > 500
+        return 500
+      else
+        return max_value
+      end
+    elsif pollutants.all?{ |x| x >= AQI[:very_unhealthy].first } #201
+    # 100 index numbers (in the case when two or more pollutants are in the category "very unhealthy")
+      return max_value += 100
+    elsif pollutants.all?{ |x| x >= AQI[:unhealthy].first } #101
+    # adding 50 index numbers (in the case when two or more pollutants in the category "unhealthy")
+      return max_value += 50
+    else
+      return max_value
+    end
+
+  end
+
+  def add_aqi_descriptor(pollutants)
+    pollutants.each do |k, v|
+      pollutants[k] = { value: v, class: v.nil? ? '' : AQI.select { |_x, y| y.include?(v.to_i) }.keys.first.to_s }
+    end
     pollutants
+  end
+
+  def current_air_pollution_for_city  
+    pollutants = latest_pollutant_values_by_monitoring_stations
+
+    city_pollutants = { so2: pollutants.values.map{ |v| v[:so2][:value] }.compact.max,
+                        no2: pollutants.values.map{ |v| v[:no2][:value] }.compact.max,
+                        co: pollutants.values.map{ |v| v[:co][:value] }.compact.max,
+                        o3: pollutants.values.map{ |v| v[:o3][:value] }.compact.max,
+                        pm10: pollutants.values.map{ |v| v[:pm10][:value] }.compact.max,
+                        pm2_5: pollutants.values.map{ |v| v[:pm2_5][:value] }.compact.max }
+
+    city_pollutants[:aqi] = calculate_total_aqi(city_pollutants)
+    add_aqi_descriptor(city_pollutants)
   end
 
   def forecast 
@@ -172,24 +216,6 @@ class WeatherAir
       end
     end
     dates
-  end
-
-  def current_air_pollution  
-    stations = latest_pollutant_values_by_monitoring_stations
-
-    so2 = stations.values.map{ |v| (v[:so2][:value]=="" ? 0 : v[:so2][:value])}.max
-    no2 = stations.values.map{ |v| (v[:no2][:value]=="" ? 0 : v[:no2][:value])}.max
-    co = stations.values.map{ |v| (v[:co][:value]=="" ? 0 : v[:co][:value])}.max
-    o3 = stations.values.map{ |v| (v[:o3][:value]=="" ? 0 : v[:o3][:value])}.max
-    pm10 = stations.values.map{ |v| (v[:pm10][:value]=="" ? 0 : v[:pm10][:value])}.max
-    pm2_5 = stations.values.map{ |v| (v[:pm2_5][:value]=="" ? 0 : v[:pm2_5][:value])}.max
-
-    maxAQIs = {so2: { value: so2, class: AQI.select { |k,z| z.include?(so2) }.keys.first.to_s },
-               no2: { value: no2, class: AQI.select { |k,z| z.include?(no2) }.keys.first.to_s } ,
-               co: { value: co, class: AQI.select { |k,z| z.include?(co) }.keys.first.to_s } , 
-               o3: { value: o3, class: AQI.select { |k,z| z.include?(o3) }.keys.first.to_s } , 
-               pm10: { value: pm10, class: AQI.select { |k,z| z.include?(pm10) }.keys.first.to_s } , 
-               pm2_5: { value: pm2_5, class: AQI.select { |k,z| z.include?(pm2_5) }.keys.first.to_s } }
   end
 
   def current_weather_data
