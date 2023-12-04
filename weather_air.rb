@@ -1,6 +1,5 @@
 # frozen_script_literal: true
 require 'erb'
-require 'dotenv/load'
 require 'faraday'
 require 'nokogiri'
 require 'open-uri'
@@ -34,7 +33,7 @@ class WeatherAir
     
     template = ERB.new(File.read('template.html.erb'))
     result = template.result(binding)    
-    File.write('index.html', result)
+    File.write('index.html', result) if ENV['DEVELOPMENT']
     s3_object = Aws::S3::Object.new(ENV['BUCKET'], 'index.html')
     s3_object.put({ body: result, content_type: 'text/html' })
     cloudfront_client = Aws::CloudFront::Client.new
@@ -248,4 +247,3 @@ class WeatherAir
   end
 end
 
-WeatherAir.new.run

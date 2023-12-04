@@ -5,9 +5,10 @@ source "https://rubygems.org"
 
 gem 'nokogiri'
 
-gem 'dotenv-rails'
+gem 'dotenv'
 
 gem 'faraday'
 
 gem 'aws-sdk-s3'
 gem 'aws-sdk-cloudfront'
+

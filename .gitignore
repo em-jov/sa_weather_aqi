@@ -1,2 +1,5 @@
 .env
 index.html
+vendor/
+deployment_package.zip
+.bundle/
