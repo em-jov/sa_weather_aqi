@@ -30,23 +30,26 @@ class WeatherAir
     latest_aqi_values = latest_pollutant_values_by_monitoring_stations
 
     weather_forecast = forecast
-    
+
     template = ERB.new(File.read('template.html.erb'))
-    result = template.result(binding)    
-    File.write('index.html', result) if ENV['DEVELOPMENT']
-    s3_object = Aws::S3::Object.new(ENV['BUCKET'], 'index.html')
-    s3_object.put({ body: result, content_type: 'text/html' })
-    cloudfront_client = Aws::CloudFront::Client.new
-    cloudfront_client.create_invalidation({
-      distribution_id: ENV['CLOUDFRONT_DISTRIBUTION'],
-      invalidation_batch: { 
-        paths: { 
-          quantity: 1, 
-          items: ["/"],
-        },
-        caller_reference: Time.now.to_s
-      }
-    })
+    result = template.result(binding) 
+    if ENV['DEVELOPMENT']   
+      File.write('index.html', result)
+    else 
+      s3_object = Aws::S3::Object.new(ENV['BUCKET'], 'index.html')
+      s3_object.put({ body: result, content_type: 'text/html' })
+      cloudfront_client = Aws::CloudFront::Client.new
+      cloudfront_client.create_invalidation({
+        distribution_id: ENV['CLOUDFRONT_DISTRIBUTION'],
+        invalidation_batch: { 
+          paths: { 
+            quantity: 1, 
+            items: ["/"],
+          },
+          caller_reference: Time.now.to_s
+        }
+      })
+    end
   end
 
   def last_update 
@@ -176,7 +179,7 @@ class WeatherAir
 
   def add_aqi_descriptor(pollutants)
     pollutants.each do |k, v|
-      pollutants[k] = { value: v, class: v.nil? ? '' : AQI.select { |_x, y| y.include?(v.to_i) }.keys.first.to_s }
+      pollutants[k] = { value: v, class: v.nil? ? '' : AQI.select { |_x, y| y.include?(v) }.keys.first.to_s }
     end
     pollutants
   end

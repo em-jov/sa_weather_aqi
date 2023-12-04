@@ -5,10 +5,13 @@ source "https://rubygems.org"
 
 gem 'nokogiri'
 
-gem 'dotenv'
+gem 'dotenv', group: :development
 
 gem 'faraday'
 
 gem 'aws-sdk-s3'
 gem 'aws-sdk-cloudfront'
 
+group :test do
+  gem 'minitest'
+end
