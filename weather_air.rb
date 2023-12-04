@@ -13,12 +13,12 @@ class WeatherAir
   LON = 18.3866868
 
   # AQI range descriptors
-  AQI = { good: 0..50, 
-          moderate: 51..100, 
-          unhealthy_for_sensitive_groups: 101..150, 
-          unhealthy: 151..200, 
-          very_unhealthy: 201..300, 
-          hazardous: 301..500 }
+  AQI = { good: {value: 0..50, who: "", advisory: "It’s a great day to be active outside."} , 
+          moderate: {value: 51..100, who: "Some people who may be unusually sensitive to particle pollution.", advisory: "Unusually sensitive people: Consider making outdoor activities shorter and less intense. Watch for symptoms such as coughing or shortness of breath. These are signs to take it easier. <br><br> Everyone else: It’s a good day to be active outside."},   
+          unhealthy_for_sensitive_groups: {value: 101..150, who: "Sensitive groups ", advisory: ".."}, 
+          unhealthy: {value: 101..150, who: "Everyone", advisory: ".."}, 
+          very_unhealthy: {value: 201..300, who: "Everyone", advisory: ".."}, 
+          hazardous: {value: 301..500, who: "Everyone", advisory: ".."} }
 
   def run
     current_weather = current_weather_data
@@ -26,6 +26,8 @@ class WeatherAir
     pollutants = current_air_pollution_for_city
     cityAQI = pollutants[:aqi][:value]
     cityAQIclass =  pollutants[:aqi][:class]
+    cityAQIdescriptor = pollutants[:aqi][:advisory]
+    cityAQIwho = pollutants[:aqi][:who]
 
     latest_aqi_values = latest_pollutant_values_by_monitoring_stations
 
@@ -156,7 +158,7 @@ class WeatherAir
     max_value = pollutants.max
     return max_value if max_value.nil?
 
-    if pollutants.all?{ |x| x >= AQI[:hazardous].first } #301
+    if pollutants.all?{ |x| x >= AQI[:hazardous][:value].first } #301
     # In the case when the concentrations of two or more pollutants are within the "hazardous" category, 
     # a value of up to 100 index points is added, with the maximum total number of Index values ​​not exceeding 500.
       max_value += 100
@@ -165,10 +167,10 @@ class WeatherAir
       else
         return max_value
       end
-    elsif pollutants.all?{ |x| x >= AQI[:very_unhealthy].first } #201
+    elsif pollutants.all?{ |x| x >= AQI[:very_unhealthy][:value].first } #201
     # 100 index numbers (in the case when two or more pollutants are in the category "very unhealthy")
       return max_value += 100
-    elsif pollutants.all?{ |x| x >= AQI[:unhealthy].first } #101
+    elsif pollutants.all?{ |x| x >= AQI[:unhealthy][:value].first } #101
     # adding 50 index numbers (in the case when two or more pollutants in the category "unhealthy")
       return max_value += 50
     else
@@ -179,9 +181,12 @@ class WeatherAir
 
   def add_aqi_descriptor(pollutants)
     pollutants.each do |k, v|
-      pollutants[k] = { value: v, class: v.nil? ? '' : AQI.select { |_x, y| y.include?(v) }.keys.first.to_s }
+      pollutants[k] = { value: v, 
+                        class: v.nil? ? '' : AQI.select { |_x, y| y[:value].include?(v) }.keys.first.to_s,
+                        advisory: v.nil? ? '' : AQI.select { |_x, y| y[:value].include?(v) }.values.first[:advisory],
+                        who: v.nil? ? '' : AQI.select { |_x, y| y[:value].include?(v) }.values.first[:who]}
     end
-    pollutants
+   pollutants
   end
 
   def current_air_pollution_for_city  
