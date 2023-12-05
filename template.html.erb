@@ -138,11 +138,12 @@
       </div>
 
       <div id="air">
-        <h2 class="<%= cityAQIclass %>">AQI: <%= cityAQIclass %> (<%= cityAQI %>)  </h2>
+        <h2 class="<%= pollutants[:aqi][:class] %>">AQI: <%= pollutants[:aqi][:class].gsub('_', ' ') %> (<%= pollutants[:aqi][:value] %>)  </h2>
         <b>Who Needs to be Concerned?</b>
-        <p><%= cityAQIwho %></p>
-        <b>Recommended precautions</b>
-        <p><%= cityAQIdescriptor %></p>
+        <p><%= pollutants[:aqi][:who] %></p>
+        <br>
+        <b>What Should I Do?</b>
+        <p><%= pollutants[:aqi][:advisory] %></p>
         <br>
         <table>
           <tr>
@@ -163,6 +164,7 @@
           </tr>
         </table>
       </div>
+      <br>
 
       <div>  
         <h3> Latest AQI by monitoring stations</h3>
@@ -192,9 +194,9 @@
             </tr>
           <% end %>
         </table>
+        <small>Data provided by <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php">Federal Hydro-Meteorological Institute</a></small>
       </div>
-
-      <sub>Data provided by <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php">Federal Hydro-Meteorological Institute</a></sub>
+      <br>
 
       <div>
         <h2> Weather forecast </h2>  
@@ -236,9 +238,9 @@
            <% first = false %>
           <% end %>
         </table>
+        <small>Data provided by <a href="https://openweathermap.org/city/3191281">OpenWeather</a></small>
       </div>
       
-      <sub>Data provided by <a href="https://openweathermap.org/city/3191281">OpenWeather</a></sub>
 
     </main>
   </body>
