@@ -103,11 +103,11 @@ class WeatherAir
     table = fhmzbih_website.css('table table').first
 
     # hard-coded, potential problems if source table changes
-    embassy = table.css('tr')[2]
-    bjelave = table.css('tr')[4]
-    vijecnica = table.css('tr')[6]
-    otoka = table.css('tr')[7]
-    ilidza = table.css('tr')[8]
+    embassy = table.css('tr')[2] if table.css('tr')[2].css('td')[1].content == "Ambasada SAD"
+    bjelave = table.css('tr')[4] if table.css('tr')[4].css('td')[0].content == "Bjelave"
+    vijecnica = table.css('tr')[6] if table.css('tr')[6].css('td')[0].content == " Vijećnica"
+    otoka = table.css('tr')[7] if table.css('tr')[7].css('td')[0].content == "Otoka"
+    ilidza = table.css('tr')[8] if table.css('tr')[8].css('td')[0].content == "Ilidža"
 
     monitoring_stations['Bjelave'].merge!(scrape_pollutant_aqi(bjelave))
     monitoring_stations['US Embassy'].merge!(scrape_pollutant_aqi(embassy))
@@ -128,6 +128,14 @@ class WeatherAir
                    pm10: normalize_pollutant_value(station, pollutant_td_index[:pm10]),
                    pm2_5: normalize_pollutant_value(station, pollutant_td_index[:pm2_5]) }
 
+    unless station.nil?
+      if station.css('td')[1].content == "Ambasada SAD"
+        if pollutants[:pm2_5].nil?
+          pollutants[:pm2_5] = us_embassy_pm2_5_aqicn
+        end
+      end
+    end
+
     pollutants[:aqi] = calculate_total_aqi(pollutants)
     add_aqi_descriptor(pollutants)
   end
@@ -138,6 +146,7 @@ class WeatherAir
     # when pollutant AQI is meassured, value is shown as "some_number" or "0" 
     # in order to know wether "0" represents actual value or lack of measurement, previous table's 'td' has to be checked, 
     # if it contains "google_map/images/b.png" (green circle) it is an actual value, otherwise it's not
+    return nil if station.nil?
     scraped_data = station.css('td')[index]&.content
 
     if scraped_data == "0"
@@ -227,6 +236,18 @@ class WeatherAir
 
     city_pollutants[:aqi] = calculate_total_aqi(city_pollutants)
     add_aqi_descriptor(city_pollutants)
+  end
+
+  def us_embassy_pm2_5_aqicn
+    aqicn_website = Nokogiri::HTML(URI.open('https://aqicn.org/city/bosnia-herzegovina/sarajevo/us-embassy/'))
+    pm2_5 = aqicn_website.css('.aqivalue').first.content.to_i
+    time = Time.parse(aqicn_website.css('span#aqiwgtutime').first.content[11..]).strftime( "%d.%m.%Y. %H")
+
+    if time != Time.now.strftime( "%d.%m.%Y. %H")
+      pm2_5 = nil
+    end
+
+    pm2_5
   end
 
   def forecast 
