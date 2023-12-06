@@ -1,5 +1,5 @@
 # Sarajevo weather & air pollution
-> Simple, static [_web page_](https://sa-aqi-weather.simplify.ba/) providing comprehensive weather and AQI (air quality index) details for Sarajevo, known as the most polluted city in Europe.
+> Simple, static [web page](https://sa-aqi-weather.simplify.ba/) providing comprehensive weather and AQI (air quality index) details for Sarajevo, known as the most polluted city in Europe.
 
 ## Overview
 
@@ -9,13 +9,14 @@ The Ruby script gathers essential data either from third-party APIs or by scrapi
 - Real-time current weather updates.
 - 5-day weather forecast provided in 3-hour intervals.
 - Hourly AQI data available for 5 monitoring sites, detailing AQI for each pollutant.
-- Hourly city-wide AQI data, with breakdowns for each pollutant
+- Hourly city-wide AQI data, with breakdowns for each pollutant.
 
 ## Prerequisites
 Ensure that you have the following installed on your machine:
 
 Ruby: Download and install Ruby from https://www.ruby-lang.org/en/downloads/.
-Bundler: Install Bundler by running 'gem install bundler'.
+
+Bundler: Install Bundler by running **'gem install bundler'**.
 
 ## Project Setup
 1. Clone the Repository:
@@ -31,8 +32,8 @@ bundle install
 ..
 
 ## Customization
-Modify the target URL, CSS selector, and scraping logic in the aqi_guide module according to your requirements.
-Customize the HTML content in the template.html.erb file.
+Modify the target URL, CSS selector, and scraping logic in the **aqi_guide module** according to your requirements.
+Customize the HTML content in the **template.html.erb** file.
 
 ## Contributing
 If you find issues or have improvements, feel free to open an issue or submit a pull request.
@@ -40,7 +41,7 @@ If you find issues or have improvements, feel free to open an issue or submit a 
 ## License
 
 ## Acknowledgments
-Nokogiri - HTML parsing and scraping library for Ruby.
+[Nokogiri](https://github.com/sparklemotion/nokogiri) - HTML parsing and scraping library for Ruby.
 
 ## Project Status
-Project is: _in progress_.
+Project is _in progress_.
