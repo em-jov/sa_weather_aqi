@@ -1,5 +1,5 @@
 # Sarajevo weather & air pollution
-> Static [_website_](https://sa-aqi-weather.simplify.ba/) with all relevant weather and air quality index (AQI) information for Sarajevo, most polluted city in Europe. 
+> Static [_website_](https://sa-aqi-weather.simplify.ba/){:target="_blank"} with all relevant weather and air quality index (AQI) information for Sarajevo, most polluted city in Europe. 
 
 ## Table of Contents
 * [Features](#features)
