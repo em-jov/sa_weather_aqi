@@ -29,15 +29,17 @@ cd sa_weather_aqi
 bundle install
 ```
 3. Configure:
+
 Copy the contents of the `.env.example` file to create a new file named `.env`. Modify the variables inside, ensuring that, for development purposes, you include the required OpenWeather API key. This project utilizes the [Current weather data](https://openweathermap.org/current) and [5-day weather forecast](https://openweathermap.org/forecast5) API endpoints.
 
 4. Deployment
+
 [Instructions](DEPLOYMENT.md)
-..
+
 
 ## Customization
-Modify the target URL, CSS selector, and scraping logic in the **aqi_guide module** according to your requirements.
-Customize the HTML content in the **template.html.erb** file.
+Modify the target URL, CSS selector, and scraping logic in the `aqi_guide module` according to your requirements.
+Customize the HTML content in the `template.html.erb` file.
 
 ## Contributing
 If you find issues or have improvements, feel free to open an issue or submit a pull request.
