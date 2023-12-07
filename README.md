@@ -1,12 +1,12 @@
 # Sarajevo weather & air pollution
-> Simple, static [web page](https://sa-aqi-weather.simplify.ba/) providing comprehensive weather and AQI (air quality index) details for Sarajevo, known as the most polluted city in Europe.
+> Simple, static [web page](https://sa-aqi-weather.simplify.ba/) providing information about Air Quality Index (AQI) and weather conditions in Sarajevo, aslo known as the most polluted city in Europe.
 
 ## Overview
 
-The Ruby script gathers essential data either from third-party APIs or by scraping when APIs are unavailable. It then compiles this information into a template. The script is scheduled to run every hour using AWS Lambda to keep the data up-to-date.
+The Ruby script retrieves data from third-party APIs or resorts to web scraping when APIs are not available. It then generates an HTML file by integrating the collected data into an ERB (Embedded Ruby) template. To sustain the accuracy of the information, the script is scheduled to run automatically every hour using AWS Lambda.
 
 ## Features
-- Real-time current weather updates.
+- Current weather data.
 - 5-day weather forecast provided in 3-hour intervals.
 - Hourly AQI data available for 5 monitoring sites, detailing AQI for each pollutant.
 - Hourly city-wide AQI data, with breakdowns for each pollutant.
@@ -14,11 +14,11 @@ The Ruby script gathers essential data either from third-party APIs or by scrapi
 ## Prerequisites
 Ensure that you have the following installed on your machine:
 
-Ruby: Download and install Ruby from https://www.ruby-lang.org/en/downloads/.
+- Ruby: Download and install Ruby 3.2.
+- Bundler: Install Bundler by running `gem install bundler`.
+- API key from [OpenWeather](https://openweathermap.org/api).
 
-Bundler: Install Bundler by running **'gem install bundler'**.
-
-## Project Setup
+## Setup
 1. Clone the Repository:
 ```
 git clone https://github.com/em-jov/sa_weather_aqi.git
@@ -28,7 +28,11 @@ cd sa_weather_aqi
 ```
 bundle install
 ```
-3. Configure
+3. Configure:
+Copy the contents of the `.env.example` file to create a new file named `.env`. Modify the variables inside, ensuring that, for development purposes, you include the required OpenWeather API key. This project utilizes the [Current weather data](https://openweathermap.org/current) and [5-day weather forecast](https://openweathermap.org/forecast5) API endpoints.
+
+4. Deployment
+[Instructions](DEPLOYMENT.md)
 ..
 
 ## Customization
@@ -39,9 +43,7 @@ Customize the HTML content in the **template.html.erb** file.
 If you find issues or have improvements, feel free to open an issue or submit a pull request.
 
 ## License
-
-## Acknowledgments
-[Nokogiri](https://github.com/sparklemotion/nokogiri) - HTML parsing and scraping library for Ruby.
+[MIT License](MIT-LICENCE.txt)
 
 ## Project Status
 Project is _in progress_.
