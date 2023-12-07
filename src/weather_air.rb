@@ -19,7 +19,8 @@ class WeatherAir
 
     weather_forecast = forecast
 
-    template = ERB.new(File.read('template.html.erb'))
+    style = File.read("src/style.css")
+    template = ERB.new(File.read('src/template.html.erb'))
     result = template.result(binding) 
     if ENV['DEVELOPMENT']   
       File.write('index.html', result)
@@ -43,5 +44,4 @@ class WeatherAir
   def last_update 
     Time.now.getlocal('+01:00').to_s
   end
-
 end

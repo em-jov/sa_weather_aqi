@@ -44,7 +44,7 @@ module Weather
 
   def openweathermap_client
     Faraday.new( url: 'https://api.openweathermap.org/data/2.5/',
-                  params: { lat: "#{ LAT }", lon: "#{ LON }", appid: "#{ ENV['API_KEY'] }" },
+                  params: { lat: LAT, lon: LON, appid: ENV['API_KEY'] },
                   headers: { 'Content-Type' => 'application/json' }) do |f|
                   f.response :json
     end
