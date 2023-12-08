@@ -86,6 +86,7 @@ def lambda_handler(event:, context:)
 end
 ```
 The Lambda function handler is the method in your function code that processes events. When your function is invoked, Lambda runs the handler method. Your function runs until the handler returns a response, exits, or times out.
+
 6. Select the **Configuration** tab. 
     a. In the **General configuration** tab, set **Timeout** to 10 sec.
     b. In the **Environment variables** tab, set keys: API_KEY, BUCKET and CLOUDFRONT_DISTRIBUTION.
