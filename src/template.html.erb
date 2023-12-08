@@ -11,7 +11,7 @@
       <h1>Sarajevo</h1>
       <p>Last update on <%= last_update %>.</p>
     </header>
-    <main>
+    <main class="content">
       <div id="weather">
         <h1><%= current_weather[:currenttemp] %>°C</h1>
         <img src="https://openweathermap.org/img/wn/<%= current_weather[:icon] %>@2x.png" />
@@ -136,5 +136,8 @@
       
 
     </main>
+    <footer>
+        <small>This website doesn't use cookies.</small>
+    </footer>
   </body>
 </html>
