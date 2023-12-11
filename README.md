@@ -3,7 +3,7 @@
 
 ## Overview
 
-The Ruby script retrieves data from third-party APIs or resorts to web scraping when APIs are not available. It then generates an HTML file by integrating the collected data into an ERB (Embedded Ruby) template. To sustain the accuracy of the information, the script is scheduled to run automatically every hour using AWS Lambda.
+The Ruby script retrieves data from third-party APIs or resorts to web scraping when APIs are not available. It then generates an HTML file by integrating the collected data into an ERB (Embedded Ruby) template. To ensure that information is up-to-date, the script is scheduled to run automatically every hour using AWS Lambda.
 
 ## Features
 - Current weather data.

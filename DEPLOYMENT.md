@@ -1,117 +1,85 @@
+# Deployment documentation
+
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Diagram](#diagram)
+- [Prerequisites](#prerequisites)
+- [Deployment Steps](#deployment-steps)
+    - [Create a public hosted zone](#create-a-public-hosted-zone)
+    [Setting Up AWS Lambda Function](#setting-up-aws-lambda-function)
+    2. [Configuring Time Trigger](#configuring-time-trigger)
+    3. [Setting Up S3 Bucket](#setting-up-s3-bucket)
+    4. [Uploading Website Content to S3](#uploading-website-content-to-s3)
+    5. [Configuring CloudFront Distribution](#configuring-cloudfront-distribution)
+    6. [Configuring Route 53](#configuring-route-53)
+- [Testing](#testing)
+- [Conclusion](#conclusion)
+
+
+### Introduction
+This documentation provides a guide for deploying static website using AWS services, featuring serverless computing with **AWS Lambda** and **EventBridge** for event-driven functionality. **S3** is used for data storage, **CloudFront** for global content delivery acceleration, and **Route 53** for DNS management. Secure communication is guaranteed through **ACM** with SSL certificate.
+
+### Diagram
+![image info](./images/deployment_architecture.png)
 ### Prerequisites:
+Before proceeding, ensure you have the following:
 
-1. **AWS Account:**
-   - Ensure you have an AWS account. If not, you can create one at [https://aws.amazon.com/](https://aws.amazon.com/).
+- Basic understanding of previously mentioned AWS services.
+- Registered domain name.
+- AWS account. If not, you can create one at [https://aws.amazon.com/](https://aws.amazon.com/).
 
-2. **S3**
-    TODO
+- ??? Use IAM (Identity and Access Managment) to create **access key** and store its values in environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` that can be found in `.env` file.
 
-3. **CloudFront**
-    TODO
+### Deployment Steps:
 
-### Deploying Ruby Script to AWS Lambda:
+##### Create a public hosted zone 
+- [Route 53] > [AWS guide](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/CreatingHostedZone.html)
 
-Your AWS Lambda function’s code comprises a .rb file containing your function’s handler code, together with any additional dependencies (gems) your code depends on. To deploy this function code to Lambda, you use a deployment package.
+- If you've purchased your domain from a registrar other than AWS, you need to update the NS records there by replacing the existing name servers with the ones you copied from Route 53.
 
-## Creating .zip deployment packages with native libraries
+##### 2. Create a bucket [Amazon S3] > [AWS guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html)
+  
+- Ensure you've enabled `Static website hosting`.
+- Set permissions for website access by adding [bucket policy](https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteAccessPermissionsReqd.html#bucket-policy-static-site). 
+- Make sure you add `bucket name` in `.env` file to the `BUCKET` environment variable.
 
-To create a .zip deployment package containing gems with native extensions written in C (such as `nokogiri`) you can use a container to bundle your dependencies in an environment that is the same as the Lambda Ruby runtime environment. To complete these steps, you must have Docker installed on your build machine. To learn more about installing Docker, see [Install Docker Engine](https://docs.docker.com/engine/install/).
+##### 3. Create a SSL certificate** [ACM] > [AWS guide](https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-request-public.html)
 
-**To create a .zip deployment package in a Docker container**
+##### 4. Create a distribution with an Amazon S3 origin [CloudFront] > [AWS guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/website-hosting-cloudfront-walkthrough.html#create-distribution)
 
-1. Create Dockerfile with following:
+- Make sure you add `distribution_id` in `.env` file to the `CLOUDFRONT_DISTRIBUTION` environment variable.
+ 
+##### 5. Create A record and set the alias record  to point to the new CloudFront distribution [Route 53] > [AWS guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/website-hosting-cloudfront-walkthrough.html#update-record-sets) 
 
-```
-FROM public.ecr.aws/sam/build-ruby3.2:latest-x86_64
-RUN gem update bundler 
-CMD "/bin/bash"
-```
+##### 6. Build Lambda function with Ruby [AWS Lambda] > [AWS guide](https://docs.aws.amazon.com/lambda/latest/dg/lambda-ruby.html)
+- Follow the instructions for [creating .zip deployment packages with native libraries](https://docs.aws.amazon.com/lambda/latest/dg/ruby-package.html#ruby-package-native) since `nokogiri` gem contains native extensions written in C and it's used in this project. You will need [Docker](https://www.docker.com/) for this.
+- `Dockerfile` and `lambda_function` are already created.
+- When creating the `.zip deployment package` use `zip -rFS` instead of `zip -r` command to ensure zip deletes unnecessary files.
 
-2. Inside the folder you created your `dockerfile` in, run the following command to create the Docker container.
+    ```
+    zip -rFS deployment_package.zip lambda_function.rb src vendor
+    ```
 
-```
-docker build -t awsruby32 .
-```
+- After exiting the container, delete `vendor` folder and restore `bundle` locally:
+    ```
+    rm -rf .bundle vendor
+    ```
+-  In Lambda console, under the `Configuration` tab:
+    - select `General configuration` and set `Timeout` to 10 sec (or more).
+    - select `Environment variables` and add key/value pairs `API_KEY`, `BUCKET` and `CLOUDFRONT_DISTRIBUTION` that you can find in `.env` file.
+    - select `Permissions`, follow `Role name` link to IAM console. Under `Permissions policies` panel, choose `Add permissions` and `Attach policy`. Search for `AmazonS3FullAccess` and `CloudFrontFullAccess` and add them.  
 
-3. Run docker container with:
+##### 7. Set Up Scheduled Execution [EventBridge] >> [AWS guide](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html)
 
-```
-docker run --rm -it -v $PWD:/var/task -w /var/task awsruby32
-```
+- Open the `Functions` page of the Lambda console and choose your function.
+- Under `Function overview`, choose `Add trigger`.
+- Set the trigger type to `EventBridge (CloudWatch Events)`.
+- For `Rule`, choose `Create a new rule.` This project is using `cron(17 * ? * * *)`, which means it triggers Lambda every day at 17 minutes past the hour (regardless of the hour, day of the month, month, day of the week, or year). 
 
-4. Configure the bundle utility to install the gems specified in your `Gemfile` in a local `vendor/bundle` directory and install your dependencies.
+### Testing
+- Manually trigger the Lambda function through the AWS Lambda Console to ensure it runs successfully.
+- Access the static website using the CloudFront distribution URL.
 
-```
-bash-4.2# bundle config set --local path 'vendor/bundle' && bundle install --without development test
-```
-
-5. Create the .zip deployment package with your function code and its dependencies. 
-
-```
-bash-4.2# zip -r deployment_package.zip lambda_function.rb src vendor
-```
-
-6. Exit the container and return to your local project directory.
-
-```
-bash-4.2# exit
-```
-
-7. To restore bundle locally run:
-
-```
-rm -rf .bundle
-```
-
-## Creating and updating Ruby Lambda functions using .zip files using the console
-
-To create a new function, you must first create the function in the console, then upload your .zip archive. 
-
-If your .zip file is less than 50MB, you can create or update a function by uploading the file directly from your local machine. For .zip files greater than 50MB, you must upload your package to an Amazon S3 bucket first. This project's .zip file is less than 50MB.
-
-1. Open the [Functions page](https://console.aws.amazon.com/lambda/home#/functions) of the Lambda console and choose **Create Function**.
-2. Choose **Author from scratch**.
-3. Under **Basic information**, do the following:
-    a. For **Function name**, enter the name for your function.
-    b. For **Runtime**, select the runtime you want to use. This project is using **Ruby 3.2**.
-    c. (Optional) For **Architecture**, choose the instruction set architecture for your function. The default    architecture is x86_64. Ensure that the .zip deployment package for your function is compatible with the instruction set architecture you select.
-4. (Optional) Under **Permissions**, expand **Change default execution role**. You can create a new **Execution role** or use an existing one.
-5. Choose **Create function**. Lambda creates a basic 'Hello world' function using your chosen runtime.
-```
-require 'json'
-
-def lambda_handler(event:, context:)
-    # TODO implement
-    { statusCode: 200, body: JSON.generate('Hello from Lambda!') }
-end
-```
-The Lambda function handler is the method in your function code that processes events. When your function is invoked, Lambda runs the handler method. Your function runs until the handler returns a response, exits, or times out.
-
-6. Select the **Configuration** tab. 
-    a. In the **General configuration** tab, set **Timeout** to 10 sec.
-    b. In the **Environment variables** tab, set keys: API_KEY, BUCKET and CLOUDFRONT_DISTRIBUTION.
-
-
-**To upload a .zip archive from your local machine (console)**
-1. In the [Functions page](https://console.aws.amazon.com/lambda/home#/functions) of the Lambda console, choose the function you want to upload the .zip file for.
-2. Select the **Code** tab.
-3. In the **Code source** pane, choose **Upload from**.
-4. Choose **.zip file**.
-5. To upload the .zip file, do the following:
-    a. Select **Upload**, then select your .zip file in the file chooser.
-    b. Choose **Open**.
-    c. Choose **Save**.
-
-
-## Set Up Scheduled Execution with Amazon EventBridge (CloudWatch Events)
-
-If you want your Lambda function to run periodically, you can set up a CloudWatch Events Rule to trigger it at a specified interval.
-
-1. Open the [Functions page](https://console.aws.amazon.com/lambda/home#/functions) of the Lambda console.
-2. Choose a function
-3. Under **Function overview**, choose **Add trigger**.
-4. Set the trigger type to **EventBridge (CloudWatch Events)**.
-5. For **Rule**, choose **Create a new rule**. This project is using `cron(17 * ? * * *)`, so this cron expression triggers every day at 17 minutes past the hour, regardless of the hour, day of the month, month, day of the week, or year.
-6. Configure the remaining options and choose **Add**.
-
-For more information on expressions schedules, see [Schedule expressions using rate or cron](https://docs.aws.amazon.com/lambda/latest/dg/services-cloudwatchevents-expressions.html).
+### Conclusion
+Congratulations! You've successfully deployed a static website using AWS Lambda, CloudFront, Route 53, and S3. Make adjustments as needed for optimal performance.  For further details, refer to the [official AWS documentation](https://docs.aws.amazon.com/).
