@@ -12,12 +12,11 @@ The Ruby script retrieves data from third-party APIs or resorts to web scraping 
 - Hourly city-wide AQI data, with breakdowns for each pollutant.
 
 ### Prerequisites
-Ensure that you have the following installed on your machine:
 
-- Ruby: Download and install Ruby 3.2.
-- Bundler: Install Bundler by running `gem install bundler`.
+- Ensure that you have the following installed on your machine:
+    - Ruby: Download and install Ruby 3.2.
+    - Bundler: Install Bundler by running `gem install bundler`.
 - API key from [OpenWeather](https://openweathermap.org/api). 
-    - This project utilizes the [Current weather data](https://openweathermap.org/current) and [5-day weather forecast](https://openweathermap.org/forecast5) API endpoints.
 
 ### Setup
 1. Clone the Repository:
@@ -30,10 +29,9 @@ Ensure that you have the following installed on your machine:
     bundle install
     ```
 3. Configure:
-    - Copy the contents of the `.env.example` file to create a new file named `.env`. 
-    - Update the `API_KEY` variable with the obtained OpenWeather API key.
+    - Create a new file named `.env` and paste the content from the `.env.example` file into it.
+    - Update the `API_KEY` variable with the obtained `OpenWeather API key`.
     - During the deployment process, you will acquire the values for the remaining environment variables.
-
 
 ### Deployment
 
