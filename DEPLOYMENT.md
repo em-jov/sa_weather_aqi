@@ -38,7 +38,7 @@ Before proceeding, ensure you have the following:
 - Basic understanding of previously mentioned AWS services.
 - Registered domain name.
 - AWS account. If not, you can create one at [https://aws.amazon.com/](https://aws.amazon.com/).
-- Use IAM (Identity and Access Managment) to create **access key** and store its values in environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` that can be found in `.env` file.
+    - Use IAM (Identity and Access Managment) to create **access key** and store its values in environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` that can be found in `.env` file.
 
 <sub>[back on top ^](#table-of-contents)</sub>
 

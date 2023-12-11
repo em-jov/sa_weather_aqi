@@ -10,9 +10,16 @@
     <header>
       <h1>Sarajevo</h1>
       <p>Last update on <%= last_update %>.</p>
+      <nav>
+          <ul>
+            <li><a href="#weather">Current weather</a></li>
+            <li><a href="#city-aqi">City AQI</a></li>
+            <li><a href="#stations-aqi">Stations AQI</a></li>
+          </ul>
+      </nav>
     </header>
     <main class="content">
-      <div id="weather">
+      <div id="weather" class="section">
         <h1><%= current_weather[:currenttemp] %>°C</h1>
         <img src="https://openweathermap.org/img/wn/<%= current_weather[:icon] %>@2x.png" />
         <p id="weather_description"><%= current_weather[:description] %></p>
@@ -30,7 +37,7 @@
         </p>
       </div>
 
-      <div id="air">
+      <div id="city-aqi" class="section section-odd">
         <h2 class="<%= pollutants[:aqi][:class] %>">AQI: <%= pollutants[:aqi][:class].gsub('_', ' ') %> (<%= pollutants[:aqi][:value] %>)  </h2>
         <b>Who Needs to be Concerned?</b>
         <p><%= pollutants[:aqi][:who] %></p>
@@ -38,7 +45,7 @@
         <b>What Should I Do?</b>
         <p><%= pollutants[:aqi][:advisory] %></p>
         <br>
-        <table>
+        <table class="centered-table">
           <tr>
             <th>SO<sub>2</sub></th>
             <th>NO<sub>2</sub></th>
@@ -57,11 +64,10 @@
           </tr>
         </table>
       </div>
-      <br>
 
-      <div>  
+      <div id="stations-aqi" class="section">  
         <h3> Latest AQI by monitoring stations</h3>
-        <table>
+        <table class="centered-table">
           <tr>
             <th>Station</th>
             <th>AQI</th>
@@ -87,53 +93,9 @@
             </tr>
           <% end %>
         </table>
+        <br><br>
         <small>Data provided by <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php">Federal Hydro-Meteorological Institute</a></small>
       </div>
-      <br>
-
-      <div>
-        <h2> Weather forecast </h2>  
-        <table>
-          <tr>
-            <th></th>
-            <th>01<sup>h</sup></th>
-            <th>04<sup>h</sup></th>
-            <th>07<sup>h</sup></th>
-            <th>10<sup>h</sup></th>
-            <th>13<sup>h</sup></th>
-            <th>16<sup>h</sup></th>
-            <th>19<sup>h</sup></th>
-            <th>22<sup>h</sup></th>
-          </tr>
-          <% first = true %>
-          <% weather_forecast.each do |day, values| %>
-          <tr>
-            <td><%= day %></td>
-            <% if first == true %>
-              <% to_skip = 8 - values.length %>
-              <% if to_skip > 0 %>
-                <td colspan="<%= to_skip %>"></td>
-              <% end %>
-            <% end %>
-            <% values.each do |value| %>
-            <td>
-              <img src="https://openweathermap.org/img/wn/<%= value[:icon] %>.png" title="<%= value[:description] %>"/>
-              <span class="temp"><%= value[:temp] %>°C</span>
-              <span class="<%= value[:aqi_class] %>"><%if value[:aqi_class] %> AQI: <% end %> <%= value[:aqi_class] %> </span>
-              <% if value[:rain] != 0 %>
-              <sub><span class="rain"><%= value[:rain] %>mm</span></sub>
-              <% else %>
-              <sub>&nbsp</sub>
-              <% end %>
-            </td>
-            <% end %>
-          </tr>
-           <% first = false %>
-          <% end %>
-        </table>
-        <small>Data provided by <a href="https://openweathermap.org/city/3191281">OpenWeather</a></small>
-      </div>
-      
 
     </main>
     <footer>
