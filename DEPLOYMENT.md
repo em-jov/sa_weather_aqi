@@ -19,35 +19,34 @@
 ---
 
 
-### Introduction
+## Introduction
 This documentation provides a guide for deploying static website using AWS services, featuring serverless computing with **AWS Lambda** and **EventBridge** for event-driven functionality. **S3** is used for data storage, **CloudFront** for global content delivery acceleration, and **Route 53** for DNS management. Secure communication is guaranteed through **ACM** with SSL certificate.
 
 <sub>[back on top ^](#table-of-contents)</sub>
 
 ---
 
-### Diagram
+## Diagram
 ![image info](./images/deployment_architecture.png)
 <sub>[back on top ^](#table-of-contents)</sub>
 
 ---
 
-### Prerequisites:
+## Prerequisites:
 Before proceeding, ensure you have the following:
 
 - Basic understanding of previously mentioned AWS services.
 - Registered domain name.
 - AWS account. If not, you can create one at [https://aws.amazon.com/](https://aws.amazon.com/).
-
-- ??? Use IAM (Identity and Access Managment) to create **access key** and store its values in environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` that can be found in `.env` file.
+- Use IAM (Identity and Access Managment) to create **access key** and store its values in environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` that can be found in `.env` file.
 
 <sub>[back on top ^](#table-of-contents)</sub>
 
 ---
 
-### Deployment Steps:
+## Deployment Steps:
 
-#### Create a public hosted zone
+### Create a public hosted zone
 - **Route 53** > [Creating a public hosted zone](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/CreatingHostedZone.html)
 
     - If you've purchased your domain from a registrar other than AWS, you need to update the NS records there by replacing the existing name servers with the ones you copied from Route 53.
@@ -56,7 +55,7 @@ Before proceeding, ensure you have the following:
 
 ---
 
-#### Create a bucket
+### Create a bucket
 - **S3 (Simple Storage Service)** > [Creating a bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html)
   
     - Ensure you've enabled `Static website hosting`.
@@ -67,14 +66,14 @@ Before proceeding, ensure you have the following:
 
 ---
 
-#### Create a SSL certificate
+### Create a SSL certificate
 - **ACM (AWS Certificate Manager)** > [Requesting a public certificate](https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-request-public.html)
 
 <sub>[back on top ^](#table-of-contents)</sub>
 
 ---
 
-#### Create a distribution
+### Create a distribution
 - **CloudFront** > [Create a CloudFront distribution](https://docs.aws.amazon.com/AmazonS3/latest/userguide/website-hosting-cloudfront-walkthrough.html#create-distribution)
 
     - Make sure you add `distribution_id` in `.env` file to the `CLOUDFRONT_DISTRIBUTION` environment variable.
@@ -83,14 +82,14 @@ Before proceeding, ensure you have the following:
 
 ---
 
-#### Create A record
+### Create A record
 - **Route 53** > [Update the alias record to point to a CloudFront distribution](https://docs.aws.amazon.com/AmazonS3/latest/userguide/website-hosting-cloudfront-walkthrough.html#update-record-sets) 
 
 <sub>[back on top ^](#table-of-contents)</sub>
 
 ---
 
-#### Create Lambda function
+### Create Lambda function
 - **AWS Lambda** > [Building Lambda functions with Ruby](https://docs.aws.amazon.com/lambda/latest/dg/lambda-ruby.html)
 
     - Follow the instructions for [creating .zip deployment packages with native libraries](https://docs.aws.amazon.com/lambda/latest/dg/ruby-package.html#ruby-package-native) since `nokogiri` gem contains native extensions written in C and it's used in this project. You will need [Docker](https://www.docker.com/) for this.
@@ -114,7 +113,7 @@ Before proceeding, ensure you have the following:
 
 ---  
 
-#### Set Up Scheduled Execution 
+### Set Up Scheduled Execution 
 - **EventBridge** > [Creating an Amazon EventBridge rule that runs on a schedule](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html)
 
     - Open the `Functions` page of the Lambda console and choose your function.
@@ -126,7 +125,7 @@ Before proceeding, ensure you have the following:
 
 ---
 
-### Testing
+## Testing
 - Manually trigger the Lambda function through the AWS Lambda Console to ensure it runs successfully.
 - Access the static website using the CloudFront distribution URL.
 
@@ -134,7 +133,7 @@ Before proceeding, ensure you have the following:
 
 ---
 
-### Conclusion
+## Conclusion
 Congratulations! You've successfully deployed a static website using AWS Lambda, CloudFront, ACM, Route 53 and S3. Make adjustments as needed for optimal performance.  For further details, refer to the [official AWS documentation](https://docs.aws.amazon.com/).
 
 <sub>[back on top ^](#table-of-contents)</sub>
