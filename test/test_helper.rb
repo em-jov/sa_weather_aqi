@@ -1,2 +1,2 @@
 require "minitest/autorun"
-require_relative '../weather_air'
+require_relative '../src/weather_air'

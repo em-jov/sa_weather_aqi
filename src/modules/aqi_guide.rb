@@ -148,7 +148,7 @@ module AqiGuide
     pollutants = pollutants.values.sort { |a, b| b <=> a }.first(2)
 
     max_value = pollutants.max
-    return max_value if max_value.nil?
+    return max_value if max_value.nil? || pollutants.count == 1 # US embassy only measures pm2.5
 
     if pollutants.all? { |x| x >= AQI[:hazardous][:value].first } #301
       # In the case when the concentrations of two or more pollutants are within the "hazardous" category, 

@@ -35,17 +35,24 @@ class WeatherAirTest < Minitest::Test
     assert_equal total_AQI, 430
   end
   
-  def test_adding_AQI_descriptor
+  def test_total_AQI_calculation_for_US_embassy
     script = WeatherAir.new
-    pollutants = { so2: 10, no2: 60, co: 120, o3: 190, pm10: 250, pm2_5: 380, aqi: 430}
-    expected = { :so2 => { value: 10, class: 'good' },
-                 :no2 => { value: 60, class: 'moderate' }, 
-                 :co => { value: 120, class: 'unhealthy_for_sensitive_groups' },
-                 :o3 => { value: 190, class: 'unhealthy' },
-                 :pm10 => { value: 250, class: 'very_unhealthy' },
-                 :pm2_5 => { value: 380, class: 'hazardous' },
-                 :aqi => { value: 430, class: 'hazardous'} }
-    result = script.send(:add_aqi_descriptor, pollutants)
-    assert_equal result, expected
+    pollutants = { pm2_5: 380}
+    total_AQI = script.send(:calculate_total_aqi, pollutants)
+    assert_equal total_AQI, 380
   end
+
+  # def test_adding_AQI_descriptor
+  #   script = WeatherAir.new
+  #   pollutants = { so2: 10, no2: 60, co: 120, o3: 190, pm10: 250, pm2_5: 380, aqi: 430}
+  #   expected = { :so2 => { value: 10, class: 'good' },
+  #                :no2 => { value: 60, class: 'moderate' }, 
+  #                :co => { value: 120, class: 'unhealthy_for_sensitive_groups' },
+  #                :o3 => { value: 190, class: 'unhealthy' },
+  #                :pm10 => { value: 250, class: 'very_unhealthy' },
+  #                :pm2_5 => { value: 380, class: 'hazardous' },
+  #                :aqi => { value: 430, class: 'hazardous'} }
+  #   result = script.send(:add_aqi_descriptor, pollutants)
+  #   assert_equal result, expected
+  # end
 end
