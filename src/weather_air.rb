@@ -11,11 +11,13 @@ class WeatherAir
   include Weather
 
   def run
-    current_weather = current_weather_data
-    latest_aqi_values = latest_pollutant_values_by_monitoring_stations
-    pollutants = current_air_pollution_for_city(latest_aqi_values)
-    weather_forecast = forecast
-
+    # weather
+    current_weather
+    weather_forecast
+    # air quality index
+    stations_pollutants_aqi
+    city_pollutants = city_pollutants_aqi(stations_pollutants_aqi)
+  
     style = File.read("src/style.css")
     template = ERB.new(File.read('src/template.html.erb'))
     template.result(binding) 

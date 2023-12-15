@@ -31,12 +31,12 @@
       </div>
 
       <div id="air" class="section">
-        <h2 class="<%= pollutants[:aqi][:class] %>">AQI: <%= pollutants[:aqi][:class].gsub('_', ' ') %> (<%= pollutants[:aqi][:value] %>)  </h2>
+        <h2 class="<%= city_pollutants[:aqi][:class] %>">AQI: <%= city_pollutants[:aqi][:class].gsub('_', ' ') %> (<%= city_pollutants[:aqi][:value] %>)  </h2>
         <b>Who Needs to be Concerned?</b>
-        <p><%= pollutants[:aqi][:who] %></p>
+        <p><%= city_pollutants[:aqi][:who] %></p>
         <br>
         <b>What Should I Do?</b>
-        <p><%= pollutants[:aqi][:advisory] %></p>
+        <p><%= city_pollutants[:aqi][:advisory] %></p>
         <br>
         <table class="centered-table">
           <tr>
@@ -48,12 +48,12 @@
             <th>PM<sub>2.5</sub></th>
           </tr>
           <tr>
-            <td class="<%= pollutants[:so2][:class] %>"><%= pollutants[:so2][:value] %></td>
-            <td class="<%= pollutants[:no2][:class] %>"><%= pollutants[:no2][:value] %></td>
-            <td class="<%= pollutants[:co][:class] %>"><%= pollutants[:co][:value] %></td>
-            <td class="<%= pollutants[:o3][:class] %>"><%= pollutants[:o3][:value] %></td>
-            <td class="<%= pollutants[:pm10][:class] %>"><%= pollutants[:pm10][:value] %></td>
-            <td class="<%= pollutants[:pm2_5][:class] %>"><%= pollutants[:pm2_5][:value] %></td>
+            <td class="<%= city_pollutants[:so2][:class] %>"><%= city_pollutants[:so2][:value] %></td>
+            <td class="<%= city_pollutants[:no2][:class] %>"><%= city_pollutants[:no2][:value] %></td>
+            <td class="<%= city_pollutants[:co][:class] %>"><%= city_pollutants[:co][:value] %></td>
+            <td class="<%= city_pollutants[:o3][:class] %>"><%= city_pollutants[:o3][:value] %></td>
+            <td class="<%= city_pollutants[:pm10][:class] %>"><%= city_pollutants[:pm10][:value] %></td>
+            <td class="<%= city_pollutants[:pm2_5][:class] %>"><%= city_pollutants[:pm2_5][:value] %></td>
           </tr>
         </table>
       </div>
@@ -71,13 +71,13 @@
             <th>PM<sub>10</sub></th>
             <th>PM<sub>2.5</sub></th>
           </tr>
-          <% latest_aqi_values.each do |station, pollutants| %>
+          <% stations_pollutants_aqi.each do |station, values| %>
             <tr>
-              <td><%= station %></td>
+              <td><%= values[:name] %></td>
               <% %i[aqi so2 no2 co o3 pm10 pm2_5].each do |pollutant| %>
-              <% if pollutants.key?(pollutant)%>
-                <td class="<%= pollutants[pollutant][:class] %>">
-                  <%= pollutants[pollutant][:value] %>
+              <% if values.key?(pollutant)%>
+                <td class="<%= values[pollutant][:class] %>">
+                  <%= values[pollutant][:value] %>
                 </td>   
               <% else %>
                 <td></td>

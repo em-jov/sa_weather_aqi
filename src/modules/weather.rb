@@ -3,8 +3,25 @@ module Weather
   LAT = 43.8519774
   LON = 18.3866868
 
-  def forecast 
-    conn = openweathermap_client
+  def current_weather
+    conn = open_weather_map_client
+
+    weather_response = conn.get('weather', { units: 'metric' })
+    data = weather_response.body
+
+    { currenttemp: data.dig('main', 'temp').to_f.round,
+      feelslike: data.dig('main', 'feels_like').to_f.round,
+      humidity: data.dig('main', 'humidity'),
+      description: data.dig('weather', 0, 'description'),
+      icon: data.dig('weather', 0, 'icon'),
+      rain: data.dig('rain', '1h') || 0,
+      wind: data.dig('wind', 'speed'),
+      sunrise: utc_to_datetime(data.dig('sys', 'sunrise')),
+      sunset: utc_to_datetime(data.dig('sys','sunset')) }
+  end
+
+  def weather_forecast 
+    conn = open_weather_map_client
 
     weather_response = conn.get('forecast', { units: 'metric' })
     weather_data = weather_response.body['list']
@@ -24,25 +41,8 @@ module Weather
     end
     dates
   end
-  
-  def current_weather_data
-    conn = openweathermap_client
 
-    weather_response = conn.get('weather', { units: 'metric' })
-    data = weather_response.body
-
-    { currenttemp: data.dig('main', 'temp').to_f.round,
-      feelslike: data.dig('main', 'feels_like').to_f.round,
-      humidity: data.dig('main', 'humidity'),
-      description: data.dig('weather', 0, 'description'),
-      icon: data.dig('weather', 0, 'icon'),
-      rain: data.dig('rain', '1h') || 0,
-      wind: data.dig('wind', 'speed'),
-      sunrise: utc_to_datetime(data.dig('sys', 'sunrise')),
-      sunset: utc_to_datetime(data.dig('sys','sunset')) }
-  end
-
-  def openweathermap_client
+  def open_weather_map_client
     Faraday.new( url: 'https://api.openweathermap.org/data/2.5/',
                   params: { lat: LAT, lon: LON, appid: ENV['API_KEY'] },
                   headers: { 'Content-Type' => 'application/json' }) do |f|

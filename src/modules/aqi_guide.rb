@@ -47,32 +47,30 @@ module AqiGuide
       low. Follow tips for keeping particle levels low indoors."} }
 
 
-  def latest_pollutant_values_by_monitoring_stations
-    monitoring_stations = { 'Vijećnica' => { latitude: 43.859, longitude: 18.434 },
-                            'Bjelave'  => { latitude: 43.867, longitude: 18.420 },                         
-                            'US Embassy' => { latitude: 43.856, longitude: 18.397 },
-                            'Otoka' => { latitude: 43.848, longitude: 18.363 },
-                            'Ilidža' => { latitude: 43.830 , longitude: 18.310 } }
+  def stations_pollutants_aqi
+    monitoring_stations = { 'vijecnica' => { name: 'Vijećnica' , latitude: 43.859, longitude: 18.434 },
+                            'bjelave'  => { name: 'Bjelave' , latitude: 43.867, longitude: 18.420 },                         
+                            'embassy' => { name: 'Ambasada SAD' , latitude: 43.856, longitude: 18.397 },
+                            'otoka' => { name: 'Otoka', latitude: 43.848, longitude: 18.363 },
+                            'ilidza' => { name: 'Ilidža', latitude: 43.830 , longitude: 18.310 } }
 
     fhmzbih_website = Nokogiri::HTML(URI.open('https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php'))
     table = fhmzbih_website.css('table table').first
 
     # hard-coded, potential problems if source table changes
-    embassy = bjelave = vijecnica = otoka = ilidza = nil
+    stations_html = {}
     2.upto(10).each do |index|
       row = table.css('tr')[index]
-      embassy = row and next if row.css('td')[1].content.include?("Ambasada SAD")
-      bjelave = row and next if row.css('td')[0].content.include?("Bjelave")
-      vijecnica = row and next if row.css('td')[0].content.include?("Vijećnica")
-      otoka = row and next if row.css('td')[0].content.include?("Otoka")
-      ilidza = row and next if row.css('td')[0].content.include?("Ilidža")
+      stations_html['embassy'] = row and next if row.css('td')[1].content.include?("Ambasada SAD")
+      stations_html['bjelave'] = row and next if row.css('td')[0].content.include?("Bjelave")
+      stations_html['vijecnica'] = row and next if row.css('td')[0].content.include?("Vijećnica")
+      stations_html['otoka'] = row and next if row.css('td')[0].content.include?("Otoka")
+      stations_html['ilidza'] = row and next if row.css('td')[0].content.include?("Ilidža")
     end
 
-    monitoring_stations['Bjelave'].merge!(scrape_pollutant_aqi(bjelave))
-    monitoring_stations['US Embassy'].merge!(scrape_pollutant_aqi(embassy))
-    monitoring_stations['Vijećnica'].merge!(scrape_pollutant_aqi(vijecnica))
-    monitoring_stations['Otoka'].merge!(scrape_pollutant_aqi(otoka))
-    monitoring_stations['Ilidža'].merge!(scrape_pollutant_aqi(ilidza))
+    monitoring_stations.each do |station, _value|
+      monitoring_stations[station].merge!(scrape_pollutant_aqi(stations_html[station]))
+    end
 
     monitoring_stations  
   end
@@ -81,11 +79,11 @@ module AqiGuide
     # hard-coded, potential problems if source table changes
     pollutant_td_index = { so2: 3, no2: 5, co: 7, o3: 9, pm10: 11, pm2_5: 13 }
     pollutants = { so2: normalize_pollutant_value(station, pollutant_td_index[:so2]),
-                  no2: normalize_pollutant_value(station, pollutant_td_index[:no2]),
-                  co: normalize_pollutant_value(station, pollutant_td_index[:co]),
-                  o3: normalize_pollutant_value(station, pollutant_td_index[:o3]),
-                  pm10: normalize_pollutant_value(station, pollutant_td_index[:pm10]),
-                  pm2_5: normalize_pollutant_value(station, pollutant_td_index[:pm2_5]) }
+                   no2: normalize_pollutant_value(station, pollutant_td_index[:no2]),
+                   co: normalize_pollutant_value(station, pollutant_td_index[:co]),
+                   o3: normalize_pollutant_value(station, pollutant_td_index[:o3]),
+                   pm10: normalize_pollutant_value(station, pollutant_td_index[:pm10]),
+                   pm2_5: normalize_pollutant_value(station, pollutant_td_index[:pm2_5]) }
 
     unless station.nil?
       if station.css('td')[1].content == "Ambasada SAD" && pollutants[:pm2_5].nil?
@@ -141,7 +139,7 @@ module AqiGuide
     # replacing pm10 and pm2.5 with the highest value of the two, 
     # if their AQI is "unhealthy" or worse, total AQI will only take the highest value of the two for calculation
     # if it's not, total AQI just takes the highest AQI value from all pollutants anyway 
-    pollutants[:pm] = [pollutants[:pm10], pollutants[:pm2_5]].compact.max
+    pollutants[:pm] = [pollutants[:pm10], pollutants[:pm2_5]]&.compact&.max
 
     # getting two max pollutants AQI values
     pollutants = pollutants.reject { |k,v| k if k == :pm10 || k== :pm2_5 || v.nil? }
@@ -181,17 +179,19 @@ module AqiGuide
     pollutants
   end
 
-  def current_air_pollution_for_city(pollutants)
-    city_pollutants = { so2: pollutants.values.map { |v| v[:so2][:value] }.compact.max,
-                        no2: pollutants.values.map { |v| v[:no2][:value] }.compact.max,
-                        co: pollutants.values.map { |v| v[:co][:value] }.compact.max,
-                        o3: pollutants.values.map { |v| v[:o3][:value] }.compact.max,
-                        pm10: pollutants.values.map { |v| v[:pm10][:value] }.compact.max,
-                        pm2_5: pollutants.values.map { |v| v[:pm2_5][:value] }.compact.max }
-
+  def city_pollutants_aqi(stations_pollutants)
+    city_pollutants = { so2: stations_pollutants&.values&.map { |v| v&.dig(:so2, :value) }&.compact&.max,
+                        no2: stations_pollutants&.values&.map { |v| v&.dig(:no2, :value) }&.compact&.max,
+                        co: stations_pollutants&.values&.map { |v| v&.dig(:co, :value) }&.compact&.max,
+                        o3: stations_pollutants&.values&.map { |v| v&.dig(:o3, :value) }&.compact&.max,
+                        pm10: stations_pollutants&.values&.map { |v| v&.dig(:pm10, :value) }&.compact&.max,
+                        pm2_5: stations_pollutants&.values&.map { |v| v&.dig(:pm2_5, :value) }&.compact&.max }
+                        
     city_pollutants[:aqi] = calculate_total_aqi(city_pollutants)
     add_aqi_descriptor(city_pollutants)
   end
+
+  
 
   def us_embassy_pm2_5_aqicn
     aqicn_website = Nokogiri::HTML(URI.open('https://aqicn.org/city/bosnia-herzegovina/sarajevo/us-embassy/'))
