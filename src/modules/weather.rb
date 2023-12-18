@@ -3,10 +3,8 @@ module Weather
   LAT = 43.8519774
   LON = 18.3866868
 
-  def current_weather
-    conn = open_weather_map_client
-
-    weather_response = conn.get('weather', { units: 'metric' })
+  def current_weather_data
+    weather_response = open_weather_map_client.get('weather', { units: 'metric' })
     data = weather_response.body
 
     { currenttemp: data.dig('main', 'temp').to_f.round,
@@ -18,16 +16,15 @@ module Weather
       wind: data.dig('wind', 'speed'),
       sunrise: utc_to_datetime(data.dig('sys', 'sunrise')),
       sunset: utc_to_datetime(data.dig('sys','sunset')) }
+#  rescue StandardError => e
+ #   { error: 'No current weader data available!'}
   end
 
-  def weather_forecast 
-    conn = open_weather_map_client
-
-    weather_response = conn.get('forecast', { units: 'metric' })
+  def weather_forecast_data 
+    weather_response = open_weather_map_client.get('forecast', { units: 'metric' })
     weather_data = weather_response.body['list']
 
-    dates = {}
-    weather_data.each do |e|
+    weather_data.each_with_object({}) do |e, dates|
       key = Time.at(e['dt'].to_i).to_datetime.strftime('%a %d.%m.')
       interval = { description: e.dig('weather', 0, 'description'),
                     icon: e.dig('weather', 0, 'icon'),
@@ -39,7 +36,6 @@ module Weather
         dates[key] = [interval]
       end
     end
-    dates
   end
 
   def open_weather_map_client

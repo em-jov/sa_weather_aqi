@@ -13,4 +13,5 @@ gem 'aws-sdk-cloudfront'
 
 group :test do
   gem 'minitest'
+  gem 'webmock'
 end

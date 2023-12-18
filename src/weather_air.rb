@@ -7,15 +7,15 @@ require 'time'
 Dir['./src/modules/*.rb'].each { |file| require file }
 
 class WeatherAir
-  include AqiGuide
+  include Aqi
   include Weather
 
   def run
     # weather
-    current_weather
-    weather_forecast
+    current_weather = current_weather_data
+    weather_forecast = weather_forecast_data
     # air quality index
-    stations_pollutants_aqi
+    stations_pollutants_aqi = stations_pollutants_aqi_data
     city_pollutants = city_pollutants_aqi(stations_pollutants_aqi)
   
     style = File.read("src/style.css")
@@ -24,6 +24,6 @@ class WeatherAir
   end
 
   def last_update 
-    Time.now.getlocal('+01:00').to_s
+    Time.now.getlocal('+01:00').to_datetime.strftime('%A (%B %d, %Y) %I:%M %P (%Z)')
   end
 end
