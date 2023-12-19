@@ -8,12 +8,13 @@ Dir['./src/modules/*.rb'].each { |file| require file }
 
 class WeatherAir
   include Aqi
-  include Weather
+ # include Weather
 
   def run
     # weather
-    current_weather = current_weather_data
-    weather_forecast = weather_forecast_data
+    weather = WeatherClient.new
+    current_weather = weather.current_weather_data
+    weather_forecast = weather.weather_forecast_data
     # air quality index
     stations_pollutants_aqi = stations_pollutants_aqi_data
     city_pollutants = city_pollutants_aqi(stations_pollutants_aqi)

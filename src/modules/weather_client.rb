@@ -1,10 +1,18 @@
-module Weather
+class WeatherClient
   # Sarajevo coordinates
   LAT = 43.8519774
   LON = 18.3866868
 
+  def initialize(conn = nil)
+    @conn = conn || Faraday.new(url: 'https://api.openweathermap.org/data/2.5/',
+                                params: { lat: LAT, lon: LON, appid: ENV['API_KEY'] },
+                                 headers: { 'Content-Type' => 'application/json' }) do |f|
+                                f.response :json
+                    end
+  end
+
   def current_weather_data
-    weather_response = open_weather_map_client.get('weather', { units: 'metric' })
+    weather_response = @conn.get('weather', { units: 'metric' })
     data = weather_response.body
 
     { currenttemp: data.dig('main', 'temp').to_f.round,
@@ -16,12 +24,12 @@ module Weather
       wind: data.dig('wind', 'speed'),
       sunrise: utc_to_datetime(data.dig('sys', 'sunrise')),
       sunset: utc_to_datetime(data.dig('sys','sunset')) }
-#  rescue StandardError => e
- #   { error: 'No current weader data available!'}
+  #  rescue StandardError => e
+  #  { error: 'No current weader data available!'}
   end
 
   def weather_forecast_data 
-    weather_response = open_weather_map_client.get('forecast', { units: 'metric' })
+    weather_response = @conn.get('forecast', { units: 'metric' })
     weather_data = weather_response.body['list']
 
     weather_data.each_with_object({}) do |e, dates|
@@ -35,14 +43,6 @@ module Weather
       else
         dates[key] = [interval]
       end
-    end
-  end
-
-  def open_weather_map_client
-    Faraday.new( url: 'https://api.openweathermap.org/data/2.5/',
-                  params: { lat: LAT, lon: LON, appid: ENV['API_KEY'] },
-                  headers: { 'Content-Type' => 'application/json' }) do |f|
-                  f.response :json
     end
   end
 
