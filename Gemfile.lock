@@ -42,6 +42,7 @@ GEM
     racc (1.7.1)
     rexml (3.2.6)
     ruby2_keywords (0.0.5)
+    timecop (0.9.8)
     webmock (3.19.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
@@ -58,6 +59,7 @@ DEPENDENCIES
   faraday
   minitest
   nokogiri
+  timecop
   webmock
 
 BUNDLED WITH

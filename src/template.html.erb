@@ -32,9 +32,11 @@
 
       <div id="air" class="section">
         <h2 class="<%= city_pollutants[:aqi][:class] %>">AQI: <%= city_pollutants[:aqi][:class].gsub('_', ' ') %> (<%= city_pollutants[:aqi][:value] %>)  </h2>
-        <b>Who Needs to be Concerned?</b>
-        <p><%= city_pollutants[:aqi][:who] %></p>
-        <br>
+        <% if city_pollutants[:aqi][:who] != "" %>
+          <b>Who Needs to be Concerned?</b>
+          <p><%= city_pollutants[:aqi][:who] %></p>
+          <br>
+        <% end %>
         <b>What Should I Do?</b>
         <p><%= city_pollutants[:aqi][:advisory] %></p>
         <br>

@@ -1,50 +1,50 @@
 module Aqi
   # AQI range descriptors
   AQI = { good: { value: 0..50, 
-  who: "", 
-  advisory: "It’s a great day to be active outside." }, 
-  moderate: { value: 51..100, 
-      who: "Some people who may be unusually sensitive to particle pollution.", 
-      advisory: "<b>Unusually sensitive people</b>: Consider making outdoor activities shorter and less intense.
-      Watch for symptoms such as coughing or shortness of breath. These are signs to take it easier. 
-      <br><br> 
-      <b>Everyone else</b>: It’s a good day to be active outside." },   
-  unhealthy_for_sensitive_groups: { value: 101..150, 
-                              who: "Sensitive groups include <b>people with heart or lung disease, older
-                              adults, children and teenagers, minority populations, and outdoor workers.</b>", 
-                              advisory: "<b>Sensitive groups</b>: Make outdoor activities shorter and less
-                              intense. It’s OK to be active outdoors, but take more
-                              breaks. Watch for symptoms such as coughing or
-                              shortness of breath.
-                              <br><br> 
-                              <b>People with asthma</b>: Follow your asthma action plan and
-                              keep quick relief medicine handy.
-                              <br><br> 
-                              <b>People with heart disease</b>: Symptoms such as
-                              palpitations, shortness of breath, or unusual fatigue may
-                              indicate a serious problem. If you have any of these,
-                              contact your health care provider."}, 
-  unhealthy: { value: 151..200, 
-      who: "Everyone", 
-      advisory: "<b>Sensitive groups</b>: Avoid long or intense outdoor activities.
-      Consider rescheduling or moving activities indoors.
-      <br><br>
-      <b>Everyone else</b>: Reduce long or intense activities. Take
-      more breaks during outdoor activities."}, 
-  very_unhealthy: { value: 201..300, 
-              who: "Everyone", 
-              advisory: "<b>Sensitive groups</b>: Avoid all physical activity outdoors.
-              Reschedule to a time when air quality is better or move
-              activities indoors.
-              <br><br>
-              <b>Everyone else</b>: Avoid long or intense activities. Consider
-              rescheduling or moving activities indoors."}, 
-  hazardous: { value: 301..500, 
-      who: "Everyone", 
-      advisory: "<b>Everyone</b>: Avoid all physical activity outdoors.
-      <br><br>
-      <b>Sensitive groups</b>: Remain indoors and keep activity levels
-      low. Follow tips for keeping particle levels low indoors."} }
+                  who: "", 
+                  advisory: "It’s a great day to be active outside." }, 
+          moderate: { value: 51..100, 
+              who: "Some people who may be unusually sensitive to particle pollution.", 
+              advisory: "<b>Unusually sensitive people</b>: Consider making outdoor activities shorter and less intense.
+              Watch for symptoms such as coughing or shortness of breath. These are signs to take it easier. 
+              <br><br> 
+              <b>Everyone else</b>: It’s a good day to be active outside." },   
+          unhealthy_for_sensitive_groups: { value: 101..150, 
+                                      who: "Sensitive groups include <b>people with heart or lung disease, older
+                                      adults, children and teenagers, minority populations, and outdoor workers.</b>", 
+                                      advisory: "<b>Sensitive groups</b>: Make outdoor activities shorter and less
+                                      intense. It’s OK to be active outdoors, but take more
+                                      breaks. Watch for symptoms such as coughing or
+                                      shortness of breath.
+                                      <br><br> 
+                                      <b>People with asthma</b>: Follow your asthma action plan and
+                                      keep quick relief medicine handy.
+                                      <br><br> 
+                                      <b>People with heart disease</b>: Symptoms such as
+                                      palpitations, shortness of breath, or unusual fatigue may
+                                      indicate a serious problem. If you have any of these,
+                                      contact your health care provider."}, 
+          unhealthy: { value: 151..200, 
+                        who: "Everyone", 
+                        advisory: "<b>Sensitive groups</b>: Avoid long or intense outdoor activities.
+                        Consider rescheduling or moving activities indoors.
+                        <br><br>
+                        <b>Everyone else</b>: Reduce long or intense activities. Take
+                        more breaks during outdoor activities."}, 
+          very_unhealthy: { value: 201..300, 
+                            who: "Everyone", 
+                            advisory: "<b>Sensitive groups</b>: Avoid all physical activity outdoors.
+                            Reschedule to a time when air quality is better or move
+                            activities indoors.
+                            <br><br>
+                            <b>Everyone else</b>: Avoid long or intense activities. Consider
+                            rescheduling or moving activities indoors."}, 
+          hazardous: { value: 301..500, 
+                        who: "Everyone", 
+                        advisory: "<b>Everyone</b>: Avoid all physical activity outdoors.
+                        <br><br>
+                        <b>Sensitive groups</b>: Remain indoors and keep activity levels
+                        low. Follow tips for keeping particle levels low indoors."} }
   
   STATIONS = { 'vijecnica' => { name: 'Vijećnica' , latitude: 43.859, longitude: 18.434 },
                'bjelave'  => { name: 'Bjelave' , latitude: 43.867, longitude: 18.420 },                         
@@ -54,7 +54,7 @@ module Aqi
 
   def stations_pollutants_aqi_data
     stations_tr_html = fetch_fhmzbih_data 
-    stations = extract_pollutants_aqi_values_for_stations(stations_tr_html)                         
+    stations = extract_pollutants_aqi_values_for_stations(stations_tr_html) 
     if stations['embassy'][:pm2_5].nil?
       stations['embassy'][:pm2_5] = us_embassy_pm2_5_aqicn
     end
@@ -69,7 +69,14 @@ module Aqi
     city_pollutants = fetch_max_values(stations_pollutants)
                         
     city_pollutants[:aqi] = calculate_total_aqi(city_pollutants)
-    add_aqi_descriptor(city_pollutants, true)
+    add_aqi_descriptor(city_pollutants)
+    
+    unless city_pollutants[:aqi][:value] == nil
+      city_pollutants[:aqi][:advisory] = AQI[city_pollutants[:aqi][:class].to_sym][:advisory]
+      city_pollutants[:aqi][:who] = AQI[city_pollutants[:aqi][:class].to_sym][:who]    
+    end
+
+    city_pollutants
   end
 
   def fetch_fhmzbih_data
@@ -93,12 +100,16 @@ module Aqi
 
   def extract_pollutants_aqi_values_for_stations(stations_tr_html)
     STATIONS.each_with_object({}) do |(station, _value), monitoring_stations|
-      monitoring_stations[station] = extract_pollutants_aqi_values(stations_tr_html[station])
+      monitoring_stations[station] = extract_pollutants_aqi_values(stations_tr_html[station], station)
     end
   end
 
-  def extract_pollutants_aqi_values(station_tr_html)
+  def extract_pollutants_aqi_values(station_tr_html, station_name)
     # !!! hard-coded (pollutans td indexes), potential problems if source HTML changes
+    us_embassy_pm2_5_index = 9
+    if station_name == 'embassy'
+      return { so2: nil, no2: nil, co: nil, o3: nil, pm10: nil, pm2_5: normalize_pollutant_aqi_value(station_tr_html, us_embassy_pm2_5_index)}
+    end
     pollutant_td_index = { so2: 3, no2: 5, co: 7, o3: 9, pm10: 11, pm2_5: 13 }
     pollutant_td_index.each_with_object({}) do |(pollutant, index), result|
       result[pollutant] = normalize_pollutant_aqi_value(station_tr_html, index)
@@ -176,15 +187,11 @@ module Aqi
     end
   end
 
-  def add_aqi_descriptor(pollutants, show_advisory = false)
+  def add_aqi_descriptor(pollutants)
     pollutants.each do |k, v|
       (key, values) =  AQI.select { |_x, y| y[:value].include?(v) }.first
       pollutants[k] = { value: v, 
                         class: v.nil? ? '' : key.to_s }
-      if show_advisory
-        pollutants[k].merge!({ advisory: v.nil? ? '' : values[:advisory],
-                               who: v.nil? ? '' : values[:who] })
-      end
     end
     pollutants
   end
@@ -200,7 +207,7 @@ module Aqi
     aqicn_website = Nokogiri::HTML(URI.open('https://aqicn.org/city/bosnia-herzegovina/sarajevo/us-embassy/'))
     pm2_5 = aqicn_website.css('.aqivalue').first.content.to_i
     time = Time.parse(aqicn_website.css('span#aqiwgtutime').first.content[11..]).strftime( "%d.%m.%Y. %H")
-
+   
     pm2_5 = nil if time != Time.now.strftime( "%d.%m.%Y. %H")
 
     pm2_5

@@ -1,0 +1,1259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="FEDERALNI HIDROMETEOROLOŠKI ZAVOD" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Federalni hidrometeorološki zavod</title>
+    <!---------------------------------------------------------------------->
+<link rel="stylesheet" type="text/css" href="../css/styles-1.css" />
+
+<script type="text/javascript" src="../js/jquery-1.5.2.min.js"></script>
+<script type="text/javascript" src="../js/jquery.cycle.all.min.js"></script>
+<script type="text/javascript" src="../js/functions.js"></script>
+
+
+<script>
+$(function(){
+      $("#heder").load("../heder.html"); 
+    });
+$(function(){
+      $("#gradovi").load("gradovi.htm"); 
+    });
+$(function(){
+      $("#footer").load("../footer.html"); 
+    });
+</script>
+
+
+
+
+
+
+<style type="text/css">
+#mapa {
+	height:400px;
+	width: 400px;
+	position: relative;
+	margin:auto;
+	padding:10px;
+	/*top: 100px;*/
+}
+#legenda {
+	height: 281px;
+	width: 262px;
+	position: absolute;
+	top: 128px;
+	right: 0px;
+	text-align:left;
+}
+
+#napomena {
+	width:380px;
+	font-style:normal;
+	font-size:12px;
+	font-family:Geneva, Arial, Helvetica, sans-serif;
+	font-weight:normal;
+	border:thin inset #246fb0;
+	background-color: #E2E2E2;
+}
+#mallifont{font-style:normal;}
+			/*.nevidljivo { visibility: hidden; display: none;}*/
+		</style>
+
+
+<style type="text/css">
+<!--
+.desna {border-right:dotted thin #666666;}
+.donja {border-bottom:thin dotted #666666;}
+.left {padding-left:5px;}
+.nema {background-color: #F8F8F8; background-image:url(../../slike/zajednicke/none.png);}
+.table {box-shadow: 2px 2px 8px #888888; text-align:center}
+
+.legrise {background:#ccCCcc;	text-shadow:2px 2px 4px #999;}
+.leverte {background:#00CC00;	text-shadow:2px 2px 4px #999; border:medium #000000;}
+.lejaune {background:#FFCC00; text-shadow:2px 2px 4px #999;}
+.leorange {background:#FF9900;	text-shadow:2px 2px 4px #999; border:medium #000000;}
+.lerouge {background:#FF0000;	text-shadow:2px 2px 4px #999;}
+.leviolet {background:#9966CC; text-shadow:2px 2px 4px #999; border:medium #000000;}
+.bordeaux {background:#990000;	text-shadow:2px 2px 4px #999;}
+
+#link1 {color: #000;}
+#link2 {color: #fff;}
+-->
+.a0{background-color:#ccCCcc;}
+.b1{background-color:#00CC00;}
+.c2{background-color:#FFCC00;}
+.d3{background-color:#FF9900;}
+.e4{background-color:#FF0000;}
+.f5{background-color:#9966CC;}
+.g6{background-color:#990000;}
+
+.IKZ{
+	border-right: solid thick #666666;
+	border-bottom:thin dotted #666666;
+	padding-left:5px;
+	}
+ 
+
+</style> 
+</head>
+<body>
+<!--<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>-->
+
+
+
+
+
+
+<div id="page">
+  <div id="container">
+  	<div id="heder"> </div>
+    <div id="content">
+	<div class="clearer"></div>
+	<div class="spacer"></div>
+	<div class="clearer"></div>
+      	<div class="column-2-3" >
+            <div class="white-box" >
+            <!--naslov-->
+            	<div class="box-title">&nbsp;Automatske mjerne stanice
+            	<div class="subtitle">&nbsp;18.12.2023. u 13 <sup>h</sup></div>
+            	</div>
+            <!--listing-->
+				<div class="listing">  
+                    <a href="../index.php">početna</a> 
+                <a href="javascript:pokazisamo('izbornik8');"id="myHeader1">kvalitet zraka</a></div>  
+                <div></div>
+             <!--karta index-->
+            	<!--<div class="column-1-2" >-->
+                	<div class="box-content">
+                    	
+                        <table cellpadding="3">
+                        	<tr>
+                            	<td><div class="box-title">&nbsp;INDEKS KVALITETA ZRAKA</div></td>
+                            	<td><div class="box-title">&nbsp;PROSJEČNE SATNE VRIJEDNOSTI POLUTANATA</div></td>
+                            </tr>
+                        	<tr>
+                            	<td valign="top"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+  	<td colspan="15"><div align="center">INDEX KVALITETA ZRAKA 18.12.2023. - 13<sup>h</sup></div></td>
+  </tr>
+  <tr>
+    <td class="donja desna">LOKACIJA</td>
+    <td class="donja desna">&nbsp;</td>
+    <td class="donja desna"><span class="donja desna left">AQI</span></td>
+    <td width="10%" colspan="2" class="donja desna">SO<sub>2</sub></td>
+    <td width="10%" colspan="2" class="donja desna">NO<sub>2</sub></td>
+    <td width="10%" colspan="2" class="donja desna">CO</td>
+    <td width="10%" colspan="2" class="donja desna">O<sub>3</sub></td>
+    <td width="10%" colspan="2" class="donja desna">PM<sub>10</sub></td>
+    <td width="10%" colspan="2"class="donja ">PM<sub>2.5</sub></td>
+  </tr>
+  <tr >
+    <td width="5%" rowspan="8"   class="donja desna left">SARAJEVO</td>
+    <td width="10%" class="donja desna left">Ambasada SAD</td>
+    <td width="5%" class="IKZ a0">165</td>
+    <td colspan="2"  class="nema donja desna"></td>
+    <td colspan="2"  class="nema donja desna"></td>
+    <td colspan="2"  class="nema donja desna"></td>
+    <td colspan="2"  class="nema donja desna"></td>
+    <td colspan="2"  class="nema donja desna"></td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">165</td>
+  </tr>
+  <tr >
+    <td class="donja desna left">Vogošća</td>
+    <td class="IKZ e4" style="padding-left:5px;">159</td>
+    <!--1-->
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">6</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">22</td>
+    <td colspan="2" class="nema donja desna"></td>
+    <td colspan="2" class="nema donja desna"></td>
+    <td class="donja"><img src="google_map/images/c.png" /></td>
+    <td class="donja desna">86</td>
+    <td class="donja"><img src="google_map/images/e.png" /></td>
+    <td class="donja desna">159</td>
+  </tr>
+  <tr >
+    <td width="10%" class="donja desna left">Bjelave</td>
+    <td class="IKZ e4" style="padding-left:5px;">160</td>
+    <!--1-->
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">10</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">36</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">13</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">15</td>
+    <td class="donja"><img src="google_map/images/c.png" /></td>
+    <td class="donja desna">87</td>
+    <td class="donja"><img src="google_map/images/e.png" /></td>
+    <td class="donja desna">160</td>
+  </tr>
+  <tr >
+    <td class="donja desna left">IvanSedlo</td>
+    <td class="IKZ b1" style="padding-left:5px;">33</td>
+    <!--6-->
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">2</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">4</td>
+    <td class="nema donja">&nbsp;</td>
+    <td class="nema donja desna">&nbsp;</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">33</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">16</td>
+    <td colspan="2" class="nema donja">&nbsp;</td>
+  </tr>
+  <tr  >
+    <td class="donja desna left"> Vijećnica</td>
+    <td class="IKZ b1" style="padding-left:5px;">38</td>
+    <!--3-->
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">9</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">31</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">38</td>
+    <td colspan="2" class="nema donja">&nbsp;</td>
+  </tr>
+  <tr >
+    <td class="donja desna left">Otoka</td>
+    <td class="IKZ d3" style="padding-left:5px;">123</td>
+    <!--2-->
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">9</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">28</td>
+    <td class="nema donja"></td>
+    <td class="nema donja desna"></td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+    <td class="donja"><img src="google_map/images/d.png" /></td>
+    <td class="donja desna">123</td>
+    <td colspan="2" class="nema donja">&nbsp;</td>
+  </tr>
+  <tr  >
+    <td class="donja desna left">Ilidža</td>
+    <td class="IKZ e4" style="padding-left:5px;">159</td>
+    <!--4-->
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">4</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">20</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+    <td class="donja"><img src="google_map/images/c.png" /></td>
+    <td class="donja desna">86</td>
+    <td class="donja"><img src="google_map/images/e.png" /></td>
+    <td class="donja desna">159</td>
+  </tr>
+  <tr  >
+    <td class="donja desna left">Hadžići</td>
+    <td class="IKZ b1" style="padding-left:5px;">12</td>
+    <!--4-->
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">7</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">12</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+    <td colspan="2" class="nema donja">&nbsp;</td>
+  </tr>
+  <tr >
+    <td class="donja desna left">ILIJAŠ</td>
+    <td class="donja desna left">Ilijaš</td>
+    <td class="IKZ d3" style="padding-left:5px;">131</td>
+    <!--19-->
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+    <td colspan="2" class="donja nema">&nbsp;</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+    <td class="donja"><img src="google_map/images/d.png" /></td>
+    <td class="donja desna">131</td>
+    <td colspan="2" class="nema donja donja">&nbsp;</td>
+  </tr>
+  <tr >
+    <td class="donja desna left">VISOKO</td>
+    <!--22-->
+    <td  class="donja desna left" style="padding-left:5px;">Centar</td>
+    <td class="IKZ d3" style="padding-left:5px;">106</td>
+    <td class="donja"><img src="google_map/images/c.png" /></td>
+    <td class="donja desna">75</td>
+    <td colspan="2" class="nema donja desna">&nbsp;</td>
+    <td colspan="2" class="nema donja desna">&nbsp;</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">5</td>
+    <td class="donja"><img src="google_map/images/d.png" /></td>
+    <td class="donja desna">106</td>
+    <td colspan="2" class="nema donja desna">&nbsp;</td>
+  </tr>
+  <tr >
+    <td rowspan="2" class="desna left donja">KAKANJ</td>
+    <!--5-->
+    <td  class="desna  left donja">Doboj</td>
+    <td class="IKZ c2" style="padding-left:5px;">78</td>
+    <td class="donja"><img src="google_map/images/c.png" /></td>
+    <td class="donja desna">78</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">26</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">8</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">4</td>
+    <td class="donja"><img src="google_map/images/c.png" /></td>
+    <td class="donja desna">74</td>
+    <td colspan="2" class="nema donja desna">&nbsp;</td>
+  </tr>
+  
+  <tr >
+    <td  class="desna  left donja">Centar</td>
+    <td class="IKZ e4" style="padding-left:5px;">198</td>
+    <td class="donja"><img src="google_map/images/e.png" /></td>
+    <td class="donja desna">198</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">29</td>
+    <td colspan="2" class="nema donja">&nbsp;</td>
+    <td colspan="2" class="nema donja">&nbsp;</td>
+    <td class="donja"><img src="google_map/images/d.png" /></td>
+    <td class="donja desna">118</td>
+    <td colspan="2" class="nema donja desna">&nbsp;</td>
+  </tr>
+  <tr >
+    <td class="desna left donja">VAREŠ</td>
+    <td class="desna  left donja">Centar</td>
+    <td class="IKZ a0" style="padding-left:5px;">*</td>
+    <td colspan="2" class="nema donja">&nbsp;</td>
+    <td colspan="2" class="nema donja">&nbsp;</td>
+    <td colspan="2" class="nema donja">&nbsp;</td>
+    <td colspan="2" class="nema donja">&nbsp;</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+  </tr>
+  <tr >
+    <td rowspan="5" class="desna left donja">ZENICA</td>
+    <td class="desna left donja" style="padding-left:5px;">Brist</td>
+    <td class="IKZ c2" style="padding-left:5px;">79</td>
+    <!--7-->
+    <td class="donja"><img src="google_map/images/c.png" /></td>
+    <td class="donja desna">79</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">4</td>
+    <td class="donja"><img src="google_map/images/c.png" /></td>
+    <td class="donja desna">71</td>
+    <td colspan="2" class="nema donja">&nbsp;</td>
+  </tr>
+  <tr >
+    <td class="desna left donja" style="padding-left:5px;">Tetovo</td>
+    <td class="IKZ e4" style="padding-left:5px;">163</td>
+    <!--10-->
+    <td class="donja"><img src="google_map/images/d.png" /></td>
+    <td class="donja desna">104</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">25</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">27</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">4</td>
+    <td class="donja"><img src="google_map/images/c.png" /></td>
+    <td class="donja desna">95</td>
+    <td class="donja"><img src="google_map/images/e.png" /></td>
+    <td class="donja desna">163</td>
+  </tr>
+  <tr  >
+    <td  class="donja desna">Centar</td>
+    <td class="IKZ c2" style="padding-left:5px;">72</td>
+    <!--8-->
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">10</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">19</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">16</td>
+    <td class="donja"><img src="google_map/images/c.png" /></td>
+    <td class="donja desna">72</td>
+    <td colspan="2" class="nema donja">&nbsp;</td>
+  </tr>
+  <tr >
+    <td class="donja desna left">Radakovo</td>
+    <td class="IKZ d3" style="padding-left:5px;">118</td>
+    <!--9-->
+    <td class="donja"><img src="google_map/images/c.png" /></td>
+    <td class="donja desna">78</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">14</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">7</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">6</td>
+    <td class="donja"><img src="google_map/images/d.png" /></td>
+    <td class="donja desna">118</td>
+    <td colspan="2" class="nema donja">&nbsp;</td>
+  </tr>
+  <tr >
+    <td class="donja desna left">Vranduk</td>
+    <td class="IKZ d3" style="padding-left:5px;">125</td>
+    <!--21-->  
+    <td class="donja"><img src="google_map/images/d.png" /></td>
+    <td class="donja desna">125</td>
+    <td colspan="2" class="nema donja desna">&nbsp;</td>
+    <td colspan="2" class="nema donja desna">&nbsp;</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">2</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+  </tr>
+  <tr >
+    <td class="donja desna left">MAGLAJ</td>
+    <!--19-->
+    <td class="donja desna left">Maglaj</td>
+    <td class="IKZ c2" style="padding-left:5px;">65</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">37</td>
+    <td colspan="2" class="nema donja desna">&nbsp;</td>
+    <td colspan="2" class="nema donja desna">&nbsp;</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+    <td class="donja"><img src="google_map/images/c.png" /></td>
+    <td class="donja desna">65</td>
+    <td colspan="2" class="nema donja desna">&nbsp;</td>
+  </tr>
+  <tr >
+    <td class="donja desna left">TEŠANJ</td>
+    <td class="donja desna left">Vatrogasni dom</td>
+    <td class="IKZ d3" style="padding-left:5px;">116</td>
+    <!--xx-->
+    <td class="donja"><img src="google_map/images/d.png" /></td>
+    <td class="donja desna">116</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">2</td>
+    <td class="donja"><img src="google_map/images/d.png" /></td>
+    <td class="donja desna">107</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+  </tr>
+  <tr >
+    <td class="donja desna left">TRAVNIK</td>
+    <td class="donja desna left">Centar</td>
+    <td class="IKZ d3" style="padding-left:5px;">111</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">47</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">10</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">10</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">9</td>
+    <td class="donja"><img src="google_map/images/c.png" /></td>
+    <td class="donja desna">55</td>
+    <td class="donja"><img src="google_map/images/c.png" /></td>
+    <td class="donja desna">111</td>
+  </tr>
+  <tr >
+    <td class="donja desna left">JAJCE</td>
+    <td class="donja desna left">Harmani</td>
+    <td class="IKZ b1" style="padding-left:5px;">19</td>
+    <!--12-->
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">11</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">5</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">19</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">16</td>
+    <td colspan="2" class="nema donja desna">&nbsp;</td>
+  </tr>
+  <tr >
+    <td class="donja desna left"> GORAŽDE</td>
+    <td class="donja desna left">Rasadnik</td>
+    <td class="IKZ a0" style="padding-left:5px;">*</td>
+    <!--18-->
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">* </td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+  </tr>
+  <tr >
+    <td class="donja desna left">BIHAĆ</td>
+    <td class="donja desna left">Nova četvrt</td>
+    <td class="IKZ e4" style="padding-left:5px;">167</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">1</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">7</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">32</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">7</td>
+    <td class="donja"><img src="google_map/images/d.png" /></td>
+    <td class="donja desna">103</td>
+    <td class="donja"><img src="google_map/images/e.png" /></td>
+    <td class="donja desna">167</td>
+  </tr>
+  <tr >
+    <td class="donja desna left">LIVNO</td>
+    <td class="donja desna left">Centar</td>
+    <td class="IKZ d3" style="padding-left:5px;">111</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">3</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">11</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">10</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">13</td>
+    <td class="donja"><img src="google_map/images/c.png" /></td>
+    <td class="donja desna">58</td>
+    <td class="donja"><img src="google_map/images/c.png" /></td>
+    <td class="donja desna">111</td>
+  </tr>
+  <tr >
+    <td class="donja desna left">MOSTAR</td>
+    <td class="donja desna left">Bijeli Brijeg</td>
+    <td class="IKZ b1" style="padding-left:5px;">44</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">2</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">2</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">1</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">44</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">10</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">25</td>
+  </tr>
+  <tr >
+    <td rowspan="4"  class="donja desna left">TUZLA</td>
+    <td class="donja desna left">Trnovac</td>
+    <td class="IKZ c2" style="padding-left:5px;">78</td>
+    <td class="nema donja">&nbsp;</td>
+    <td class="nema donja desna">&nbsp;</td>
+    <td class="nema donja">&nbsp;</td>
+    <td class="nema donja desna">&nbsp;</td>
+    <td class="nema donja">&nbsp;</td>
+    <td class="nema donja desna">&nbsp;</td>
+    <td class="nema donja">&nbsp;</td>
+    <td class="nema donja desna">&nbsp;</td>
+    <td class="donja"><img src="google_map/images/c.png" /></td>
+    <td class="donja desna">78</td>
+    <td class="nema donja">&nbsp;</td>
+    <td class="nema donja desna">&nbsp;</td>
+  </tr>
+  <tr >
+    <td class="donja desna left">Skver</td>
+    <td class="IKZ d3" style="padding-left:5px;">103</td>
+    <!--13-->
+    <td class="donja"><img src="google_map/images/d.png" /></td>
+    <td class="donja desna">103</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">37</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">1</td>
+    <td class="nema donja">&nbsp;</td>
+    <td class="nema donja desna">&nbsp;</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+  </tr>
+  <tr >
+    <td class="donja desna left">Bukinje</td>
+    <td class="IKZ b1" style="padding-left:5px;">21</td>
+    <!--14-->
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">21</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">13</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">17</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">3</td>
+    <td class="nema donja">&nbsp;</td>
+    <td class="nema donja desna">&nbsp;</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+  </tr>
+  <tr >
+    <td class="donja desna left">BKC</td>
+    <td class="IKZ b1" style="padding-left:5px;">40</td>
+    <!--15-->
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">30</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">40</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+    <td class="nema donja">&nbsp;</td>
+    <td class="nema donja desna">&nbsp;</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+  </tr>
+  <tr >
+    <td class="donja desna left">LUKAVAC</td>
+    <!--17-->
+    <td class="donja desna left">Centar</td>
+    <td class="IKZ b1" style="padding-left:5px;">26</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">23</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">22</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">26</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+    <td class="nema donja">&nbsp;</td>
+    <td class="nema donja desna">&nbsp;</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+  </tr>
+  <tr >
+    <td class="donja desna left">ŽIVINICE</td>
+    <!--17-->
+    <td class="donja desna left">Centar</td>
+    <td class="IKZ b1" style="padding-left:5px;">47</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">47</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">14</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+    <td class="donja"><img src="google_map/images/b.png" /></td>
+    <td class="donja desna">1</td>
+    <td class="nema donja">&nbsp;</td>
+    <td class="nema donja desna">&nbsp;</td>
+    <td class="donja"><img src="google_map/images/a.png" /></td>
+    <td class="donja desna">*</td>
+  </tr>
+</table> 
+<table width="100%" border="0" cellspacing="0">
+  		 <tr>
+    		<td colspan="2" width="50%" class="legrise">nema mjerenja</td>    								  
+    		<td colspan="2" width="50%" class="legrise">&nbsp;</td>
+  		 </tr>
+  		 <tr>
+    		<td width="25%" class="leverte"><a href="AQI-efekti.php#indexb" id="link1">dobar</a></td>
+    		<td width="25%" class="leverte"><a href="AQI-efekti.php#indexb" id="link1">0 - 50</a></td>
+   								    
+            <td width="25%" class="lejaune"><a href="AQI-efekti.php#indexc" id="link1">umjeren</a></td>
+    		<td width="25%" class="lejaune"><a href="AQI-efekti.php#indexc" id="link1">51 - 100</a></td>
+  		 </tr>
+  		 <tr>
+    		<td class="leorange"><a href="AQI-efekti.php#indexd" id="link1">nezdrav za osjetljive grupe</a></td>
+    		<td class="leorange"><a href="AQI-efekti.php#indexd" id="link1">101 - 150</a></td>
+    		<td class="lerouge"><a href="AQI-efekti.php#indexe" id="link1">nezdrav</a></td>
+    		<td class="lerouge"><a href="AQI-efekti.php#indexe" id="link1">151 - 200</a></td>
+  		 </tr>
+  		 <tr>
+   		   <td class="leviolet"><a href="AQI-efekti.php#indexf" id="link2">veoma nezdrav</a></td>
+    		<td class="leviolet"><a href="AQI-efekti.php#indexf" id="link2">201 - 300</a></td>
+    		<td class="bordeaux"><a href="AQI-efekti.php#indexg" id="link2">opasan</a></td>
+    		<td class="bordeaux"><a href="AQI-efekti.php#indexg" id="link2">301 - 500</a></td>
+  		</tr>
+</table>
+</td>
+                            	<td valign="top"><style type="text/css">
+<!--
+.donja {border-bottom:thin dotted #666666;}
+
+.nema { background-color: #F8F8F8;}
+.table {box-shadow: 2px 2px 8px #888888;}
+.desna {border-right:thin dotted #666666;}
+.left {padding-left:5px;}
+.zuta{ background:rgba(255,204,0,0.4); 		color: #000;   text-shadow: 2px 2px 4px #999;}
+.pink{ background:rgba(255,183,183,0.5); 	color: #000;   text-shadow: 2px 2px 4px #999;}
+.orange{ background:rgba(255,102,0,0.5);	color: #000;   text-shadow: 2px 2px 4px #999;}
+.red{ background:rgba(153,0,0,0.4); 		color: #000;   text-shadow: 2px 2px 4px #999;}
+.pm25{ background-image:url(../images/PM25.png) repeat left top}
+-->
+<!-- index css-->
+table {border-collapse:collapse;text-align:center; vertical-align:middle;}
+table, td, th {border:1px solid lightgrey;text-align:center; vertical-align:middle;}
+#a	{background:#ccc; border:thick;}
+#b	{background:#00CC00;border:thick;}
+#c 	{background:#FFCC00;border:thick;}
+#d	{background:#FF9900;border:thick;}
+#e	{background:#FF0000;color:#FFFFFF}
+#f	{background:#9966CC;color:#FFFFFF}
+#g	{background:#990000;color:#FFFFFF}
+
+
+</style>
+
+
+
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr >
+    <td colspan="11" class="donja desna">Prosječne satne vrijednosti polutanata (μg/m<sup>3</sup>)</td>
+  </tr>
+  <tr >
+    <td colspan="2" class="donja desna">LOKACIJA</td>
+    <td width="10%" class="donja desna">SO<sub>2</sub></td>
+    <td width="10%" class="donja desna">H<sub>2</sub>S</td>
+    <td width="10%" class="donja desna">NO<sub>2</sub></td>
+    <td width="10%" class="donja desna">NO<sub>x</sub></td>
+    <td width="10%" class="donja desna">NO</td>
+    <td width="10%" class="donja desna">CO</td>
+    <td width="10%" class="donja desna">O<sub>3</sub></td>
+    <td width="10%" class="donja desna">PM<sub>10</sub></td>
+    <td width="10%"class="donja ">PM<sub>2.5</sub></td>
+  </tr>
+<tr >
+    <td width="5%" rowspan="8"  class="desna left">SARAJEVO</td>
+    <td width="10%" class="donja desna left">Ambasada SAD</td>
+    <td colspan="9" ><a href="https://airnow.gov/index.cfm?action=airnow.global_summary#Bosnia_and_Herzegovina$Sarajevo" target="_blank">Ambasada SAD</a></td>
+  </tr>
+<tr >
+  <td class="donja desna left">Vogošća</td>
+    <td >15</td>
+    <td class="nema"></td>
+    <td >43</td>
+    <td>66</td>
+    <td>22</td>
+    <td class="nema"></td>
+    <td class="nema"></td>
+    <td class="donja desna">95</td>
+    <td >87</td>
+</tr>  
+  <tr >
+    <td width="10%" class="desna">Bjelave</td><!--1-->
+    <td >24</td>
+    <td class="nema">&nbsp;</td>
+    <td >72</td>
+    <td>106</td>
+    <td>34</td>
+    <td>944</td>
+    <td>55</td>
+    <td>98</td>
+    <td>91</td>
+  </tr>
+  <tr >
+    <td class="donja desna left">IvanSedlo</td><!--6-->
+    <td >5</td>
+    <td class="nema">&nbsp;</td>
+    <td >7</td>
+    <td>10</td>
+    <td>2</td>
+    <td class="nema"></td>
+    <td>83</td>
+    <td class="desna">23</td>
+    <td class="nema">&nbsp;</td>
+  </tr>
+  <tr  >
+    <td class="donja desna left"> 	Vijećnica</td><!--3-->
+    <td >	22</td>
+    <td class="nema">&nbsp;   		  	</td>
+    <td >	62</td>
+    <td>							96</td>
+    <td>							34</td>
+    <td>							#</td>
+    <td>							#</td>
+    <td class="donja desna">		65</td>
+    <td class="nema">&nbsp;				</td>
+  </tr>
+  <tr >
+    <td class="donja desna left">Otoka</td><!--2-->
+    <td >22</td>
+    <td class="nema">&nbsp;</td>
+    <td >56</td>
+    <td>83</td>
+    <td>27</td>
+    <td class="nema"></td>
+    <td>#</td>
+    <td class="donja desna">70</td>
+    <td class="nema">&nbsp;</td>
+  </tr>
+  <tr  >
+    <td class="donja desna left">Ilidža</td><!--4-->
+    <td >11</td>
+    <td >4</td>
+    <td >39</td>
+    <td>35</td>
+    <td>17</td>
+    <td>#</td>
+    <td></td>
+    <td class="donja desna">63</td>
+    <td >59</td>
+  </tr>
+   <tr  >
+    <td class="donja desna left">Hadžići</td>
+    <!--4-->
+    <td >19</td>
+    <td class="nema">&nbsp;</td>
+    <td >24</td>
+    <td>35</td>
+    <td>#</td>
+    <td>#</td>
+    <td>#</td>
+    <td class="donja desna">#</td>
+    <td class="nema">&nbsp;</td>
+  </tr>
+ <tr >
+    <td class="donja desna left">ILIJAŠ</td><!--19-->
+    <td class="donja desna left">Ilijaš</td>
+    <td ></td>
+    <td class="nema">&nbsp;</td>
+    <td ></td>
+ <!---------------------------------------------------------------------->    
+    <td></td>
+    <td></td>
+    <td class="nema"></td>
+    <td></td>
+    <td class="donja desna"></td>
+    <td class="nema">&nbsp;</td>
+  </tr>
+  
+  <tr >
+    <td class="desna  left">VISOKO</td><!--22-->
+    <td  style="padding-left:5px;">Centar</td>
+    <td >	161</td>
+    <td class="zuta">	41</td>
+    <td class="nema">&nbsp;					</td>
+    <td class="nema">&nbsp;					</td>
+    <td class="nema">&nbsp;					</td>
+    <td class="nema">&nbsp;					</td>
+    <td>								21</td>
+    <td class=" desna">					139</td>
+    <td class="nema">&nbsp;					</td>
+  </tr>
+
+  <tr >
+    <td rowspan="2" class="desna left">KAKANJ</td><!--5-->
+    <td  class="desna  left">Doboj</td>
+    <td >166</td>
+    <td rowspan="2" class="nema">&nbsp;</td>
+    <td >52</td>
+    <td>113</td>
+    <td>48</td>
+    <td>904</td>
+    <td>15</td>
+    <td class=" desna">100</td>
+    <td class="nema">&nbsp;</td>
+  </tr>
+  <tr >
+    <td  class="desna  left">Centar</td>
+    <td class="red">793</td>
+    <td >57</td>
+    <td>127</td>
+    <td>69</td>
+    <td class=" nema">&nbsp;</td>
+    <td class=" nema">&nbsp;</td>
+    <td class=" desna">142</td>
+    <td class="nema">&nbsp;</td>
+  </tr>
+  <tr >
+    <td class="desna left">Vareš</td>
+    <td  class="desna  left">&nbsp;</td>
+    <td class="nema">&nbsp;</td>
+    <td class="nema">&nbsp;</td>
+    <td class="nema">&nbsp;</td>
+    <td class="nema">&nbsp;</td>
+    <td class="nema">&nbsp;</td>
+    <td class="nema">&nbsp;</td>
+    <td class="nema">&nbsp;</td>
+    <td class="desna"></td>
+    <td class="nema"></td>
+  </tr>
+  
+  <tr >
+    <td rowspan="5" class="desna  left">ZENICA</td>
+    <td  style="padding-left:5px;">Brist</td><!--7-->
+    <td >168</td>
+    <td class="nema">&nbsp;</td>
+    <td >#</td>
+    <td>2</td>
+    <td>2</td>
+    <td class="nema"></td>
+    <td>33</td>
+    <td class=" desna">62</td>
+    <td class="nema">&nbsp;</td>
+  </tr>
+  <tr >
+    <td  style="padding-left:5px;">Tetovo</td><!--10-->
+    <td >222</td>
+    <td class="nema">&nbsp;</td>
+    <td >51</td>
+    <td >66</td>
+    <td >19</td>
+    <td >2737</td>
+    <td >21</td>
+    <td class=" desna">89</td>
+    <td >83</td>
+  </tr>
+  <tr  >
+    <td  class=" desna">Centar</td><!--8-->
+    <td >25</td>
+    <td class="nema">&nbsp;</td>
+    <td >#</td>
+    <td >4</td>
+    <td >5</td>
+    <td >1665</td>
+    <td >60</td>
+    <td class=" desna">78</td>
+    <td class="nema">&nbsp;</td>
+  </tr>
+  <tr >
+    <td  style="padding-left:5px;">Radakovo</td><!--9-->
+    <td >166</td>
+    <td class="nema">&nbsp;</td>
+    <td >29</td>
+    <td >40</td>
+    <td >11</td>
+    <td >644</td>
+    <td >44</td>
+    <td class=" desna">88</td>
+    <td class="nema">&nbsp;</td>
+  </tr>
+  <tr >
+    <td  style="padding-left:5px;">Vranduk</td><!--21-->
+    <td ></td>
+    <td class="nema">&nbsp;</td>
+    <td class="nema">&nbsp;</td>
+    <td class="nema">&nbsp;</td>
+    <td class="nema">&nbsp;</td>
+    <td class="nema">&nbsp;</td>
+    <td></td>
+    <td class=" desna"></td>
+    <td class=" desna"></td>
+  </tr>
+  <tr >
+    <td class="donja desna left">MAGLAJ</td><!--19-->
+    <td class="donja desna left">Maglaj</td>
+    <td >94</td>
+    <td >3</td>
+    <td class="nema"></td>
+    <td class="nema"></td>
+    <td class="nema"></td>
+    <td class="nema"></td>
+    <td>#</td>
+    <!---------------------------------------------------------------------->    
+    <td class="donja desna">76</td>
+    <td class="nema">&nbsp;</td>
+  </tr>
+  <tr >
+    <td class="donja desna left">TEŠANJ</td>
+    <td class="donja desna left">Vatrogasni dom</td>
+    <td >295</td>
+    <td class="nema">&nbsp;</td>
+    <td >#</td>
+    <td >10</td>
+    <td >59</td>
+    <td class="nema"></td>
+    <td>11</td>
+    <td>126</td>
+    <td>#</td>
+  </tr>
+  <tr >
+    <td class="donja desna left">TRAVNIK</td>
+    <td class="donja desna left">Centar</td>
+    <td >116</td>
+    <td class="nema">&nbsp;</td>
+    <td >20</td>
+    <td class="nema">&nbsp;</td>
+    <td class="nema">&nbsp;</td>
+    <td >699</td>
+    <td>69</td>
+    <td>62</td>
+    <td>57</td>
+  </tr>  
+<tr >
+    <td>JAJCE</td>
+    <td>Harmani</td><!--12-->
+    <td >28</td>
+    <td class="nema">&nbsp;</td>
+    <td >10</td>
+    <td>20</td>
+    <td>10</td>
+    <td class="nema" ></td>
+    <td>118</td>
+    <td class=" desna">62</td>
+    <td class="nema">&nbsp;</td>
+</tr>
+  
+  <tr >
+    <td class=" desna left">			GORAŽDE</td><!--18-->
+    <td class=" desna">					Rasadnik</td>
+    <td >	</td>
+    <td class="nema">&nbsp;</td>
+    <td >	</td>
+    <td>								</td>
+    <td>								</td>
+    <td>								</td>
+    <td ></td>
+    <td>								</td>
+    <td class=" desna">					</td>
+  </tr>  
+<tr >
+  <td   class="desna">BIHAĆ</td>
+  <td >Nova četvrt</td>
+  <td >3</td>
+  <td class="nema">&nbsp;</td>
+  <td >14</td>
+  <td>23</td>
+  <td>10</td>
+  <td>1670</td>
+  <td >46</td>
+  <td>52</td>
+  <td class="desna">47</td>
+</tr>
+<tr >
+  <td   class="desna">LIVNO</td>
+  <td >Centar</td>
+  <td  >8</td>
+  <td  class="nema">&nbsp;</td>
+  <td  >22</td>
+  <td  >32</td>
+  <td >10</td>
+  <td >402</td>
+  <td  >83</td>
+  <td >33</td>
+  <td  class="desna">28</td>
+</tr>
+<tr >
+  <td   class="desna">MOSTAR</td>
+  <td >Bijeli Brijeg</td>
+  <td  >6</td>
+  <td  class="nema">&nbsp;</td>
+  <td  >4</td>
+  <td  >5</td>
+  <td >4</td>
+  <td >107</td>
+  <td  >126</td>
+  <td >8</td>
+  <td  class="desna">5</td>
+</tr>
+    
+   
+<tr >
+     
+    <td rowspan="4"  class="desna">TUZLA</td>
+    <td >Trnovac</td><!--13-->
+	    <td class="nema">&nbsp;</td>
+    <td class="nema">&nbsp;</td>
+    <td class="nema">&nbsp;</td>
+    <td class="nema">&nbsp;</td> 
+    <td class="nema">&nbsp;</td>
+    <td class="nema">&nbsp;</td>
+    <td class="nema">&nbsp;</td>
+    <td class="desna">134</td>
+    <td class="nema">&nbsp;</td> 
+  </tr>
+<tr >
+  <td >Skver</td>
+  <td>105</td>
+  <td class="nema">&nbsp;</td>
+  <td>58</td>
+  <td class="nema">&nbsp;</td>
+  <td class="nema">&nbsp;</td>
+  <td>#</td>
+  <td>13</td>
+  <td class="nema desna">&nbsp;</td>
+  <td>50</td>
+</tr>
+<tr >
+    <td >Bukinje</td><!--14-->
+	    <td>293</td>
+    <td class="nema">&nbsp;</td>
+    <td>30</td>
+    <td class="nema">&nbsp;</td>
+    <td class="nema">&nbsp;</td>
+    <td>1132</td>
+    <td>35</td>
+    <td class="nema desna">&nbsp;</td>
+    <td>#</td> 
+  </tr>
+<tr >
+    <td >BKC</td><!--15-->
+	    <td>16</td>
+    <td class="nema">&nbsp;</td>
+    <td>53</td>
+    <td class="nema">&nbsp;</td>
+    <td class="nema">&nbsp;</td>
+    <td>#</td>
+    <td>#</td>
+    <td class="nema desna">&nbsp;</td>
+    <td>30</td> 
+  </tr>
+<tr >
+    <td   class="desna">LUKAVAC</td>
+    <!--17-->
+    <td >Centar</td>
+	    <td>529</td>
+    <td class="nema">&nbsp;</td>
+    <td>47</td>
+    <td class="nema">&nbsp;</td>
+    <td class="nema">&nbsp;</td>
+    <td>1137</td>
+    <td>#</td>
+    <td class="nema desna">&nbsp;</td>
+    <td>22</td> 
+  </tr>
+<tr >
+    <td   class="desna">ŽIVINICE</td>
+    <!--16-->
+    <td >Centar</td>
+	    <td>112</td>
+    <td class="nema">&nbsp;</td>
+    <td>32</td>
+    <td class="nema">&nbsp;</td>
+    <td class="nema">&nbsp;</td>
+    <td>#</td>
+    <td>21</td>
+    <td class="nema desna">&nbsp;</td>
+    <td>#</td> 
+  </tr>
+
+  <tr>
+    <td colspan="11" bgcolor="#D3E2F8">
+    <hr />
+    <table width="100%" border="0" cellpadding="1" cellspacing="2">
+      <tbody>
+        <tr  align="left">
+          <td width="20%"colspan="2"  class="zuta"> granična vrijednost</td>
+          <td width="20%"colspan="2"  class="orange">prag upozorenja</td>
+          <td width="20%"colspan="2"  class="red">prag uzbune</td>
+          <td width="10%"rowspan="5"  class="nema">ne mjeri se</td>
+          <td width="10%"rowspan="5" >nema podataka<br />#</td>
+          </tr>
+        <tr  align="left">
+          <td width="5%" class="zuta">SO<sub>2</sub></td>
+          <td width="15%" class="zuta">350</td>
+          <td width="5%"  class="orange">SO<sub>2</sub></td>
+          <td width="15%" class="orange">365</td>
+          <td width="5%"  class="red">SO<sub >2</sub></td>
+          <td width="15%"  class="red">500</td>
+        </tr>
+        <tr  align="left">
+          <td class="zuta">NO<sub>2</sub></td>
+          <td class="zuta">200</td>
+          <td class="orange">NO<sub>2</sub></td>
+          <td class="orange">210</td>
+          <td width="5%" class="red">NO<sub>2</sub></td>
+          <td width="15%" class="red">400</td>
+        </tr>
+        <tr  align="left">
+          <td class="zuta">O3</td>
+          <td class="zuta">&nbsp;</td>
+          <td class="orange">O3</td>
+          <td class="orange">180</td>
+          <td width="5%" class="red">O3</td>
+          <td width="15%" class="red">240</td>
+        </tr>
+        <tr  align="left">
+          <td class="zuta">H<sub>2</sub>S</td>
+          <td class="zuta">7</td>
+          <td class="orange">H<sub>2</sub>S</td>
+          <td class="orange">-</td>
+          <td width="20%" class="red">H<sub>2</sub>S</td>
+          <td width="10%" class="red">-</td>
+        </tr>
+      </tbody>
+    </table>
+	<hr />
+    <strong >Podaci se automatski objavljuju sa mjernih mjesta i nisu kontrolirani i validirani </strong></td>
+  </tr>
+</table>
+
+<div></div>
+</td>
+                            </tr>
+                        </table>
+               		</div>
+            	<!--</div>-->
+            <!---------->    
+                <div class="clearer"></div>
+                <div class="spacer"></div>
+            <!--tabela-->    
+<!--                <div class="column-1-2">
+              		<div class="box-content"></div>  
+            	</div>
+-->            <!---------->    
+            </div>
+        </div>
+<!----------------------------------------------------------------------------------------->			       
+        	<div class="column-1-3"style="height:800px">
+        		<div class="white-box" >
+                
+
+               <div class="box-title">&nbsp;KVALITET ZRAKA</div>
+        	   <div style="height:350px">
+
+            <ul class="categories">
+              	<li><a href="/latinica/ZRAK/saopcenje.php">Saopćenje za javnost</a></li> 
+              	<li><a href="/latinica/ZRAK/AQI-satne.php">Index i satne vrijednosti</a></li>
+                <li><a href="/latinica/ZRAK/value24h.php">Prosječne dnevne vrijednosti polutanata</a></li>
+                <li><a href="/latinica/ZRAK/AQI-efekti.php">Mogući efekti na zdravlje i preporuke</a></li>
+                <li><a href="/latinica/ZRAK/AQI-metodologija.php">Metodologija izrade indeksa kvaliteta zraka</a></li>
+              	<li><a href="/latinica/ZRAK/regulativa.php">Zakonska regulativa</a></li>
+              	<li><a href="/latinica/ZRAK/izvjestaji.php">Izvještaji</a></li>
+              	<!--<li><a href="/latinica/ZRAK/dust.php">Prognoza prašine</a></li>-->
+           	</ul>
+</div>
+               
+        		</div>
+      		</div>
+      <div class="clearer"></div>
+      <div class="spacer"></div>
+      <div class="spacer"></div>
+              
+      <!--/end .column-1-3 --></div>        
+      
+      
+      <div class="clearer"></div>
+      <div class="spacer"></div>
+ 	  <div id="footer"></div>
+  </div>
+</div>
+      </div>  
+
+</body>
+</html>
