@@ -65,6 +65,7 @@ class WeatherAirTest < Minitest::Test
   end
 
   def test_stations_pollutants_aqi_data_no_us_embassy_data_at_fhmzbih
+    # skip
     stub_request(:get, "https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php").
       to_return(status: 200, body: File.read('test/fixtures/fhmzbih.html'), headers: {})
 
@@ -79,6 +80,7 @@ class WeatherAirTest < Minitest::Test
   end
 
   def test_stations_pollutants_aqi_data
+    # skip
     stub_request(:get, "https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php").
       to_return(status: 200, body: File.read('test/fixtures/fhmzbih_us_embassy.html'), headers: {})
           
@@ -86,7 +88,98 @@ class WeatherAirTest < Minitest::Test
     assert_equal(@stations_pollutants, data)
   end
 
+  # calculate_total_aqi
+  def test_no_data
+    # skip 
+    pollutants = { so2: nil, no2: nil, co: nil, o3: nil, pm10: nil, pm2_5: nil }
+    assert_nil(@script.send(:calculate_total_aqi, pollutants))
+  end
+
+  def test_total_AQI_calculation_in_category_moderate
+    # skip
+    pollutants = { so2: 10, no2: 20, co: 30, o3: 40, pm10: 50, pm2_5: 60 }
+    assert_equal(60, @script.send(:calculate_total_aqi, pollutants))
+  end 
+
+  def test_total_AQI_calculation_in_category_unhealthy
+    # skip
+    pollutants = { so2: 10, no2: 20, co: 30, o3: 190, pm10: 150, pm2_5: 180 }
+    assert_equal(240, @script.send(:calculate_total_aqi, pollutants))
+  end
+
+  def test_total_AQI_calculation_in_category_very_unhealthy
+    # skip
+    pollutants = { so2: 10, no2: 20, co: 270, o3: 190, pm10: 250, pm2_5: 240 }
+    assert_equal(370, @script.send(:calculate_total_aqi, pollutants))
+  end 
+
+  def test_total_AQI_calculation_in_category_very_hazardous
+    # skip
+    pollutants = { so2: 10, no2: 20, co: 470, o3: 190, pm10: 450, pm2_5: 440 }
+    assert_equal(500, @script.send(:calculate_total_aqi, pollutants))
+  end
+
+  def test_total_AQI_calculation_with_one_pollutant_in_category_very_hazardous
+    # skip
+    pollutants = { so2: 10, no2: 60, co: 120, o3: 190, pm10: 250, pm2_5: 380 }
+    assert_equal(430, @script.send(:calculate_total_aqi, pollutants))
+  end
+  
+  def test_total_AQI_calculation_for_US_embassy
+    # skip
+    pollutants = { pm2_5: 380 }
+    assert_equal(380, @script.send(:calculate_total_aqi, pollutants))
+  end
+
+  # add_aqi_descriptor
+  def test_adding_AQI_descriptor_no_value
+    # skip
+    pollutants = { so2: nil, no2: nil, co: nil, o3: nil, pm10: nil, pm2_5: nil, aqi: nil }
+    expected = { :so2 => { value: nil, class: '' },
+                 :no2 => { value: nil, class: '' }, 
+                 :co => { value: nil, class: '' },
+                 :o3 => { value: nil, class: '' },
+                 :pm10 => { value: nil, class: '' },
+                 :pm2_5 => { value: nil, class: '' },
+                 :aqi => { value: nil, class: '' } }
+    assert_equal(expected, @script.send(:add_aqi_descriptor, pollutants))
+  end
+
+  def test_adding_AQI_descriptor
+    # skip
+    pollutants = { so2: 10, no2: 60, co: 120, o3: 190, pm10: 250, pm2_5: 380, aqi: 430 }
+    expected = { :so2 => { value: 10, class: 'good' },
+                 :no2 => { value: 60, class: 'moderate' }, 
+                 :co => { value: 120, class: 'unhealthy_for_sensitive_groups' },
+                 :o3 => { value: 190, class: 'unhealthy' },
+                 :pm10 => { value: 250, class: 'very_unhealthy' },
+                 :pm2_5 => { value: 380, class: 'hazardous' },
+                 :aqi => { value: 430, class: 'hazardous' } }
+    assert_equal(expected, @script.send(:add_aqi_descriptor, pollutants))
+  end
+
+  def test_getting_citys_pollutants_aqi_no_values
+    # skip
+    stations_pollutants = { "vijecnica" => { :so2 => nil, :no2 => nil, :co => nil, :o3 => nil, :pm10 => nil, :pm2_5 => nil, :pm => nil, :aqi => nil },
+                            "bjelave" => { :so2 => nil, :no2 => nil, :co => nil, :o3 => nil, :pm10 => nil, :pm2_5 => nil, :pm => nil, :aqi => nil },
+                            "embassy" => { :so2 => nil, :no2 => nil, :co => nil, :o3 => nil, :pm10 => nil, :pm2_5 => nil, :pm => nil, :aqi => nil },
+                            "otoka" => { :so2 => nil, :no2 => nil, :co => nil, :o3 => nil, :pm10 => nil, :pm2_5 => nil, :pm => nil, :aqi => nil },
+                            "ilidza" => { :so2 => nil, :no2 => nil, :co => nil, :o3 => nil, :pm10 => nil, :pm2_5 => nil, :pm => nil, :aqi => nil} }
+
+    expected = { :so2 => { :value => nil, :class => "" },
+                 :no2 => { :value => nil, :class => "" },
+                 :co => { :value => nil, :class => "" },
+                 :o3 => { :value => nil, :class => "" },
+                 :pm10 => { :value => nil, :class => "" },
+                 :pm2_5 => { :value => nil, :class => "" },
+                 :pm => { :value => nil, :class => "" },
+                 :aqi => { :value => nil, :class => "" } }
+
+    assert_equal(expected, @script.send(:city_pollutants_aqi, stations_pollutants))
+  end
+
   def test_city_pollutants_aqi
+    # skip
     data = @script.city_pollutants_aqi(@stations_pollutants)
     expected = {:so2=>{:value=>10, :class=>"good"},
                 :no2=>{:value=>36, :class=>"good"},
@@ -105,7 +198,7 @@ class WeatherAirTest < Minitest::Test
                   "                        <b>Everyone else</b>: Reduce long or intense activities. Take\n" +
                   "                        more breaks during outdoor activities.",
                   :who=>"Everyone"}}
-                  
+
     assert_equal(expected, data)
   end
 
