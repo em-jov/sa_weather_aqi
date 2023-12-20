@@ -1,6 +1,8 @@
 en:
-  test: This is a test
+  last_update: Last update
   who: Who Needs to be Concerned?
+  what_to_do: What Should I Do?
+  aqi: AQI
   current_weather:
     feels_like: Feels like
     humidity: Humidity
@@ -8,13 +10,23 @@ en:
     wind: Wind
     sunrise: Sunrise
     sunset: Sunset
-  moderate:  
+  weather_forecast: Weather forecast 
+  data_provided_by: Data provided by
+  fhmz: Federal Hydro-Meteorological Institute
+  latest_aqi_data_ms: Latest air quality data by monitoring stations
+  good:
+    name: good 
+    who: "x"
+    advisory: "It’s a great day to be active outside." 
+  moderate:
+    name: moderate  
     who: "Some people who may be unusually sensitive to particle pollution." 
     advisory: "<b>Unusually sensitive people</b>: Consider making outdoor activities shorter and less intense.
               Watch for symptoms such as coughing or shortness of breath. These are signs to take it easier. 
               <br><br> 
               <b>Everyone else</b>: It’s a good day to be active outside."
   unhealthy_for_sensitive_groups:
+    name: unhealthy for sensitive groups
     who: "Sensitive groups include <b>people with heart or lung disease, older
           adults, children and teenagers, minority populations, and outdoor workers.</b>" 
     advisory: "<b>Sensitive groups</b>: Make outdoor activities shorter and less
@@ -29,7 +41,8 @@ en:
                 palpitations, shortness of breath, or unusual fatigue may
                 indicate a serious problem. If you have any of these,
                 contact your health care provider."
-  unhealthy: 
+  unhealthy:
+    name: unhealthy 
     who: "Everyone" 
     advisory: "<b>Sensitive groups</b>: Avoid long or intense outdoor activities.
                 Consider rescheduling or moving activities indoors.
@@ -37,6 +50,7 @@ en:
                 <b>Everyone else</b>: Reduce long or intense activities. Take
                 more breaks during outdoor activities."
   very_unhealthy:
+    name: very unhealthy  
     who: "Everyone" 
     advisory: "<b>Sensitive groups</b>: Avoid all physical activity outdoors.
                 Reschedule to a time when air quality is better or move
@@ -44,9 +58,52 @@ en:
                 <br><br>
                 <b>Everyone else</b>: Avoid long or intense activities. Consider
                 rescheduling or moving activities indoors."
-  hazardous:  
+  hazardous: 
+    name: hazardous  
     who: "Everyone" 
     advisory: "<b>Everyone</b>: Avoid all physical activity outdoors.
               <br><br>
               <b>Sensitive groups</b>: Remain indoors and keep activity levels
               low. Follow tips for keeping particle levels low indoors."
+  no_cookies: This website does not use cookies.
+  date:
+    abbr_day_names:
+    - Sun
+    - Mon
+    - Tue
+    - Wed
+    - Thu
+    - Fri
+    - Sat
+    day_names:
+    - Sunday
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
+    month_names:
+    - 
+    - January
+    - February
+    - March
+    - April
+    - May
+    - June
+    - July
+    - August
+    - September
+    - October
+    - November
+    - December
+    order:
+    - :year
+    - :month
+    - :day
+  time:
+    am: am
+    formats:
+      default: "%A (%B %d, %Y) %I:%M %P"
+      short: "%a %d.%m."
+    pm: pm  

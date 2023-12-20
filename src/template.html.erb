@@ -9,7 +9,7 @@
   <body>
     <header>
       <h1>Sarajevo</h1>
-      <p>Last update on <%= last_update %></p>
+      <p><%= I18n.t(:last_update) %>: <%= last_update %></p>
       <% if I18n.locale == :bs %>
         bs / <a href="en/index.html">en</a>
       <% else %>
@@ -29,7 +29,7 @@
             <span><%= I18n.t('current_weather.humidity') %>: <%= current_weather[:humidity] %>%</span>
           </p>
           <p class="flex">
-            <span class="rain">Rain: <%= current_weather[:rain] %>mm</span>
+            <span class="rain"><%= I18n.t('current_weather.rain') %>: <%= current_weather[:rain] %>mm</span>
             <span><%= I18n.t('current_weather.wind') %>: <%= current_weather[:wind] %>km/h</span>
           </p>
           <p class="flex">
@@ -40,13 +40,13 @@
       </div>
 
       <div id="air" class="section">
-        <h2 class="<%= city_pollutants[:aqi][:class] %>">AQI: <%= city_pollutants[:aqi][:class].gsub('_', ' ') %> (<%= city_pollutants[:aqi][:value] %>)  </h2>
-        <% if city_pollutants[:aqi][:who] != "" %>
+        <h2 class="<%= city_pollutants[:aqi][:class] %>"><%= I18n.t(:aqi) %>: <%= I18n.t("#{city_pollutants[:aqi][:class]}.name") %> (<%= city_pollutants[:aqi][:value] %>)  </h2>
+        <% if city_pollutants[:aqi][:who] != "x" %>
           <b><%= I18n.t(:who) %></b>
           <p><%= I18n.t("#{city_pollutants[:aqi][:class]}.who") %></p>
           <br>
         <% end %>
-        <b>What Should I Do?</b>
+        <b><%= I18n.t(:what_to_do) %></b>
         <p><%= I18n.t("#{city_pollutants[:aqi][:class]}.advisory") %></p>
         <br>
         <table class="centered-table">
@@ -70,7 +70,7 @@
       </div>
 
       <div id="stations-aqi" class="section">  
-        <h3> Latest AQI by monitoring stations</h3>
+        <h3><%= I18n.t(:latest_aqi_data_ms) %></h3>
         <table class="centered-table">
           <tr>
             <th>Station</th>
@@ -98,11 +98,11 @@
           <% end %>
         </table>
         <br><br>
-        <small>Data provided by <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php">Federal Hydro-Meteorological Institute</a></small>
+        <small><%= I18n.t(:data_provided_by) %>  <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php"><%= I18n.t(:fhmz) %></a></small>
       </div>
 
       <div id="weather_forecast" class="section">
-        <h2> Weather forecast </h2>
+        <h2><%= I18n.t(:weather_forecast) %></h2>
         <% if weather_forecast.has_key?(:error) %>
           <p><%= weather_forecast[:error][I18n.locale] %></p>
         <% else %>  
@@ -132,7 +132,6 @@
               <td>
                 <img src="https://openweathermap.org/img/wn/<%= value[:icon] %>.png" title="<%= value[:description] %>"/><br>
                 <span class="temp"><%= value[:temp] %>°C</span><br>
-                <span class="<%= value[:aqi_class] %>"><%if value[:aqi_class] %> AQI: <% end %> <%= value[:aqi_class] %> </span><br>
                 <% if value[:rain] != 0 %>
                 <sub><span class="rain"><%= value[:rain] %>mm</span></sub>
                 <% else %>
@@ -144,12 +143,12 @@
             <% first = false %>
             <% end %>
           </table>
-          <br><small>Data provided by <a href="https://openweathermap.org/city/3191281">OpenWeather</a></small>
+          <br><small><%= I18n.t(:data_provided_by) %>  <a href="https://openweathermap.org/city/3191281">OpenWeather</a></small>
         <% end %>
       </div>
     </main>
     <footer>
-        <small>This website does not use cookies.</small>
+        <small><%= I18n.t(:no_cookies) %></small>
     </footer>
   </body>
 </html>

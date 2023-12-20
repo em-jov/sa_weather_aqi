@@ -1,52 +1,101 @@
 bs:
-  test: "Ovo je test"
-  who: "Koga briga?"
+  last_update: Zadnje ažuriranje
+  who: Ko se treba zabrinuti?
+  what_to_do: Šta treba uraditi?
+  aqi: IKZ
   current_weather:
-    feels_like: "Čini se kao"
-    humidity: "Vlažnost"
-    rain: "Kiša"
-    wind: "Vjetar"
-    sunrise: "Izlazak sunca"
-    sunset: "Zalazak sunca"
-  moderate:  
-    who: "Some people who may be unusually sensitive to particle pollution." 
-    advisory: "<b>Unusually sensitive people</b>: Consider making outdoor activities shorter and less intense.
-              Watch for symptoms such as coughing or shortness of breath. These are signs to take it easier. 
+    feels_like: Feels like
+    humidity: Relativna vlažnost zraka
+    rain: Količina padavina
+    wind: Brzina vjetra	
+    sunrise: Izlazak sunca
+    sunset: Zalazak sunca
+  weather_forecast: Vremenska prognoza
+  data_provided_by: Podaci preuzeti od
+  fhmz: Federalnog hidrometeorološkog zavoda
+  latest_aqi_data_ms: Najnoviji podaci o kvaliteti zraka po mjernim stanicama
+  good:
+    name: dobar 
+    who: "x"
+    advisory: Dan je odličan za aktivnosti napolju.
+  moderate:
+    name: umjeren  
+    who: Izuzetno osjetljive osobe
+    advisory: "<b>Izuzetno osjetljive osobe</b>: Razmotrite reduciranje dužih ili napornih aktivnosti osobito u blizini frekventnih saobraćajnica. 
               <br><br> 
-              <b>Everyone else</b>: It’s a good day to be active outside."
+              <b>Ostali</b>: Dan je odličan za aktivnosti na otvorenom."
   unhealthy_for_sensitive_groups:
-    who: "Sensitive groups include <b>people with heart or lung disease, older
-          adults, children and teenagers, minority populations, and outdoor workers.</b>" 
-    advisory: "<b>Sensitive groups</b>: Make outdoor activities shorter and less
-                intense. It’s OK to be active outdoors, but take more
-                breaks. Watch for symptoms such as coughing or
-                shortness of breath.
+    name: nezdrav za osjetljive grupe
+    who: "Osjetljive grupe stanovništva uključuju <b>plućne bolesnike (poput astme), djecu, starije osobe, 
+          osobe nižeg socijalnoekonomskog statusa, osobe aktivne na otvorenom (uključujući radnike na otvorenom).</b>" 
+    advisory: "<b>Osjetljive grupe stanovništva</b>: Reducirajte duže ili naporne aktivnosti na otvorenom. 
+                U redu je biti aktivan na otvorenom, ali pravite više pauza. Pripazite na simptome poput kašlja ili
+                otežanog disanja.
                 <br><br> 
-                <b>People with asthma</b>: Follow your asthma action plan and
-                keep quick relief medicine handy.
+                <b>Osobe sa astmom</b>: Slijedite svoj akcijski plan za astmu i
+                držite pri ruci lijek za ublažavanje simptoma astme.
                 <br><br> 
-                <b>People with heart disease</b>: Symptoms such as
-                palpitations, shortness of breath, or unusual fatigue may
-                indicate a serious problem. If you have any of these,
-                contact your health care provider."
-  unhealthy: 
+                <b>Osobe sa srčanim bolestima</b>: Simptomi kao što su
+                palpitacije (preskakanje srca), otežano disanje ili neobičan umor mogu
+                ukazivati na ozbiljan problem. Ako iskusite nešto od navedenog,
+                obratite se svom liječniku."
+  unhealthy:
+    name: nezdrav 
     who: "Svako" 
-    advisory: "<b>Sensitive groups</b>: Avoid long or intense outdoor activities.
-                Consider rescheduling or moving activities indoors.
+    advisory: "<b>Osjetljive grupe stanovništva</b>: Izbjegavajte duže ili napornije aktivnosti na otvorenom.
+                Razmotrite prolongiranje istih ili budite aktivni u zatvorenom prostoru.
                 <br><br>
-                <b>Everyone else</b>: Reduce long or intense activities. Take
-                more breaks during outdoor activities."
+                <b>Ostali</b>: Smanjite duže ili napornije aktivnosti. Pravite
+                više pauza tijekom aktivnosti na otvorenom."
   very_unhealthy:
+    name: vrlo nezdrav 
     who: "Svako" 
-    advisory: "<b>Sensitive groups</b>: Avoid all physical activity outdoors.
-                Reschedule to a time when air quality is better or move
-                activities indoors.
+    advisory: "<b>Osjetljive grupe stanovništva</b>: Izbjegavajte sve fizičke aktivnosti na otvorenom.
                 <br><br>
-                <b>Everyone else</b>: Avoid long or intense activities. Consider
-                rescheduling or moving activities indoors."
-  hazardous:  
+                <b>Ostali</b>: Izbjegavajte duže ili napornije aktivnosti.
+                Razmotrite prolongiranje istih ili budite aktivni u zatvorenom prostoru."
+  hazardous:
+    name: opasan  
     who: "Svako" 
-    advisory: "<b>Everyone</b>: Avoid all physical activity outdoors.
+    advisory: "<b>Svako</b>: Izbjegavajte sve fizičke aktivnosti na otvorenom.
               <br><br>
-              <b>Sensitive groups</b>: Remain indoors and keep activity levels
-              low. Follow tips for keeping particle levels low indoors."
+              <b>Osjetljive grupe stanovništva</b>: Ostanite kod kuće i smanjite sve fizičke aktivnosti.
+              Slijedite savjete za održavanje niske razine čestica zagađivača u zatvorenom prostoru."
+  no_cookies: Ova web stranica ne koristi kolačiće.
+  date:
+    abbr_day_names:
+    - ned
+    - pon
+    - uto
+    - sri
+    - čet
+    - pet
+    - sub
+    day_names:
+    - nedjelja
+    - ponedjeljak
+    - utorak
+    - srijeda
+    - četvrtak
+    - petak
+    - subota
+    month_names:
+    - 
+    - januar
+    - februar
+    - mart
+    - april
+    - maj
+    - juni
+    - juli
+    - august
+    - septembar
+    - oktobar
+    - novembar
+    - decembar
+  time:
+    am: am
+    formats:
+      default: "%A (%d. %B %Y.) u %H:%Mh"
+      short: "%a %d.%m."
+    pm: pm  
