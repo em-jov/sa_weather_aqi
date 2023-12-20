@@ -1,5 +1,6 @@
 require './src/weather_air'
 require 'dotenv/load'
 
-result = WeatherAir.run
-File.write('index.html', result)
+(bosnian, english) = WeatherAir.run
+File.write('index.html', bosnian)
+File.write('en/index.html', english)

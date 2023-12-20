@@ -10,35 +10,44 @@
     <header>
       <h1>Sarajevo</h1>
       <p>Last update on <%= last_update %></p>
+      <% if I18n.locale == :bs %>
+        bs / <a href="en/index.html">en</a>
+      <% else %>
+        <a href="../index.html">bs</a> / en
+      <% end %>
     </header>
     <main class="container">
       <div id="weather" class="section">
-        <h1><%= current_weather[:currenttemp] %>°C</h1>
-        <img src="https://openweathermap.org/img/wn/<%= current_weather[:icon] %>@2x.png" />
-        <p id="weather_description"><%= current_weather[:description] %></p>
-        <p class="flex">
-          <span class="temp">Feels like: <%= current_weather[:feelslike] %>°C</span>
-          <span>Humidity: <%= current_weather[:humidity] %>%</span>
-        </p>
-        <p class="flex">
-          <span class="rain">Rain: <%= current_weather[:rain] %>mm</span>
-          <span>Wind: <%= current_weather[:wind] %>km/h</span>
-        </p>
-        <p class="flex">
-          <span>Sunrise: <%= current_weather[:sunrise] %></span>
-          <span>Sunset: <%= current_weather[:sunset] %></span>
-        </p>
+        <% if current_weather.has_key?(:error) %>
+          <p><%= current_weather[:error][I18n.locale] %></p>
+        <% else %> 
+          <h1><%= current_weather[:currenttemp] %>°C</h1>
+          <img src="https://openweathermap.org/img/wn/<%= current_weather[:icon] %>@2x.png" />
+          <p id="weather_description"><%= current_weather[:description] %></p>
+          <p class="flex">
+            <span class="temp"><%= I18n.t('current_weather.feels_like') %>: <%= current_weather[:feelslike] %>°C</span>
+            <span><%= I18n.t('current_weather.humidity') %>: <%= current_weather[:humidity] %>%</span>
+          </p>
+          <p class="flex">
+            <span class="rain">Rain: <%= current_weather[:rain] %>mm</span>
+            <span><%= I18n.t('current_weather.wind') %>: <%= current_weather[:wind] %>km/h</span>
+          </p>
+          <p class="flex">
+            <span><%= I18n.t('current_weather.sunrise') %>: <%= current_weather[:sunrise] %></span>
+            <span><%= I18n.t('current_weather.sunset') %>: <%= current_weather[:sunset] %></span>
+          </p>
+        <% end %>
       </div>
 
       <div id="air" class="section">
         <h2 class="<%= city_pollutants[:aqi][:class] %>">AQI: <%= city_pollutants[:aqi][:class].gsub('_', ' ') %> (<%= city_pollutants[:aqi][:value] %>)  </h2>
         <% if city_pollutants[:aqi][:who] != "" %>
-          <b>Who Needs to be Concerned?</b>
-          <p><%= city_pollutants[:aqi][:who] %></p>
+          <b><%= I18n.t(:who) %></b>
+          <p><%= I18n.t("#{city_pollutants[:aqi][:class]}.who") %></p>
           <br>
         <% end %>
         <b>What Should I Do?</b>
-        <p><%= city_pollutants[:aqi][:advisory] %></p>
+        <p><%= I18n.t("#{city_pollutants[:aqi][:class]}.advisory") %></p>
         <br>
         <table class="centered-table">
           <tr>
@@ -93,48 +102,51 @@
       </div>
 
       <div id="weather_forecast" class="section">
-        <h2> Weather forecast </h2>  
-        <table class="centered-table">
-          <tr>
-            <th></th>
-            <th>01<sup>h</sup></th>
-            <th>04<sup>h</sup></th>
-            <th>07<sup>h</sup></th>
-            <th>10<sup>h</sup></th>
-            <th>13<sup>h</sup></th>
-            <th>16<sup>h</sup></th>
-            <th>19<sup>h</sup></th>
-            <th>22<sup>h</sup></th>
-          </tr>
-          <% first = true %>
-          <% weather_forecast.each do |day, values| %>
-          <tr>
-            <td><%= day %></td>
-            <% if first == true %>
-              <% to_skip = 8 - values.length %>
-              <% if to_skip > 0 %>
-                <td colspan="<%= to_skip %>"></td>
+        <h2> Weather forecast </h2>
+        <% if weather_forecast.has_key?(:error) %>
+          <p><%= weather_forecast[:error] %></p>
+        <% else %>  
+          <table class="centered-table">
+            <tr>
+              <th></th>
+              <th>01<sup>h</sup></th>
+              <th>04<sup>h</sup></th>
+              <th>07<sup>h</sup></th>
+              <th>10<sup>h</sup></th>
+              <th>13<sup>h</sup></th>
+              <th>16<sup>h</sup></th>
+              <th>19<sup>h</sup></th>
+              <th>22<sup>h</sup></th>
+            </tr>
+            <% first = true %>
+            <% weather_forecast.each do |day, values| %>
+            <tr>
+              <td><%= day %></td>
+              <% if first == true %>
+                <% to_skip = 8 - values.length %>
+                <% if to_skip > 0 %>
+                  <td colspan="<%= to_skip %>"></td>
+                <% end %>
               <% end %>
-            <% end %>
-            <% values.each do |value| %>
-            <td>
-              <img src="https://openweathermap.org/img/wn/<%= value[:icon] %>.png" title="<%= value[:description] %>"/><br>
-              <span class="temp"><%= value[:temp] %>°C</span><br>
-              <span class="<%= value[:aqi_class] %>"><%if value[:aqi_class] %> AQI: <% end %> <%= value[:aqi_class] %> </span><br>
-              <% if value[:rain] != 0 %>
-              <sub><span class="rain"><%= value[:rain] %>mm</span></sub>
-              <% else %>
-              <sub>&nbsp</sub>
+              <% values.each do |value| %>
+              <td>
+                <img src="https://openweathermap.org/img/wn/<%= value[:icon] %>.png" title="<%= value[:description] %>"/><br>
+                <span class="temp"><%= value[:temp] %>°C</span><br>
+                <span class="<%= value[:aqi_class] %>"><%if value[:aqi_class] %> AQI: <% end %> <%= value[:aqi_class] %> </span><br>
+                <% if value[:rain] != 0 %>
+                <sub><span class="rain"><%= value[:rain] %>mm</span></sub>
+                <% else %>
+                <sub>&nbsp</sub>
+                <% end %>
+              </td>
               <% end %>
-            </td>
+            </tr>
+            <% first = false %>
             <% end %>
-          </tr>
-           <% first = false %>
-          <% end %>
-        </table>
-        <br><small>Data provided by <a href="https://openweathermap.org/city/3191281">OpenWeather</a></small>
+          </table>
+          <br><small>Data provided by <a href="https://openweathermap.org/city/3191281">OpenWeather</a></small>
+        <% end %>
       </div>
-
     </main>
     <footer>
         <small>This website does not use cookies.</small>

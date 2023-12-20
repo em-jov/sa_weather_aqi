@@ -1,0 +1,52 @@
+bs:
+  test: "Ovo je test"
+  who: "Koga briga?"
+  current_weather:
+    feels_like: "Čini se kao"
+    humidity: "Vlažnost"
+    rain: "Kiša"
+    wind: "Vjetar"
+    sunrise: "Izlazak sunca"
+    sunset: "Zalazak sunca"
+  moderate:  
+    who: "Some people who may be unusually sensitive to particle pollution." 
+    advisory: "<b>Unusually sensitive people</b>: Consider making outdoor activities shorter and less intense.
+              Watch for symptoms such as coughing or shortness of breath. These are signs to take it easier. 
+              <br><br> 
+              <b>Everyone else</b>: It’s a good day to be active outside."
+  unhealthy_for_sensitive_groups:
+    who: "Sensitive groups include <b>people with heart or lung disease, older
+          adults, children and teenagers, minority populations, and outdoor workers.</b>" 
+    advisory: "<b>Sensitive groups</b>: Make outdoor activities shorter and less
+                intense. It’s OK to be active outdoors, but take more
+                breaks. Watch for symptoms such as coughing or
+                shortness of breath.
+                <br><br> 
+                <b>People with asthma</b>: Follow your asthma action plan and
+                keep quick relief medicine handy.
+                <br><br> 
+                <b>People with heart disease</b>: Symptoms such as
+                palpitations, shortness of breath, or unusual fatigue may
+                indicate a serious problem. If you have any of these,
+                contact your health care provider."
+  unhealthy: 
+    who: "Svako" 
+    advisory: "<b>Sensitive groups</b>: Avoid long or intense outdoor activities.
+                Consider rescheduling or moving activities indoors.
+                <br><br>
+                <b>Everyone else</b>: Reduce long or intense activities. Take
+                more breaks during outdoor activities."
+  very_unhealthy:
+    who: "Svako" 
+    advisory: "<b>Sensitive groups</b>: Avoid all physical activity outdoors.
+                Reschedule to a time when air quality is better or move
+                activities indoors.
+                <br><br>
+                <b>Everyone else</b>: Avoid long or intense activities. Consider
+                rescheduling or moving activities indoors."
+  hazardous:  
+    who: "Svako" 
+    advisory: "<b>Everyone</b>: Avoid all physical activity outdoors.
+              <br><br>
+              <b>Sensitive groups</b>: Remain indoors and keep activity levels
+              low. Follow tips for keeping particle levels low indoors."

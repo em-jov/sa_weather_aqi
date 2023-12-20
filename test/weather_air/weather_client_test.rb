@@ -7,18 +7,18 @@ class WeatherClientTest < Minitest::Test
 
   def test_current_weather_data
     response = '{ "coord": {"lon": 18.3867, "lat": 43.852},
-              "weather": [{"id": 741, "main": "Fog", "description": "fog", "icon": "50n"}],
-              "base": "stations",
-              "main": {"temp": -3.12, "feels_like": -3.12, "temp_min": -3.12, "temp_max": -3.12, "pressure": 1023, "humidity": 100},
-              "visibility": 100,
-              "wind": {"speed": 0.51, "deg": 0},
-              "clouds": {"all": 75},
-              "dt": 1703017565,
-              "sys": {"type": 1, "id": 6906, "country": "BA", "sunrise": 1702966568, "sunset": 1702998632},
-              "timezone": 3600,
-              "id": 3268175,
-              "name": "Hrasno",
-              "cod": 200}'
+                  "weather": [{"id": 741, "main": "Fog", "description": "fog", "icon": "50n"}],
+                  "base": "stations",
+                  "main": {"temp": -3.12, "feels_like": -3.12, "temp_min": -3.12, "temp_max": -3.12, "pressure": 1023, "humidity": 100},
+                  "visibility": 100,
+                  "wind": {"speed": 0.51, "deg": 0},
+                  "clouds": {"all": 75},
+                  "dt": 1703017565,
+                  "sys": {"type": 1, "id": 6906, "country": "BA", "sunrise": 1702966568, "sunset": 1702998632},
+                  "timezone": 3600,
+                  "id": 3268175,
+                  "name": "Hrasno",
+                  "cod": 200}'
     stub_request(:get, "https://api.openweathermap.org/data/2.5/weather?appid=#{ENV['API_KEY']}&lat=43.8519774&lon=18.3866868&units=metric").
       with(headers: { 'Content-Type'=>'application/json' }).
       to_return(status: 200, body: response, headers: { 'Content-Type'=>'application/json' })
@@ -34,7 +34,7 @@ class WeatherClientTest < Minitest::Test
       to_return(status: 404, body: "", headers: { 'Content-Type'=>'application/json' })
 
     sarajevo_current_weather = @client.current_weather_data
-    expected = { error: "No current weather data available!" }
+    expected = { error: { en: 'Error: No current weather data available!', bs: 'Greška: Nedostupni podaci o trenutnom vremenu!' } }
     assert_equal(expected, sarajevo_current_weather)
   end
 
@@ -99,7 +99,7 @@ class WeatherClientTest < Minitest::Test
       to_return(status: 403, body: "", headers: { 'Content-Type'=>'application/json' })
 
     sarajevo_weather_forecast = @client.weather_forecast_data
-    expected = { error: 'No weather forecast data available!' }
+    expected = { error: 'Error: No weather forecast data available!', bs: 'Greška: Nedostupni podaci o vremenskoj prognozi!' }
     assert_equal(expected, sarajevo_weather_forecast)
   end
 

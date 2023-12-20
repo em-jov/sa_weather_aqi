@@ -4,9 +4,11 @@ require 'aws-sdk-cloudfront'
 require 'time'
 
 def lambda_handler(event:, context:)
-  result = WeatherAir.run
+  (bosnian, english) = WeatherAir.run
   s3_object = Aws::S3::Object.new(ENV['BUCKET'], 'index.html')
-  s3_object.put( { body: result, content_type: 'text/html' } )
+  s3_object.put( { body: bosnian, content_type: 'text/html' } )
+  s3_object = Aws::S3::Object.new(ENV['BUCKET'], 'en/index.html')
+  s3_object.put( { body: english, content_type: 'text/html' } )
   cloudfront_client = Aws::CloudFront::Client.new
   cloudfront_client.create_invalidation({
     distribution_id: ENV['CLOUDFRONT_DISTRIBUTION'],
