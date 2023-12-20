@@ -1,13 +1,21 @@
-class WeatherClient
-  # Sarajevo coordinates
+module WeatherAir
+  class WeatherClient
+    # Sarajevo coordinates
   LAT = 43.8519774
   LON = 18.3866868
 
-  def initialize(conn = nil)
-    @conn = conn || Faraday.new(url: 'https://api.openweathermap.org/data/2.5/',
-                                params: { lat: LAT, lon: LON, appid: ENV['API_KEY'] },
-                                 headers: { 'Content-Type' => 'application/json' }) do |f|
-                                f.response :json
+  class CustomErrors < Faraday::Middleware
+    def on_complete(env)
+      raise RuntimeError if env[:status].to_i != 200
+    end
+  end
+
+  def initialize
+    @conn = Faraday.new(url: 'https://api.openweathermap.org/data/2.5/',
+                        params: { lat: LAT, lon: LON, appid: ENV['API_KEY'] },
+                          headers: { 'Content-Type' => 'application/json' }) do |f|
+                        f.response :json
+                        f.use CustomErrors
                     end
   end
 
@@ -24,8 +32,8 @@ class WeatherClient
       wind: data.dig('wind', 'speed'),
       sunrise: utc_to_datetime(data.dig('sys', 'sunrise')),
       sunset: utc_to_datetime(data.dig('sys','sunset')) }
-  #  rescue StandardError => e
-  #  { error: 'No current weader data available!'}
+  rescue StandardError => e
+    { error: 'No current weather data available!'}
   end
 
   def weather_forecast_data 
@@ -44,9 +52,12 @@ class WeatherClient
         dates[key] = [interval]
       end
     end
+  rescue StandardError => e
+    { error: 'No weather forecast data available!' }
   end
 
   def utc_to_datetime(seconds)
     Time.at(seconds.to_i).to_datetime.strftime('%H:%M')
   end 
+end
 end

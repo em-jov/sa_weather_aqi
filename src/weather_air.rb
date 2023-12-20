@@ -4,20 +4,20 @@ require 'faraday'
 require 'nokogiri'
 require 'open-uri'
 require 'time'
-Dir['./src/modules/*.rb'].each { |file| require file }
+Dir['./src/weather_air/*.rb'].each { |file| require file }
 
-class WeatherAir
-  include Aqi
- # include Weather
+module WeatherAir
 
-  def run
+  class << self
+    def run
     # weather
-    weather = WeatherClient.new
+    weather = WeatherAir::WeatherClient.new
     current_weather = weather.current_weather_data
     weather_forecast = weather.weather_forecast_data
     # air quality index
-    stations_pollutants_aqi = stations_pollutants_aqi_data
-    city_pollutants = city_pollutants_aqi(stations_pollutants_aqi)
+    aqi = WeatherAir::AirQualityIndex.new
+    stations_pollutants_aqi = aqi.stations_pollutants_aqi_data
+    city_pollutants = aqi.city_pollutants_aqi(stations_pollutants_aqi)
   
     style = File.read("src/style.css")
     template = ERB.new(File.read('src/template.html.erb'))
@@ -27,4 +27,5 @@ class WeatherAir
   def last_update 
     Time.now.getlocal('+01:00').to_datetime.strftime('%A (%B %d, %Y) %I:%M %P (%Z)')
   end
+end
 end

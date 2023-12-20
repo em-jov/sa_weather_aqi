@@ -1,5 +1,5 @@
 require './src/weather_air'
 require 'dotenv/load'
 
-result = WeatherAir.new.run
+result = WeatherAir.run
 File.write('index.html', result)

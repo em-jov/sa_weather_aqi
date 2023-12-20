@@ -1,8 +1,8 @@
 require_relative '../test_helper'
 
-class WeatherAirTest < Minitest::Test
+class AirQualityIndexTest < Minitest::Test
   def setup 
-    @script = WeatherAir.new
+    @script = WeatherAir::AirQualityIndex.new
     @stations_pollutants = { "vijecnica" => {:so2=>{:value=>9, :class=>"good"},
                                              :no2=>{:value=>31, :class=>"good"},
                                              :co=>{:value=>nil, :class=>""},

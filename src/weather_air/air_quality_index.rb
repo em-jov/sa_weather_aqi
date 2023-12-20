@@ -1,4 +1,5 @@
-module Aqi
+module WeatherAir
+  class AirQualityIndex
   # AQI range descriptors
   AQI = { good: { value: 0..50, 
                   who: "", 
@@ -212,4 +213,5 @@ module Aqi
 
     pm2_5
   end
+end
 end
