@@ -34,7 +34,8 @@ class WeatherClientTest < Minitest::Test
       to_return(status: 404, body: "", headers: { 'Content-Type'=>'application/json' })
 
     sarajevo_current_weather = @client.current_weather_data
-    expected = { error: { en: 'Error: No current weather data available!', bs: 'Greška: Nedostupni podaci o trenutnom vremenu!' } }
+    expected = { error: { en: 'Error: No current weather data available!', 
+                          bs: 'Greška: Nedostupni podaci o trenutnom vremenu!' } }
     assert_equal(expected, sarajevo_current_weather)
   end
 
@@ -99,7 +100,8 @@ class WeatherClientTest < Minitest::Test
       to_return(status: 403, body: "", headers: { 'Content-Type'=>'application/json' })
 
     sarajevo_weather_forecast = @client.weather_forecast_data
-    expected = { error: 'Error: No weather forecast data available!', bs: 'Greška: Nedostupni podaci o vremenskoj prognozi!' }
+    expected = { error: { en: 'Error: No weather forecast data available!', 
+                          bs: 'Greška: Nedostupni podaci o vremenskoj prognozi!' } }
     assert_equal(expected, sarajevo_weather_forecast)
   end
 

@@ -104,7 +104,7 @@
       <div id="weather_forecast" class="section">
         <h2> Weather forecast </h2>
         <% if weather_forecast.has_key?(:error) %>
-          <p><%= weather_forecast[:error] %></p>
+          <p><%= weather_forecast[:error][I18n.locale] %></p>
         <% else %>  
           <table class="centered-table">
             <tr>

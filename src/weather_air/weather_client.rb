@@ -11,12 +11,13 @@ module WeatherAir
     end
 
     def initialize
-      @conn = Faraday.new(url: 'https://api.openweathermap.org/data/2.5/',
-                          params: { lat: LAT, lon: LON, appid: ENV['API_KEY'] },
-                          headers: { 'Content-Type' => 'application/json' }) do |f|
-                          f.response :json
-                          f.use CustomErrors
-                      end
+      @conn = Faraday.new(
+        url: 'https://api.openweathermap.org/data/2.5/',
+        params: { lat: LAT, lon: LON, appid: ENV['API_KEY'] },
+        headers: { 'Content-Type' => 'application/json' }) do |f|
+        f.response :json
+        f.use CustomErrors
+      end
     end
 
     def current_weather_data
@@ -33,7 +34,8 @@ module WeatherAir
         sunrise: utc_to_datetime(data.dig('sys', 'sunrise')),
         sunset: utc_to_datetime(data.dig('sys','sunset')) }
     rescue StandardError => e
-      { error: { en: 'Error: No current weather data available!', bs: 'Greška: Nedostupni podaci o trenutnom vremenu!' } }
+      { error: { en: 'Error: No current weather data available!', 
+                 bs: 'Greška: Nedostupni podaci o trenutnom vremenu!' } }
     end
 
     def weather_forecast_data 
@@ -53,7 +55,8 @@ module WeatherAir
         end
       end
     rescue StandardError => e
-      { error: 'Error: No weather forecast data available!', bs: 'Greška: Nedostupni podaci o vremenskoj prognozi!' }
+      { error: { en: 'Error: No weather forecast data available!', 
+                 bs: 'Greška: Nedostupni podaci o vremenskoj prognozi!' } }
     end
 
     def utc_to_datetime(seconds)
