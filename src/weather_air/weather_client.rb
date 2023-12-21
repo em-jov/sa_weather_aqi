@@ -39,7 +39,7 @@ module WeatherAir
         sunrise: utc_to_datetime(data.dig('sys', 'sunrise')),
         sunset: utc_to_datetime(data.dig('sys','sunset')) }
 
-    rescue StandardError => e
+    rescue StandardError => _e
       { error: { en: 'Error: No current weather data available!', 
                  bs: 'Greška: Nedostupni podaci o trenutnom vremenu!' } }
     end
@@ -66,7 +66,7 @@ module WeatherAir
         end
       end
       
-    rescue StandardError => e
+    rescue StandardError => _e
       { error: { en: 'Error: No weather forecast data available!', 
                  bs: 'Greška: Nedostupni podaci o vremenskoj prognozi!' } }
     end

@@ -3,6 +3,7 @@ bs:
   who: Ko se treba zabrinuti?
   what_to_do: Šta treba uraditi?
   aqi: IKZ
+  station: Stanica
   current_weather:
     feels_like: Feels like
     humidity: Relativna vlažnost zraka
