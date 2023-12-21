@@ -26,7 +26,7 @@ class WeatherClientTest < Minitest::Test
       to_return(status: 200, body: response, headers: { 'Content-Type'=>'application/json' })
 
     sarajevo_current_weather = @client.current_weather_data
-    expected = {currenttemp: -3, feelslike: -3, humidity: 100, description: "fog", icon: "50n", rain: 0, wind: 0.51, sunrise: "07:16", sunset: "16:10"}
+    expected = {currenttemp: -3, feelslike: -3, humidity: 100, description: "fog", icon: "50n", rain: 0, wind: 0.51, :sunrise=>"07:16 am", :sunset=>"04:10 pm"}
     assert_equal(expected, sarajevo_current_weather)
   end
 
@@ -47,7 +47,7 @@ class WeatherClientTest < Minitest::Test
       to_return(status: 200, body: File.read('test/fixtures/weather_forecast_response.json'), headers: { 'Content-Type'=>'application/json' })
 
     sarajevo_weather_forecast = @client.weather_forecast_data
-    expected = { "Wed 20.12." =>
+    expected = { "Wednesday<br>20.12." =>
                    [ { :description => "scattered clouds", :icon => "03n", :temp=>-1, :rain=>0 },
                      { :description => "scattered clouds", :icon => "03n", :temp=>2, :rain=>0 },
                      { :description => "few clouds", :icon => "02n", :temp=>5, :rain=>0 },
@@ -56,7 +56,7 @@ class WeatherClientTest < Minitest::Test
                      { :description => "overcast clouds", :icon => "04d", :temp=>8, :rain=>0 },
                      { :description => "overcast clouds", :icon => "04n", :temp=>6, :rain=>0 },
                      { :description => "overcast clouds", :icon => "04n", :temp=>5, :rain=>0 } ],
-                  "Thu 21.12." =>
+                  "Thursday<br>21.12." =>
                    [ { :description => "overcast clouds", :icon => "04n", :temp=>4, :rain=>0 },
                      { :description => "overcast clouds", :icon => "04n", :temp=>4, :rain=>0 },
                      { :description => "overcast clouds", :icon => "04n", :temp=>3, :rain=>0 },
@@ -65,7 +65,7 @@ class WeatherClientTest < Minitest::Test
                      { :description => "few clouds", :icon => "02d", :temp=>6, :rain=>0 },
                      { :description => "scattered clouds", :icon => "03n", :temp=>4, :rain=>0 },
                      { :description => "overcast clouds", :icon => "04n", :temp=>5, :rain=>0 } ],
-                  "Fri 22.12." =>
+                  "Friday<br>22.12." =>
                    [ { :description => "overcast clouds", :icon => "04n", :temp=>5, :rain=>0 },
                      { :description => "overcast clouds", :icon => "04n", :temp=>5, :rain=>0 },
                      { :description => "broken clouds", :icon => "04n", :temp=>5, :rain=>0 },
@@ -74,7 +74,7 @@ class WeatherClientTest < Minitest::Test
                      { :description => "few clouds", :icon => "02d", :temp=>7, :rain=>0 },
                      { :description => "light rain", :icon => "10n", :temp=>6, :rain=>0.28 },
                      { :description => "light rain", :icon => "10n", :temp=>5, :rain=>0.12 } ],
-                  "Sat 23.12." =>
+                  "Saturday<br>23.12." =>
                    [ { :description => "broken clouds", :icon => "04n", :temp=>5, :rain=>0 },
                      { :description => "broken clouds", :icon => "04n", :temp=>5, :rain=>0 },
                      { :description => "broken clouds", :icon => "04n", :temp=>4, :rain=>0 },
@@ -83,7 +83,7 @@ class WeatherClientTest < Minitest::Test
                      { :description => "few clouds", :icon => "02d", :temp=>8, :rain=>0 },
                      { :description => "scattered clouds", :icon => "03n", :temp=>6, :rain=>0 },
                      { :description => "scattered clouds", :icon => "03n", :temp=>6, :rain=>0 } ],
-                  "Sun 24.12." =>
+                  "Sunday<br>24.12." =>
                    [ { :description => "scattered clouds", :icon => "03n", :temp=>5, :rain=>0 },
                      { :description => "broken clouds", :icon => "04n", :temp=>5, :rain=>0 },
                      { :description => "broken clouds", :icon => "04n", :temp=>5, :rain=>0 },

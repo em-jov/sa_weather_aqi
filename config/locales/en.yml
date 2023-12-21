@@ -1,20 +1,21 @@
 en:
   last_update: Last update
   who: Who Needs to be Concerned?
-  what_to_do: What Should I Do?
+  what_to_do: Health recommendations
   aqi: AQI
+  aqi_quality_index: Air quality index
   station: Station
-  current_weather:
-    feels_like: Feels like
-    humidity: Humidity
-    rain: Rain
-    wind: Wind
-    sunrise: Sunrise
-    sunset: Sunset
+  current_weather: Current weather
+  feels_like: Feels like
+  humidity: Humidity
+  rain: Rain
+  wind: Wind
+  sunrise: Sunrise
+  sunset: Sunset
   weather_forecast: Weather forecast 
   data_provided_by: Data provided by
   fhmz: Federal Hydro-Meteorological Institute
-  latest_aqi_data_ms: Latest air quality data by monitoring stations
+  latest_aqi_data_ms: "Air quality index <br> per monitoring stations"
   good:
     name: good 
     who: "x"
@@ -28,8 +29,8 @@ en:
               <b>Everyone else</b>: It’s a good day to be active outside."
   unhealthy_for_sensitive_groups:
     name: unhealthy for sensitive groups
-    who: "Sensitive groups include <b>people with heart or lung disease, older
-          adults, children and teenagers, minority populations, and outdoor workers.</b>" 
+    who: "Sensitive groups include people with heart or lung disease, older
+          adults, children and teenagers, minority populations, and outdoor workers." 
     advisory: "<b>Sensitive groups</b>: Make outdoor activities shorter and less
                 intense. It’s OK to be active outdoors, but take more
                 breaks. Watch for symptoms such as coughing or
@@ -45,27 +46,36 @@ en:
   unhealthy:
     name: unhealthy 
     who: "Everyone" 
-    advisory: "<b>Sensitive groups</b>: Avoid long or intense outdoor activities.
+    advisory: "<b>Sensitive groups*</b>: Avoid long or intense outdoor activities.
                 Consider rescheduling or moving activities indoors.
                 <br><br>
                 <b>Everyone else</b>: Reduce long or intense activities. Take
-                more breaks during outdoor activities."
+                more breaks during outdoor activities.
+                <br><br><br>
+                *Sensitive groups include people with heart or lung disease, older
+                adults, children and teenagers, minority populations and outdoor workers."
   very_unhealthy:
     name: very unhealthy  
     who: "Everyone" 
-    advisory: "<b>Sensitive groups</b>: Avoid all physical activity outdoors.
+    advisory: "<b>Sensitive groups*</b>: Avoid all physical activity outdoors.
                 Reschedule to a time when air quality is better or move
                 activities indoors.
                 <br><br>
                 <b>Everyone else</b>: Avoid long or intense activities. Consider
-                rescheduling or moving activities indoors."
+                rescheduling or moving activities indoors.
+                <br><br><br>
+                *Sensitive groups include people with heart or lung disease, older
+                adults, children and teenagers, minority populations and outdoor workers."
   hazardous: 
     name: hazardous  
     who: "Everyone" 
     advisory: "<b>Everyone</b>: Avoid all physical activity outdoors.
               <br><br>
-              <b>Sensitive groups</b>: Remain indoors and keep activity levels
-              low. Follow tips for keeping particle levels low indoors."
+              <b>Sensitive groups*</b>: Remain indoors and keep activity levels
+              low. Follow tips for keeping particle levels low indoors.
+              <br><br><br>
+              *Sensitive groups include people with heart or lung disease, older
+              adults, children and teenagers, minority populations and outdoor workers."
   no_cookies: This website does not use cookies.
   date:
     abbr_day_names:
@@ -102,6 +112,6 @@ en:
     am: am
     formats:
       default: "%A (%B %d, %Y) %I:%M %P"
-      short: "%a %d.%m."
-      hm: "%H:%M"
+      short: "%A<br>%d.%m."
+      hm: "%I:%M %P"
     pm: pm  

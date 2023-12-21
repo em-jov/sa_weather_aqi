@@ -1,20 +1,21 @@
 bs:
   last_update: Zadnje ažuriranje
   who: Ko se treba zabrinuti?
-  what_to_do: Šta treba uraditi?
+  what_to_do: Zdravstvene preporuke
   aqi: IKZ
+  aqi_quality_index: Indeks kvalitete zraka
   station: Stanica
-  current_weather:
-    feels_like: Feels like
-    humidity: Relativna vlažnost zraka
-    rain: Količina padavina
-    wind: Brzina vjetra	
-    sunrise: Izlazak sunca
-    sunset: Zalazak sunca
+  current_weather: Trenutno vrijeme
+  feels_like: Feels like
+  humidity: Relativna vlažnost zraka
+  rain: Količina padavina
+  wind: Brzina vjetra	
+  sunrise: Izlazak sunca
+  sunset: Zalazak sunca
   weather_forecast: Vremenska prognoza
   data_provided_by: Podaci preuzeti od
   fhmz: Federalnog hidrometeorološkog zavoda
-  latest_aqi_data_ms: Najnoviji podaci o kvaliteti zraka po mjernim stanicama
+  latest_aqi_data_ms: "Indeks kvalitete zraka <br> po mjernim stanicama"
   good:
     name: dobar 
     who: "x"
@@ -27,8 +28,8 @@ bs:
               <b>Ostali</b>: Dan je odličan za aktivnosti na otvorenom."
   unhealthy_for_sensitive_groups:
     name: nezdrav za osjetljive grupe
-    who: "Osjetljive grupe stanovništva uključuju <b>plućne bolesnike (poput astme), djecu, starije osobe, 
-          osobe nižeg socijalnoekonomskog statusa, osobe aktivne na otvorenom (uključujući radnike na otvorenom).</b>" 
+    who: "Osjetljive grupe stanovništva uključuju plućne bolesnike (poput astme), djecu, starije osobe, 
+          osobe nižeg socijalnoekonomskog statusa, osobe aktivne na otvorenom (uključujući radnike na otvorenom)." 
     advisory: "<b>Osjetljive grupe stanovništva</b>: Reducirajte duže ili naporne aktivnosti na otvorenom. 
                 U redu je biti aktivan na otvorenom, ali pravite više pauza. Pripazite na simptome poput kašlja ili
                 otežanog disanja.
@@ -43,25 +44,34 @@ bs:
   unhealthy:
     name: nezdrav 
     who: "Svako" 
-    advisory: "<b>Osjetljive grupe stanovništva</b>: Izbjegavajte duže ili napornije aktivnosti na otvorenom.
+    advisory: "<b>Osjetljive grupe stanovništva*</b>: Izbjegavajte duže ili napornije aktivnosti na otvorenom.
                 Razmotrite prolongiranje istih ili budite aktivni u zatvorenom prostoru.
                 <br><br>
                 <b>Ostali</b>: Smanjite duže ili napornije aktivnosti. Pravite
-                više pauza tijekom aktivnosti na otvorenom."
+                više pauza tijekom aktivnosti na otvorenom.
+                <br><br><br>
+                Osjetljive grupe stanovništva* uključuju plućne bolesnike (poput astme), djecu, starije osobe, 
+                osobe nižeg socijalnoekonomskog statusa, osobe aktivne na otvorenom (uključujući radnike na otvorenom)." 
   very_unhealthy:
     name: vrlo nezdrav 
     who: "Svako" 
-    advisory: "<b>Osjetljive grupe stanovništva</b>: Izbjegavajte sve fizičke aktivnosti na otvorenom.
+    advisory: "<b>Osjetljive grupe stanovništva*</b>: Izbjegavajte sve fizičke aktivnosti na otvorenom.
                 <br><br>
                 <b>Ostali</b>: Izbjegavajte duže ili napornije aktivnosti.
-                Razmotrite prolongiranje istih ili budite aktivni u zatvorenom prostoru."
+                Razmotrite prolongiranje istih ili budite aktivni u zatvorenom prostoru.
+                <br><br><br>
+                Osjetljive grupe stanovništva* uključuju plućne bolesnike (poput astme), djecu, starije osobe, 
+                osobe nižeg socijalnoekonomskog statusa, osobe aktivne na otvorenom (uključujući radnike na otvorenom)."
   hazardous:
     name: opasan  
     who: "Svako" 
     advisory: "<b>Svako</b>: Izbjegavajte sve fizičke aktivnosti na otvorenom.
               <br><br>
-              <b>Osjetljive grupe stanovništva</b>: Ostanite kod kuće i smanjite sve fizičke aktivnosti.
-              Slijedite savjete za održavanje niske razine čestica zagađivača u zatvorenom prostoru."
+              <b>Osjetljive grupe stanovništva*</b>: Ostanite kod kuće i smanjite sve fizičke aktivnosti.
+              Slijedite savjete za održavanje niske razine čestica zagađivača u zatvorenom prostoru.
+              <br><br><br>
+              Osjetljive grupe stanovništva* uključuju plućne bolesnike (poput astme), djecu, starije osobe, 
+              osobe nižeg socijalnoekonomskog statusa, osobe aktivne na otvorenom (uključujući radnike na otvorenom)."
   no_cookies: Ova web stranica ne koristi kolačiće.
   date:
     abbr_day_names:
@@ -98,6 +108,6 @@ bs:
     am: am
     formats:
       default: "%A (%d. %B %Y.) u %H:%Mh"
-      short: "%a %d.%m."
-      hm: "%H:%M"
+      short: "%A<br>%d.%m."
+      hm: "%H:%Mh"
     pm: pm  
