@@ -99,4 +99,5 @@ bs:
     formats:
       default: "%A (%d. %B %Y.) u %H:%Mh"
       short: "%a %d.%m."
+      hm: "%H:%M"
     pm: pm  

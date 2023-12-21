@@ -103,4 +103,5 @@ en:
     formats:
       default: "%A (%B %d, %Y) %I:%M %P"
       short: "%a %d.%m."
+      hm: "%H:%M"
     pm: pm  

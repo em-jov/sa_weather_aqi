@@ -72,7 +72,7 @@ module WeatherAir
     end
 
     def utc_to_datetime(seconds)
-      Time.at(seconds.to_i).to_datetime.strftime('%H:%M')
+      I18n.localize(Time.at(seconds.to_i).getlocal('+01:00'), format: :hm)
     end 
   end
 end
