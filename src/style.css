@@ -1,5 +1,5 @@
 .section {
-  border-bottom: 1px solid darkgray;
+  /* border-bottom: 1px solid darkgray; */
   width: 25%;
   overflow: auto;
   text-align: center;
@@ -7,6 +7,8 @@
 
 .container {
   display: flex;
+  color: #333;
+  font-family: Tahoma, sans-serif;
 }
 
 @media (max-width: 1500px) {
@@ -16,19 +18,30 @@
   .section{
     width: 100%;
     font-size: 2vh;
-    height: 60vh;
-  }
-  #weather_forecast {
-    font-size: 2vh;
     height: 100vh;
+  }
+  #weather {
+    font-size: 2.1vh;
+    height: 83vh;
   }
 }
 
 header {
   background-color: #333;
-  color: #fff;
+  color: whitesmoke;
   text-align: center;
-  padding: 0.25em 0;
+  padding: 1em;
+  font-family: Tahoma, sans-serif;
+  border-radius: 0.5em;
+}
+
+header p {
+  font-size: 85%;
+}
+
+header h1{
+  margin-block-start: 0em;
+  margin-block-end: 0em;
 }
 
 header a, header a:visited {
@@ -45,34 +58,81 @@ footer {
   background-color: #333;
   color: lightgrey;
   text-align: center;
-  padding: 0.5em 0;
+  padding: 0.5em;
+  font-family: Tahoma, sans-serif;
+  border-radius: 0.5em;
+
 }
 
-#weather h1,
-#weather img {
-  display: inline-block;
-  margin: 0.5em 0em;
-}
 #weather h1 {
   color: #EC6E4C;
-  padding: 22px 0 0 0;
-  font-size: 400%;
+  /* padding: 22px 0 0 0; */
+  font-size: 300%;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+}
+.other_info {
+  /* text-align: left;
+  padding-left: 1em; */
+  margin-block-start: 3em;
+  margin-block-end: 0em;
+}
+
+.other_info span{
+  display: block;
+  margin: 0.5em 0em;
 }
 p#weather_description {
   color: #EC6E4C;
-  font-size: 200%
+  font-size: 180%;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+}
+
+.forecast_day{
+  text-align: center;
+  font-size: 80%;
+  padding-right: 0.7em;
+} 
+
+.small{
+  font-size: 70%;
+  padding: 0.25em;
 }
 
 #stations-aqi h3 {
   margin: 1.5em 0em;
 }
 
-#air h2 {
-  margin: 1.5em 0.25em;
+#air h3 {
   padding: 0.5em 0 ;
-  font-size: 180%;
-  border-radius: 1em;
+  font-size: 120%;
+  border-radius: 0.5em;
+  margin: 1em 1.5em;
 }
+#city_aqi td{
+  border-radius: 0.5em;
+  padding: 0.5em;
+  /* font-weight: bold; */
+}
+
+#health_advisory{
+  padding: 0 1em;
+  margin-top: 2.5em;
+}
+
+#advisory{
+  text-align: justify;
+}
+
+#stations_aqi td{
+  border-radius: 0.5em;
+  padding: 0.25em;
+}
+#city_aqi{
+  border-spacing: 0.25em;
+}
+
 p.flex {
   display: flex;
   align-items: stretch;
@@ -86,23 +146,23 @@ span.temp {
   color: #EC6E4C;
 }
 span.rain {
-  color: blue;
+  color: rgb(9, 126, 204);
 }
-td.good, h2.good, span.good {
+td.good, h3.good, span.good {
   background: #00CC00;
 }
-td.moderate, h2.moderate {
+td.moderate, h3.moderate {
   background: #FFCC00;
 }
-td.unhealthy_for_sensitive_groups, h2.unhealthy_for_sensitive_groups, span.unhealthy_for_sensitive_groups{
+td.unhealthy_for_sensitive_groups, h3.unhealthy_for_sensitive_groups, span.unhealthy_for_sensitive_groups{
   background: #FF9900;
 }
-td.unhealthy, h2.unhealthy, span.unhealthy{
+td.unhealthy, h3.unhealthy, span.unhealthy{
   background: #FF0000;
 }
-td.very_unhealthy, h2.very_unhealthy, span.very_unhealthy{
+td.very_unhealthy, h3.very_unhealthy, span.very_unhealthy{
   background: #9966CC;
 }
-td.hazardous, h2.hazardous, span.hazardous{
+td.hazardous, h3.hazardous, span.hazardous{
   background: #990000;
 }
