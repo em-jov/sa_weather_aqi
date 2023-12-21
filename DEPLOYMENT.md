@@ -97,7 +97,7 @@ Before proceeding, ensure you have the following:
     - When creating the `.zip deployment package` use `zip -rFS` instead of `zip -r` command to ensure zip deletes unnecessary files.
 
         ```
-        zip -rFS deployment_package.zip lambda_function.rb src vendor
+        zip -rFS deployment_package.zip lambda_function.rb src vendor config/locales
         ```
 
     - After exiting the container, delete `vendor` folder and restore `bundle` locally:

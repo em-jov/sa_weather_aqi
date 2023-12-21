@@ -16,6 +16,6 @@ gem 'i18n'
 group :test do
   gem 'minitest'
   gem 'webmock'
-
   gem 'timecop'
+  gem 'rake'
 end

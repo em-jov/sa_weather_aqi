@@ -3,6 +3,8 @@ require_relative '../test_helper'
 class WeatherClientTest < Minitest::Test
   def setup 
     @client = WeatherAir::WeatherClient.new
+    I18n.load_path += Dir[File.expand_path("config/locales") + "/*.yml"]
+    I18n.config.available_locales = %i[en bs]
   end
 
   def test_current_weather_data

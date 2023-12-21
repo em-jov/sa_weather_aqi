@@ -35,7 +35,7 @@ module WeatherAir
     end
 
     def last_update 
-      I18n.localize(Time.now, format: :default)
+      I18n.localize(Time.now.getlocal('+01:00'), format: :default)
     end
   end
 end

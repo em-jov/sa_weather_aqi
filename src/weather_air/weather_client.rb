@@ -39,7 +39,7 @@ module WeatherAir
         sunrise: utc_to_datetime(data.dig('sys', 'sunrise')),
         sunset: utc_to_datetime(data.dig('sys','sunset')) }
 
-    rescue StandardError => e
+    rescue StandardError => _e
       { error: { en: 'Error: No current weather data available!', 
                  bs: 'Greška: Nedostupni podaci o trenutnom vremenu!' } }
     end
@@ -54,7 +54,7 @@ module WeatherAir
       end
 
       weather_data.each_with_object({}) do |e, dates|
-        key = I18n.localize(Time.at(e['dt'].to_i), format: :short)
+        key = I18n.localize(Time.at(e['dt'].to_i).getlocal('+01:00'), format: :short)
         interval = { description: e.dig('weather', 0, 'description'),
                       icon: e.dig('weather', 0, 'icon'),
                       temp: e.dig('main', 'temp').to_f.round,
@@ -66,13 +66,13 @@ module WeatherAir
         end
       end
       
-    rescue StandardError => e
+    rescue StandardError => _e
       { error: { en: 'Error: No weather forecast data available!', 
                  bs: 'Greška: Nedostupni podaci o vremenskoj prognozi!' } }
     end
 
     def utc_to_datetime(seconds)
-      Time.at(seconds.to_i).to_datetime.strftime('%H:%M')
+      I18n.localize(Time.at(seconds.to_i).getlocal('+01:00'), format: :hm)
     end 
   end
 end

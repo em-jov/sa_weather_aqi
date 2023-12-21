@@ -144,7 +144,7 @@ module WeatherAir
 
     def add_aqi_descriptor(pollutants)
       pollutants.each do |k, v|
-        (key, values) =  AQI.select { |_x, y| y.include?(v) }.first
+        (key, _values) =  AQI.select { |_x, y| y.include?(v) }.first
         pollutants[k] = { value: v, 
                           class: v.nil? ? '' : key.to_s }
       end

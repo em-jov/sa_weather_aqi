@@ -3,6 +3,7 @@ en:
   who: Who Needs to be Concerned?
   what_to_do: What Should I Do?
   aqi: AQI
+  station: Station
   current_weather:
     feels_like: Feels like
     humidity: Humidity
@@ -97,13 +98,10 @@ en:
     - October
     - November
     - December
-    order:
-    - :year
-    - :month
-    - :day
   time:
     am: am
     formats:
       default: "%A (%B %d, %Y) %I:%M %P"
       short: "%a %d.%m."
+      hm: "%H:%M"
     pm: pm  
