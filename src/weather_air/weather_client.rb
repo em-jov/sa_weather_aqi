@@ -54,7 +54,7 @@ module WeatherAir
       end
 
       weather_data.each_with_object({}) do |e, dates|
-        key = I18n.localize(Time.at(e['dt'].to_i), format: :short)
+        key = I18n.localize(Time.at(e['dt'].to_i).getlocal('+01:00'), format: :short)
         interval = { description: e.dig('weather', 0, 'description'),
                       icon: e.dig('weather', 0, 'icon'),
                       temp: e.dig('main', 'temp').to_f.round,
