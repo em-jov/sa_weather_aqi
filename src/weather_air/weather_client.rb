@@ -53,18 +53,24 @@ module WeatherAir
         weather_data = weather_response.body['list']
       end
 
-      weather_data.each_with_object({}) do |e, dates|
-        key = I18n.localize(Time.at(e['dt'].to_i).getlocal('+01:00'), format: :short)
+      today_forecast = []
+      dates = {}
+      weather_data.each do |e|
+        key = I18n.localize(Time.at(e.dig('dt')&.to_i)&.getlocal('+01:00'), format: :short) # what if nil ? Time&.at(nil) still throws error ?
         interval = { description: e.dig('weather', 0, 'description'),
                       icon: e.dig('weather', 0, 'icon'),
-                      temp: e.dig('main', 'temp').to_f.round,
+                      temp: e.dig('main', 'temp')&.to_f&.round,
                       rain: e.dig('rain', '3h') || 0 }
-        if dates.key?(key)
+        if key == I18n.localize(Time.now + (1*60*60), format: :short) # today
+          interval[:time] = I18n.localize(Time.parse(e.dig('dt_txt')) + (1*60*60), format: :hm)
+          today_forecast << interval      
+        elsif dates.key?(key) # date added
           dates[key] << interval 
         else
-          dates[key] = [interval]
+          dates[key] = [interval] # add new date
         end
       end
+      [today_forecast, dates]
       
     rescue StandardError => _e
       { error: { en: 'Error: No weather forecast data available!', 

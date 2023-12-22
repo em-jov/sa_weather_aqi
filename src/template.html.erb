@@ -12,9 +12,9 @@
       <h1>Sarajevo</h1>
       <p><%= I18n.t(:last_update) %>: <br> <%= last_update %></p>
       <% if I18n.locale == :bs %>
-        bs / <a href="en/index.html">en</a>
+        <span class="lang_off">bs</span> / <a href="en/index.html">en</a>
       <% else %>
-        <a href="../index.html">bs</a> / en
+        <a href="../index.html">bs</a> / <span class="lang_off">en</span>
       <% end %>
     </header>
 
@@ -26,10 +26,10 @@
           <p><%= current_weather[:error][I18n.locale] %></p>
         <% else %> 
           <h1><%= current_weather[:currenttemp] %>°C</h1>
+          <span class="temp"><%= I18n.t(:feels_like) %>: <%= current_weather[:feelslike] %>°C</span><br>
           <img src="https://openweathermap.org/img/wn/<%= current_weather[:icon] %>@2x.png" />
           <p id="weather_description"><%= current_weather[:description] %></p>
           <div class="other_info">
-            <span class="temp"><%= I18n.t(:feels_like) %>: <%= current_weather[:feelslike] %>°C</span>
             <span><%= I18n.t(:humidity) %>: <%= current_weather[:humidity] %>%</span>
             <span class="rain"><%= I18n.t(:rain) %>: <%= current_weather[:rain] %>mm</span>
             <span><%= I18n.t(:wind) %>: <%= current_weather[:wind] %>km/h</span>
@@ -37,20 +37,32 @@
             <span><%= I18n.t(:sunset) %>: <%= current_weather[:sunset] %></span>
           </div>
 
-          <table>
-          <% weather_forecast_today.each do |interval| %>
-              <td>
-                <img src="https://openweathermap.org/img/wn/<%= interval[:icon] %>.png" title="<%= interval[:description] %>"/><br>
-                <span class="temp"><%= interval[:temp] %>°C</span><br>
-                <% if interval[:rain] != 0 %>
-                <div class="small"><span class="rain"><%= interval[:rain] %>mm</span></div>
-                <% else %>
-                <div class="small">&nbsp</div>
+          <% if forecast_today != [] %>
+          <div id="today_forecast">
+            <p><%= I18n.t(:weather_forecast_today) %></p>
+            <div id="today_forecast_table">
+              <table>
+                <% forecast_today.each do |interval| %>
+
+                      <td >
+                        <p><%= interval[:time] %></p>
+                        <img src="https://openweathermap.org/img/wn/<%= interval[:icon] %>.png" title="<%= interval[:description] %>"/><br>
+                        <span class="temp"><%= interval[:temp] %>°C</span><br>
+                        <% if interval[:rain] != 0 %>
+                          <div class="small"><span class="rain"><%= interval[:rain] %>mm</span></div>
+                        <% else %>
+                          <div class="small">&nbsp</div>
+                        <% end %>
+                      </td>
+
                 <% end %>
-              </td>
-              <% end %>
+              </table>
+            </div>
+          </div>
+          <% end %>
+
+
         <% end %>
-        </table>
       </div>
 
       <div id="air" class="section">
@@ -129,15 +141,15 @@
         <div id="forecast_table">
           <table class="centered-table" cellspacing="0">
             <tr>
-              <th class="forecast_day sticky-col first-col"></th>
-              <th>01<sup>h</sup></th>
-              <th>04<sup>h</sup></th>
-              <th>07<sup>h</sup></th>
-              <th>10<sup>h</sup></th>
-              <th>13<sup>h</sup></th>
-              <th>16<sup>h</sup></th>
-              <th>19<sup>h</sup></th>
-              <th>22<sup>h</sup></th>
+              <td class="forecast_day sticky-col first-col"></td>
+              <td><%= I18n.localize(Time.parse('01:00'), format: :hm) %></td>
+              <td><%= I18n.localize(Time.parse('04:00'), format: :hm) %></td>
+              <td><%= I18n.localize(Time.parse('07:00'), format: :hm) %></td>
+              <td><%= I18n.localize(Time.parse('10:00'), format: :hm) %></td>
+              <td><%= I18n.localize(Time.parse('13:00'), format: :hm) %></td>
+              <td><%= I18n.localize(Time.parse('16:00'), format: :hm) %></td>
+              <td><%= I18n.localize(Time.parse('19:00'), format: :hm) %></td>
+              <td><%= I18n.localize(Time.parse('22:00'), format: :hm) %></td>
               </div>
             </tr>
             <% first = true %>
@@ -174,8 +186,8 @@
     </main>
 
     <footer>
-        <small><%= I18n.t(:no_cookies) %></small>
-        <a href="/feed.json">API</a>
+        <div class="small"><%= I18n.t(:no_cookies) %><br>
+        <a href="/feed.json">API</a></div>
     </footer>
 
   </body>

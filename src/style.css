@@ -5,6 +5,7 @@
   text-align: center;
 }
 
+
 /* .centered-table{
     overflow: auto;
 
@@ -16,8 +17,29 @@
 #forecast_table{
   overflow: auto;
   position: relative;
+}
+
+#forecast_table td{
+  font-size: 80%;
+}
+
+#today_forecast{
+  margin-block-start: 2.5em;
+}
+
+#today_forecast_table{
+  overflow: auto;
+  /* position: relative;  */
+} 
+
+#today_forecast_table table{
+  margin: 0 auto;
 
 }
+ 
+/* #today_forecast_overflow span{
+  display: inline-block;
+} */
 
 tr.border_bottom td {
   border-bottom: 1px solid #333;
@@ -51,10 +73,10 @@ tr.border_bottom td {
     font-size: 2vh;
     height: 100vh;
   }
-  #weather {
+  /* #weather {
     font-size: 2.1vh;
     height: 83vh;
-  }
+  } */
 }
 
 header {
@@ -75,14 +97,34 @@ header h1{
   margin-block-end: 0em;
 }
 
-header a, header a:visited {
+header a:active, header a:link {
   color: darkgray;
-  text-decoration: none;
+
 }
 
-header a:hover {
+.lang_off{
   color: darkgray;
-  text-decoration: underline; 
+  padding: 0.3em 0.4em;
+  border-radius: 0.5em;
+  border: 1px solid darkgray;
+  margin-top: 0.5em;
+}
+
+footer a, header a, header a:visited {
+  color: whitesmoke; 
+  text-decoration: none; 
+  padding: 0.3em 0.4em;
+  border-radius: 0.5em;
+  margin-top: 0.5em;
+}
+
+footer a, header a:hover {
+  background-color: whitesmoke;
+  color: #333;
+  padding: 0.3em 0.4em;
+  border-radius: 0.5em;
+  margin-top: 0.5em;
+
 }
 
 footer {
@@ -100,7 +142,7 @@ footer {
   /* padding: 22px 0 0 0; */
   font-size: 300%;
   margin-block-start: 0em;
-  margin-block-end: 0em;
+  margin-block-end: 0.25em;
 }
 .other_info {
   /* text-align: left;
