@@ -1,8 +1,39 @@
 .section {
   /* border-bottom: 1px solid darkgray; */
   width: 25%;
-  overflow: auto;
+  /* overflow: auto; */
   text-align: center;
+}
+
+/* .centered-table{
+    overflow: auto;
+
+}
+
+#fixed {
+  position: absolute;
+} */
+#forecast_table{
+  overflow: auto;
+  position: relative;
+
+}
+
+tr.border_bottom td {
+  border-bottom: 1px solid #333;
+}
+
+.sticky-col {
+  position: -webkit-sticky;
+  position: sticky;
+  background-color: white;
+}
+
+.first-col {
+  /* width: 100px; */
+  /* min-width: 70px; */
+  /* max-width: 100px; */
+  left: 0px; 
 }
 
 .container {
