@@ -174,13 +174,14 @@ class AirQualityIndexTest < Minitest::Test
                  :pm2_5 => { :value => nil, :class => "" },
                  :pm => { :value => nil, :class => "" },
                  :aqi => { :value => nil, :class => "" } }
-
-    assert_equal(expected, @script.send(:city_pollutants_aqi, stations_pollutants))
+    @script.expects(:stations_pollutants_aqi_data).returns(stations_pollutants)
+    assert_equal(expected, @script.send(:city_pollutants_aqi))
   end
 
   def test_city_pollutants_aqi
     # skip
-    data = @script.city_pollutants_aqi(@stations_pollutants)
+    @script.expects(:stations_pollutants_aqi_data).returns(@stations_pollutants)
+    data = @script.city_pollutants_aqi
     expected = {:so2 => { :value=>10, :class=>"good" },
                 :no2 => { :value=>36, :class=>"good" },
                 :co => { :value=>13, :class=>"good" },

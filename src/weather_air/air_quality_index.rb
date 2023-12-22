@@ -15,6 +15,8 @@ module WeatherAir
                  'ilidza' => { name: 'Ilidža', latitude: 43.830 , longitude: 18.310 } }
 
     def stations_pollutants_aqi_data
+      return @stations_pollutants_aqi_data if @stations_pollutants_aqi_data
+      
       stations_tr_html = fetch_fhmzbih_data 
       stations = extract_pollutants_aqi_values_for_stations(stations_tr_html) 
       if stations['embassy'][:pm2_5].nil?
@@ -24,15 +26,17 @@ module WeatherAir
         pollutants[:aqi] = calculate_total_aqi(pollutants)
         stations[station] = add_aqi_descriptor(pollutants).merge(STATIONS[station])
       end
-      stations
+      @stations_pollutants_aqi_data = stations
     end
 
-    def city_pollutants_aqi(stations_pollutants)
-      city_pollutants = fetch_max_values(stations_pollutants)
+    def city_pollutants_aqi
+      city_pollutants = fetch_max_values(stations_pollutants_aqi_data)
                           
       city_pollutants[:aqi] = calculate_total_aqi(city_pollutants)
       add_aqi_descriptor(city_pollutants)
     end
+
+    private
 
     def fetch_fhmzbih_data
       fhmzbih_website = Nokogiri::HTML(URI.open('https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php'))

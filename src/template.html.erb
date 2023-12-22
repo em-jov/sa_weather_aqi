@@ -36,7 +36,21 @@
             <span><%= I18n.t(:sunrise) %>: <%= current_weather[:sunrise] %></span>
             <span><%= I18n.t(:sunset) %>: <%= current_weather[:sunset] %></span>
           </div>
+
+          <table>
+          <% weather_forecast_today.each do |interval| %>
+              <td>
+                <img src="https://openweathermap.org/img/wn/<%= interval[:icon] %>.png" title="<%= interval[:description] %>"/><br>
+                <span class="temp"><%= interval[:temp] %>°C</span><br>
+                <% if interval[:rain] != 0 %>
+                <div class="small"><span class="rain"><%= interval[:rain] %>mm</span></div>
+                <% else %>
+                <div class="small">&nbsp</div>
+                <% end %>
+              </td>
+              <% end %>
         <% end %>
+        </table>
       </div>
 
       <div id="air" class="section">
@@ -112,9 +126,10 @@
         <% if weather_forecast.has_key?(:error) %>
           <p><%= weather_forecast[:error][I18n.locale] %></p>
         <% else %>  
-          <table class="centered-table">
+        <div id="forecast_table">
+          <table class="centered-table" cellspacing="0">
             <tr>
-              <th></th>
+              <th class="forecast_day sticky-col first-col"></th>
               <th>01<sup>h</sup></th>
               <th>04<sup>h</sup></th>
               <th>07<sup>h</sup></th>
@@ -123,11 +138,12 @@
               <th>16<sup>h</sup></th>
               <th>19<sup>h</sup></th>
               <th>22<sup>h</sup></th>
+              </div>
             </tr>
             <% first = true %>
             <% weather_forecast.each do |day, values| %>
-            <tr>
-              <td class="forecast_day"><%= day %></td>
+            <tr class="border_bottom">
+              <td class="forecast_day sticky-col first-col"><%= day %></td>
               <% if first == true %>
                 <% to_skip = 8 - values.length %>
                 <% if to_skip > 0 %>
@@ -149,8 +165,9 @@
             <% first = false %>
             <% end %>
           </table>
-          <br>
-          <div class="small"><%= I18n.t(:data_provided_by) %>  <a href="https://openweathermap.org/city/3191281">OpenWeather</a></div>
+        </div> 
+        <br>
+        <div class="small"><%= I18n.t(:data_provided_by) %>  <a href="https://openweathermap.org/city/3191281">OpenWeather</a></div>
         <% end %>
       </div>
 
@@ -158,6 +175,7 @@
 
     <footer>
         <small><%= I18n.t(:no_cookies) %></small>
+        <a href="/feed.json">API</a>
     </footer>
 
   </body>
