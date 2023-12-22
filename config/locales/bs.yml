@@ -13,6 +13,7 @@ bs:
   sunrise: Izlazak sunca
   sunset: Zalazak sunca
   weather_forecast: Vremenska prognoza
+  weather_forecast_today: "Vremenska prognoza <br> za ostatak dana"
   data_provided_by: Podaci preuzeti od
   fhmz: Federalnog hidrometeorološkog zavoda
   latest_aqi_data_ms: "Indeks kvalitete zraka <br> po mjernim stanicama"
@@ -35,7 +36,7 @@ bs:
                 otežanog disanja.
                 <br><br> 
                 <b>Osobe sa astmom</b>: Slijedite svoj akcijski plan za astmu i
-                držite pri ruci lijek za ublažavanje simptoma astme.
+                držite pri ruci lijek za ublažavanje simptoma.
                 <br><br> 
                 <b>Osobe sa srčanim bolestima</b>: Simptomi kao što su
                 palpitacije (preskakanje srca), otežano disanje ili neobičan umor mogu
@@ -107,7 +108,7 @@ bs:
   time:
     am: am
     formats:
-      default: "%A (%d. %B %Y.) u %H:%Mh"
-      short: "%A<br>%d.%m."
-      hm: "%H:%Mh"
+      default: "%A (%d. %B %Y.) u %H:%M"
+      short: "%A %d.%m."
+      hm: "%H:%M"
     pm: pm  

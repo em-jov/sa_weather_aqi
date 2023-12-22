@@ -12,7 +12,8 @@ en:
   wind: Wind
   sunrise: Sunrise
   sunset: Sunset
-  weather_forecast: Weather forecast 
+  weather_forecast: Weather forecast
+  weather_forecast_today: "Weather forecast<br>for the rest of the day" 
   data_provided_by: Data provided by
   fhmz: Federal Hydro-Meteorological Institute
   latest_aqi_data_ms: "Air quality index <br> per monitoring stations"
@@ -112,6 +113,6 @@ en:
     am: am
     formats:
       default: "%A (%B %d, %Y) %I:%M %P"
-      short: "%A<br>%d.%m."
+      short: "%A %d.%m."
       hm: "%I:%M %P"
     pm: pm  
