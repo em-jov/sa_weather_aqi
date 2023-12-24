@@ -2,18 +2,21 @@ en:
   last_update: Last update
   who: Who Needs to be Concerned?
   what_to_do: Health recommendations
+  sa_aqi: Sarajevo AQI
+  ms_aqi: Monitoring stations AQI
+  all_data: All data
   aqi: AQI
   aqi_quality_index: Air quality index
   station: Station
   current_weather: Current weather
-  feels_like: Feels like
-  humidity: Humidity
-  rain: Rain
-  wind: Wind
-  sunrise: Sunrise
-  sunset: Sunset
+  feels_like: FEELS LIKE
+  humidity: HUMIDITY
+  rain: RAIN
+  wind: WIND
+  sunrise: SUNRISE
+  sunset: SUNSET
   weather_forecast: Weather forecast
-  weather_forecast_today: "Weather forecast<br>for the rest of the day" 
+  weather_forecast_today: Weather today 
   data_provided_by: Data provided by
   fhmz: Federal Hydro-Meteorological Institute
   latest_aqi_data_ms: "Air quality index <br> per monitoring stations"

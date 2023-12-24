@@ -2,18 +2,21 @@ bs:
   last_update: Zadnje ažuriranje
   who: Ko se treba zabrinuti?
   what_to_do: Zdravstvene preporuke
+  sa_aqi: IKZ Sarajeva
+  ms_aqi: IKZ mjernih stanica 
+  all_data: Svi podaci
   aqi: IKZ
   aqi_quality_index: Indeks kvalitete zraka
   station: Stanica
   current_weather: Trenutno vrijeme
-  feels_like: Feels like
-  humidity: Relativna vlažnost zraka
-  rain: Količina padavina
-  wind: Brzina vjetra	
-  sunrise: Izlazak sunca
-  sunset: Zalazak sunca
+  feels_like: FEELS LIKE
+  humidity: VLAŽNOST
+  rain: KIŠA
+  wind: VJETAR
+  sunrise: IZLAZAK SUNCA
+  sunset: ZALAZAK SUNCA
   weather_forecast: Vremenska prognoza
-  weather_forecast_today: "Vremenska prognoza <br> za ostatak dana"
+  weather_forecast_today: Vrijeme danas
   data_provided_by: Podaci preuzeti od
   fhmz: Federalnog hidrometeorološkog zavoda
   latest_aqi_data_ms: "Indeks kvalitete zraka <br> po mjernim stanicama"
@@ -23,7 +26,7 @@ bs:
     advisory: Dan je odličan za aktivnosti napolju.
   moderate:
     name: umjeren  
-    who: Izuzetno osjetljive osobe
+    who: Osobe izuzetno osjetljive na onečišćenje zraka česticama
     advisory: "<b>Izuzetno osjetljive osobe</b>: Razmotrite reduciranje dužih ili napornih aktivnosti osobito u blizini frekventnih saobraćajnica. 
               <br><br> 
               <b>Ostali</b>: Dan je odličan za aktivnosti na otvorenom."

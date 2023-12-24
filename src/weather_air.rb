@@ -28,12 +28,14 @@ module WeatherAir
       english = template.result(binding)
 
       feed = { current_weather:, weather_forecast:, stations_pollutants_aqi:, city_pollutants: }.to_json
+      sa_aqi = { city_pollutants: }.to_json
+      ms_aqi = { stations_pollutants_aqi: }.to_json
 
       I18n.locale = :bs
       current_weather = weather.current_weather_data(I18n.locale)
       (forecast_today, weather_forecast) = weather.weather_forecast_data(I18n.locale)
       bosnian = template.result(binding) 
-      [bosnian, english, feed]
+      [bosnian, english, feed, sa_aqi, ms_aqi]
     end
 
     def last_update 
