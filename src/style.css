@@ -1,19 +1,31 @@
 .section {
-  /* border-bottom: 1px solid darkgray; */
   width: 25%;
-  /* overflow: auto; */
   text-align: center;
 }
 
+.float-child {
+  display: inline-block;
+  padding: 0.5em;
+  width: 40%;
+  
+}  
 
-/* .centered-table{
-    overflow: auto;
-
+a:link, a:active, a:visited{
+  text-decoration: underline ;
+  color:#333;
 }
 
-#fixed {
-  position: absolute;
-} */
+a:hover{
+  color: darkgray;
+  font-style: italic;
+  text-decoration: none ;
+}
+
+h2 {
+  margin-bottom: 1.2em;
+}
+
+
 #forecast_table{
   overflow: auto;
   position: relative;
@@ -25,21 +37,16 @@
 
 #today_forecast{
   margin-block-start: 2.5em;
+  padding: 0 1em;
 }
 
 #today_forecast_table{
   overflow: auto;
-  /* position: relative;  */
 } 
 
 #today_forecast_table table{
   margin: 0 auto;
-
 }
- 
-/* #today_forecast_overflow span{
-  display: inline-block;
-} */
 
 tr.border_bottom td {
   border-bottom: 1px solid #333;
@@ -52,31 +59,37 @@ tr.border_bottom td {
 }
 
 .first-col {
-  /* width: 100px; */
-  /* min-width: 70px; */
-  /* max-width: 100px; */
   left: 0px; 
 }
+#fc_today{
+  padding: 0 0.7em;
+}
 
-.container {
+.fc_today_intervals {
+  padding: 0 0.4em;
+}
+
+.time {
+  word-spacing: 100vw;
+}
+
+.theme {
   display: flex;
   color: #333;
   font-family: Tahoma, sans-serif;
 }
 
 @media (max-width: 1500px) {
-  .container {
+  .theme {
     display: block;
   }
   .section{
     width: 100%;
-    font-size: 2vh;
-    height: 100vh;
+    /* font-size: 2vh;
+    height: 100vh; */
+    padding-top: 1em;
+    padding-bottom: 3em;
   }
-  /* #weather {
-    font-size: 2.1vh;
-    height: 83vh;
-  } */
 }
 
 header {
@@ -99,31 +112,30 @@ header h1{
 
 header a:active, header a:link {
   color: darkgray;
-
 }
 
-.lang_off{
-  color: darkgray;
-  padding: 0.3em 0.4em;
-  border-radius: 0.5em;
-  border: 1px solid darkgray;
+
+.lang_on{
+  color: lightgrey;
   margin-top: 0.5em;
 }
 
-footer a, header a, header a:visited {
-  color: whitesmoke; 
+ header a:link, header a:active, header a:visited {
+  color: rgb(105, 104, 104); 
   text-decoration: none; 
-  padding: 0.3em 0.4em;
-  border-radius: 0.5em;
-  margin-top: 0.5em;
 }
 
-footer a, header a:hover {
+ footer a:link, footer a:visited {
+  color: lightgray;
+} 
+
+header a:hover {
   background-color: whitesmoke;
   color: #333;
   padding: 0.3em 0.4em;
   border-radius: 0.5em;
   margin-top: 0.5em;
+  font-style: normal;
 
 }
 
@@ -139,27 +151,32 @@ footer {
 
 #weather h1 {
   color: #EC6E4C;
-  /* padding: 22px 0 0 0; */
   font-size: 300%;
   margin-block-start: 0em;
   margin-block-end: 0.25em;
 }
 .other_info {
-  /* text-align: left;
-  padding-left: 1em; */
-  margin-block-start: 3em;
-  margin-block-end: 0em;
+  /* margin-block-start: 3em;
+  margin-block-end: 0em; */
+  text-align: left;
+
 }
 
 .other_info span{
   display: block;
   margin: 0.5em 0em;
 }
+
 p#weather_description {
   color: #EC6E4C;
   font-size: 180%;
   margin-block-start: 0em;
   margin-block-end: 0em;
+}
+
+#weather label{
+  font-size: 80%;
+  color: rgb(111, 110, 110);
 }
 
 .forecast_day{
@@ -186,7 +203,6 @@ p#weather_description {
 #city_aqi td{
   border-radius: 0.5em;
   padding: 0.5em;
-  /* font-weight: bold; */
 }
 
 #health_advisory{
@@ -216,9 +232,15 @@ p.flex {
   display: inline-table;
 }
 span.temp {
-  color: #EC6E4C;
+  color: rgb(236, 110, 76)
+}
+#weather label.temp {
+  color: rgb(236, 110, 76)
 }
 span.rain {
+  color: rgb(9, 126, 204);
+}
+#weather label.rain {
   color: rgb(9, 126, 204);
 }
 td.good, h3.good, span.good {
@@ -238,4 +260,56 @@ td.very_unhealthy, h3.very_unhealthy, span.very_unhealthy{
 }
 td.hazardous, h3.hazardous, span.hazardous{
   background: #990000;
+}
+
+@media (prefers-color-scheme: dark) {
+  .theme.adaptive {
+    background: #333;
+    color: lightgray;
+  }
+  html {background-color: #333}
+  header {
+    border-radius: 0em ;
+    border-bottom: 1px solid rgb(121, 120, 120);
+  }
+  header > h1,  header > p{
+    color: darkgray;
+
+  }
+
+  footer {
+    border-radius: 0em ;
+    border-TOP: 1px solid rgb(121, 120, 120);
+  }
+
+  #air h3, #city_aqi td, #stations_aqi td{
+    color: #333;
+  }
+
+  #stations_aqi td.station_name{
+    color: whitesmoke;
+  }
+  #forecast_table td.sticky-col, #today_forecast_table td.sticky-col{
+    background-color: #333;
+  }
+  tr.border_bottom td {
+    border-bottom: 1px solid lightgray;
+  }
+
+  a:link, a:active, a:visited{
+    text-decoration: underline ;
+    color:whitesmoke;
+  }
+
+  a:hover{
+    color: darkgray;
+    font-style: italic;
+    text-decoration: none ;
+  }
+  header {
+    color: lightgray;
+  }
+  #weather label{
+    color: lightgrey;
+  }
 }

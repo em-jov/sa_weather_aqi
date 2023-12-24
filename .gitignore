@@ -4,3 +4,5 @@ vendor/
 deployment_package.zip
 en/index.html
 feed.json
+ms_aqi.json
+sa_aqi.json

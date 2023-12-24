@@ -61,13 +61,13 @@ module WeatherAir
                       icon: e.dig('weather', 0, 'icon'),
                       temp: e.dig('main', 'temp')&.to_f&.round,
                       rain: e.dig('rain', '3h') || 0 }
-        if key == I18n.localize(Time.now + (1*60*60), format: :short) # today
+        if key == I18n.localize(Time.now + (1*60*60), format: :short)
           interval[:time] = I18n.localize(Time.parse(e.dig('dt_txt')) + (1*60*60), format: :hm)
           today_forecast << interval      
-        elsif dates.key?(key) # date added
+        elsif dates.key?(key) 
           dates[key] << interval 
         else
-          dates[key] = [interval] # add new date
+          dates[key] = [interval] 
         end
       end
       [today_forecast, dates]
