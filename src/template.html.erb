@@ -25,6 +25,7 @@
         <% if current_weather.has_key?(:error) %>
           <p><%= current_weather[:error][I18n.locale] %></p>
         <% else %> 
+          <div class="cw_container">
             <div class="float-child">
               <h1><%= current_weather[:currenttemp] %>°C</h1>
               <span class="temp"><label class="temp"><%= I18n.t(:feels_like) %>: </label><%= current_weather[:feelslike] %>°C</span><br>
@@ -38,6 +39,7 @@
               <span><label><%= I18n.t(:sunrise) %>: </label><%= current_weather[:sunrise] %></span>
               <span><label><%= I18n.t(:sunset) %>: </label><%= current_weather[:sunset] %></span>
             </div>
+          </div>  
 
 
           <% if forecast_today != [] %>
@@ -45,20 +47,17 @@
             <div id="today_forecast_table">
               <table>
                 <td id="fc_today" class="sticky-col first-col"><%= I18n.t(:weather_forecast_today) %></td>
-
                 <% forecast_today.each do |interval| %>
-
-                      <td class="fc_today_intervals" >
-                        <p class="time"><%= interval[:time] %></p>
-                        <img src="https://openweathermap.org/img/wn/<%= interval[:icon] %>.png" title="<%= interval[:description] %>"/><br>
-                        <span class="temp"><%= interval[:temp] %>°C</span><br>
-                        <% if interval[:rain] != 0 %>
-                          <div class="small"><span class="rain"><%= interval[:rain] %>mm</span></div>
-                        <% else %>
-                          <div class="small">&nbsp</div>
-                        <% end %>
-                      </td>
-
+                  <td class="fc_today_intervals" >
+                    <p class="time"><%= interval[:time] %></p>
+                    <img src="https://openweathermap.org/img/wn/<%= interval[:icon] %>.png" title="<%= interval[:description] %>"/><br>
+                    <span class="temp"><%= interval[:temp] %>°C</span><br>
+                    <% if interval[:rain] != 0 %>
+                      <div class="small"><span class="rain"><%= interval[:rain] %>mm</span></div>
+                    <% else %>
+                      <div class="small">&nbsp</div>
+                    <% end %>
+                  </td>
                 <% end %>
               </table>
             </div>
@@ -89,6 +88,31 @@
             <td class="<%= city_pollutants[:o3][:class] %>"><%= city_pollutants[:o3][:value] %></td>
             <td class="<%= city_pollutants[:pm10][:class] %>"><%= city_pollutants[:pm10][:value] %></td>
             <td class="<%= city_pollutants[:pm2_5][:class] %>"><%= city_pollutants[:pm2_5][:value] %></td>
+          </tr>
+        </table>
+        <br><br><br>
+
+        <table id="aqi_legend" class="centered-table">
+          <tr>
+            <td class="aqi_val">0-50</td>
+            <td class="good"><%= I18n.t('good.name') %></td>
+            <td class="empty"></td>
+            <td class="aqi_val">151-200</td>
+            <td class="unhealthy"><%= I18n.t('unhealthy.name') %></td>
+          </tr>
+          <tr>
+            <td class="aqi_val">51-100</td>
+            <td class="moderate"><%= I18n.t('moderate.name') %></td>
+            <td class="empty"></td>
+            <td class="aqi_val">201-300</td>
+            <td class="very_unhealthy"><%= I18n.t('very_unhealthy.name') %></td>
+          </tr>
+          <tr>
+            <td class="aqi_val">101-150</td>
+            <td class="unhealthy_for_sensitive_groups"><%= I18n.t('unhealthy_for_sensitive_groups.name') %></td>
+            <td class="empty"></td>
+            <td class="aqi_val">301-500</td>
+            <td class="hazardous"><%= I18n.t('hazardous.name') %></td>
           </tr>
         </table>
 
