@@ -27,7 +27,7 @@ This documentation provides a guide for deploying static website using AWS servi
 ---
 
 ## Diagram
-![image info](./images/deployment_architecture.png)
+![image info](./images/deployment.png)
 <sub>[back on top ^](#table-of-contents)</sub>
 
 ---
