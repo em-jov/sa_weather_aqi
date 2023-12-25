@@ -27,7 +27,7 @@ module WeatherAir
       template = ERB.new(File.read('src/template.html.erb'))
       english = template.result(binding)
 
-      feed = { current_weather:, weather_forecast:, stations_pollutants_aqi:, city_pollutants: }.to_json
+      feed = { current_weather:, forecast_today:, weather_forecast:, stations_pollutants_aqi:, city_pollutants: }.to_json
       sa_aqi = { city_pollutants: }.to_json
       ms_aqi = { stations_pollutants_aqi: }.to_json
 
