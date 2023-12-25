@@ -35,7 +35,7 @@ The Ruby script retrieves data from third-party APIs or resorts to web scraping 
 
 ### Deployment
 
-![image info](./images/deployment_architecture.png)
+![image info](./images/deployment.png)
 As evident from the diagram, this process is relatively extensive, so it has been relocated to a separate [file](DEPLOYMENT.md).
 
 
