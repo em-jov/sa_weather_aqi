@@ -121,7 +121,7 @@ header a:active, header a:link {
 }
 
  header a:link, header a:active, header a:visited {
-  color: rgb(105, 104, 104); 
+  color: darkgrey; 
   text-decoration: none; 
 }
 
@@ -165,6 +165,10 @@ footer {
 .other_info span{
   display: block;
   margin: 0.5em 0em;
+}
+
+.temp_desc label{
+  color: #EC6E4C;
 }
 
 p#weather_description {
@@ -311,9 +315,34 @@ span.rain {
   width: 30px;
   height: 30px;
   border-radius: 50%;
+  border: 1px solid #333;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+label#speed{
+  font-size: 100%;
+}
+
+#changeButton  {
+  background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: darkgray;
+    cursor: pointer;
+    outline: inherit;
+    padding: 0.1em 0.3em;
+    border-radius: 0.5em;
+    font-size: 90%;
+}
+
+#changeButton:hover {
+  background: whitesmoke;
+  color: #333;
+
 }
 
 @media (prefers-color-scheme: dark) {
@@ -376,5 +405,9 @@ span.rain {
   }
   #weather label.rain {
     color: #9ACBF9;
+  }
+
+  #weather label.temp_desc{
+    color: #EC6E4C;
   }
 }
