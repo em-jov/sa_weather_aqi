@@ -11,8 +11,8 @@ module WeatherAir
     STATIONS = { 'vijecnica' => { name: 'Vijećnica' , latitude: 43.859, longitude: 18.434 },
                  'bjelave'  => { name: 'Bjelave' , latitude: 43.867, longitude: 18.420 },                         
                  'embassy' => { name: 'Ambasada SAD' , latitude: 43.856, longitude: 18.397 },
-                 'otoka' => { name: 'Otoka', latitude: 43.848, longitude: 18.363 },
-                 'ilidza' => { name: 'Ilidža', latitude: 43.830 , longitude: 18.310 } }
+                 'otoka' => { name: 'Otoka', latitude: 43.848, longitude: 18.363 }}
+                #  'ilidza' => { name: 'Ilidža', latitude: 43.830 , longitude: 18.310 } }
 
     def stations_pollutants_aqi_data
       return @stations_pollutants_aqi_data if @stations_pollutants_aqi_data
