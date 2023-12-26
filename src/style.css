@@ -243,23 +243,34 @@ span.rain {
 #weather label.rain {
   color: #0F5495;
 }
-td.good, h3.good, span.good {
+.good, td.good, h3.good, span.good {
   background: #02E364;
+  color:#333;
+
 }
-td.moderate, h3.moderate {
+.moderate, td.moderate, h3.moderate {
   background: #FBF304;
+  color:#333;
+
 }
-td.unhealthy_for_sensitive_groups, h3.unhealthy_for_sensitive_groups, span.unhealthy_for_sensitive_groups{
+.unhealthy_for_sensitive_groups, td.unhealthy_for_sensitive_groups, h3.unhealthy_for_sensitive_groups, span.unhealthy_for_sensitive_groups{
   background: #FFB042;
+  color:#333;
+
 }
-td.unhealthy, h3.unhealthy, span.unhealthy{
+.unhealthy, td.unhealthy, h3.unhealthy, span.unhealthy{
   background: #AA0808;
+  color:whitesmoke;
 }
-td.very_unhealthy, h3.very_unhealthy, span.very_unhealthy{
+.very_unhealthy, td.very_unhealthy, h3.very_unhealthy, span.very_unhealthy{
   background: #530279;
+  color:whitesmoke;
+
 }
-td.hazardous, h3.hazardous, span.hazardous{
+.hazardous, td.hazardous, h3.hazardous, span.hazardous{
   background: #760404;
+  color:whitesmoke;
+
 }
 
 #air .unhealthy, #air .very_unhealthy, #air .hazardous{
@@ -287,6 +298,24 @@ td.hazardous, h3.hazardous, span.hazardous{
 #aqi_legend td.empty{
   padding: 0.2em;
 }
+
+#map { 
+  border-radius: 0.5em;
+  display: inline-block;
+  height: 20em;
+  width: 30em; 
+  margin: 2em 0;
+}
+
+.custom-marker {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media (prefers-color-scheme: dark) {
   .theme.adaptive {
     background: #333;
