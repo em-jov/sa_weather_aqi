@@ -24,15 +24,78 @@ module WeatherAir
       end
       stations.each do |station, pollutants|
         pollutants[:aqi] = calculate_total_aqi(pollutants)
+        pollutants[:e_pm2_5] = estimate_pm2_5(pollutants[:pm10], pollutants[:pm2_5])
+        pollutants[:e_aqi] = calculate_total_aqi(pollutants)
         stations[station] = add_aqi_descriptor(pollutants).merge(STATIONS[station])
       end
       @stations_pollutants_aqi_data = stations
     end
 
+    def estimate_pm2_5(pm10, pm2_5)
+      return nil if (pm10.nil? && pm2_5.nil?)
+      return pm2_5 if !pm2_5.nil?
+      pm10c = calculate_pm10_concentration(pm10)
+      pm25c = pm10c * 0.9
+      calculate_aqi(pm25c)
+    end
+
+    def calculate_aqi(pm25)
+      # PM2.5 breakpoints and corresponding AQI values
+      breakpoints = [
+        { conc_low: 0.0, conc_high: 12.0, iaqi_low: 0, iaqi_high: 50 },
+        { conc_low: 12.1, conc_high: 35.4, iaqi_low: 51, iaqi_high: 100 },
+        { conc_low: 35.5, conc_high: 55.4, iaqi_low: 101, iaqi_high: 150 },
+        { conc_low: 55.5, conc_high: 150.4, iaqi_low: 151, iaqi_high: 200 },
+        { conc_low: 150.5, conc_high: 250.4, iaqi_low: 201, iaqi_high: 300 },
+        { conc_low: 250.5, conc_high: 350.4, iaqi_low: 301, iaqi_high: 400 },
+        { conc_low: 350.5, conc_high: 500.4, iaqi_low: 401, iaqi_high: 500 },
+      ]
+    
+      # Find the corresponding breakpoints for the given PM2.5 concentration
+      breakpoint = breakpoints.find { |b| pm25 >= b[:conc_low] && pm25 <= b[:conc_high] }
+    
+      unless breakpoint
+        puts 'PM2.5 concentration out of range'
+        return nil
+      end
+    
+      # Calculate the AQI using the formula
+      aqi = ((breakpoint[:iaqi_high] - breakpoint[:iaqi_low]) / (breakpoint[:conc_high] - breakpoint[:conc_low])) *
+            (pm25 - breakpoint[:conc_low]) + breakpoint[:iaqi_low]
+    
+      aqi.round # Round to the nearest whole number
+    end
+
+    def calculate_pm10_concentration(aqi)
+      breakpoints = [
+        { bp_high: 50, conc_low: 0, conc_high: 54, iaqi_low: 0, iaqi_high: 50 },
+        { bp_high: 100, conc_low: 55, conc_high: 154, iaqi_low: 51, iaqi_high: 100 },
+        { bp_high: 150, conc_low: 155, conc_high: 254, iaqi_low: 101, iaqi_high: 150 },
+        { bp_high: 200, conc_low: 255, conc_high: 354, iaqi_low: 151, iaqi_high: 200 },
+        { bp_high: 300, conc_low: 355, conc_high: 424, iaqi_low: 201, iaqi_high: 300 },
+        { bp_high: 400, conc_low: 425, conc_high: 504, iaqi_low: 301, iaqi_high: 400 },
+        { bp_high: 500, conc_low: 505, conc_high: 604, iaqi_low: 401, iaqi_high: 500 },
+      ]
+    
+      breakpoint = breakpoints.find { |b| aqi <= b[:bp_high] }
+    
+      unless breakpoint
+        puts 'AQI out of range'
+        return nil
+      end
+    
+      conc = ((aqi - breakpoint[:iaqi_low]) * (breakpoint[:conc_high] - breakpoint[:conc_low]) / 
+              (breakpoint[:iaqi_high] - breakpoint[:iaqi_low])) + breakpoint[:conc_low]
+    
+      conc.round(2) # Round to two decimal places
+    end
+
     def city_pollutants_aqi
       city_pollutants = fetch_max_values(stations_pollutants_aqi_data)
-                          
-      city_pollutants[:aqi] = calculate_total_aqi(city_pollutants)
+                  
+      city_pollutants[:e_aqi] = calculate_total_aqi(city_pollutants)
+      city_pollutants[:aqi] = calculate_total_aqi(city_pollutants.reject{|k, _v| k==:e_pm2_5})
+
       add_aqi_descriptor(city_pollutants)
     end
 
@@ -64,7 +127,7 @@ module WeatherAir
     end
 
     def extract_pollutants_aqi_values(station_tr_html, station_name)
-      # !!! hard-coded (pollutans td indexes), potential problems if source HTML changes
+      # !!! hard-coded (pollutants td indexes), potential problems if source HTML changes
       us_embassy_pm2_5_index = 9
       if station_name == 'embassy'
         return { so2: nil, no2: nil, co: nil, o3: nil, pm10: nil, pm2_5: normalize_pollutant_aqi_value(station_tr_html, us_embassy_pm2_5_index)}
@@ -117,14 +180,21 @@ module WeatherAir
     # - Floating particles of different sizes (PM10 and PM2.5) measured at the same point 
     #   are not treated as two separate pollutants.
     def calculate_total_aqi(pollutants)
+      return nil if pollutants[:pm10].nil? && pollutants[:pm2_5].nil?
+
       # treating PM10 and PM2.5 as a single pollutant, using the higher of the two values (usually PM2.5) 
       # even if their AQI is better than "unhealthy," the total AQI for monitoring site always considers 
       # the highest AQI value among all pollutants
-      pollutants[:pm] = [pollutants[:pm10], pollutants[:pm2_5]]&.compact&.max
+      if pollutants.has_key?(:e_pm2_5)
+        pollutants[:pm] = [pollutants[:pm10], pollutants[:pm2_5], pollutants[:e_pm2_5]]&.compact&.max
+        # to determine whether additional index numbers needs to be added, 
+        # simply identify the two pollutants with the highest AQI values
+        pollutants = pollutants.reject { |k,v| k if k == :pm10 || k== :pm2_5 || k== :e_pm2_5 || v.nil? || k==:aqi}
+      else
+        pollutants[:pm] = [pollutants[:pm10], pollutants[:pm2_5]]&.compact&.max
+        pollutants = pollutants.reject { |k,v| k if k == :pm10 || k== :pm2_5 || v.nil? || k==:e_aqi}
+      end
 
-      # to determine whether additional index numbers need to be added, 
-      # simply identify the two pollutants with the highest AQI values
-      pollutants = pollutants.reject { |k,v| k if k == :pm10 || k== :pm2_5 || v.nil? }
       pollutants = pollutants.values.sort { |a, b| b <=> a }.first(2)
 
       max_value = pollutants.max
@@ -156,8 +226,8 @@ module WeatherAir
     end
 
     def fetch_max_values(stations_pollutants)
-      pollutans = [:so2, :no2, :co, :o3, :pm10, :pm2_5]
-      pollutans.each_with_object({}) do |pollutant, result|
+      pollutants = [:so2, :no2, :co, :o3, :pm10, :pm2_5, :e_pm2_5]
+      pollutants.each_with_object({}) do |pollutant, result|
         result[pollutant] = stations_pollutants&.values&.map { |v| v&.dig(pollutant, :value) }&.compact&.max
       end
     end
