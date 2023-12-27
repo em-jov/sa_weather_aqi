@@ -1,9 +1,9 @@
 # Sarajevo weather & air pollution
-> Simple, static [website](https://sa-aqi-weather.simplify.ba/) providing information about Air Quality Index (AQI) and weather conditions in Sarajevo, known for being the most polluted city in Europe.
+> Simple, static website providing information about Air Quality Index (AQI) and weather conditions in Sarajevo, known for being the most polluted city in Europe. https://sarajevo-meteo.com/
 
 ### Overview
 
-The Ruby script retrieves data from third-party APIs or resorts to web scraping when APIs are not available. It then generates an HTML file by integrating the collected data into an ERB (Embedded Ruby) template. To ensure that information is up-to-date, the script is scheduled to run automatically every hour using AWS Lambda.
+Ruby script retrieves data from third-party APIs or resorts to web scraping when APIs are not available. It then generates an HTML file by integrating the collected data into an ERB (Embedded Ruby) template. To ensure that information is up-to-date, the script is scheduled to run automatically every hour using AWS Lambda.
 
 ### Features
 - Current weather data.
@@ -36,7 +36,7 @@ The Ruby script retrieves data from third-party APIs or resorts to web scraping 
 ### Deployment
 
 ![image info](./images/deployment.png)
-As evident from the diagram, this process is relatively extensive, so it has been relocated to a separate [file](DEPLOYMENT.md).
+As evident from the diagram, this process is a bit long, so it has been relocated to a separate [file](DEPLOYMENT.md).
 
 
 ### Contributing

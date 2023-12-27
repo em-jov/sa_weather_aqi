@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Sarajevo - Weather and Air Quality</title>
     <style><%= style %></style>
+    <% if I18n.locale == :en %>
+      <script><%= js_script %></script>
+    <% end %>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
      crossorigin=""/>
@@ -260,8 +263,5 @@
         </div>
     </footer>
 
-    <% if I18n.locale == :en %>
-      <script src="../src/script.js"></script>
-    <% end %>
   </body>
 </html>
