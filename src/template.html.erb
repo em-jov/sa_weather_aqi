@@ -81,7 +81,13 @@
 
       <div id="air" class="section">
         <h2><%= I18n.t(:aqi_quality_index) %></h2>
-        <h3 class="<%= city_pollutants[:aqi][:class] %>"><%= I18n.t("#{city_pollutants[:aqi][:class]}.name") %> (<%= city_pollutants[:aqi][:value] %>)  </h3>
+        <h3 data-e_aqi="<%= I18n.t("#{city_pollutants[:e_aqi][:class]}.name") %> (<%= city_pollutants[:e_aqi][:value] %>)"
+            data-e_class="<%= city_pollutants[:e_aqi][:class] %>" 
+            data-aqi="<%= I18n.t("#{city_pollutants[:aqi][:class]}.name") %> (<%= city_pollutants[:aqi][:value] %>)"
+            data-class="<%= city_pollutants[:aqi][:class] %>"
+            class="<%= city_pollutants[:aqi][:class] %>">
+            <%= I18n.t("#{city_pollutants[:aqi][:class]}.name") %> (<%= city_pollutants[:aqi][:value] %>)  
+        </h3>
 
         <table id="city_aqi" class="centered-table">
           <tr>
@@ -98,7 +104,13 @@
             <td class="<%= city_pollutants[:co][:class] %>"><%= city_pollutants[:co][:value] %></td>
             <td class="<%= city_pollutants[:o3][:class] %>"><%= city_pollutants[:o3][:value] %></td>
             <td class="<%= city_pollutants[:pm10][:class] %>"><%= city_pollutants[:pm10][:value] %></td>
-            <td class="<%= city_pollutants[:pm2_5][:class] %>"><%= city_pollutants[:pm2_5][:value] %></td>
+            <td data-e_pm2_5="<%= city_pollutants[:e_pm2_5][:value] %>" 
+                data-e_class="<%= city_pollutants[:e_pm2_5][:class] %>" 
+                data-pm2_5="<%= city_pollutants[:pm2_5][:value] %>" 
+                data-class="<%= city_pollutants[:pm2_5][:class] %>" 
+                class="<%= city_pollutants[:pm2_5][:class] %>">
+                <%= city_pollutants[:pm2_5][:value] %>
+            </td>
           </tr>
         </table>
         <br><br><br>
@@ -139,6 +151,12 @@
 
       <div id="stations-aqi" class="section">  
         <h2><%= I18n.t(:latest_aqi_data_ms) %></h2>
+        <input type="checkbox" id="cb_e_pm2_5" >
+        <label for="cb_e_pm2_5" class="label-text">
+          estimate the PM<sub>2.5</sub> based on the PM<sub>10</sub>
+        </label>
+        <br><br>
+
         <table id="stations_aqi" class="centered-table">
           <tr>
             <th><%= I18n.t(:aqi) %></th>
@@ -152,18 +170,32 @@
           </tr>
           <% stations_pollutants_aqi.each do |station, values| %>
             <tr>
-              <td class="<%= values[:aqi][:class] %>">
+              <td data-e_aqi="<%= values[:e_aqi][:value] %>"
+                  data-e_class="<%= values[:e_aqi][:class] %>" 
+                  data-aqi="<%= values[:aqi][:value] %>"
+                  data-class="<%= values[:aqi][:class] %>"
+                  class="<%= values[:aqi][:class] %>">
                   <%= values[:aqi][:value] %>
                 </td>  
               <td class="station_name"><%= values[:name] %></td>
               <% %i[so2 no2 co o3 pm10 pm2_5].each do |pollutant| %>
-              <% if values.key?(pollutant)%>
-                <td class="<%= values[pollutant][:class] %>">
-                  <%= values[pollutant][:value] %>
-                </td>   
-              <% else %>
-                <td></td>
-              <% end %>         
+                <% if values.key?(pollutant)%>
+                  <% if pollutant == :pm2_5 %>
+                    <td data-e_pm2_5="<%= values[:e_pm2_5][:value] %>" 
+                        data-e_class="<%= values[:e_pm2_5][:class] %>" 
+                        data-pm2_5="<%= values[pollutant][:value] %>" 
+                        data-class="<%= values[pollutant][:class] %>" 
+                        class="<%= values[pollutant][:class] %>">
+                      <%= values[pollutant][:value] %>
+                    </td>
+                  <% else %>   
+                    <td class="<%= values[pollutant][:class] %>">
+                      <%= values[pollutant][:value] %>
+                    </td>
+                  <% end %>
+                <% else %>
+                  <td></td>
+                <% end %>         
               <% end %>
             </tr>
           <% end %>
@@ -171,9 +203,74 @@
         <br><br>
         <div class="small"><%= I18n.t(:data_provided_by) %>  <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php"><%= I18n.t(:fhmz) %></a></div>
       
+        <script>
+          var checkbox = document.getElementById('cb_e_pm2_5');
+          checkbox.addEventListener('click', estimatePm2_5);
+
+          function estimatePm2_5() {
+            var checkbox = document.getElementById('cb_e_pm2_5');
+
+            var elementsWithEstimatedPm2_5 = document.querySelectorAll('[data-e_pm2_5]');
+            var elementsWithEstimatedAQI = document.querySelectorAll('[data-e_aqi]');
+
+            if (checkbox.checked){         
+              elementsWithEstimatedPm2_5.forEach(function(element) {
+                element.innerText = element.dataset.e_pm2_5;
+
+                if (element.dataset.class !== ""){
+                  element.classList.remove(element.dataset.class);
+                  }
+                
+                if (element.dataset.e_class !==""){
+                  element.classList.add(element.dataset.e_class);
+                  }           
+              });
+              elementsWithEstimatedAQI.forEach(function(element) {
+                element.innerText = element.dataset.e_aqi;
+
+                if (element.dataset.class !== ""){
+                  element.classList.remove(element.dataset.class);
+                  }
+                
+                if (element.dataset.e_class !==""){
+                  element.classList.add(element.dataset.e_class);
+                  }           
+              });
+            }
+            else{
+              elementsWithEstimatedPm2_5.forEach(function(element) {
+                
+                element.innerText = element.dataset.pm2_5;
+
+                if (element.dataset.e_class !== ""){
+                  element.classList.remove(element.dataset.e_class);
+                  }
+                
+                if (element.dataset.class !==""){
+                  element.classList.add(element.dataset.class);
+                  } 
+              });
+              elementsWithEstimatedAQI.forEach(function(element) {
+                element.innerText = element.dataset.aqi;
+
+                if (element.dataset.e_class !== ""){
+                  element.classList.remove(element.dataset.e_class);
+                  }
+                
+                if (element.dataset.class !==""){
+                  element.classList.add(element.dataset.class);
+                  }           
+              });
+            }
+          }
+
+        </script>
+
         <div id="map"></div>
 
         <script>
+          var checkbox = document.getElementById('cb_e_pm2_5');
+          checkbox.addEventListener('click', estimateMapChange);
           // Initialize Leaflet map
           var map = L.map('map').setView([43.8560, 18.390], 12);
 
@@ -183,23 +280,66 @@
               attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           }).addTo(map);
 
-        <% stations_pollutants_aqi.each do |_station, values| %>
-          <% next if values[:aqi][:value].nil? %>
-          
-          // Define a custom HTML for the marker
-          var customMarkerHtml = '<div class="custom-marker <%= values[:aqi][:class] %>"><%= values[:aqi][:value] %></div>';
+          <% stations_pollutants_aqi.each do |_station, values| %>
+            <% next if values[:aqi][:value].nil? %>
+            
+            // Define a custom HTML for the marker
+            var customMarkerHtml = '<div class="custom-marker <%= values[:aqi][:class] %>"><%= values[:aqi][:value] %></div>';
 
-          // Create a custom divIcon with the HTML
-          var customIcon = L.divIcon({
-              className: 'custom-div-icon',
-              html: customMarkerHtml,
-              iconSize: [30, 30]
-          });
+            // Create a custom divIcon with the HTML
+            var customIcon = L.divIcon({
+                className: 'custom-div-icon',
+                html: customMarkerHtml,
+                iconSize: [30, 30]
+            });
 
-          // Add a marker with the custom icon
-          L.marker([<%= values[:latitude] %>, <%= values[:longitude] %>], { icon: customIcon }).addTo(map);
-          
-        <% end %>  
+            // Add a marker with the custom icon
+            L.marker([<%= values[:latitude] %>, <%= values[:longitude] %>], { icon: customIcon }).addTo(map);
+            
+          <% end %>  
+
+          function estimateMapChange() {
+            var checkbox = document.getElementById('cb_e_pm2_5');
+
+            if (checkbox.checked){ 
+              <% stations_pollutants_aqi.each do |_station, values| %>
+              <% next if values[:e_aqi][:value].nil? %>
+              
+              // Define a custom HTML for the marker
+              var customMarkerHtml = '<div class="custom-marker <%= values[:e_aqi][:class] %>"><%= values[:e_aqi][:value] %></div>';
+
+              // Create a custom divIcon with the HTML
+              var customIcon = L.divIcon({
+                  className: 'custom-div-icon',
+                  html: customMarkerHtml,
+                  iconSize: [30, 30]
+              });
+
+              // Add a marker with the custom icon
+              L.marker([<%= values[:latitude] %>, <%= values[:longitude] %>], { icon: customIcon }).addTo(map);
+              
+              <% end %>
+            } 
+            else {
+              <% stations_pollutants_aqi.each do |_station, values| %>
+              <% next if values[:aqi][:value].nil? %>
+              
+              // Define a custom HTML for the marker
+              var customMarkerHtml = '<div class="custom-marker <%= values[:aqi][:class] %>"><%= values[:aqi][:value] %></div>';
+
+              // Create a custom divIcon with the HTML
+              var customIcon = L.divIcon({
+                  className: 'custom-div-icon',
+                  html: customMarkerHtml,
+                  iconSize: [30, 30]
+              });
+
+              // Add a marker with the custom icon
+              L.marker([<%= values[:latitude] %>, <%= values[:longitude] %>], { icon: customIcon }).addTo(map);
+            
+              <% end %>  
+            } 
+          }
         </script>
 
       </div>

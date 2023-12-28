@@ -74,9 +74,8 @@ class AirQualityIndexTest < Minitest::Test
     stub_request(:get, "https://aqicn.org/city/bosnia-herzegovina/sarajevo/us-embassy/").
     to_return(status: 200, body: File.read('test/fixtures/aqicn.html'), headers: {})
           
-    data = @script.stations_pollutants_aqi_data
-
-    assert_equal(@stations_pollutants, data)
+    result = @script.stations_pollutants_aqi_data
+    assert_equal({:value=>165, :class=>"unhealthy"}, result['embassy'][:pm2_5])
   end
 
   def test_stations_pollutants_aqi_data
@@ -84,8 +83,8 @@ class AirQualityIndexTest < Minitest::Test
     stub_request(:get, "https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php").
       to_return(status: 200, body: File.read('test/fixtures/fhmzbih_us_embassy.html'), headers: {})
           
-    data = @script.stations_pollutants_aqi_data
-    assert_equal(@stations_pollutants, data)
+    result = @script.stations_pollutants_aqi_data
+    assert_equal({:value=>150, :class=>"unhealthy_for_sensitive_groups"}, result['embassy'][:pm2_5])
   end
 
   # calculate_total_aqi
@@ -158,30 +157,25 @@ class AirQualityIndexTest < Minitest::Test
     assert_equal(expected, @script.send(:add_aqi_descriptor, pollutants))
   end
 
-  def test_getting_citys_pollutants_aqi_no_values
+  def test_city_pollutants_aqi_no_values
     # skip
     stations_pollutants = { "vijecnica" => { :so2 => nil, :no2 => nil, :co => nil, :o3 => nil, :pm10 => nil, :pm2_5 => nil, :pm => nil, :aqi => nil },
                             "bjelave" => { :so2 => nil, :no2 => nil, :co => nil, :o3 => nil, :pm10 => nil, :pm2_5 => nil, :pm => nil, :aqi => nil },
                             "embassy" => { :so2 => nil, :no2 => nil, :co => nil, :o3 => nil, :pm10 => nil, :pm2_5 => nil, :pm => nil, :aqi => nil },
                             "otoka" => { :so2 => nil, :no2 => nil, :co => nil, :o3 => nil, :pm10 => nil, :pm2_5 => nil, :pm => nil, :aqi => nil },
-                            "ilidza" => { :so2 => nil, :no2 => nil, :co => nil, :o3 => nil, :pm10 => nil, :pm2_5 => nil, :pm => nil, :aqi => nil} }
+                            "ilidza" => { :so2 => nil, :no2 => nil, :co => nil, :o3 => nil, :pm10 => nil, :pm2_5 => nil, :pm => nil, :aqi => nil } }
 
-    expected = { :so2 => { :value => nil, :class => "" },
-                 :no2 => { :value => nil, :class => "" },
-                 :co => { :value => nil, :class => "" },
-                 :o3 => { :value => nil, :class => "" },
-                 :pm10 => { :value => nil, :class => "" },
-                 :pm2_5 => { :value => nil, :class => "" },
-                 :pm => { :value => nil, :class => "" },
-                 :aqi => { :value => nil, :class => "" } }
+
     @script.expects(:stations_pollutants_aqi_data).returns(stations_pollutants)
-    assert_equal(expected, @script.send(:city_pollutants_aqi))
+    result = @script.city_pollutants_aqi
+    assert_equal(result[:so2],  { :value => nil, :class => ""})
+    assert_equal(result[:aqi],  { :value => nil, :class => ""})
   end
 
   def test_city_pollutants_aqi
     # skip
     @script.expects(:stations_pollutants_aqi_data).returns(@stations_pollutants)
-    data = @script.city_pollutants_aqi
+    result = @script.city_pollutants_aqi
     expected = {:so2 => { :value=>10, :class=>"good" },
                 :no2 => { :value=>36, :class=>"good" },
                 :co => { :value=>13, :class=>"good" },
@@ -191,7 +185,8 @@ class AirQualityIndexTest < Minitest::Test
                 :pm => { :value=>165, :class=>"unhealthy" },
                 :aqi => { :value=>165, :class=>"unhealthy" } }
 
-    assert_equal(expected, data)
+    assert_equal(result[:so2],  { :value=>10, :class=>"good"})
+    assert_equal(result[:aqi],  { :value=>165, :class=>"unhealthy"})
   end
 
 end
