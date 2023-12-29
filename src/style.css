@@ -1,6 +1,120 @@
+
+.lang_btn{
+  border-radius: 0.5em;
+  background-color: #272626;
+  padding: 0.25em;
+  max-width: 70px;
+  display: flex;
+  justify-content: center;
+  font-size: 90%;
+  margin: auto;
+
+}
+.lang_btn div{
+  width: 45px;
+  height: 20px;
+  margin: auto;
+}
+
+.units_btns{
+  border-radius: 0.5em;
+  background-color: #272626;
+  padding: 0.25em;
+  max-width: 240px;
+  margin: 0.3em auto;
+  display: flex;
+  justify-content: center;
+}
+
+.unit_off{
+  background: #272626;
+  color: darkgray ;
+  border-style: none;
+  font-size: 90% ;
+}
+
+.unit_on  {
+  background: #333;
+    margin: 0;
+    color: lightgray;
+    padding: 0.3em 0.5em;
+    border-radius: 0.4em;
+    border-style: none;
+    font-size: 90%;
+    margin: auto;
+    height: 20px;
+
+}
+
+.unit_off:hover  {
+  background: whitesmoke;
+  color: #333;
+  border-radius: 0.4em;
+}
+
+#changeButton  {
+  background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: darkgray;
+    cursor: pointer;
+    outline: inherit;
+    padding: 0.1em 0.3em;
+    border-radius: 0.5em;
+    font-size: 90%;
+}
+
+#changeButton:hover {
+  background: whitesmoke;
+  color: #333;
+}
+
+header a:hover {
+  background-color: whitesmoke;
+  color: #333;
+  padding: 0.1em 0.5em;
+  border-radius: 0.4em;
+  font-style: normal;
+  width: 45px;
+  height: 20px;
+}
+
+.lang_on{
+  color: lightgrey;
+  background: #333;
+  border-radius: 0.4em;
+  /* width: 50px;
+  height: 30px; */
+}
+
+.theme {
+  gap: 15px;
+  display: flex;
+  color: #333;
+  font-family: Tahoma, sans-serif;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* padding: 1em; */
+}
+
 .section {
-  width: 25%;
+  /* width: 25%; */
+  width: 390px;
   text-align: center;
+  padding: 0.5em;
+  /* border: 1px solid black; */
+  /* box-shadow: 0px 0px 6px 6px rgb(30, 30, 30); */
+
+  /* margin: 1em; */
+}
+
+#weather, #air, #stations-aqi{
+  box-shadow: 0px 0px 6px 6px rgb(30, 30, 30);
+  padding: 1em;
+
+  border-radius: 0.5em;
 }
 
 .float-child {
@@ -24,7 +138,6 @@ a:hover{
 h2 {
   margin-bottom: 1.2em;
 }
-
 
 #forecast_table{
   overflow: auto;
@@ -70,35 +183,69 @@ tr.border_bottom td {
 }
 
 .time {
-  word-spacing: 100vw;
+  /* word-spacing: 100vw; */
+  word-wrap: break-word;
 }
 
-.theme {
-  display: flex;
-  color: #333;
-  font-family: Tahoma, sans-serif;
-}
+@media (max-width: 1732px) {
+  header, footer{
+    width: 1266px;
 
-@media (max-width: 1500px) {
-  .theme {
-    display: block;
   }
+}
+
+@media (max-width: 1311px) {
+  header, footer{
+    width: 830px;
+
+  }
+}
+
+@media (max-width: 874px) {
+  header, footer{
+    width: 390px;
+
+  }
+}
+
+@media (max-width: 440px) {
+  header, footer{
+    width: auto;
+
+  }
+}
+
+/* @media (max-width: 815px) {
   .section{
     width: 100%;
-    /* font-size: 2vh;
-    height: 100vh; */
-    padding-top: 1em;
-    padding-bottom: 3em;
+
   }
-}
+  #air{
+    padding-left: 2em;
+    padding-right: 2em;
+  }
+} */
+
+/* @media (max-width: 1630px){
+  .theme{
+
+  }
+} */
+  
+
 
 header {
+  max-width: 1688px;
+
   background-color: #333;
   color: whitesmoke;
   text-align: center;
   padding: 1em;
   font-family: Tahoma, sans-serif;
   border-radius: 0.5em;
+  box-shadow: 0px 0px 6px 6px rgb(30, 30, 30);
+  margin: 1em auto;
+
 }
 
 header p {
@@ -115,11 +262,6 @@ header a:active, header a:link {
 }
 
 
-.lang_on{
-  color: lightgrey;
-  margin-top: 0.5em;
-}
-
  header a:link, header a:active, header a:visited {
   color: darkgrey; 
   text-decoration: none; 
@@ -129,21 +271,18 @@ header a:active, header a:link {
   color: lightgray;
 } 
 
-header a:hover {
-  background-color: whitesmoke;
-  color: #333;
-  padding: 0.3em 0.4em;
-  border-radius: 0.5em;
-  margin-top: 0.5em;
-  font-style: normal;
 
-}
 
 footer {
+  max-width: 1688px;
+  margin: 1em auto;
+
   background-color: #333;
+  box-shadow: 0px 0px 6px 6px rgb(30, 30, 30);
+
   color: lightgrey;
   text-align: center;
-  padding: 0.5em;
+  padding: 1em;
   font-family: Tahoma, sans-serif;
   border-radius: 0.5em;
 
@@ -202,7 +341,7 @@ p#weather_description {
   padding: 0.5em 0 ;
   font-size: 120%;
   border-radius: 0.5em;
-  margin: 1em 1.5em;
+  margin: 1em;
 }
 #city_aqi td{
   border-radius: 0.5em;
@@ -210,7 +349,6 @@ p#weather_description {
 }
 
 #health_advisory{
-  padding: 0 1em;
   margin-top: 2.5em;
 }
 
@@ -307,7 +445,7 @@ span.rain {
   border-radius: 0.5em;
   display: inline-block;
   height: 20em;
-  width: 30em; 
+  width: 100%; 
   margin: 2em 0;
 }
 
@@ -325,34 +463,22 @@ label#speed{
   font-size: 100%;
 }
 
-#changeButton  {
-  background: none;
-    border: none;
-    padding: 0;
-    margin: 0;
-    font: inherit;
-    color: darkgray;
-    cursor: pointer;
-    outline: inherit;
-    padding: 0.1em 0.3em;
-    border-radius: 0.5em;
-    font-size: 90%;
-}
 
-#changeButton:hover {
-  background: whitesmoke;
-  color: #333;
-}
 
 @media (prefers-color-scheme: dark) {
   .theme.adaptive {
-    background: #333;
+    background: #272626;
     color: lightgray;
   }
-  html {background-color: #333}
+  .section {
+    background: #333;
+  }
+  html {background-color: #272626;}
+  #weather_forecast {background-color: #272626;}
+
   header {
-    border-radius: 0em ;
-    border-bottom: 1px solid rgb(121, 120, 120);
+    /* border-radius: 0em ; */
+    /* border-bottom: 1px solid rgb(121, 120, 120); */
   }
   header > h1,  header > p{
     color: darkgray;
@@ -360,8 +486,8 @@ label#speed{
   }
 
   footer {
-    border-radius: 0em ;
-    border-TOP: 1px solid rgb(121, 120, 120);
+    /* border-radius: 0em ;
+    border-TOP: 1px solid rgb(121, 120, 120); */
   }
 
   #air h3, #city_aqi td, #stations_aqi td, #aqi_legend td{
@@ -372,10 +498,17 @@ label#speed{
     color: lightgray;
   }
 
+  #stations_aqi{
+    font-size: 90%;
+  }
+
   #stations_aqi td.station_name{
     color: whitesmoke;
   }
-  #forecast_table td.sticky-col, #today_forecast_table td.sticky-col{
+  #forecast_table td.sticky-col {
+    background-color: #272626;
+  }
+  #today_forecast_table td.sticky-col {
     background-color: #333;
   }
   tr.border_bottom td {

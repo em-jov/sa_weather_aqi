@@ -33,14 +33,13 @@ module WeatherAir
 
     def estimate_pm2_5(pm10, pm2_5)
       return nil if (pm10.nil? && pm2_5.nil?)
-      return pm2_5 if !pm2_5.nil?
+      return pm2_5 unless pm2_5.nil?
       pm10c = calculate_pm10_concentration(pm10)
       pm25c = pm10c * 0.9
       calculate_aqi(pm25c)
     end
 
     def calculate_aqi(pm25)
-      # PM2.5 breakpoints and corresponding AQI values
       breakpoints = [
         { conc_low: 0.0, conc_high: 12.0, iaqi_low: 0, iaqi_high: 50 },
         { conc_low: 12.1, conc_high: 35.4, iaqi_low: 51, iaqi_high: 100 },
@@ -51,19 +50,13 @@ module WeatherAir
         { conc_low: 350.5, conc_high: 500.4, iaqi_low: 401, iaqi_high: 500 },
       ]
     
-      # Find the corresponding breakpoints for the given PM2.5 concentration
       breakpoint = breakpoints.find { |b| pm25 >= b[:conc_low] && pm25 <= b[:conc_high] }
-    
-      unless breakpoint
-        puts 'PM2.5 concentration out of range'
-        return nil
-      end
-    
-      # Calculate the AQI using the formula
+      return nil unless breakpoint
+
       aqi = ((breakpoint[:iaqi_high] - breakpoint[:iaqi_low]) / (breakpoint[:conc_high] - breakpoint[:conc_low])) *
             (pm25 - breakpoint[:conc_low]) + breakpoint[:iaqi_low]
     
-      aqi.round # Round to the nearest whole number
+      aqi.round 
     end
 
     def calculate_pm10_concentration(aqi)
@@ -77,13 +70,10 @@ module WeatherAir
         { bp_high: 500, conc_low: 505, conc_high: 604, iaqi_low: 401, iaqi_high: 500 },
       ]
     
+    
       breakpoint = breakpoints.find { |b| aqi <= b[:bp_high] }
-    
-      unless breakpoint
-        puts 'AQI out of range'
-        return nil
-      end
-    
+      return nil unless breakpoint
+      
       conc = ((aqi - breakpoint[:iaqi_low]) * (breakpoint[:conc_high] - breakpoint[:conc_low]) / 
               (breakpoint[:iaqi_high] - breakpoint[:iaqi_low])) + breakpoint[:conc_low]
     
