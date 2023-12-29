@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Sarajevo - Weather and Air Quality</title>
+    <title>Sarajevo meteo</title>
     <style><%= style %></style>
     <% if I18n.locale == :en %>
       <script><%= js_script %></script>
@@ -21,16 +21,27 @@
     <header>
       <h1>Sarajevo</h1>
       <p><%= I18n.t(:last_update) %>: <br> <%= last_update %></p>
+
+      <div class="lang_btn">
       <% if I18n.locale == :bs %>
-        <span class="lang_on">bs</span> | <a href="en/index.html">en</a>
+        <div class="lang_on">bs</div>  <div class="lang_off"> <a href="en/index.html">en</a> </div>
       <% else %>
-        <a href="../index.html">bs</a> | <span class="lang_on">en | <button id="changeButton">imperial: °F, mph</button>
+        <div class="lang_off"><a href="../index.html">bs</a> </div> <div class="lang_on">en  </div> 
       <% end %>
-      </span>
+      </div>
+
+      <% if I18n.locale == :en %>
+      <button id="changeButton">imperial: °F, mph</button>
+      <%# <div class="units_btns">
+        <button id="imperial" class="unit_off">imperial: °F, mph</button>
+        <button id="metric" class="unit_on">metric: °C, km/h</button>
+      </div> %>
+      <% end %>
+
     </header>
 
-    <main class="box theme adaptive">
-
+    <main class="theme adaptive">
+      
       <div id="weather" class="section">
         <h2><%= I18n.t(:current_weather) %></h2>
         <% if current_weather.has_key?(:error) %>
@@ -109,7 +120,7 @@
                 data-pm2_5="<%= city_pollutants[:pm2_5][:value] %>" 
                 data-class="<%= city_pollutants[:pm2_5][:class] %>" 
                 class="<%= city_pollutants[:pm2_5][:class] %>">
-                <%= city_pollutants[:pm2_5][:value] %>
+              <%= city_pollutants[:pm2_5][:value] %>
             </td>
           </tr>
         </table>
