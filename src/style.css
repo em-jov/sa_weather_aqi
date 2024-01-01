@@ -1,3 +1,39 @@
+#button {
+  display: inline-block;
+  background-color: rgb(173, 171, 171);
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  transition: background-color .3s, 
+    opacity .5s, visibility .5s;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+}
+#button::after {
+  content: '\21E7'; /* Unicode arrow character for an upward arrow */
+  font-size: 40px;
+}
+#button:hover {
+  cursor: pointer;
+  background-color: #333;
+  font-style: normal;
+}
+#button:active {
+  background-color: #555;
+}
+#button.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.toggle_pm2_5{
+  margin-bottom: 0.5em;
+}
 
 .lang_btn{
   border-radius: 0.5em;
@@ -8,85 +44,76 @@
   justify-content: center;
   font-size: 90%;
   margin: auto;
-
 }
+
 .lang_btn div{
   width: 45px;
   height: 20px;
   margin: auto;
 }
 
-.units_btns{
+.lang_on{
+  color: lightgrey;
+  background: #333;
+  border-radius: 0.4em;
+}
+
+a.lang_off:visited{
+  color: #515151;
+}
+
+a.lang_off:hover{
+  font-style: normal;
+  color: lightgray;
+}
+
+.units_btn{
   border-radius: 0.5em;
   background-color: #272626;
   padding: 0.25em;
-  max-width: 240px;
+  max-width: 222px;
   margin: 0.3em auto;
   display: flex;
   justify-content: center;
+  font-size: 90%;
 }
 
 .unit_off{
   background: #272626;
-  color: darkgray ;
+  color: #515151 ;
   border-style: none;
-  font-size: 90% ;
 }
 
-.unit_on  {
+.unit_on{
   background: #333;
-    margin: 0;
-    color: lightgray;
-    padding: 0.3em 0.5em;
-    border-radius: 0.4em;
-    border-style: none;
-    font-size: 90%;
-    margin: auto;
-    height: 20px;
-
+  color: lightgray;
+  padding: 0.3em 0.5em;
+  border-radius: 0.4em;
+  border-style: none;
+  margin: auto;
 }
 
-.unit_off:hover  {
-  background: whitesmoke;
-  color: #333;
-  border-radius: 0.4em;
+.unit_off:hover{
+  color: lightgray;
 }
 
 #changeButton  {
   background: none;
-    border: none;
-    padding: 0;
-    margin: 0;
-    font: inherit;
-    color: darkgray;
-    cursor: pointer;
-    outline: inherit;
-    padding: 0.1em 0.3em;
-    border-radius: 0.5em;
-    font-size: 90%;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: darkgray;
+  cursor: pointer;
+  outline: inherit;
+  padding: 0.1em 0.3em;
+  border-radius: 0.5em;
+  font-size: 90%;
 }
 
 #changeButton:hover {
   background: whitesmoke;
   color: #333;
-}
-
-header a:hover {
-  background-color: whitesmoke;
-  color: #333;
-  padding: 0.1em 0.5em;
-  border-radius: 0.4em;
-  font-style: normal;
-  width: 45px;
-  height: 20px;
-}
-
-.lang_on{
-  color: lightgrey;
-  background: #333;
-  border-radius: 0.4em;
-  /* width: 50px;
-  height: 30px; */
 }
 
 .theme {
