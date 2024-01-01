@@ -7,6 +7,7 @@ en:
   all_data: All data
   aqi: AQI
   aqi_quality_index: Air quality index
+  estimate_pm2_5: estimated PM<sub>2.5</sub> from PM<sub>10</sub> measurements
   station: Station
   current_weather: Current weather
   feels_like: FEELS LIKE

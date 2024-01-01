@@ -24,7 +24,9 @@ module WeatherAir
       stations_pollutants_aqi = aqi.stations_pollutants_aqi_data
 
       style = File.read("src/style.css")
+      toggle_switchy = File.read("src/toggle-switchy.css")
       js_script = File.read('src/script.js')
+      scrollBtn_script =  File.read('src/scrollBtnScript.js')
       template = ERB.new(File.read('src/template.html.erb'))
       english = template.result(binding)
 
