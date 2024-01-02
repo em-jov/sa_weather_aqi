@@ -98,7 +98,8 @@
 
       <div id="air" class="section">
         <h2><%= I18n.t(:aqi_quality_index) %></h2>
-        <h3 data-e_aqi="<%= I18n.t("#{city_pollutants[:e_aqi][:class]}.name") %> (<%= city_pollutants[:e_aqi][:value] %>)"
+        <h3 id="city_aqi_main"
+            data-e_aqi="<%= I18n.t("#{city_pollutants[:e_aqi][:class]}.name") %> (<%= city_pollutants[:e_aqi][:value] %>)"
             data-e_class="<%= city_pollutants[:e_aqi][:class] %>" 
             data-aqi="<%= I18n.t("#{city_pollutants[:aqi][:class]}.name") %> (<%= city_pollutants[:aqi][:value] %>)"
             data-class="<%= city_pollutants[:aqi][:class] %>"
@@ -157,12 +158,20 @@
         </table>
 
         <div id="health_advisory">
-          <% if city_pollutants[:aqi][:who] != "x" %>
+          <div id="who_section">
             <h4><%= I18n.t(:who) %></h4>
-            <p><%= I18n.t("#{city_pollutants[:aqi][:class]}.who") %></p>
-          <% end %>
+            <p id="who"
+               data-who_e_aqi="<%= I18n.t("#{city_pollutants[:e_aqi][:class]}.who") %>"
+               data-who_aqi= "<%= I18n.t("#{city_pollutants[:aqi][:class]}.who") %>">
+              <%= I18n.t("#{city_pollutants[:e_aqi][:class]}.who") %>
+            </p>
+          </div>
           <h4><%= I18n.t(:what_to_do) %></h4>
-          <div id="advisory"><%= I18n.t("#{city_pollutants[:aqi][:class]}.advisory") %></div>
+          <div id="advisory" 
+               data-advisory_e_aqi="<%= I18n.t("#{city_pollutants[:e_aqi][:class]}.advisory") %>"
+               data-advisory_aqi="<%= I18n.t("#{city_pollutants[:aqi][:class]}.advisory") %>">
+            <%= I18n.t("#{city_pollutants[:e_aqi][:class]}.advisory") %>
+          </div>
         </div>
       </div>
 
@@ -234,8 +243,13 @@
 
             var elementsWithEstimatedPm2_5 = document.querySelectorAll('[data-e_pm2_5]');
             var elementsWithEstimatedAQI = document.querySelectorAll('[data-e_aqi]');
+            var who = document.getElementById('who');
+            var advisory = document.getElementById('advisory');
 
-            if (checkbox.checked){         
+            if (checkbox.checked){ 
+              who.innerHTML = who.dataset.who_e_aqi;
+              advisory.innerHTML = advisory.dataset.advisory_e_aqi; 
+
               elementsWithEstimatedPm2_5.forEach(function(element) {
                 element.innerText = element.dataset.e_pm2_5;
 
@@ -260,6 +274,9 @@
               });
             }
             else{
+              who.innerHTML = who.dataset.who_aqi;
+              advisory.innerHTML = advisory.dataset.advisory_aqi;
+
               elementsWithEstimatedPm2_5.forEach(function(element) {
                 
                 element.innerText = element.dataset.pm2_5;
@@ -284,6 +301,17 @@
                   }           
               });
             }
+
+            var city_main = document.getElementById("city_aqi_main");
+            var who_section =  document.getElementById("who_section");
+
+            if(city_main.classList[0] === "good"){
+              who_section.style.display = "none";
+            } 
+            else {
+              who_section.style.display="block";
+            }
+
           }
 
         </script>
@@ -420,7 +448,6 @@
 
     <a id="button"></a>
     
-
     <footer>
         <div class="small">
           <p><%= I18n.t(:no_cookies) %></p>
