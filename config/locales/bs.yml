@@ -24,7 +24,7 @@ bs:
   good:
     name: dobar 
     who: "x"
-    advisory: Dan je odličan za aktivnosti napolju.
+    advisory: Dan je odličan za aktivnosti na otvorenom.
   moderate:
     name: umjereno zagađen  
     who: Osobe izuzetno osjetljive na onečišćenje zraka česticama
