@@ -132,12 +132,11 @@ a.lang_off:hover{
 .section {
   width: 390px;
   text-align: center;
-  padding: 0.5em;
+  padding: 1em;
 }
 
 #weather, #air, #stations-aqi{
   box-shadow: 0px 0px 6px 6px rgb(30, 30, 30);
-  padding: 1em;
   border-radius: 0.5em;
 }
 
@@ -163,6 +162,7 @@ h2 {
 }
 
 #forecast_table{
+  width: 370px;
   overflow: auto;
   position: relative;
 }
@@ -172,11 +172,12 @@ h2 {
 }
 
 #today_forecast{
-  margin-block-start: 2.5em;
+  width: 370px;  
   padding: 0 1em;
 }
 
 #today_forecast_table{
+  width: 370px;  
   overflow: auto;
 } 
 
@@ -497,7 +498,7 @@ label#speed{
   }
 
   #today_forecast_table td.sticky-col {
-    background-color: #333;
+    background-color: #272626;
   }
 
   tr.border_bottom td {

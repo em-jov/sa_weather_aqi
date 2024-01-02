@@ -68,7 +68,7 @@
               <span><label><%= I18n.t(:sunset) %>: </label><%= current_weather[:sunset] %></span>
             </div>
           </div>  
-
+      </div>
 
           <% if forecast_today != [] %>
           <div id="today_forecast">
@@ -91,10 +91,8 @@
             </div>
           </div>
           <% end %>
-
-
         <% end %>
-      </div>
+
 
       <div id="air" class="section">
         <h2><%= I18n.t(:aqi_quality_index) %></h2>
@@ -311,9 +309,7 @@
             else {
               who_section.style.display="block";
             }
-
           }
-
         </script>
 
         <div id="map"></div>
