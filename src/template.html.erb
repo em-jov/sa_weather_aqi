@@ -105,94 +105,91 @@
             <%= I18n.t("#{city_pollutants[:e_aqi][:class]}.name") %> (<%= city_pollutants[:e_aqi][:value] %>)  
         </h3>
 
-        <table id="city_aqi" class="centered-table">
-          <tr>
-            <th>SO<sub>2</sub></th>
-            <th>NO<sub>2</sub></th>
-            <th>CO</th>
-            <th>O<sub>3</sub></th>
-            <th>PM<sub>10</sub></th>
-            <th>PM<sub>2.5</sub></th>
-          </tr>
-          <tr>
-            <td class="<%= city_pollutants[:so2][:class] %>"><%= city_pollutants[:so2][:value] %></td>
-            <td class="<%= city_pollutants[:no2][:class] %>"><%= city_pollutants[:no2][:value] %></td>
-            <td class="<%= city_pollutants[:co][:class] %>"><%= city_pollutants[:co][:value] %></td>
-            <td class="<%= city_pollutants[:o3][:class] %>"><%= city_pollutants[:o3][:value] %></td>
-            <td class="<%= city_pollutants[:pm10][:class] %>"><%= city_pollutants[:pm10][:value] %></td>
-            <td data-e_pm2_5="<%= city_pollutants[:e_pm2_5][:value] %>" 
-                data-e_class="<%= city_pollutants[:e_pm2_5][:class] %>" 
-                data-pm2_5="<%= city_pollutants[:pm2_5][:value] %>" 
-                data-class="<%= city_pollutants[:pm2_5][:class] %>" 
-                class="<%= city_pollutants[:e_pm2_5][:class] %>">
-              <%= city_pollutants[:e_pm2_5][:value] %>
-            </td>
-          </tr>
-        </table>
-        <br><br><br>
-
-        <table id="aqi_legend" class="centered-table">
-          <tr>
-            <td class="aqi_val">0 - 50 &nbsp</td>
-            <td class="good empty"></td>
-            <td ><%= I18n.t('good.name') %></td>
-          </tr>
-          <tr>
-            <td class="aqi_val">51 - 100</td>
-            <td class="moderate empty"></td>
-            <td ><%= I18n.t('moderate.name') %></td>
-          </tr>
-          <tr>
-            <td class="aqi_val">101 - 150</td>
-            <td class="unhealthy_for_sensitive_groups empty"></td>
-            <td ><%= I18n.t('unhealthy_for_sensitive_groups.name') %></td>
-          </tr>
-          <tr>
-            <td class="aqi_val">151 - 200</td>
-            <td class="unhealthy empty"></td>
-            <td ><%= I18n.t('unhealthy.name') %></td>
-          </tr>
-            <td class="aqi_val">201 - 300</td>
-            <td class="very_unhealthy empty"></td>
-            <td ><%= I18n.t('very_unhealthy.name') %></td>
-          </tr>
-          <tr>
-            <td class="aqi_val">301 - 500</td>
-            <td class="hazardous empty"></td>
-            <td ><%= I18n.t('hazardous.name') %></td>
-          </tr>
-        </table>
-
-        <div id="health_advisory">
-          <div id="who_section">
-            <h4><%= I18n.t(:who) %></h4>
-            <p id="who"
-               data-who_e_aqi="<%= I18n.t("#{city_pollutants[:e_aqi][:class]}.who") %>"
-               data-who_aqi= "<%= I18n.t("#{city_pollutants[:aqi][:class]}.who") %>">
-              <%= I18n.t("#{city_pollutants[:e_aqi][:class]}.who") %>
-            </p>
-          </div>
-          <h4><%= I18n.t(:what_to_do) %></h4>
-          <div id="advisory" 
-               data-advisory_e_aqi="<%= I18n.t("#{city_pollutants[:e_aqi][:class]}.advisory") %>"
-               data-advisory_aqi="<%= I18n.t("#{city_pollutants[:aqi][:class]}.advisory") %>">
-            <%= I18n.t("#{city_pollutants[:e_aqi][:class]}.advisory") %>
-          </div>
-        </div>
-      </div>
-
-      <div id="stations-aqi" class="section">  
-        <h2><%= I18n.t(:latest_aqi_data_ms) %></h2>
-
         <div class="toggle_pm2_5">
-        <label for="cb_e_pm2_5" class="toggle-switchy" data-size="xs"  data-color="gray">
-          <input type="checkbox" checked id="cb_e_pm2_5" >
-          <span class="toggle">
-            <span class="switch"></span>
-          </span>
-          <span class="label"><%= I18n.t(:estimate_pm2_5) %></span>
-        </label>
+          <label for="cb_e_pm2_5" class="toggle-switchy" data-size="xs"  data-color="gray">
+            <input type="checkbox" checked id="cb_e_pm2_5" >
+            <span class="toggle">
+              <span class="switch"></span>
+            </span>
+            <span class="label"><%= I18n.t(:estimate_pm2_5) %></span>
+          </label>
         </div>
+
+        <div id="map"></div>
+
+        <script>
+          var checkbox = document.getElementById('cb_e_pm2_5');
+          checkbox.addEventListener('click', estimateMapChange);
+          // Initialize Leaflet map
+          var map = L.map('map').setView([43.8560, 18.390], 12);
+
+          // Add OpenStreetMap as the base layer
+          L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              maxZoom: 19,
+              attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          }).addTo(map);
+
+          <% stations_pollutants_aqi.each do |_station, values| %>
+            <% next if values[:aqi][:value].nil? %>
+            
+            // Define a custom HTML for the marker
+            var customMarkerHtml = '<div class="custom-marker <%= values[:e_aqi][:class] %>"><%= values[:e_aqi][:value] %></div>';
+
+            // Create a custom divIcon with the HTML
+            var customIcon = L.divIcon({
+                className: 'custom-div-icon',
+                html: customMarkerHtml,
+                iconSize: [30, 30]
+            });
+
+            // Add a marker with the custom icon
+            L.marker([<%= values[:latitude] %>, <%= values[:longitude] %>], { icon: customIcon }).addTo(map).bindPopup('<%= values[:name] %>');
+            
+          <% end %>  
+
+          function estimateMapChange() {
+            var checkbox = document.getElementById('cb_e_pm2_5');
+
+            if (checkbox.checked){ 
+              <% stations_pollutants_aqi.each do |_station, values| %>
+              <% next if values[:e_aqi][:value].nil? %>
+              
+              // Define a custom HTML for the marker
+              var customMarkerHtml = '<div class="custom-marker <%= values[:e_aqi][:class] %>"><%= values[:e_aqi][:value] %></div>';
+
+              // Create a custom divIcon with the HTML
+              var customIcon = L.divIcon({
+                  className: 'custom-div-icon',
+                  html: customMarkerHtml,
+                  iconSize: [30, 30]
+              });
+
+              // Add a marker with the custom icon
+              L.marker([<%= values[:latitude] %>, <%= values[:longitude] %>], { icon: customIcon }).addTo(map).bindPopup('<%= values[:name] %>');
+              
+              <% end %>
+            } 
+            else {
+              <% stations_pollutants_aqi.each do |_station, values| %>
+              <% next if values[:aqi][:value].nil? %>
+              
+              // Define a custom HTML for the marker
+              var customMarkerHtml = '<div class="custom-marker <%= values[:aqi][:class] %>"><%= values[:aqi][:value] %></div>';
+
+              // Create a custom divIcon with the HTML
+              var customIcon = L.divIcon({
+                  className: 'custom-div-icon',
+                  html: customMarkerHtml,
+                  iconSize: [30, 30]
+              });
+
+              // Add a marker with the custom icon
+              L.marker([<%= values[:latitude] %>, <%= values[:longitude] %>], { icon: customIcon }).addTo(map).bindPopup('<%= values[:name] %>');
+            
+              <% end %>  
+            } 
+          }
+        </script>
 
         <table class="stations_aqi centered-table">
           <tr>
@@ -276,6 +273,7 @@
         <button id="see_more" data-text_more="<%= I18n.t(:see_more) %>" data-text_less="<%= I18n.t(:show_less) %>"><%= I18n.t(:see_more) %></button>
 
 
+
         <script>
           var checkbox = document.getElementById('cb_e_pm2_5');
           checkbox.addEventListener('click', estimatePm2_5);
@@ -356,82 +354,56 @@
           }
         </script>
 
-        <div id="map"></div>
+        <h3><%= I18n.t(:legend) %></h3>
+        <table id="aqi_legend" class="centered-table">
 
-        <script>
-          var checkbox = document.getElementById('cb_e_pm2_5');
-          checkbox.addEventListener('click', estimateMapChange);
-          // Initialize Leaflet map
-          var map = L.map('map').setView([43.8560, 18.390], 12);
+          <tr>
+            <td class="aqi_val">0 - 50 &nbsp</td>
+            <td class="good empty"></td>
+            <td ><%= I18n.t('good.name') %></td>
+          </tr>
+          <tr>
+            <td class="aqi_val">51 - 100</td>
+            <td class="moderate empty"></td>
+            <td ><%= I18n.t('moderate.name') %></td>
+          </tr>
+          <tr>
+            <td class="aqi_val">101 - 150</td>
+            <td class="unhealthy_for_sensitive_groups empty"></td>
+            <td ><%= I18n.t('unhealthy_for_sensitive_groups.name') %></td>
+          </tr>
+          <tr>
+            <td class="aqi_val">151 - 200</td>
+            <td class="unhealthy empty"></td>
+            <td ><%= I18n.t('unhealthy.name') %></td>
+          </tr>
+            <td class="aqi_val">201 - 300</td>
+            <td class="very_unhealthy empty"></td>
+            <td ><%= I18n.t('very_unhealthy.name') %></td>
+          </tr>
+          <tr>
+            <td class="aqi_val">301 - 500</td>
+            <td class="hazardous empty"></td>
+            <td ><%= I18n.t('hazardous.name') %></td>
+          </tr>
+        </table>
 
-          // Add OpenStreetMap as the base layer
-          L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-              maxZoom: 19,
-              attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          }).addTo(map);
-
-          <% stations_pollutants_aqi.each do |_station, values| %>
-            <% next if values[:aqi][:value].nil? %>
-            
-            // Define a custom HTML for the marker
-            var customMarkerHtml = '<div class="custom-marker <%= values[:e_aqi][:class] %>"><%= values[:e_aqi][:value] %></div>';
-
-            // Create a custom divIcon with the HTML
-            var customIcon = L.divIcon({
-                className: 'custom-div-icon',
-                html: customMarkerHtml,
-                iconSize: [30, 30]
-            });
-
-            // Add a marker with the custom icon
-            L.marker([<%= values[:latitude] %>, <%= values[:longitude] %>], { icon: customIcon }).addTo(map).bindPopup('<%= values[:name] %>');
-            
-          <% end %>  
-
-          function estimateMapChange() {
-            var checkbox = document.getElementById('cb_e_pm2_5');
-
-            if (checkbox.checked){ 
-              <% stations_pollutants_aqi.each do |_station, values| %>
-              <% next if values[:e_aqi][:value].nil? %>
-              
-              // Define a custom HTML for the marker
-              var customMarkerHtml = '<div class="custom-marker <%= values[:e_aqi][:class] %>"><%= values[:e_aqi][:value] %></div>';
-
-              // Create a custom divIcon with the HTML
-              var customIcon = L.divIcon({
-                  className: 'custom-div-icon',
-                  html: customMarkerHtml,
-                  iconSize: [30, 30]
-              });
-
-              // Add a marker with the custom icon
-              L.marker([<%= values[:latitude] %>, <%= values[:longitude] %>], { icon: customIcon }).addTo(map).bindPopup('<%= values[:name] %>');
-              
-              <% end %>
-            } 
-            else {
-              <% stations_pollutants_aqi.each do |_station, values| %>
-              <% next if values[:aqi][:value].nil? %>
-              
-              // Define a custom HTML for the marker
-              var customMarkerHtml = '<div class="custom-marker <%= values[:aqi][:class] %>"><%= values[:aqi][:value] %></div>';
-
-              // Create a custom divIcon with the HTML
-              var customIcon = L.divIcon({
-                  className: 'custom-div-icon',
-                  html: customMarkerHtml,
-                  iconSize: [30, 30]
-              });
-
-              // Add a marker with the custom icon
-              L.marker([<%= values[:latitude] %>, <%= values[:longitude] %>], { icon: customIcon }).addTo(map).bindPopup('<%= values[:name] %>');
-            
-              <% end %>  
-            } 
-          }
-        </script>
-
+      </div>
+      <div id="health_advisory" class="section">
+        <div id="who_section">
+          <h4><%= I18n.t(:who) %></h4>
+          <p id="who"
+              data-who_e_aqi="<%= I18n.t("#{city_pollutants[:e_aqi][:class]}.who") %>"
+              data-who_aqi= "<%= I18n.t("#{city_pollutants[:aqi][:class]}.who") %>">
+            <%= I18n.t("#{city_pollutants[:e_aqi][:class]}.who") %>
+          </p>
+        </div>
+        <h4><%= I18n.t(:what_to_do) %></h4>
+        <div id="advisory" 
+              data-advisory_e_aqi="<%= I18n.t("#{city_pollutants[:e_aqi][:class]}.advisory") %>"
+              data-advisory_aqi="<%= I18n.t("#{city_pollutants[:aqi][:class]}.advisory") %>">
+          <%= I18n.t("#{city_pollutants[:e_aqi][:class]}.advisory") %>
+        </div>
       </div>
 
       <div id="weather_forecast" class="section">
