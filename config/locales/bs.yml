@@ -9,6 +9,8 @@ bs:
   aqi_quality_index: Indeks kvalitete zraka
   estimate_pm2_5: procjena PM<sub>2.5</sub> iz mjerenja PM<sub>10</sub>
   station: Stanica
+  see_more: ...vidi više mjernih stanica
+  show_less: prikaži manje mjernih stanica
   current_weather: Trenutno vrijeme
   feels_like: FEELS LIKE
   humidity: VLAŽNOST
