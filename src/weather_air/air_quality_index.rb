@@ -12,7 +12,11 @@ module WeatherAir
                  'bjelave'  => { name: 'Bjelave' , latitude: 43.867, longitude: 18.420 },                         
                  'embassy' => { name: 'Ambasada SAD' , latitude: 43.856, longitude: 18.397 },
                  'otoka' => { name: 'Otoka', latitude: 43.848, longitude: 18.363 },
-                 'ilidza' => { name: 'Ilidža', latitude: 43.830 , longitude: 18.310 } }
+                 'ilidza' => { name: 'Ilidža', latitude: 43.830 , longitude: 18.310 },
+                 'vogosca' => { name: 'Vogošća', latitude: 43.900, longitude: 18.342 },
+                 'hadzici' => { name: 'Hadžići', latitude:43.823, longitude: 18.200 },
+                 'ilijas' => { name: 'Ilijaš', latitude: 43.960, longitude: 18.269 },
+                 'ivan_sedlo' => { name: 'Ivan sedlo', latitude: 43.750, longitude: 18.035 } }
 
     def stations_pollutants_aqi_data
       return @stations_pollutants_aqi_data if @stations_pollutants_aqi_data
@@ -31,54 +35,7 @@ module WeatherAir
       @stations_pollutants_aqi_data = stations
     end
 
-    def estimate_pm2_5(pm10, pm2_5)
-      return nil if (pm10.nil? && pm2_5.nil?)
-      return pm2_5 unless pm2_5.nil?
-      pm10c = calculate_pm10_concentration(pm10)
-      pm25c = pm10c * 0.9
-      calculate_aqi(pm25c)
-    end
 
-    def calculate_aqi(pm25)
-      breakpoints = [
-        { conc_low: 0.0, conc_high: 12.0, iaqi_low: 0, iaqi_high: 50 },
-        { conc_low: 12.1, conc_high: 35.4, iaqi_low: 51, iaqi_high: 100 },
-        { conc_low: 35.5, conc_high: 55.4, iaqi_low: 101, iaqi_high: 150 },
-        { conc_low: 55.5, conc_high: 150.4, iaqi_low: 151, iaqi_high: 200 },
-        { conc_low: 150.5, conc_high: 250.4, iaqi_low: 201, iaqi_high: 300 },
-        { conc_low: 250.5, conc_high: 350.4, iaqi_low: 301, iaqi_high: 400 },
-        { conc_low: 350.5, conc_high: 500.4, iaqi_low: 401, iaqi_high: 500 },
-      ]
-    
-      breakpoint = breakpoints.find { |b| pm25 >= b[:conc_low] && pm25 <= b[:conc_high] }
-      return nil unless breakpoint
-
-      aqi = ((breakpoint[:iaqi_high] - breakpoint[:iaqi_low]) / (breakpoint[:conc_high] - breakpoint[:conc_low])) *
-            (pm25 - breakpoint[:conc_low]) + breakpoint[:iaqi_low]
-    
-      aqi.round 
-    end
-
-    def calculate_pm10_concentration(aqi)
-      breakpoints = [
-        { bp_high: 50, conc_low: 0, conc_high: 54, iaqi_low: 0, iaqi_high: 50 },
-        { bp_high: 100, conc_low: 55, conc_high: 154, iaqi_low: 51, iaqi_high: 100 },
-        { bp_high: 150, conc_low: 155, conc_high: 254, iaqi_low: 101, iaqi_high: 150 },
-        { bp_high: 200, conc_low: 255, conc_high: 354, iaqi_low: 151, iaqi_high: 200 },
-        { bp_high: 300, conc_low: 355, conc_high: 424, iaqi_low: 201, iaqi_high: 300 },
-        { bp_high: 400, conc_low: 425, conc_high: 504, iaqi_low: 301, iaqi_high: 400 },
-        { bp_high: 500, conc_low: 505, conc_high: 604, iaqi_low: 401, iaqi_high: 500 },
-      ]
-    
-    
-      breakpoint = breakpoints.find { |b| aqi <= b[:bp_high] }
-      return nil unless breakpoint
-      
-      conc = ((aqi - breakpoint[:iaqi_low]) * (breakpoint[:conc_high] - breakpoint[:conc_low]) / 
-              (breakpoint[:iaqi_high] - breakpoint[:iaqi_low])) + breakpoint[:conc_low]
-    
-      conc.round(2) # Round to two decimal places
-    end
 
     def city_pollutants_aqi
       city_pollutants = fetch_max_values(stations_pollutants_aqi_data)
@@ -107,6 +64,10 @@ module WeatherAir
         stations_tr_html['vijecnica'] = row and next if row.css('td')[0].content.include?('Vijećnica')
         stations_tr_html['otoka'] = row and next if row.css('td')[0].content.include?('Otoka')
         stations_tr_html['ilidza'] = row and next if row.css('td')[0].content.include?('Ilidža')
+        stations_tr_html['vogosca'] = row and next if row.css('td')[0].content.include?('Vogošća')
+        stations_tr_html['hadzici'] = row and next if row.css('td')[0].content.include?('Hadžići')
+        stations_tr_html['ivan_sedlo'] = row and next if row.css('td')[0].content.include?('IvanSedlo')
+        stations_tr_html['ilijas'] = row and next if row.css('td')[1].content.include?('Ilijaš')
       end
     end
 
@@ -122,6 +83,29 @@ module WeatherAir
       if station_name == 'embassy'
         return { so2: nil, no2: nil, co: nil, o3: nil, pm10: nil, pm2_5: normalize_pollutant_aqi_value(station_tr_html, us_embassy_pm2_5_index)}
       end
+
+      if station_name == 'vogosca'
+        return {
+          so2: normalize_pollutant_aqi_value(station_tr_html, 3),
+          no2: normalize_pollutant_aqi_value(station_tr_html, 5),
+          co: nil,
+          o3: nil,
+          pm10: normalize_pollutant_aqi_value(station_tr_html, 9),
+          pm2_5: normalize_pollutant_aqi_value(station_tr_html, 11)
+        }
+      end
+
+      if station_name == 'ilijas'
+        return {
+          so2: normalize_pollutant_aqi_value(station_tr_html, 4),
+          no2: normalize_pollutant_aqi_value(station_tr_html, 6),
+          co: nil,
+          o3: normalize_pollutant_aqi_value(station_tr_html, 9),
+          pm10: normalize_pollutant_aqi_value(station_tr_html, 11),
+          pm2_5: nil
+        }
+      end
+
       pollutant_td_index = { so2: 3, no2: 5, co: 7, o3: 9, pm10: 11, pm2_5: 13 }
       pollutant_td_index.each_with_object({}) do |(pollutant, index), result|
         result[pollutant] = normalize_pollutant_aqi_value(station_tr_html, index)
@@ -130,7 +114,7 @@ module WeatherAir
 
     def normalize_pollutant_aqi_value(station_tr_html, index)
       # when pollutant AQI is meassured, value is displayed as either "some_positive_number" or "0" 
-      # when pollutant AQI is not meassured, value is shown an empty string ("") or nil or "*" or "0"
+      # when pollutant AQI is not meassured, value is shown an empty string ("") or nil or "*" or "0"  or &nbsp; (ASCII value - 0xa0)
       # to determine whether "0" represents an actual value or a lack of measurement, the preceding <td> needs to be checked 
       # if it contains "google_map/images/b.png" (green circle), it indicates an actual (and the best) value, otherwise, it does not
       return nil if station_tr_html.nil?
@@ -145,7 +129,7 @@ module WeatherAir
         end
       end
 
-      return nil if scraped_data == "*" || scraped_data&.empty? || scraped_data.nil? 
+      return nil if scraped_data == "*" || scraped_data&.empty? || scraped_data.nil? || scraped_data.ord == 0xa0
 
       scraped_data.to_i
     end
@@ -216,10 +200,61 @@ module WeatherAir
     end
 
     def fetch_max_values(stations_pollutants)
+      stations_pollutants = stations_pollutants.reject { |k,v| !['Vijećnica', 'Bjelave', 'Ambasada SAD', 'Otoka'].include?(v[:name]) }
+
       pollutants = [:so2, :no2, :co, :o3, :pm10, :pm2_5, :e_pm2_5]
       pollutants.each_with_object({}) do |pollutant, result|
         result[pollutant] = stations_pollutants&.values&.map { |v| v&.dig(pollutant, :value) }&.compact&.max
       end
+    end
+
+    def estimate_pm2_5(pm10, pm2_5)
+      return nil if (pm10.nil? && pm2_5.nil?)
+      return pm2_5 unless pm2_5.nil?
+      pm10c = calculate_pm10_concentration(pm10)
+      pm25c = pm10c * 0.9
+      calculate_aqi(pm25c)
+    end
+
+    def calculate_aqi(pm25)
+      breakpoints = [
+        { conc_low: 0.0, conc_high: 12.0, iaqi_low: 0, iaqi_high: 50 },
+        { conc_low: 12.1, conc_high: 35.4, iaqi_low: 51, iaqi_high: 100 },
+        { conc_low: 35.5, conc_high: 55.4, iaqi_low: 101, iaqi_high: 150 },
+        { conc_low: 55.5, conc_high: 150.4, iaqi_low: 151, iaqi_high: 200 },
+        { conc_low: 150.5, conc_high: 250.4, iaqi_low: 201, iaqi_high: 300 },
+        { conc_low: 250.5, conc_high: 350.4, iaqi_low: 301, iaqi_high: 400 },
+        { conc_low: 350.5, conc_high: 500.4, iaqi_low: 401, iaqi_high: 500 },
+      ]
+    
+      breakpoint = breakpoints.find { |b| pm25 >= b[:conc_low] && pm25 <= b[:conc_high] }
+      return nil unless breakpoint
+
+      aqi = ((breakpoint[:iaqi_high] - breakpoint[:iaqi_low]) / (breakpoint[:conc_high] - breakpoint[:conc_low])) *
+            (pm25 - breakpoint[:conc_low]) + breakpoint[:iaqi_low]
+    
+      aqi.round 
+    end
+
+    def calculate_pm10_concentration(aqi)
+      breakpoints = [
+        { bp_high: 50, conc_low: 0, conc_high: 54, iaqi_low: 0, iaqi_high: 50 },
+        { bp_high: 100, conc_low: 55, conc_high: 154, iaqi_low: 51, iaqi_high: 100 },
+        { bp_high: 150, conc_low: 155, conc_high: 254, iaqi_low: 101, iaqi_high: 150 },
+        { bp_high: 200, conc_low: 255, conc_high: 354, iaqi_low: 151, iaqi_high: 200 },
+        { bp_high: 300, conc_low: 355, conc_high: 424, iaqi_low: 201, iaqi_high: 300 },
+        { bp_high: 400, conc_low: 425, conc_high: 504, iaqi_low: 301, iaqi_high: 400 },
+        { bp_high: 500, conc_low: 505, conc_high: 604, iaqi_low: 401, iaqi_high: 500 },
+      ]
+    
+    
+      breakpoint = breakpoints.find { |b| aqi <= b[:bp_high] }
+      return nil unless breakpoint
+      
+      conc = ((aqi - breakpoint[:iaqi_low]) * (breakpoint[:conc_high] - breakpoint[:conc_low]) / 
+              (breakpoint[:iaqi_high] - breakpoint[:iaqi_low])) + breakpoint[:conc_low]
+    
+      conc.round(2) # Round to two decimal places
     end
 
     def us_embassy_pm2_5_aqicn

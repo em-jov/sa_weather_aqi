@@ -1,3 +1,16 @@
+#see_more{
+  margin-top: 0.5em;
+  background-color: #555;
+  color: whitesmoke;
+  border-radius: 0.4em;
+  border-style: none;
+  padding: 0.4em;
+}
+#see_more:hover{
+  background-color: whitesmoke;
+  color: #555;
+}
+
 #button {
   display: inline-block;
   background-color: rgb(173, 171, 171);
@@ -119,6 +132,8 @@ a.lang_off:hover{
   background: whitesmoke;
   color: #333;
 }
+
+
 
 .theme {
   gap: 15px;
@@ -281,9 +296,9 @@ footer {
   border-radius: 0.5em;
 }
 
-#weather h1 {
+#weather h3 {
   color: #EC6E4C;
-  font-size: 300%;
+  font-size: 170%;
   margin-block-start: 0em;
   margin-block-end: 0.25em;
 }
@@ -302,14 +317,14 @@ footer {
 
 p#weather_description {
   color: #EC6E4C;
-  font-size: 180%;
+  font-size: 110%;
   margin-block-start: 0em;
   margin-block-end: 0em;
 }
 
-#weather label{
+#weather span{
   font-size: 80%;
-  color: rgb(111, 110, 110);
+  /* color: rgb(111, 110, 110); */
 }
 
 .forecast_day{
@@ -347,7 +362,7 @@ p#weather_description {
   text-align: justify;
 }
 
-#stations_aqi td{
+.stations_aqi td{
   border-radius: 0.5em;
   padding: 0.25em;
 }
@@ -362,7 +377,10 @@ p.flex {
 }
 
 .centered-table {
-  display: inline-table;
+  display: flex;
+  justify-content: center;
+
+  /* display: inline-table; */
 }
 
 span.temp {
@@ -426,7 +444,7 @@ span.rain {
 
 #aqi_legend td{
   border-radius: 0.5em;
-  padding: 0.1em;
+  padding: 0.2em 1em; 
 }
 
 #aqi_legend td.aqi_val{
@@ -434,7 +452,7 @@ span.rain {
 }
 
 #aqi_legend td.empty{
-  padding: 0.2em;
+  border-radius: 50%;
 }
 
 #map { 
@@ -477,7 +495,7 @@ label#speed{
     color: darkgray;
   }
 
-  #air h3, #city_aqi td, #stations_aqi td, #aqi_legend td{
+  #air h3, #city_aqi td, .stations_aqi td{
     color: #333;
   }
 
@@ -485,11 +503,11 @@ label#speed{
     color: lightgray;
   }
 
-  #stations_aqi{
+  .stations_aqi{
     font-size: 90%;
   }
 
-  #stations_aqi td.station_name{
+  .stations_aqi td.station_name{
     color: whitesmoke;
   }
 

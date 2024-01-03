@@ -55,8 +55,8 @@
         <% else %> 
           <div class="cw_container">
             <div class="float-child">
-              <h1 class="temp"><%= current_weather[:currenttemp] %>°C</h1>
-              <label class="temp_desc"><%= I18n.t(:feels_like) %>: </label><span class="temp"><%= current_weather[:feelslike] %>°C</span><br>
+              <h3 class="temp"><%= current_weather[:currenttemp] %>°C</h3>
+              <span class="temp"><label class="temp_desc"><%= I18n.t(:feels_like) %>: </label><%= current_weather[:feelslike] %>°C</span><br>
               <img src="https://openweathermap.org/img/wn/<%= current_weather[:icon] %>@2x.png" />
               <p id="weather_description"><%= current_weather[:description] %></p>
             </div>
@@ -133,25 +133,33 @@
 
         <table id="aqi_legend" class="centered-table">
           <tr>
-            <td class="aqi_val">0-50</td>
-            <td class="good"><%= I18n.t('good.name') %></td>
-            <td class="empty"></td>
-            <td class="aqi_val">151-200</td>
-            <td class="unhealthy"><%= I18n.t('unhealthy.name') %></td>
+            <td class="aqi_val">0 - 50 &nbsp</td>
+            <td class="good empty"></td>
+            <td ><%= I18n.t('good.name') %></td>
           </tr>
           <tr>
-            <td class="aqi_val">51-100</td>
-            <td class="moderate"><%= I18n.t('moderate.name') %></td>
-            <td class="empty"></td>
-            <td class="aqi_val">201-300</td>
-            <td class="very_unhealthy"><%= I18n.t('very_unhealthy.name') %></td>
+            <td class="aqi_val">51 - 100</td>
+            <td class="moderate empty"></td>
+            <td ><%= I18n.t('moderate.name') %></td>
           </tr>
           <tr>
-            <td class="aqi_val">101-150</td>
-            <td class="unhealthy_for_sensitive_groups"><%= I18n.t('unhealthy_for_sensitive_groups.name') %></td>
-            <td class="empty"></td>
-            <td class="aqi_val">301-500</td>
-            <td class="hazardous"><%= I18n.t('hazardous.name') %></td>
+            <td class="aqi_val">101 - 150</td>
+            <td class="unhealthy_for_sensitive_groups empty"></td>
+            <td ><%= I18n.t('unhealthy_for_sensitive_groups.name') %></td>
+          </tr>
+          <tr>
+            <td class="aqi_val">151 - 200</td>
+            <td class="unhealthy empty"></td>
+            <td ><%= I18n.t('unhealthy.name') %></td>
+          </tr>
+            <td class="aqi_val">201 - 300</td>
+            <td class="very_unhealthy empty"></td>
+            <td ><%= I18n.t('very_unhealthy.name') %></td>
+          </tr>
+          <tr>
+            <td class="aqi_val">301 - 500</td>
+            <td class="hazardous empty"></td>
+            <td ><%= I18n.t('hazardous.name') %></td>
           </tr>
         </table>
 
@@ -186,7 +194,7 @@
         </label>
         </div>
 
-        <table id="stations_aqi" class="centered-table">
+        <table class="stations_aqi centered-table">
           <tr>
             <th><%= I18n.t(:aqi) %></th>
             <th><%= I18n.t(:station) %> </th>
@@ -198,6 +206,7 @@
             <th>PM<sub>2.5</sub></th>
           </tr>
           <% stations_pollutants_aqi.each do |station, values| %>
+            <% next if ['ilidza', 'vogosca', 'hadzici', 'ivan_sedlo', 'ilijas'].include?(station) %>
             <tr>
               <td data-e_aqi="<%= values[:e_aqi][:value] %>"
                   data-e_class="<%= values[:e_aqi][:class] %>" 
@@ -228,10 +237,45 @@
               <% end %>
             </tr>
           <% end %>
+          <% stations_pollutants_aqi.each do |station, values| %>
+            <% next if ['vijecnica', 'bjelave', 'embassy', 'otoka'].include?(station) %>
+            <tr class="hiddenRow" style="display: none;">
+              <td data-e_aqi="<%= values[:e_aqi][:value] %>"
+                  data-e_class="<%= values[:e_aqi][:class] %>" 
+                  data-aqi="<%= values[:aqi][:value] %>"
+                  data-class="<%= values[:aqi][:class] %>"
+                  class="<%= values[:e_aqi][:class] %>">
+                  <%= values[:e_aqi][:value] %>
+                </td>  
+              <td class="station_name"><%= values[:name] %></td>
+              <% %i[so2 no2 co o3 pm10 pm2_5].each do |pollutant| %>
+                <% if values.key?(pollutant)%>
+                  <% if pollutant == :pm2_5 %>
+                    <td data-e_pm2_5="<%= values[:e_pm2_5][:value] %>" 
+                        data-e_class="<%= values[:e_pm2_5][:class] %>" 
+                        data-pm2_5="<%= values[pollutant][:value] %>" 
+                        data-class="<%= values[pollutant][:class] %>" 
+                        class="<%= values[:e_pm2_5][:class] %>">
+                      <%= values[:e_pm2_5][:value] %>
+                    </td>
+                  <% else %>   
+                    <td class="<%= values[pollutant][:class] %>">
+                      <%= values[pollutant][:value] %>
+                    </td>
+                  <% end %>
+                <% else %>
+                  <td></td>
+                <% end %>         
+              <% end %>
+            </tr>
+          <% end %>
+          <div>
         </table>
-        <br><br>
         <div class="small"><%= I18n.t(:data_provided_by) %>  <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php"><%= I18n.t(:fhmz) %></a></div>
-      
+
+        <button id="see_more" data-text_more="<%= I18n.t(:see_more) %>" data-text_less="<%= I18n.t(:show_less) %>"><%= I18n.t(:see_more) %></button>
+
+
         <script>
           var checkbox = document.getElementById('cb_e_pm2_5');
           checkbox.addEventListener('click', estimatePm2_5);

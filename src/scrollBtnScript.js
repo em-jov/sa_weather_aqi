@@ -15,4 +15,20 @@ document.addEventListener("DOMContentLoaded", function () {
         document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
         window.scrollY = 0;
     });
+
+    var toggleButton = document.getElementById('see_more');
+    var hiddenRows = document.querySelectorAll('.hiddenRow');
+
+    toggleButton.addEventListener('click', function() {
+        hiddenRows.forEach(function(row) {
+          if(row.style.display === 'none'){
+            row.style.display = 'table-row';
+            toggleButton.textContent = toggleButton.dataset.text_less;
+          }
+          else{
+           row.style.display = 'none';
+           toggleButton.textContent = toggleButton.dataset.text_more;
+          }
+        });
+      });
 });

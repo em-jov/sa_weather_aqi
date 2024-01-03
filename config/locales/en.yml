@@ -9,6 +9,8 @@ en:
   aqi_quality_index: Air quality index
   estimate_pm2_5: estimated PM<sub>2.5</sub> from PM<sub>10</sub> measurements
   station: Station
+  see_more: ...see more monitoring stations
+  show_less: show less monitoring stations
   current_weather: Current weather
   feels_like: FEELS LIKE
   humidity: HUMIDITY
