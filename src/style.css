@@ -1,3 +1,40 @@
+#meteoalarms{
+  color: #333;
+}
+
+#meteoalarms span{
+  display: inline-block;
+}
+
+#meteoalarms a{
+  color: #333;
+}
+
+#meteoalarms h2{
+  color: lightgray;
+}
+
+.green_alarm{
+  background-color: green;
+  border-radius: 0.4em;
+}
+
+.yellow_alarm{
+  background-color: yellow;
+  border-radius: 0.4em;
+  margin: 0.2em;
+}
+
+.orange_alarm{
+  background-color: orange;
+  border-radius: 0.4em;
+}
+
+.red_alarm{
+  background-color: red;
+  border-radius: 0.4em;
+}
+
 #see_more{
   margin-top: 1em;
   background-color: #555;
@@ -150,7 +187,7 @@ a.lang_off:hover{
   padding: 1em;
 }
 
-#weather, #air, #health_advisory{
+#weather, #air, #health_advisory, #meteoalarms{
   box-shadow: 0px 0px 6px 6px rgb(30, 30, 30);
   border-radius: 0.5em;
 }

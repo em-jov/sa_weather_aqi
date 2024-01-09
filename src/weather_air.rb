@@ -5,6 +5,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'time'
 require 'i18n'
+load '../meteoalarm/lib/meteoalarm.rb'
 Dir['./src/weather_air/*.rb'].each { |file| require file }
 
 module WeatherAir
@@ -17,7 +18,10 @@ module WeatherAir
       weather = WeatherAir::WeatherClient.new
       current_weather = weather.current_weather_data
       (forecast_today, weather_forecast) = weather.weather_forecast_data
-      
+
+      # meteoalarm
+      alarms = weather.active_meteoalarms
+
       # air quality index
       aqi = WeatherAir::AirQualityIndex.new
       city_pollutants = aqi.city_pollutants_aqi

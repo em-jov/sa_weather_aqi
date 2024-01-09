@@ -13,6 +13,8 @@ gem 'aws-sdk-cloudfront'
 
 gem 'i18n'
 
+gem 'meteoalarm', path: '../meteoalarm'
+
 group :test do
   gem 'minitest'
   gem 'webmock'

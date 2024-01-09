@@ -47,6 +47,19 @@
     </header>
 
     <main class="theme adaptive">
+      <div id="meteoalarms" class="section">
+        <h2>Meteo alarms</h2>
+        <% alarms.each do |alarm| %>
+        <div class=<%= alarm[:alert][:info][I18n.locale][:parameter].first[:value].partition('; ')[2].partition(';')[0] + '_alarm'%>>
+          <span><%= I18n.localize(Time.parse(alarm[:alert][:info][I18n.locale][:onset]), format: :default) %></span>
+          <span><%= I18n.localize(Time.parse(alarm[:alert][:info][I18n.locale][:expires]), format: :default) %></span>
+          <h3><%= alarm[:alert][:info][I18n.locale][:headline] %></h3>
+          <span><%= alarm[:alert][:info][I18n.locale][:description] %></span>
+          <span><%= alarm[:alert][:info][I18n.locale][:instruction] %></span>
+          <a href=<%= alarm[:alert][:info][I18n.locale][:web] %>><%= alarm[:alert][:info][I18n.locale][:senderName] %></a>
+        </div>
+        <% end %>
+      </div>
       
       <div id="weather" class="section">
         <h2><%= I18n.t(:current_weather) %></h2>
