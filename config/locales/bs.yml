@@ -18,8 +18,10 @@ bs:
   aqi_quality_index: Indeks kvalitete zraka
   estimate_pm2_5: procjena PM<sub>2.5</sub> iz mjerenja PM<sub>10</sub>
   station: Stanica
-  see_more: prikaži više mjernih stanica (Kanton Sarajevo)
-  show_less: prikaži manje mjernih stanica (Sarajevo grad)
+  see_more_stations: prikaži više mjernih stanica (Kanton Sarajevo)
+  show_less_stations: prikaži manje mjernih stanica (Sarajevo grad)
+  see_more: prikaži više
+  show_less: prikaži manje
   current_weather: Trenutno vrijeme
   feels_like: FEELS LIKE
   humidity: VLAŽNOST
@@ -31,6 +33,14 @@ bs:
   weather_forecast_today: Vrijeme danas
   data_provided_by: Podaci preuzeti od
   fhmz: Federalnog hidrometeorološkog zavoda
+  meteo_alarms: Meteoalarmi
+  moderate_alarm: potencijalno opasno
+  severe_alarm: opasno
+  extreme_alarm: izuzetno opasno
+  no_current_alarms: Trenutno nema aktivnih meteoalarma.
+  upcoming_alarms: Meteoalarmi za nadolazeće dane
+  meteoalarm_disclaimer: Odricanje od odgovornosti <br> Moguća su vremenska kašnjenja između ove i web stranice www.meteoalarm.org. 
+                         Za najnovije informacije koje su objavile nacionalne meteorološke i hidrološke službe, pogledajte <a href="https://www.meteoalarm.org" target=”_blank”>www.meteoalarm.org</a>.
   latest_aqi_data_ms: "Indeks kvalitete zraka <br> po mjernim stanicama"
   good:
     name: dobar 
@@ -89,6 +99,7 @@ bs:
               *<i>Osjetljive grupe stanovništva</i><br> uključuju plućne bolesnike (poput astme), djecu, starije osobe, 
               osobe nižeg socijalnoekonomskog statusa, osobe aktivne na otvorenom (uključujući radnike na otvorenom)."
   no_cookies: Ova web stranica ne koristi kolačiće.
+  
   date:
     abbr_day_names:
     - ned
@@ -126,4 +137,6 @@ bs:
       default: "%A (%d. %B %Y.) u %H:%M"
       short: "%A %d.%m."
       hm: "%H:%M"
+      alarms_date: "%d.%m.%Y."
+      alarms_time: "%H:%M"
     pm: pm  

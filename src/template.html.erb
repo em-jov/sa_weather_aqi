@@ -47,6 +47,65 @@
     </header>
 
     <main class="theme adaptive">
+      <% if current_alarms != [] || future_alarms != [] %>
+      <div id="meteoalarms" class="section">
+        <h2> <%= I18n.t(:meteo_alarms) %></h2>
+
+        <% if current_alarms == [] && future_alarms != [] %>
+          <p><%= I18n.t(:no_current_alarms) %><p>
+        <% else %>
+          <% current_alarms.each do |alarm| %>
+            <div class="<%= alarm[:alert][:info][I18n.locale][:parameter].first[:value].partition('; ')[2].partition(';')[0] + ' alarm'%>">
+              <span>
+                <b><%= I18n.localize(Time.parse(alarm[:alert][:info][I18n.locale][:onset]), format: :alarms_date) %></b>
+                (<%= I18n.localize(Time.parse(alarm[:alert][:info][I18n.locale][:onset]), format: :alarms_time) %>
+                - <%= I18n.localize(Time.parse(alarm[:alert][:info][I18n.locale][:expires]), format: :alarms_time) %>)
+              </span>
+              <h4><%= alarm[:alert][:info][I18n.locale][:event] %></h4> 
+              </span>
+              <span><%= alarm[:alert][:info][I18n.locale][:description] %></span>
+              <span><%= alarm[:alert][:info][I18n.locale][:instruction] %></span>
+              <a href=<%= alarm[:alert][:info][I18n.locale][:web] %>><%= alarm[:alert][:info][I18n.locale][:senderName] %></a>
+            </div>
+          <% end %>
+        <% end %>
+
+        <% if future_alarms != [] %>
+          <h3><%= I18n.t(:upcoming_alarms) %></h3>
+          <% future_alarms.each do |alarm| %>
+            <div class="<%= alarm[:alert][:info][I18n.locale][:parameter].first[:value].partition('; ')[2].partition(';')[0] + ' alarm'%>">
+              <span>
+                <b><%= I18n.localize(Time.parse(alarm[:alert][:info][I18n.locale][:onset]), format: :alarms_date) %></b>
+                (<%= I18n.localize(Time.parse(alarm[:alert][:info][I18n.locale][:onset]), format: :alarms_time) %>
+                - <%= I18n.localize(Time.parse(alarm[:alert][:info][I18n.locale][:expires]), format: :alarms_time) %>)
+              </span>
+              <h4><%= alarm[:alert][:info][I18n.locale][:event] %></h4> 
+              </span>
+              <span><%= alarm[:alert][:info][I18n.locale][:description] %></span>
+
+              <details>
+                <summary>...</summary>
+                <span><%= alarm[:alert][:info][I18n.locale][:instruction] %></span>
+                <a href=<%= alarm[:alert][:info][I18n.locale][:web] %>><%= alarm[:alert][:info][I18n.locale][:senderName] %></a>
+              </details>
+            </div>
+          <% end %>
+        <% end %>  
+        <table class="centered-table">
+          <tr>
+            <td class="yellow empty"></td>
+            <td><%= I18n.t(:moderate_alarm) %></td>
+            <td class="orange empty"></td>
+            <td><%= I18n.t(:severe_alarm) %></td>
+            <td class="red empty"></td>
+            <td><%= I18n.t(:extreme_alarm) %></td>
+          </tr>
+        </table>
+        <div class="small">
+          <%= I18n.t(:meteoalarm_disclaimer) %>
+        </div>
+      </div>
+      <% end %>
       
       <div id="weather" class="section">
         <h2><%= I18n.t(:current_weather) %></h2>
@@ -56,7 +115,7 @@
           <div class="cw_container">
             <div class="float-child">
               <h3 class="temp"><%= current_weather[:currenttemp] %>°C</h3>
-              <span class="temp"><label class="temp_desc"><%= I18n.t(:feels_like) %>: </label><%= current_weather[:feelslike] %>°C</span><br>
+              <label class="temp_desc"><%= I18n.t(:feels_like) %>: </label><span class="temp"><%= current_weather[:feelslike] %>°C</span><br>
               <img src="https://openweathermap.org/img/wn/<%= current_weather[:icon] %>@2x.png" />
               <p id="weather_description"><%= current_weather[:description] %></p>
             </div>
@@ -268,9 +327,9 @@
           <% end %>
           <div>
         </table>
-        <div class="small"><%= I18n.t(:data_provided_by) %>  <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php"><%= I18n.t(:fhmz) %></a></div>
+        <div class="small"><%= I18n.t(:data_provided_by) %>  <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php" target=”_blank”><%= I18n.t(:fhmz) %></a></div>
 
-        <button id="see_more" data-text_more="<%= I18n.t(:see_more) %>" data-text_less="<%= I18n.t(:show_less) %>"><%= I18n.t(:see_more) %></button>
+        <button id="see_more_stations" data-text_more="<%= I18n.t(:see_more_stations) %>" data-text_less="<%= I18n.t(:show_less_stations) %>"><%= I18n.t(:see_more_stations) %></button>
 
 
 
@@ -452,7 +511,7 @@
           </table>
         </div> 
         <br>
-        <div class="small"><%= I18n.t(:data_provided_by) %>  <a href="https://openweathermap.org/city/3191281">OpenWeather</a></div>
+        <div class="small"><%= I18n.t(:data_provided_by) %>  <a href="https://openweathermap.org/city/3191281" target=”_blank”>OpenWeather</a></div>
         <% end %>
       </div>
 

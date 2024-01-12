@@ -80,5 +80,28 @@ module WeatherAir
     def utc_to_datetime(seconds)
       I18n.localize(Time.at(seconds.to_i).getlocal('+01:00'), format: :hm)
     end 
+
+    def active_meteoalarms
+      current_alarms = Meteoalarm::Client.alarms('BA', area: 'Sarajevo', active_now: true)
+      current_alarms.each do |alarms|   
+        alarms[:alert][:info] = alarms[:alert][:info].each_with_object({}) do |info, result|
+          result[info[:language].to_sym] = info
+        end
+      end
+
+      future_alarms = Meteoalarm::Client.alarms('BA', area: 'Sarajevo')
+      future_alarms.each do |alarms|   
+        alarms[:alert][:info] = alarms[:alert][:info].each_with_object({}) do |info, result|
+          next if Time.parse(info[:onset]).to_date == Date.today
+          result[info[:language].to_sym] = info
+        end
+      end
+      [current_alarms, future_alarms]
+    end
+   
   end
 end
+
+
+
+

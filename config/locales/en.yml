@@ -18,8 +18,10 @@ en:
   aqi_quality_index: Air quality index
   estimate_pm2_5: estimated PM<sub>2.5</sub> from PM<sub>10</sub> measurements
   station: Station
-  see_more: see more monitoring stations (Sarajevo Canton)
-  show_less: show less monitoring stations (Sarajevo city)
+  see_more_stations: see more monitoring stations (Sarajevo Canton)
+  show_less_stations: show less monitoring stations (Sarajevo city)
+  see_more: see more
+  show_less: show less
   current_weather: Current weather
   feels_like: FEELS LIKE
   humidity: HUMIDITY
@@ -31,6 +33,15 @@ en:
   weather_forecast_today: Weather today 
   data_provided_by: Data provided by
   fhmz: Federal Hydro-Meteorological Institute
+  meteo_alarms: Meteoalarms
+  moderate_alarm: moderate
+  severe_alarm: severe
+  extreme_alarm: extreme
+  no_current_alarms: Currently, there are no meteoalarms in effect.
+  upcoming_alarms: Meteoalarms for the upcoming days
+  meteoalarm_disclaimer: Disclaimer <br> Time delays between this website and the www.meteoalarm.org website are possible. 
+                         For the most up-to-date awareness information as published by the participating National
+                         Meteorological and Hydrological Services, please refer to <a href="https://www.meteoalarm.org" target=”_blank”>www.meteoalarm.org</a>.
   latest_aqi_data_ms: "Air quality index <br> per monitoring stations"
   good:
     name: good 
@@ -130,4 +141,6 @@ en:
       default: "%A (%B %d, %Y) %I:%M %P"
       short: "%A %d.%m."
       hm: "%I:%M %P"
+      alarms_date: "%B %d, %Y"
+      alarms_time: "%I:%M %P"
     pm: pm  
