@@ -1,37 +1,47 @@
-#meteoalarms{
-  color: #333;
+#meteoalarms h4{
+  margin: 0.3em;
+}
+
+#meteoalarms table{
+  margin-bottom: 0.4em;
 }
 
 #meteoalarms span{
-  display: inline-block;
-}
-
-#meteoalarms a{
-  color: #333;
+  display: block;
+  margin: 0.3em;
+  font-size: 90%;
 }
 
 #meteoalarms h2{
   color: lightgray;
 }
 
-.green_alarm{
+.alarm{
+  border-radius: 0.4em;
+  margin: 0.4em 0;
+  padding: 0.2em;
+  color: #333;
+}
+#meteoalarms .alarm a{
+  color: #333;
+  font-size: 80%;
+}
+
+.green{
   background-color: green;
-  border-radius: 0.4em;
 }
 
-.yellow_alarm{
-  background-color: yellow;
-  border-radius: 0.4em;
-  margin: 0.2em;
+.yellow{
+  background-color: #FBF304;
 }
 
-.orange_alarm{
-  background-color: orange;
-  border-radius: 0.4em;
+.orange{
+  background-color: #FFB042;
 }
 
-.red_alarm{
-  background-color: red;
+.red{
+  background-color: #AA0808;
+  color: whitesmoke;
   border-radius: 0.4em;
 }
 
@@ -348,8 +358,9 @@ footer {
   margin: 0.5em 0em;
 }
 
-.temp_desc label{
+#weather .temp_desc label{
   color: #EC6E4C;
+  font-size: 80%;
 }
 
 p#weather_description {
@@ -489,8 +500,16 @@ span.rain {
   text-align: right;
 }
 
-#aqi_legend td.empty{
+td.empty{
   border-radius: 0.4em;
+}
+
+#meteoalarms td.empty{
+  padding: 0.3em 0.7em;
+}
+
+#meteoalarms td{
+  font-size: 80%;
 }
 
 #map { 
@@ -590,5 +609,6 @@ label#speed{
 
   #weather label.temp_desc{
     color: #EC6E4C;
+    font-size: 80%;
   }
 }

@@ -82,44 +82,26 @@ module WeatherAir
     end 
 
     def active_meteoalarms
-      alarms = Meteoalarm::Client.alarms('BA', area: 'Sarajevo')#, active_now: true)
-
-      alarms.each do |alarms|
+      current_alarms = Meteoalarm::Client.alarms('BA', area: 'Sarajevo', active_now: true)
+      current_alarms.each do |alarms|   
         alarms[:alert][:info] = alarms[:alert][:info].each_with_object({}) do |info, result|
           result[info[:language].to_sym] = info
         end
       end
-      pp alarms
+
+      future_alarms = Meteoalarm::Client.alarms('BA', area: 'Sarajevo')
+      future_alarms.each do |alarms|   
+        alarms[:alert][:info] = alarms[:alert][:info].each_with_object({}) do |info, result|
+          next if Time.parse(info[:onset]).to_date == Date.today
+          result[info[:language].to_sym] = info
+        end
+      end
+      [current_alarms, future_alarms]
     end
    
   end
 end
 
-# {"value"=>"2; yellow; Moderate", "valueName"=>"awareness_level"}, {"value"=>"2; snow-ice", "valueName"=>"awareness_type"}],
-# [{"value"=>"3; orange; Severe", "valueName"=>"awareness_level"}, {"value"=>"1; Wind", "valueName"=>"awareness_type"}],
-# {"value"=>"4; red; Extreme", "valueName"=>"awareness_level"}, {"value"=>"1; Wind", "valueName"=>"awareness_type"}
-# [{"value"=>"2; yellow; Moderate", "valueName"=>"awareness_level"}, {"value"=>"6; low-temperature", "valueName"=>"awareness_type"}],
 
-# awareness-level1; 
-# green; Minor2; 
-# yellow; Moderate3; 
-# orange; Severe4; 
-# red; Extreme
 
-# awareness-type
-# 1; Wind
-# 2; snow-ice
-# 3; Thunderstorm
-# 4; Fog
-# 5; high-temperature
-# 6; low-temperature
-# 7; coastalevent
-# 8; forest-fire
-# 9; avalanches
-# 10; Rain
-# 12; flooding
-# 13; rain-flood
 
-# "Time delays between this website and the www.meteoalarm.org website are possible. 
-# For the most up-to-date awareness information as published by the participating National
-#  Meteorological and Hydrological Services, please refer to www.meteoalarm.org."

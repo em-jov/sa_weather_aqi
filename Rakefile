@@ -10,3 +10,8 @@ desc 'Run lambda function locally'
 task 'lambda' do 
   lambda_handler(event: nil, context: nil)
 end
+
+require 'meteoalarm'
+
+spec = Gem::Specification.find_by_name 'meteoalarm'
+Dir.glob("#{spec.gem_dir}/lib/meteoalarm/tasks/*.rake").each { |f| import f }

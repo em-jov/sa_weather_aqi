@@ -13,7 +13,7 @@ gem 'aws-sdk-cloudfront'
 
 gem 'i18n'
 
-gem 'meteoalarm', path: '../meteoalarm'
+gem 'meteoalarm', "~> 0.1.1"
 
 group :test do
   gem 'minitest'
