@@ -13,7 +13,7 @@ gem 'aws-sdk-cloudfront'
 
 gem 'i18n'
 
-gem 'meteoalarm', "~> 0.1.1"
+gem 'meteoalarm', "~> 0.1.2"
 
 group :test do
   gem 'minitest'
