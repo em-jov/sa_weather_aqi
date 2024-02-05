@@ -14,6 +14,7 @@ module WeatherAir
       I18n.load_path += Dir[File.expand_path("config/locales") + "/*.yml"]
       I18n.config.available_locales = %i[en bs]
       I18n.default_locale = :en
+
       # weather
       weather = WeatherAir::WeatherClient.new
       current_weather = weather.current_weather_data
@@ -24,6 +25,9 @@ module WeatherAir
 
       # air quality index
       aqi = WeatherAir::AirQualityIndex.new
+
+      ks_aqi = aqi.aqi_by_ks
+
       city_pollutants = aqi.city_pollutants_aqi
       stations_pollutants_aqi = aqi.stations_pollutants_aqi_data
 

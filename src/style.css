@@ -180,8 +180,6 @@ a.lang_off:hover{
   color: #333;
 }
 
-
-
 .theme {
   gap: 15px;
   display: flex;
@@ -198,7 +196,7 @@ a.lang_off:hover{
 }
 
 #weather, #air, #health_advisory, #meteoalarms{
-  box-shadow: 0px 0px 6px 6px rgb(30, 30, 30);
+  box-shadow: 0px 0px 6px 6px rgb(200, 200, 200);
   border-radius: 0.5em;
 }
 
@@ -299,13 +297,12 @@ tr.border_bottom td {
 
 header {
   max-width: 1688px;
-  background-color: #333;
-  color: whitesmoke;
+  color: #333;
   text-align: center;
   padding: 1em;
   font-family: Tahoma, sans-serif;
   border-radius: 0.5em;
-  box-shadow: 0px 0px 6px 6px rgb(30, 30, 30);
+  box-shadow: 0px 0px 6px 6px rgb(200, 200, 200);
   margin: 1em auto;
 }
 
@@ -334,9 +331,8 @@ footer a:link, footer a:visited {
 footer {
   max-width: 1688px;
   margin: 1em auto;
-  background-color: #333;
-  box-shadow: 0px 0px 6px 6px rgb(30, 30, 30);
-  color: lightgrey;
+  box-shadow: 0px 0px 6px 6px rgb(200, 200, 200);
+  color: #333;
   text-align: center;
   padding: 1em;
   font-family: Tahoma, sans-serif;
@@ -535,6 +531,10 @@ label#speed{
 }
 
 @media (prefers-color-scheme: dark) {
+  #weather, #air, #health_advisory, #meteoalarms{
+    box-shadow: 0px 0px 6px 6px rgb(30, 30, 30);
+  }
+
   .theme.adaptive {
     background: #272626;
     color: lightgray;
@@ -592,7 +592,14 @@ label#speed{
   }
 
   header {
+    background-color: #333;
+    box-shadow: 0px 0px 6px 6px rgb(30, 30, 30);
     color: lightgray;
+  }
+
+  footer {
+    background-color: #333;
+    box-shadow: 0px 0px 6px 6px rgb(30, 30, 30);
   }
 
   #weather label{
@@ -611,4 +618,9 @@ label#speed{
     color: #EC6E4C;
     font-size: 80%;
   }
+
+  span#pm2_estimate {
+    color:whitesmoke; 
+  }
+
 }

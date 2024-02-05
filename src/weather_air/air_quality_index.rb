@@ -35,8 +35,6 @@ module WeatherAir
       @stations_pollutants_aqi_data = stations
     end
 
-
-
     def city_pollutants_aqi
       city_pollutants = fetch_max_values(stations_pollutants_aqi_data)
                   
@@ -45,6 +43,33 @@ module WeatherAir
 
       add_aqi_descriptor(city_pollutants)
     end
+
+    def aqi_by_ks
+      stations = { 'Vijećnica' => { latitude: 43.859, longitude: 18.434 },
+                   'Otoka' => { latitude: 43.848, longitude: 18.363 },
+                   'Ilidža' => { latitude: 43.830 , longitude: 18.310 },
+                   'Vogošća' => { latitude: 43.900, longitude: 18.342 },
+                   'Ilijaš' => { latitude: 43.960, longitude: 18.269 }}
+  
+      ks_website = Nokogiri::HTML(URI.open('https://aqms.live/kvalitetzraka/index.php'))
+      table = ks_website.css('table:first tbody tr')
+      headers = table.first.css('td').map(&:content)
+      table.each do |tr|
+        name = tr.css('td').first.content
+        next unless stations.keys.include?(name)
+  
+        headers.each_with_index do |header, index|
+          next if ['Stanica', 'Mreža'].include?(header)
+          content = tr.css('td')[index].content
+          value = content.split(' ').first
+          css_bg_color = value == 'X' ? '' : tr.css('td')[index].attribute_nodes.first.value
+          stations[name][header] = { content: content == 'X' ? '' : content , style: css_bg_color } 
+        end
+      end
+      
+      stations
+    end
+
 
     private
 

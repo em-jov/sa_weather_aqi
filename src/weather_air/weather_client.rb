@@ -89,10 +89,9 @@ module WeatherAir
         end
       end
 
-      future_alarms = Meteoalarm::Client.alarms('BA', area: 'Sarajevo')
+      future_alarms = Meteoalarm::Client.alarms('BA', area: 'Sarajevo', future_alarms: true)
       future_alarms.each do |alarms|   
         alarms[:alert][:info] = alarms[:alert][:info].each_with_object({}) do |info, result|
-          next if Time.parse(info[:onset]).to_date == Date.today
           result[info[:language].to_sym] = info
         end
       end

@@ -170,7 +170,7 @@
             <span class="toggle">
               <span class="switch"></span>
             </span>
-            <span class="label"><%= I18n.t(:estimate_pm2_5) %></span>
+            <span class="label" id="pm2_estimate"><%= I18n.t(:estimate_pm2_5) %></span>
           </label>
         </div>
 
@@ -448,6 +448,34 @@
         </table>
 
       </div>
+
+      <div style="text-align: center;">
+        <h3> Air Quality Index by Kanton Sarajevo</h3>
+        <table class="stations_aqi centered-table">
+          <tr>
+            <th><%= I18n.t(:station) %> </th>
+            <th>SO<sub>2</sub></th>
+            <th>NO<sub>2</sub></th>
+            <th>CO</th>
+            <th>O<sub>3</sub></th>
+            <th>PM<sub>10</sub></th>
+            <th>PM<sub>2.5</sub></th>
+          </tr>
+          <% ks_aqi.each do |station, value| %>
+          <tr>
+            <td> <%= station %> </td>
+            <% %w[SO2 NO2 O3 CO PM10 PM2.5].each do |pollutant| %>
+              <% if value.key?(pollutant) %>
+                <td style="<%= value[pollutant][:style] %>">
+                  <%= value[pollutant][:content] %>
+                </td>
+              <% end %>
+            <% end %>
+          </tr>
+          <% end %>
+        </table>
+      </div>
+
       <div id="health_advisory" class="section">
         <div id="who_section">
           <h4><%= I18n.t(:who) %></h4>
