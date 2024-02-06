@@ -27,7 +27,6 @@ module WeatherAir
       aqi = WeatherAir::AirQualityIndex.new
 
       ks_aqi = aqi.aqi_by_ks
-
       city_pollutants = aqi.city_pollutants_aqi
       stations_pollutants_aqi = aqi.stations_pollutants_aqi_data
 
@@ -45,6 +44,7 @@ module WeatherAir
       I18n.locale = :bs
       current_weather = weather.current_weather_data(I18n.locale)
       (forecast_today, weather_forecast) = weather.weather_forecast_data(I18n.locale)
+      ks_aqi = aqi.aqi_by_ks(I18n.locale)
       bosnian = template.result(binding) 
       [bosnian, english, feed, sa_aqi, ms_aqi]
     end

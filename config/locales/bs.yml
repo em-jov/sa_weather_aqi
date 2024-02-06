@@ -15,7 +15,10 @@ bs:
   maroon: kestenjasta
   category: Kategorija
   legend: Legenda
+  source: Izvor podataka
   aqi_quality_index: Indeks kvalitete zraka
+  aqi_ks: Indeks kvalitete zraka sa web stranice Ministarstva prostornog uređenja, građenja i zaštite okoliša Kantona Sarajevo
+  raw_data: Neobrađeni podaci
   estimate_pm2_5: procjena PM<sub>2.5</sub> iz mjerenja PM<sub>10</sub>
   station: Stanica
   see_more_stations: prikaži više mjernih stanica (Kanton Sarajevo)
@@ -109,6 +112,20 @@ bs:
     - čet
     - pet
     - sub
+    abbr_month_names:
+    - 
+    - jan
+    - feb
+    - mar
+    - apr
+    - maj
+    - jun
+    - jul
+    - aug
+    - sep
+    - okt
+    - nov
+    - dec
     day_names:
     - nedjelja
     - ponedjeljak
@@ -135,6 +152,7 @@ bs:
     am: am
     formats:
       default: "%A (%d. %B %Y.) u %H:%M"
+      normal: "%d. %b %Y."
       short: "%A %d.%m."
       hm: "%H:%M"
       alarms_date: "%d.%m.%Y."

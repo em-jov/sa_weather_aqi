@@ -44,7 +44,7 @@ module WeatherAir
       add_aqi_descriptor(city_pollutants)
     end
 
-    def aqi_by_ks
+    def aqi_by_ks(locale = :en)
       stations = { 'Vijećnica' => { latitude: 43.859, longitude: 18.434 },
                    'Otoka' => { latitude: 43.848, longitude: 18.363 },
                    'Ilidža' => { latitude: 43.830 , longitude: 18.310 },
@@ -61,15 +61,42 @@ module WeatherAir
         headers.each_with_index do |header, index|
           next if ['Stanica', 'Mreža'].include?(header)
           content = tr.css('td')[index].content
-          value = content.split(' ').first
-          css_bg_color = value == 'X' ? '' : tr.css('td')[index].attribute_nodes.first.value
-          stations[name][header] = { content: content == 'X' ? '' : content , style: css_bg_color } 
+          if content != 'X'
+            value = content.split(' ')[0] 
+            m_unit = content.split(' ')[1] 
+            date =  I18n.localize(Time.parse(content.split(' ')[2]), format: :normal)
+            time = I18n.localize(Time.parse(content.split(' ')[3][0..1] + ":00"), format: :hm)
+            aqi = WeatherAir::AqiCalculator.convert_concentration_to_aqi(header, value)
+            pp "#{header} = #{value} ... #{aqi}"
+
+            css_bg_color = tr.css('td')[index].attribute_nodes.first.value
+            show = Time.parse(content.split(' ')[2]).to_date == Time.now.to_date ? true : false
+            stations[name][header] = { aqi: aqi, show: show, content: "<b> #{value} <br> #{m_unit} </b> <br> #{date} <br> #{time}" , style: css_bg_color }
+          else
+            stations[name][header] = { content: nil , style: nil }
+          end
         end
       end
       
       stations
     end
 
+    # headers.each_with_index do |header, index|
+    #   next if ['Stanica', 'Mreža'].include?(header)
+    #   content = tr.css('td')[index].content
+    #   pp header
+    #   pp value = content.split(' ').first
+    #   pp date =  content.split(' ')[2]
+    #   if date && (Time.parse(date).to_date != Time.now.to_date)
+    #     content = "X"
+    #   end
+    #   pp time = content.split(' ')[3][0..1] + ":00" if date && content != 'X'
+    #  # pp dt = Time.parse(date + time) if date
+    #   pp aqi = WeatherAir::AqiCalculator.convert_concentration_to_aqi(header, value)
+    #   pp "------"
+    #   css_bg_color = value == 'X' ? '' : tr.css('td')[index].attribute_nodes.first.value
+    #   stations[name][header] = { content: content == 'X' ? '' : "#{aqi} #{time}" , style: css_bg_color } 
+    # end
 
     private
 
@@ -236,50 +263,10 @@ module WeatherAir
     def estimate_pm2_5(pm10, pm2_5)
       return nil if (pm10.nil? && pm2_5.nil?)
       return pm2_5 unless pm2_5.nil?
-      pm10c = calculate_pm10_concentration(pm10)
+      pm10c = WeatherAir::AqiCalculator.convert_pm10_aqi_to_concentration(pm10)
       pm25c = pm10c * 0.9
-      calculate_aqi(pm25c)
-    end
-
-    def calculate_aqi(pm25)
-      breakpoints = [
-        { conc_low: 0.0, conc_high: 12.0, iaqi_low: 0, iaqi_high: 50 },
-        { conc_low: 12.1, conc_high: 35.4, iaqi_low: 51, iaqi_high: 100 },
-        { conc_low: 35.5, conc_high: 55.4, iaqi_low: 101, iaqi_high: 150 },
-        { conc_low: 55.5, conc_high: 150.4, iaqi_low: 151, iaqi_high: 200 },
-        { conc_low: 150.5, conc_high: 250.4, iaqi_low: 201, iaqi_high: 300 },
-        { conc_low: 250.5, conc_high: 350.4, iaqi_low: 301, iaqi_high: 400 },
-        { conc_low: 350.5, conc_high: 500.4, iaqi_low: 401, iaqi_high: 500 },
-      ]
-    
-      breakpoint = breakpoints.find { |b| pm25 >= b[:conc_low] && pm25 <= b[:conc_high] }
-      return nil unless breakpoint
-
-      aqi = ((breakpoint[:iaqi_high] - breakpoint[:iaqi_low]) / (breakpoint[:conc_high] - breakpoint[:conc_low])) *
-            (pm25 - breakpoint[:conc_low]) + breakpoint[:iaqi_low]
-    
-      aqi.round 
-    end
-
-    def calculate_pm10_concentration(aqi)
-      breakpoints = [
-        { bp_high: 50, conc_low: 0, conc_high: 54, iaqi_low: 0, iaqi_high: 50 },
-        { bp_high: 100, conc_low: 55, conc_high: 154, iaqi_low: 51, iaqi_high: 100 },
-        { bp_high: 150, conc_low: 155, conc_high: 254, iaqi_low: 101, iaqi_high: 150 },
-        { bp_high: 200, conc_low: 255, conc_high: 354, iaqi_low: 151, iaqi_high: 200 },
-        { bp_high: 300, conc_low: 355, conc_high: 424, iaqi_low: 201, iaqi_high: 300 },
-        { bp_high: 400, conc_low: 425, conc_high: 504, iaqi_low: 301, iaqi_high: 400 },
-        { bp_high: 500, conc_low: 505, conc_high: 604, iaqi_low: 401, iaqi_high: 500 },
-      ]
-    
-    
-      breakpoint = breakpoints.find { |b| aqi <= b[:bp_high] }
-      return nil unless breakpoint
-      
-      conc = ((aqi - breakpoint[:iaqi_low]) * (breakpoint[:conc_high] - breakpoint[:conc_low]) / 
-              (breakpoint[:iaqi_high] - breakpoint[:iaqi_low])) + breakpoint[:conc_low]
-    
-      conc.round(2) # Round to two decimal places
+      #WeatherAir::AqiCalculator.convert_pm2_5_concentration_to_aqi(pm25c)
+      WeatherAir::AqiCalculator.convert_concentration_to_aqi("pm25", pm25c)
     end
 
     def us_embassy_pm2_5_aqicn

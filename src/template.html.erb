@@ -449,31 +449,63 @@
 
       </div>
 
-      <div style="text-align: center;">
-        <h3> Air Quality Index by Kanton Sarajevo</h3>
-        <table class="stations_aqi centered-table">
-          <tr>
-            <th><%= I18n.t(:station) %> </th>
-            <th>SO<sub>2</sub></th>
-            <th>NO<sub>2</sub></th>
-            <th>CO</th>
-            <th>O<sub>3</sub></th>
-            <th>PM<sub>10</sub></th>
-            <th>PM<sub>2.5</sub></th>
-          </tr>
-          <% ks_aqi.each do |station, value| %>
-          <tr>
-            <td> <%= station %> </td>
-            <% %w[SO2 NO2 O3 CO PM10 PM2.5].each do |pollutant| %>
-              <% if value.key?(pollutant) %>
-                <td style="<%= value[pollutant][:style] %>">
-                  <%= value[pollutant][:content] %>
-                </td>
+      <div id="ks_aqi" style="text-align: center;" class="section">
+        <h3><%= I18n.t(:aqi_ks) %></h3>
+        <details>
+          <summary><%= I18n.t(:raw_data) %></summary><br>
+          <table class="stations_aqi centered-table">
+            <tr>
+              <th><%= I18n.t(:station) %> </th>
+              <th>SO<sub>2</sub></th>
+              <th>NO<sub>2</sub></th>
+              <th>O<sub>3</sub></th>
+              <th>CO</th>
+              <th>PM<sub>10</sub></th>
+              <th>PM<sub>2.5</sub></th>
+            </tr>
+            <% ks_aqi.each do |station, value| %>
+            <tr>
+              <td class="ks_station"> <%= station %> </td>
+              <% %w[SO2 NO2 O3 CO PM10 PM2.5].each do |pollutant| %>
+                <% if value.key?(pollutant) %>
+                  <td style="<%= value[pollutant][:style] %>">
+                    <%= value[pollutant][:content] %>
+                  </td>
+                <% end %>
               <% end %>
+            </tr>
             <% end %>
-          </tr>
-          <% end %>
-        </table>
+          </table>
+          <p><%= I18n.t(:data_provided_by) %> <a href="https://aqms.live/kvalitetzraka/index.php">MKIPGO KS</a> </p>
+        </details>
+        <br>
+        <table class="stations_aqi centered-table">
+            <tr>
+              <th><%= I18n.t(:station) %> </th>
+              <th>SO<sub>2</sub></th>
+              <th>NO<sub>2</sub></th>
+              <th>O<sub>3</sub></th>
+              <th>CO</th>
+              <th>PM<sub>10</sub></th>
+              <th>PM<sub>2.5</sub></th>
+            </tr>
+            <% ks_aqi.each do |station, value| %>
+            <tr>
+              <td class="ks_station"> <%= station %> </td>
+              <% %w[SO2 NO2 O3 CO PM10 PM2.5].each do |pollutant| %>
+                <% if value.key?(pollutant) %>
+                  <% if value[pollutant][:show] %>
+                    <td style="<%= value[pollutant][:style] %>">
+                    <%= value[pollutant][:aqi] %>
+                    </td>
+                  <% else %>
+                    <td></td>
+                  <% end %>  
+                <% end %>
+              <% end %>
+            </tr>
+            <% end %>
+          </table>
       </div>
 
       <div id="health_advisory" class="section">

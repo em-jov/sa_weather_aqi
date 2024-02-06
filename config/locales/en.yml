@@ -15,7 +15,10 @@ en:
   maroon: maroon
   category: Category
   legend: Chart legend
+  source: Source
   aqi_quality_index: Air quality index
+  aqi_ks: Air Quality Index by MKIPGO KS
+  raw_data: Raw data
   estimate_pm2_5: estimated PM<sub>2.5</sub> from PM<sub>10</sub> measurements
   station: Station
   see_more_stations: see more monitoring stations (Sarajevo Canton)
@@ -113,6 +116,20 @@ en:
     - Thu
     - Fri
     - Sat
+    abbr_month_names:
+    - 
+    - Jan
+    - Feb
+    - Mar
+    - Apr
+    - May
+    - Jun
+    - Jul
+    - Aug
+    - Sep
+    - Oct
+    - Nov
+    - Dec
     day_names:
     - Sunday
     - Monday
@@ -139,6 +156,7 @@ en:
     am: am
     formats:
       default: "%A (%B %d, %Y) %I:%M %P"
+      normal: "%d %b %Y"
       short: "%A %d.%m."
       hm: "%I:%M %P"
       alarms_date: "%B %d, %Y"
