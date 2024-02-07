@@ -62,6 +62,29 @@ module WeatherAir
       end
     end
 
+    def self.convert_co_concentration_to_aqi(co)
+      breakpoints = [
+        { low: 0, high: 4.4, ilow: 0, ihigh: 50 },
+        { low: 4.5, high: 9.4, ilow: 51, ihigh: 100 },
+        { low: 9.5, high: 12.4, ilow: 101, ihigh: 150 },
+        { low: 12.5, high: 15.4, ilow: 151, ihigh: 200 },
+        { low: 15.5, high: 30.4, ilow: 201, ihigh: 300 },
+        { low: 30.5, high: Float::INFINITY, ilow: 301, ihigh: 500 }
+      ]
+    
+      breakpoint = breakpoints.find { |range| co.between?(range[:low], range[:high]) }
+    
+      if breakpoint
+        c_low, c_high, i_low, i_high = breakpoint[:low], breakpoint[:high], breakpoint[:ilow], breakpoint[:ihigh]
+        aqi = ((i_high - i_low) / (c_high - c_low).to_f) * (co - c_low) + i_low
+        return aqi.round
+      else
+        # Linear extrapolation for values outside defined ranges
+        aqi = ((500 - 301) / (Float::INFINITY - breakpoints.last[:high]).to_f) * (co - breakpoints.last[:high]) + 301
+        return [aqi.round, 500].min  # Ensure the extrapolated value is capped at 500
+      end
+    end
+
     # not okay
     def self.convert_so2_concentration_to_aqi(so2)
       breakpoints = [
@@ -105,29 +128,6 @@ module WeatherAir
       else
         # Linear extrapolation for values outside defined ranges
         aqi = ((500 - 301) / (Float::INFINITY - breakpoints.last[:high]).to_f) * (no2 - breakpoints.last[:high]) + 301
-        return [aqi.round, 500].min  # Ensure the extrapolated value is capped at 500
-      end
-    end
-
-    def self.convert_co_concentration_to_aqi(co)
-      breakpoints = [
-        { low: 0, high: 4.4, ilow: 0, ihigh: 50 },
-        { low: 4.5, high: 9.4, ilow: 51, ihigh: 100 },
-        { low: 9.5, high: 12.4, ilow: 101, ihigh: 150 },
-        { low: 12.5, high: 15.4, ilow: 151, ihigh: 200 },
-        { low: 15.5, high: 30.4, ilow: 201, ihigh: 300 },
-        { low: 30.5, high: Float::INFINITY, ilow: 301, ihigh: 500 }
-      ]
-    
-      breakpoint = breakpoints.find { |range| co.between?(range[:low], range[:high]) }
-    
-      if breakpoint
-        c_low, c_high, i_low, i_high = breakpoint[:low], breakpoint[:high], breakpoint[:ilow], breakpoint[:ihigh]
-        aqi = ((i_high - i_low) / (c_high - c_low).to_f) * (co - c_low) + i_low
-        return aqi.round
-      else
-        # Linear extrapolation for values outside defined ranges
-        aqi = ((500 - 301) / (Float::INFINITY - breakpoints.last[:high]).to_f) * (co - breakpoints.last[:high]) + 301
         return [aqi.round, 500].min  # Ensure the extrapolated value is capped at 500
       end
     end

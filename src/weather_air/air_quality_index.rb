@@ -45,58 +45,49 @@ module WeatherAir
     end
 
     def aqi_by_ks(locale = :en)
-      stations = { 'Vijećnica' => { latitude: 43.859, longitude: 18.434 },
-                   'Otoka' => { latitude: 43.848, longitude: 18.363 },
-                   'Ilidža' => { latitude: 43.830 , longitude: 18.310 },
-                   'Vogošća' => { latitude: 43.900, longitude: 18.342 },
-                   'Ilijaš' => { latitude: 43.960, longitude: 18.269 }}
-  
-      ks_website = Nokogiri::HTML(URI.open('https://aqms.live/kvalitetzraka/index.php'))
-      table = ks_website.css('table:first tbody tr')
-      headers = table.first.css('td').map(&:content)
-      table.each do |tr|
-        name = tr.css('td').first.content
-        next unless stations.keys.include?(name)
-  
-        headers.each_with_index do |header, index|
-          next if ['Stanica', 'Mreža'].include?(header)
-          content = tr.css('td')[index].content
-          if content != 'X'
-            value = content.split(' ')[0] 
-            m_unit = content.split(' ')[1] 
-            date =  I18n.localize(Time.parse(content.split(' ')[2]), format: :normal)
-            time = I18n.localize(Time.parse(content.split(' ')[3][0..1] + ":00"), format: :hm)
-            aqi = WeatherAir::AqiCalculator.convert_concentration_to_aqi(header, value)
-            pp "#{header} = #{value} ... #{aqi}"
+      stations = { 'Vijećnica' => { name: 'vijecnica', latitude: 43.859, longitude: 18.434 },
+                   'Otoka' => { name: 'otoka', latitude: 43.848, longitude: 18.363 },
+                   'Ilidža' => { name: 'ilidza', latitude: 43.830 , longitude: 18.310 },
+                   'Vogošća' => { name: 'vogosca', latitude: 43.900, longitude: 18.342 },
+                   'Ilijaš' => { name: 'ilijas', latitude: 43.960, longitude: 18.269 }}
 
-            css_bg_color = tr.css('td')[index].attribute_nodes.first.value
-            show = Time.parse(content.split(' ')[2]).to_date == Time.now.to_date ? true : false
-            stations[name][header] = { aqi: aqi, show: show, content: "<b> #{value} <br> #{m_unit} </b> <br> #{date} <br> #{time}" , style: css_bg_color }
-          else
-            stations[name][header] = { content: nil , style: nil }
-          end
-        end
+      stations.each do |station, values|
+        values.merge!(fetch_pollutants_from_ks_website(values[:name], locale))
       end
-      
+
       stations
     end
 
-    # headers.each_with_index do |header, index|
-    #   next if ['Stanica', 'Mreža'].include?(header)
-    #   content = tr.css('td')[index].content
-    #   pp header
-    #   pp value = content.split(' ').first
-    #   pp date =  content.split(' ')[2]
-    #   if date && (Time.parse(date).to_date != Time.now.to_date)
-    #     content = "X"
-    #   end
-    #   pp time = content.split(' ')[3][0..1] + ":00" if date && content != 'X'
-    #  # pp dt = Time.parse(date + time) if date
-    #   pp aqi = WeatherAir::AqiCalculator.convert_concentration_to_aqi(header, value)
-    #   pp "------"
-    #   css_bg_color = value == 'X' ? '' : tr.css('td')[index].attribute_nodes.first.value
-    #   stations[name][header] = { content: content == 'X' ? '' : "#{aqi} #{time}" , style: css_bg_color } 
-    # end
+    def fetch_pollutants_from_ks_website(station, locale)
+  
+      station_ks_site = Nokogiri::HTML(URI.open("https://aqms.live/kvalitetzraka/st.php?st=#{station}"))
+      table = station_ks_site.search(".table.table-hover").first
+
+      table.elements[1].children.each do |el|
+        el.children.each do |child|
+          child.text if child.name == "th"
+        end
+      end
+
+      pollutants = { "SO2" => {}, "NO2" => {}, "CO" => {}, "O3" => {}, "PM10" => {}, "PM2.5" => {} }
+
+      table.elements[1].children.each do |el|
+        next if el.children.first.nil? 
+        key = /\(.*?\)/.match(el.children.first.text)[0].delete("()")
+        if pollutants.has_key?(key)
+          pollutants[key] = {
+            date: I18n.localize(Time.parse(el.children[1].text), format: :normal),
+            time: I18n.localize(Time.parse(el.children[1].text.split(' ')[1][0..1] + ":00"), format: :hm),
+            display: Time.parse(el.children[1].text).to_date == Time.now.to_date,
+            concentration: el.children[3].text,
+            css_bg_color: el.children[5].attribute_nodes.first.value,
+            aqi: el.children[5].text,
+          }
+        end
+      end
+      
+      pollutants
+    end
 
     private
 
