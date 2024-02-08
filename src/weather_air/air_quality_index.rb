@@ -59,7 +59,6 @@ module WeatherAir
     end
 
     def fetch_pollutants_from_ks_website(station, locale)
-  
       station_ks_site = Nokogiri::HTML(URI.open("https://aqms.live/kvalitetzraka/st.php?st=#{station}"))
       table = station_ks_site.search(".table.table-hover").first
 
@@ -80,13 +79,41 @@ module WeatherAir
             time: I18n.localize(Time.parse(el.children[1].text.split(' ')[1][0..1] + ":00"), format: :hm),
             display: Time.parse(el.children[1].text).to_date == Time.now.to_date,
             concentration: el.children[3].text,
-            css_bg_color: el.children[5].attribute_nodes.first.value,
+            css_class: bg_color_to_class(el.children[5].attribute_nodes.first.value[18..24]),
             aqi: el.children[5].text,
           }
         end
       end
       
       pollutants
+    end
+
+    def bg_color_to_class(bg_color)
+      case bg_color
+      when "#00FF00"
+        "good"
+      when "#FFFF00"
+        "moderate"
+      when "#FFA500"
+        "unhealthy_for_sensitive_groups"
+      when "#FF0000"
+        "unhealthy"
+      when "#800080"
+        "very_unhealthy"
+      when "#800000"
+        "hazardous"
+      end
+    end
+
+    def aqi_by_ekoakcija
+      station_ks_site = Nokogiri::HTML(URI.open("https://zrak.ekoakcija.org/sarajevo"))
+      table = station_ks_site.search(".views-table.cols-6 tbody tr")
+
+      table.each_with_object([]) do |tr, ea_table|
+        ea_table << tr.search('td').each_with_object([]) do |td, n|
+          n << td.text.strip 
+        end
+      end
     end
 
     private

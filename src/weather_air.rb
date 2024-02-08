@@ -27,6 +27,8 @@ module WeatherAir
       aqi = WeatherAir::AirQualityIndex.new
 
       ks_aqi = aqi.aqi_by_ks
+      eko_akcija = aqi.aqi_by_ekoakcija
+
       city_pollutants = aqi.city_pollutants_aqi
       stations_pollutants_aqi = aqi.stations_pollutants_aqi_data
 
@@ -52,5 +54,23 @@ module WeatherAir
     def last_update 
       I18n.localize(Time.now + (1*60*60), format: :default)
     end
+
+    def text_to_class(text)
+      case text
+      when "Dobar"
+        "good"
+      when "Umjereno zagađen"
+        "moderate"
+      when "Nezdrav za osjetljive grupe"
+        "unhealthy_for_sensitive_groups"
+      when "Nezdrav"
+        "unhealthy"
+      when "Vrlo nezdrav"
+        "very_unhealthy"
+      when "Opasan"
+        "hazardous"
+      end
+    end
+
   end
 end

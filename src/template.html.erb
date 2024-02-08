@@ -155,6 +155,12 @@
 
       <div id="air" class="section">
         <h2><%= I18n.t(:aqi_quality_index) %></h2>
+
+        <h4>
+          <%= I18n.t(:data_provided_by) %><br>  
+          <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php" target=”_blank”><%= I18n.t(:fhmz) %></a>
+        </h4>
+
         <h3 id="city_aqi_main"
             data-e_aqi="<%= I18n.t("#{city_pollutants[:e_aqi][:class]}.name") %> (<%= city_pollutants[:e_aqi][:value] %>)"
             data-e_class="<%= city_pollutants[:e_aqi][:class] %>" 
@@ -164,6 +170,21 @@
             <%= I18n.t("#{city_pollutants[:e_aqi][:class]}.name") %> (<%= city_pollutants[:e_aqi][:value] %>)  
         </h3>
 
+        <div id="who_section">
+          <h4><%= I18n.t(:who) %></h4>
+          <p id="who"
+              data-who_e_aqi="<%= I18n.t("#{city_pollutants[:e_aqi][:class]}.who") %>"
+              data-who_aqi= "<%= I18n.t("#{city_pollutants[:aqi][:class]}.who") %>">
+            <%= I18n.t("#{city_pollutants[:e_aqi][:class]}.who") %>
+          </p>
+        </div>
+        <h4><%= I18n.t(:what_to_do) %></h4>
+        <div id="advisory" 
+              data-advisory_e_aqi="<%= I18n.t("#{city_pollutants[:e_aqi][:class]}.advisory") %>"
+              data-advisory_aqi="<%= I18n.t("#{city_pollutants[:aqi][:class]}.advisory") %>">
+          <%= I18n.t("#{city_pollutants[:e_aqi][:class]}.advisory") %>
+        </div>
+        <br>
         <div class="toggle_pm2_5">
           <label for="cb_e_pm2_5" class="toggle-switchy" data-size="xs"  data-color="gray">
             <input type="checkbox" checked id="cb_e_pm2_5" >
@@ -327,11 +348,7 @@
           <% end %>
           <div>
         </table>
-        <div class="small"><%= I18n.t(:data_provided_by) %>  <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php" target=”_blank”><%= I18n.t(:fhmz) %></a></div>
-
         <button id="see_more_stations" data-text_more="<%= I18n.t(:see_more_stations) %>" data-text_less="<%= I18n.t(:show_less_stations) %>"><%= I18n.t(:see_more_stations) %></button>
-
-
 
         <script>
           var checkbox = document.getElementById('cb_e_pm2_5');
@@ -413,9 +430,7 @@
           }
         </script>
 
-        <h3><%= I18n.t(:legend) %></h3>
         <table id="aqi_legend" class="centered-table">
-
           <tr>
             <td class="aqi_val">0 - 50 &nbsp</td>
             <td class="good empty"></td>
@@ -447,10 +462,38 @@
           </tr>
         </table>
 
-      </div>
+        <br><hr>
+        <h3><%= I18n.t(:aqi_more) %></h3>
 
-      <div id="ks_aqi" style="text-align: center;" class="section">
-        <h3><%= I18n.t(:aqi_ks) %></h3>
+        <h4>
+          <%= I18n.t(:data_provided_by) %><br>  
+          <a href="https://zrak.ekoakcija.org/sarajevo" target=”_blank”><%= I18n.t(:aqi_eko_akcija) %></a>
+        </h4>
+        <p class="small">*<%= I18n.t(:aqi_eko_akcija_disclaimer) %></p>
+        <table class="stations_aqi centered-table">
+            <th><%= I18n.t(:station) %> </th>
+            <th>PM<sub>10</sub></th>
+            <th>PM<sub>2.5</sub></th>
+            <th>SO<sub>2</sub></th>
+            <th><%= I18n.t(:aqi) %></th>
+          <% eko_akcija.each do |raw| %>
+            <tr>
+            <% raw.each_with_index do |el, index| %>
+              <% next if index == 5 %>
+              <% if index == 4 %>
+                <td class="<%= text_to_class(raw[5]) %>"><%= el %></td>
+              <% else %>
+                <td><%= el %></td>
+              <% end %>
+            <% end %>
+            </tr>
+          <% end %>
+        </table>
+        <br>
+        <h4>
+          <%= I18n.t(:data_provided_by) %><br>  
+          <a href="https://aqms.live/kvalitetzraka/index.php" target=”_blank”><%= I18n.t(:aqi_ks) %></a>
+        </h4>
           <details>
             <summary><%= I18n.t(:raw_data) %></summary>
             <br>
@@ -469,7 +512,7 @@
               <td class="ks_station"> <%= station %> </td>
               <% %w[SO2 NO2 O3 CO PM10 PM2.5].each do |pollutant| %>
                 <% if values.key?(pollutant) %>
-                  <td style="<%= values[pollutant][:css_bg_color] %>">
+                  <td class="<%= values[pollutant][:css_class] %>">
                     <b><%= values[pollutant][:concentration] %></b>
                     <%= values[pollutant][:date] %>
                     <%= values[pollutant][:time] %>
@@ -479,7 +522,6 @@
             </tr>
             <% end %>
           </table>
-          <p><%= I18n.t(:data_provided_by) %> <a href="https://aqms.live/kvalitetzraka/index.php">MKIPGO KS</a> </p>
           </details>
           <br>
           <table class="stations_aqi centered-table">
@@ -497,7 +539,7 @@
               <td class="ks_station"> <%= station %> </td>
               <% %w[SO2 NO2 O3 CO PM10 PM2.5].each do |pollutant| %>
                 <% if values.key?(pollutant) %>
-                  <td style="<%= values[pollutant][:css_bg_color] %>">
+                  <td class="<%= values[pollutant][:css_class] %>">
                     <%= values[pollutant][:aqi] %>
                   </td> 
                 <% end %>
@@ -505,25 +547,8 @@
             </tr>
             <% end %>
           </table>
-          <p><%= I18n.t(:data_provided_by) %> <a href="https://aqms.live/kvalitetzraka/index.php">MKIPGO KS</a> </p>
         <br>
-      </div>
 
-      <div id="health_advisory" class="section">
-        <div id="who_section">
-          <h4><%= I18n.t(:who) %></h4>
-          <p id="who"
-              data-who_e_aqi="<%= I18n.t("#{city_pollutants[:e_aqi][:class]}.who") %>"
-              data-who_aqi= "<%= I18n.t("#{city_pollutants[:aqi][:class]}.who") %>">
-            <%= I18n.t("#{city_pollutants[:e_aqi][:class]}.who") %>
-          </p>
-        </div>
-        <h4><%= I18n.t(:what_to_do) %></h4>
-        <div id="advisory" 
-              data-advisory_e_aqi="<%= I18n.t("#{city_pollutants[:e_aqi][:class]}.advisory") %>"
-              data-advisory_aqi="<%= I18n.t("#{city_pollutants[:aqi][:class]}.advisory") %>">
-          <%= I18n.t("#{city_pollutants[:e_aqi][:class]}.advisory") %>
-        </div>
       </div>
 
       <div id="weather_forecast" class="section">

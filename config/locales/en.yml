@@ -17,7 +17,10 @@ en:
   legend: Chart legend
   source: Source
   aqi_quality_index: Air quality index
-  aqi_ks: Air Quality Index by MKIPGO KS
+  aqi_ks: MKIPGO KS
+  aqi_eko_akcija: zrak.ekoakcija.org
+  aqi_eko_akcija_disclaimer: The concentration values of individual pollutants are presented instead of the air quality index.
+  aqi_more: Air Quality Index data form other sources
   raw_data: Raw data
   estimate_pm2_5: estimated PM<sub>2.5</sub> from PM<sub>10</sub> measurements
   station: Station

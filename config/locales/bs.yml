@@ -17,7 +17,10 @@ bs:
   legend: Legenda
   source: Izvor podataka
   aqi_quality_index: Indeks kvalitete zraka
-  aqi_ks: Indeks kvalitete zraka sa web stranice Ministarstva prostornog uređenja, građenja i zaštite okoliša Kantona Sarajevo
+  aqi_ks: Ministarstva prostornog uređenja, građenja i zaštite okoliša Kantona Sarajevo
+  aqi_eko_akcija: zrak.ekoakcija.org
+  aqi_eko_akcija_disclaimer: Za pojedinačne polutanate prikazana je vrijednost njihove koncentracije umjesto indeksa kvalitete zraka. 
+  aqi_more: Podaci o indeksu kvalitete zraka iz drugih izvora
   raw_data: Neobrađeni podaci
   estimate_pm2_5: procjena PM<sub>2.5</sub> iz mjerenja PM<sub>10</sub>
   station: Stanica
