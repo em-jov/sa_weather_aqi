@@ -90,11 +90,13 @@ module WeatherAir
       end
 
       future_alarms = Meteoalarm::Client.alarms('BA', area: 'Sarajevo', future_alarms: true)
-      future_alarms.each do |alarms|   
+      future_alarms.each do |alarms|
+        alarms[:start_date] = Time.parse(alarms[:alert][:info].first[:onset])
         alarms[:alert][:info] = alarms[:alert][:info].each_with_object({}) do |info, result|
           result[info[:language].to_sym] = info
         end
       end
+      future_alarms.sort_by! {|element| element[:start_date]}
       [current_alarms, future_alarms]
     end
    

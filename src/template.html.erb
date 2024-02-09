@@ -185,6 +185,9 @@
           <%= I18n.t("#{city_pollutants[:e_aqi][:class]}.advisory") %>
         </div>
         <br>
+
+
+        <div id="map"></div>
         <div class="toggle_pm2_5">
           <label for="cb_e_pm2_5" class="toggle-switchy" data-size="xs"  data-color="gray">
             <input type="checkbox" checked id="cb_e_pm2_5" >
@@ -194,8 +197,6 @@
             <span class="label" id="pm2_estimate"><%= I18n.t(:estimate_pm2_5) %></span>
           </label>
         </div>
-
-        <div id="map"></div>
 
         <script>
           var checkbox = document.getElementById('cb_e_pm2_5');

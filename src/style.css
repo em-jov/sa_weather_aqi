@@ -98,7 +98,7 @@
 
 .lang_btn{
   border-radius: 0.5em;
-  background-color: #272626;
+  background-color: darkgray;
   padding: 0.25em;
   max-width: 70px;
   display: flex;
@@ -114,8 +114,8 @@
 }
 
 .lang_on{
-  color: lightgrey;
-  background: #333;
+  color: #333;
+  background: lightgrey;
   border-radius: 0.4em;
 }
 
@@ -125,12 +125,12 @@ a.lang_off:visited{
 
 a.lang_off:hover{
   font-style: normal;
-  color: lightgray;
+  color: whitesmoke;
 }
 
 .units_btn{
   border-radius: 0.5em;
-  background-color: #272626;
+  background-color: darkgray;
   padding: 0.25em;
   max-width: 222px;
   margin: 0.3em auto;
@@ -140,14 +140,14 @@ a.lang_off:hover{
 }
 
 .unit_off{
-  background: #272626;
+  background: darkgray;
   color: #515151 ;
   border-style: none;
 }
 
 .unit_on{
-  background: #333;
-  color: lightgray;
+  background: lightgray;
+  color: #333;
   padding: 0.3em 0.5em;
   border-radius: 0.4em;
   border-style: none;
@@ -322,7 +322,7 @@ header a:link, header a:active, header a:visited {
 }
 
 footer a:link, footer a:visited {
-  color: lightgray;
+  color: rgb(139, 137, 137);
 } 
 
 footer {
@@ -541,6 +541,42 @@ label#speed{
 }
 
 @media (prefers-color-scheme: dark) {
+
+  .lang_btn{
+    background-color: #272626;
+  }
+  
+  .lang_on{
+    color: lightgrey;
+    background: #333;
+  }
+  
+  a.lang_off:visited{
+    color: #515151;
+  }
+  
+  a.lang_off:hover{
+    color: lightgray;
+  }
+
+  .units_btn{
+    background-color: #272626;
+  }
+  
+  .unit_off{
+    background: #272626;
+    color: #515151 ;
+  }
+  
+  .unit_on{
+    background: #333;
+    color: lightgray;
+  }
+  
+  .unit_off:hover{
+    color: lightgray;
+  }
+
   #weather, #air, #health_advisory, #meteoalarms{
     box-shadow: 0px 0px 6px 6px rgb(30, 30, 30);
   }
@@ -562,13 +598,9 @@ label#speed{
     color: darkgray;
   }
 
-
-
   #aqi_legend td.aqi_val{
     color: lightgray;
   }
-
-
 
   .stations_aqi td.station_name{
     color: whitesmoke;
@@ -629,5 +661,9 @@ label#speed{
   span#pm2_estimate {
     color:whitesmoke; 
   }
+
+  footer a:link, footer a:visited {
+    color: lightgrey;
+  } 
 
 }

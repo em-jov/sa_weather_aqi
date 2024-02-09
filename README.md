@@ -3,10 +3,10 @@
 
 ### Overview
 
-Ruby script retrieves data from third-party APIs or resorts to web scraping when APIs are not available. It then generates an HTML file by integrating the collected data into an ERB (Embedded Ruby) template. To ensure that information is up-to-date, the script is scheduled to run automatically every hour using AWS Lambda.
+Ruby script retrieves data from 3rd-party APIs or resorts to web scraping when APIs are not available. It generates HTML files by integrating the collected data into an ERB (Embedded Ruby) template. To ensure that information is up-to-date, the script is scheduled to run automatically every hour using AWS Lambda.
 
 ### Features
-- Meteoalarms
+- Meteoalarms (There is also a [gem](https://github.com/em-jov/meteoalarm) I've created to implement this feature)
 - Weather information
     - Current weather 
     - 5-day forecast in 3-hour intervals
@@ -15,7 +15,9 @@ Ruby script retrieves data from third-party APIs or resorts to web scraping when
     - City-wide AQI calculation 
     - Health recommendations
     - Map of monitoring site locations 
-    - AQI data from additional sources for cross-verification 
+    - AQI data from additional sources for cross-verification
+- Internationalization (I18n) Support
+    - Available in Bosnian and English languages
 
 ### Prerequisites
 

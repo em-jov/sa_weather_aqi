@@ -134,7 +134,7 @@ Before proceeding, ensure you have the following:
 ---
 
 ## Conclusion
-Congratulations! You've successfully deployed a static website using AWS Lambda, CloudFront, ACM, Route 53 and S3. Make adjustments as needed for optimal performance.  For further details, refer to the [official AWS documentation](https://docs.aws.amazon.com/).
+You have successfully deployed a static website using AWS Lambda, CloudFront, ACM, Route 53 and S3. Make adjustments as needed for optimal performance.  For further details, refer to the [official AWS documentation](https://docs.aws.amazon.com/).
 
 <sub>[back on top ^](#table-of-contents)</sub>
 
