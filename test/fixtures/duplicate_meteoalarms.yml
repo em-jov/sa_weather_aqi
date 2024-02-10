@@ -1,0 +1,203 @@
+---
+- :alert:
+    :identifier: 2.49.0.0.70.0.BA.240208083458.74139594
+    :incidents: Alert
+    :info:
+    - :area:
+      - :areaDesc: Sarajevo
+        :geocode:
+        - :value: BA006
+          :valueName: EMMA_ID
+      :category:
+      - Met
+      :certainty: Likely
+      :description: Wind gust between 40 and 60 km/h.
+      :effective: '2024-02-08T08:34:58+01:00'
+      :event: Wind Yellow Warning
+      :expires: '2024-02-10T23:59:59+01:00'
+      :headline: Wind Yellow Warning for Bosnia and Herzegovina - region Sarajevo
+      :instruction: Be aware of the debris carried by the wind. Local disturbances
+        in outdoor activities are possible due to debris carried by the wind.
+      :language: en
+      :onset: '2024-02-10T06:00:00+01:00'
+      :parameter:
+      - :value: 2; yellow; Moderate
+        :valueName: awareness_level
+      - :value: 1; Wind
+        :valueName: awareness_type
+      :responseType:
+      - Monitor
+      :senderName: Hydrometeorological Institute of Federation of Bosnia and Herzegovina
+      :severity: Moderate
+      :urgency: Future
+      :web: http://www.fhmzbih.gov.ba/latinica/
+    - :area:
+      - :areaDesc: Sarajevo
+        :geocode:
+        - :value: BA006
+          :valueName: EMMA_ID
+      :category:
+      - Met
+      :certainty: Likely
+      :description: Udari vjetra između 40 i 60 km/h.
+      :effective: '2024-02-08T08:34:58+01:00'
+      :event: Vjetar žuto Upozorenje
+      :expires: '2024-02-10T23:59:59+01:00'
+      :headline: Vjetar žuto Upozorenje za Bosnu i Hercegovinu - region Sarajevo
+      :instruction: Budite svjesni krhotina koje nosi vjetar. Lokalne smetenje u aktivnostima
+        na otvorenom su moguće usljed krhotina koje nosi vjetar.
+      :language: bs
+      :onset: '2024-02-10T06:00:00+01:00'
+      :parameter:
+      - :value: 2; yellow; Moderate
+        :valueName: awareness_level
+      - :value: 1; Wind
+        :valueName: awareness_type
+      :responseType:
+      - Monitor
+      :senderName: Federalni hidrometeorološki zavod Federacije Bosne i Hercegovine
+      :severity: Moderate
+      :urgency: Future
+      :web: http://www.fhmzbih.gov.ba/latinica/
+    :msgType: Alert
+    :scope: Public
+    :sender: sinoptika@fhmzbih.gov.ba
+    :sent: '2024-02-08T08:34:58+01:00'
+    :status: Actual
+  :uuid: efbb6289-49d7-4a8d-b93d-1e338f7ae399
+- :alert:
+    :identifier: 2.49.0.0.70.0.BA.240209092955.35534063
+    :incidents: Alert
+    :info:
+    - :area:
+      - :areaDesc: Sarajevo
+        :geocode:
+        - :value: BA006
+          :valueName: EMMA_ID
+      :category:
+      - Met
+      :certainty: Likely
+      :description: Gusts of southerly wind at a speed of 45-65 km/h.
+      :effective: '2024-02-09T09:29:55+01:00'
+      :event: Wind Orange Warning
+      :expires: '2024-02-10T23:59:59+01:00'
+      :headline: Wind Orange Warning for Bosnia and Herzegovina - region Sarajevo
+      :instruction: Be prepared for interference, structural damage, and the risk
+        of injury from uprooted trees and wind-borne debris. Interruptions in electricity
+        supply are possible.
+      :language: en
+      :onset: '2024-02-10T06:00:00+01:00'
+      :parameter:
+      - :value: 3; orange; Severe
+        :valueName: awareness_level
+      - :value: 1; Wind
+        :valueName: awareness_type
+      :responseType:
+      - Monitor
+      :senderName: Hydrometeorological Institute of Federation of Bosnia and Herzegovina
+      :severity: Severe
+      :urgency: Future
+      :web: http://www.fhmzbih.gov.ba/latinica/
+    - :area:
+      - :areaDesc: Sarajevo
+        :geocode:
+        - :value: BA006
+          :valueName: EMMA_ID
+      :category:
+      - Met
+      :certainty: Likely
+      :description: Udari vjetra južnog smjera brzine 45-65 km/h.
+      :effective: '2024-02-09T09:29:55+01:00'
+      :event: Vjetar Narandžasto Upozorenje
+      :expires: '2024-02-10T23:59:59+01:00'
+      :headline: Vjetar Narandžasto Upozorenje za Bosnu i Hercegovinu - region Sarajevo
+      :instruction: Budite spremni na smetnje, strukturalna oštećenja i rizik za povrede
+        od iščupanih stabala i krhotina koje nosi vjetar. Prekidi u snadbijevanju
+        električnom energijom su mogući.
+      :language: bs
+      :onset: '2024-02-10T06:00:00+01:00'
+      :parameter:
+      - :value: 3; orange; Severe
+        :valueName: awareness_level
+      - :value: 1; Wind
+        :valueName: awareness_type
+      :responseType:
+      - Monitor
+      :senderName: Federalni hidrometeorološki zavod Federacije Bosne i Hercegovine
+      :severity: Severe
+      :urgency: Future
+      :web: http://www.fhmzbih.gov.ba/latinica/
+    :msgType: Alert
+    :scope: Public
+    :sender: sinoptika@fhmzbih.gov.ba
+    :sent: '2024-02-09T09:29:55+01:00'
+    :status: Actual
+  :uuid: 0c54f378-b99f-426b-bb78-561cb792b99e
+- :alert:
+    :identifier: 2.49.0.0.70.0.BA.240210074143.65630350
+    :incidents: Alert
+    :info:
+    - :area:
+      - :areaDesc: Sarajevo
+        :geocode:
+        - :value: BA006
+          :valueName: EMMA_ID
+      :category:
+      - Met
+      :certainty: Likely
+      :description: Gusts of southerly wind at a speed of 45-65 km/h.
+      :effective: '2024-02-10T07:41:43+01:00'
+      :event: Wind Orange Warning
+      :expires: '2024-02-10T23:59:59+01:00'
+      :headline: Wind Orange Warning for Bosnia and Herzegovina - region Sarajevo
+      :instruction: Be prepared for interference, structural damage, and the risk
+        of injury from uprooted trees and wind-borne debris. Interruptions in electricity
+        supply are possible.
+      :language: en
+      :onset: '2024-02-10T06:00:00+01:00'
+      :parameter:
+      - :value: 3; orange; Severe
+        :valueName: awareness_level
+      - :value: 1; Wind
+        :valueName: awareness_type
+      :responseType:
+      - Monitor
+      :senderName: Hydrometeorological Institute of Federation of Bosnia and Herzegovina
+      :severity: Severe
+      :urgency: Future
+      :web: http://www.fhmzbih.gov.ba/latinica/
+    - :area:
+      - :areaDesc: Sarajevo
+        :geocode:
+        - :value: BA006
+          :valueName: EMMA_ID
+      :category:
+      - Met
+      :certainty: Likely
+      :description: Udari vjetra južnog smjera brzine 45-65 km/h.
+      :effective: '2024-02-10T07:41:43+01:00'
+      :event: Vjetar Narandžasto Upozorenje
+      :expires: '2024-02-10T23:59:59+01:00'
+      :headline: Vjetar Narandžasto Upozorenje za Bosnu i Hercegovinu - region Sarajevo
+      :instruction: Budite spremni na smetnje, strukturalna oštećenja i rizik za povrede
+        od iščupanih stabala i krhotina koje nosi vjetar. Prekidi u snadbijevanju
+        električnom energijom su mogući.
+      :language: bs
+      :onset: '2024-02-10T06:00:00+01:00'
+      :parameter:
+      - :value: 3; orange; Severe
+        :valueName: awareness_level
+      - :value: 1; Wind
+        :valueName: awareness_type
+      :responseType:
+      - Monitor
+      :senderName: Federalni hidrometeorološki zavod Federacije Bosne i Hercegovine
+      :severity: Severe
+      :urgency: Future
+      :web: http://www.fhmzbih.gov.ba/latinica/
+    :msgType: Alert
+    :scope: Public
+    :sender: sinoptika@fhmzbih.gov.ba
+    :sent: '2024-02-10T07:41:43+01:00'
+    :status: Actual
+  :uuid: 3f1ce011-d0c1-4b45-bf54-1686a875a89d

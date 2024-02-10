@@ -83,6 +83,12 @@ module WeatherAir
 
     def active_meteoalarms
       current_alarms = Meteoalarm::Client.alarms('BA', area: 'Sarajevo', active_now: true)
+      File.write('duplicate_meteoalarms.yml', current_alarms.to_yaml )
+
+      current_alarms.each do |alarms|
+      end
+      current_alarms.sort_by! {|element| element[:sent]}.reverse!
+
       current_alarms.each do |alarms|   
         alarms[:alert][:info] = alarms[:alert][:info].each_with_object({}) do |info, result|
           result[info[:language].to_sym] = info
