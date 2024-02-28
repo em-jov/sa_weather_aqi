@@ -4,3 +4,5 @@ require 'webmock/minitest'
 require 'timecop'
 require 'dotenv/load'
 require 'mocha/minitest'
+require 'yaml'
+

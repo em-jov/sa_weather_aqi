@@ -82,12 +82,16 @@ module WeatherAir
     end 
 
     def active_meteoalarms
-      current_alarms = Meteoalarm::Client.alarms('BA', area: 'Sarajevo', active_now: true)
-      File.write('duplicate_meteoalarms.yml', current_alarms.to_yaml )
+      current_alarms_unsorted = Meteoalarm::Client.alarms('BA', area: 'Sarajevo', active_now: true)
 
-      current_alarms.each do |alarms|
+      grouped_alarms = current_alarms_unsorted.group_by{|alarm| alarm[:alert][:info][0][:parameter][1][:value]}
+
+      grouped_alarms.each do |type, alarms|
+        alarms.sort_by! {|element| element[:alert][:sent]}.reverse!
+        grouped_alarms[type] = alarms.first
       end
-      current_alarms.sort_by! {|element| element[:sent]}.reverse!
+
+      current_alarms = grouped_alarms.values
 
       current_alarms.each do |alarms|   
         alarms[:alert][:info] = alarms[:alert][:info].each_with_object({}) do |info, result|
