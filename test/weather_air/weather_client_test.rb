@@ -112,4 +112,112 @@ class WeatherClientTest < Minitest::Test
     assert_equal(expected, sarajevo_weather_forecast)
   end
 
+
+  def test_duplicate_meteoalarms
+    Timecop.freeze(Time.local(2024, 2, 10, 12, 30, 0))
+
+    stub_request(:get, "https://feeds.meteoalarm.org/api/v1/warnings/feeds-bosnia-herzegovina").
+      with(
+        headers: {
+              'Accept'=>'*/*',
+              'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+              'User-Agent'=>'Ruby'
+        }).
+      to_return(status: 200, body: YAML.load(File.read("test/fixtures/duplicate_meteoalarms.yml")).to_json, headers: { 'Content-Type'=>'application/json' })
+
+    expected = [{:alert=>
+                  {:identifier=>"2.49.0.0.70.0.BA.240210074143.65630350",
+                  :incidents=>"Alert",
+                  :info=>
+                    {:en=>
+                      {:area=>[{:areaDesc=>"Sarajevo", :geocode=>[{:value=>"BA006", :valueName=>"EMMA_ID"}]}],
+                      :category=>["Met"],
+                      :certainty=>"Likely",
+                      :description=>"Gusts of southerly wind at a speed of 45-65 km/h.",
+                      :effective=>"2024-02-10T07:41:43+01:00",
+                      :event=>"Wind Orange Warning",
+                      :expires=>"2024-02-10T23:59:59+01:00",
+                      :headline=>"Wind Orange Warning for Bosnia and Herzegovina - region Sarajevo",
+                      :instruction=>"Be prepared for interference, structural damage, and the risk of injury from uprooted trees and wind-borne debris. Interruptions in electricity supply are possible.",
+                      :language=>"en",
+                      :onset=>"2024-02-10T06:00:00+01:00",
+                      :parameter=>[{:value=>"3; orange; Severe", :valueName=>"awareness_level"}, {:value=>"1; Wind", :valueName=>"awareness_type"}],
+                      :responseType=>["Monitor"],
+                      :senderName=>"Hydrometeorological Institute of Federation of Bosnia and Herzegovina",
+                      :severity=>"Severe",
+                      :urgency=>"Future",
+                      :web=>"http://www.fhmzbih.gov.ba/latinica/"},
+                    :bs=>
+                      {:area=>[{:areaDesc=>"Sarajevo", :geocode=>[{:value=>"BA006", :valueName=>"EMMA_ID"}]}],
+                      :category=>["Met"],
+                      :certainty=>"Likely",
+                      :description=>"Udari vjetra južnog smjera brzine 45-65 km/h.",
+                      :effective=>"2024-02-10T07:41:43+01:00",
+                      :event=>"Vjetar Narandžasto Upozorenje",
+                      :expires=>"2024-02-10T23:59:59+01:00",
+                      :headline=>"Vjetar Narandžasto Upozorenje za Bosnu i Hercegovinu - region Sarajevo",
+                      :instruction=>"Budite spremni na smetnje, strukturalna oštećenja i rizik za povrede od iščupanih stabala i krhotina koje nosi vjetar. Prekidi u snadbijevanju električnom energijom su mogući.",
+                      :language=>"bs",
+                      :onset=>"2024-02-10T06:00:00+01:00",
+                      :parameter=>[{:value=>"3; orange; Severe", :valueName=>"awareness_level"}, {:value=>"1; Wind", :valueName=>"awareness_type"}],
+                      :responseType=>["Monitor"],
+                      :senderName=>"Federalni hidrometeorološki zavod Federacije Bosne i Hercegovine",
+                      :severity=>"Severe",
+                      :urgency=>"Future",
+                      :web=>"http://www.fhmzbih.gov.ba/latinica/"}},
+                  :msgType=>"Alert",
+                  :scope=>"Public",
+                  :sender=>"sinoptika@fhmzbih.gov.ba",
+                  :sent=>"2024-02-10T07:41:43+01:00",
+                  :status=>"Actual"},
+                :uuid=>"3f1ce011-d0c1-4b45-bf54-1686a875a89d"},
+                {:alert=>
+                  {:identifier=>"2.49.0.0.70.0.BA.240210074143.65630350",
+                  :incidents=>"Alert",
+                  :info=>
+                    {:en=>
+                      {:area=>[{:areaDesc=>"Sarajevo", :geocode=>[{:value=>"BA006", :valueName=>"EMMA_ID"}]}],
+                      :category=>["Met"],
+                      :certainty=>"Likely",
+                      :description=>"Fog.",
+                      :effective=>"2024-02-10T07:41:43+01:00",
+                      :event=>"Fog green warning",
+                      :expires=>"2024-02-10T23:59:59+01:00",
+                      :headline=>"Warning",
+                      :language=>"en",
+                      :onset=>"2024-02-10T06:00:00+01:00",
+                      :parameter=>[{:value=>"3; orange; Severe", :valueName=>"awareness_level"}, {:value=>"2; snow/ice", :valueName=>"awareness_type"}],
+                      :responseType=>["Monitor"],
+                      :senderName=>"Hydrometeorological Institute of Federation of Bosnia and Herzegovina",
+                      :severity=>"Moderate",
+                      :urgency=>"Future",
+                      :web=>"http://www.fhmzbih.gov.ba/latinica/"},
+                    :bs=>
+                      {:area=>[{:areaDesc=>"Sarajevo", :geocode=>[{:value=>"BA006", :valueName=>"EMMA_ID"}]}],
+                      :category=>["Met"],
+                      :certainty=>"Likely",
+                      :description=>"Magla zeleno upozorenje",
+                      :effective=>"2024-02-10T07:41:43+01:00",
+                      :event=>"Magla",
+                      :expires=>"2024-02-10T23:59:59+01:00",
+                      :headline=>"Upozorenje",
+                      :language=>"bs",
+                      :onset=>"2024-02-10T06:00:00+01:00",
+                      :parameter=>[{:value=>"3; orange; Severe", :valueName=>"awareness_level"}, {:value=>"2; snow/ice", :valueName=>"awareness_type"}],
+                      :responseType=>["Monitor"],
+                      :senderName=>"Federalni hidrometeorološki zavod Federacije Bosne i Hercegovine",
+                      :severity=>"Moderate",
+                      :urgency=>"Future",
+                      :web=>"http://www.fhmzbih.gov.ba/latinica/"}},
+                  :msgType=>"Alert",
+                  :scope=>"Public",
+                  :sender=>"sinoptika@fhmzbih.gov.ba",
+                  :sent=>"2024-02-10T07:41:43+01:00",
+                  :status=>"Actual"},
+                :uuid=>"3f1ce011-d0c1-4b45-bf54-1686a875a89d"}]
+ 
+    (current_alarms, future_alarms) = @client.active_meteoalarms
+    assert_equal(expected, current_alarms)
+  end
+
 end
