@@ -161,30 +161,34 @@
           <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php" target=”_blank”><%= I18n.t(:fhmz) %></a>
         </h4>
 
-        <h3 id="city_aqi_main"
-            data-e_aqi="<%= I18n.t("#{city_pollutants[:e_aqi][:class]}.name") %> (<%= city_pollutants[:e_aqi][:value] %>)"
-            data-e_class="<%= city_pollutants[:e_aqi][:class] %>" 
-            data-aqi="<%= I18n.t("#{city_pollutants[:aqi][:class]}.name") %> (<%= city_pollutants[:aqi][:value] %>)"
-            data-class="<%= city_pollutants[:aqi][:class] %>"
-            class="<%= city_pollutants[:e_aqi][:class] %>">
-            <%= I18n.t("#{city_pollutants[:e_aqi][:class]}.name") %> (<%= city_pollutants[:e_aqi][:value] %>)  
-        </h3>
+        <% unless city_pollutants.nil? %> 
 
-        <div id="who_section">
-          <h4><%= I18n.t(:who) %></h4>
-          <p id="who"
-              data-who_e_aqi="<%= I18n.t("#{city_pollutants[:e_aqi][:class]}.who") %>"
-              data-who_aqi= "<%= I18n.t("#{city_pollutants[:aqi][:class]}.who") %>">
-            <%= I18n.t("#{city_pollutants[:e_aqi][:class]}.who") %>
-          </p>
-        </div>
-        <h4><%= I18n.t(:what_to_do) %></h4>
-        <div id="advisory" 
-              data-advisory_e_aqi="<%= I18n.t("#{city_pollutants[:e_aqi][:class]}.advisory") %>"
-              data-advisory_aqi="<%= I18n.t("#{city_pollutants[:aqi][:class]}.advisory") %>">
-          <%= I18n.t("#{city_pollutants[:e_aqi][:class]}.advisory") %>
-        </div>
-        <br>
+          <h3 id="city_aqi_main"
+              data-e_aqi="<%= I18n.t("#{city_pollutants[:e_aqi][:class]}.name") %> (<%= city_pollutants[:e_aqi][:value] %>)"
+              data-e_class="<%= city_pollutants[:e_aqi][:class] %>" 
+              data-aqi="<%= I18n.t("#{city_pollutants[:aqi][:class]}.name") %> (<%= city_pollutants[:aqi][:value] %>)"
+              data-class="<%= city_pollutants[:aqi][:class] %>"
+              class="<%= city_pollutants[:e_aqi][:class] %>">
+              <%= I18n.t("#{city_pollutants[:e_aqi][:class]}.name") %> (<%= city_pollutants[:e_aqi][:value] %>)  
+          </h3>
+
+          <div id="who_section">
+            <h4><%= I18n.t(:who) %></h4>
+            <p id="who"
+                data-who_e_aqi="<%= I18n.t("#{city_pollutants[:e_aqi][:class]}.who") %>"
+                data-who_aqi= "<%= I18n.t("#{city_pollutants[:aqi][:class]}.who") %>">
+              <%= I18n.t("#{city_pollutants[:e_aqi][:class]}.who") %>
+            </p>
+          </div>
+          <h4><%= I18n.t(:what_to_do) %></h4>
+          <div id="advisory" 
+                data-advisory_e_aqi="<%= I18n.t("#{city_pollutants[:e_aqi][:class]}.advisory") %>"
+                data-advisory_aqi="<%= I18n.t("#{city_pollutants[:aqi][:class]}.advisory") %>">
+            <%= I18n.t("#{city_pollutants[:e_aqi][:class]}.advisory") %>
+          </div>
+          <br>
+
+          <% end %>
 
 
         <div id="map"></div>
@@ -199,8 +203,7 @@
         </div>
 
         <script>
-          var checkbox = document.getElementById('cb_e_pm2_5');
-          checkbox.addEventListener('click', estimateMapChange);
+
           // Initialize Leaflet map
           var map = L.map('map').setView([43.8560, 18.390], 12);
 
@@ -214,7 +217,7 @@
             <% next if values[:aqi][:value].nil? %>
             
             // Define a custom HTML for the marker
-            var customMarkerHtml = '<div class="custom-marker <%= values[:e_aqi][:class] %>"><%= values[:e_aqi][:value] %></div>';
+            var customMarkerHtml = '<div class="custom-marker <%= values[:aqi][:class] %>"><%= values[:aqi][:value] %></div>';
 
             // Create a custom divIcon with the HTML
             var customIcon = L.divIcon({
@@ -228,48 +231,6 @@
             
           <% end %>  
 
-          function estimateMapChange() {
-            var checkbox = document.getElementById('cb_e_pm2_5');
-
-            if (checkbox.checked){ 
-              <% stations_pollutants_aqi.each do |_station, values| %>
-              <% next if values[:e_aqi][:value].nil? %>
-              
-              // Define a custom HTML for the marker
-              var customMarkerHtml = '<div class="custom-marker <%= values[:e_aqi][:class] %>"><%= values[:e_aqi][:value] %></div>';
-
-              // Create a custom divIcon with the HTML
-              var customIcon = L.divIcon({
-                  className: 'custom-div-icon',
-                  html: customMarkerHtml,
-                  iconSize: [30, 30]
-              });
-
-              // Add a marker with the custom icon
-              L.marker([<%= values[:latitude] %>, <%= values[:longitude] %>], { icon: customIcon }).addTo(map).bindPopup('<%= values[:name] %>');
-              
-              <% end %>
-            } 
-            else {
-              <% stations_pollutants_aqi.each do |_station, values| %>
-              <% next if values[:aqi][:value].nil? %>
-              
-              // Define a custom HTML for the marker
-              var customMarkerHtml = '<div class="custom-marker <%= values[:aqi][:class] %>"><%= values[:aqi][:value] %></div>';
-
-              // Create a custom divIcon with the HTML
-              var customIcon = L.divIcon({
-                  className: 'custom-div-icon',
-                  html: customMarkerHtml,
-                  iconSize: [30, 30]
-              });
-
-              // Add a marker with the custom icon
-              L.marker([<%= values[:latitude] %>, <%= values[:longitude] %>], { icon: customIcon }).addTo(map).bindPopup('<%= values[:name] %>');
-            
-              <% end %>  
-            } 
-          }
         </script>
 
         <table class="stations_aqi centered-table">
@@ -279,36 +240,21 @@
             <th>SO<sub>2</sub></th>
             <th>NO<sub>2</sub></th>
             <th>CO</th>
-            <th>O<sub>3</sub></th>
             <th>PM<sub>10</sub></th>
             <th>PM<sub>2.5</sub></th>
           </tr>
           <% stations_pollutants_aqi.each do |station, values| %>
             <% next if ['ilidza', 'vogosca', 'hadzici', 'ivan_sedlo', 'ilijas'].include?(station) %>
             <tr>
-              <td data-e_aqi="<%= values[:e_aqi][:value] %>"
-                  data-e_class="<%= values[:e_aqi][:class] %>" 
-                  data-aqi="<%= values[:aqi][:value] %>"
-                  data-class="<%= values[:aqi][:class] %>"
-                  class="<%= values[:e_aqi][:class] %>">
-                  <%= values[:e_aqi][:value] %>
-                </td>  
+              <td style="background-color: <%= values[:aqi][:class] %>">
+                  <%= values[:aqi][:value] %>
+              </td>  
               <td class="station_name"><%= values[:name] %></td>
-              <% %i[so2 no2 co o3 pm10 pm2_5].each do |pollutant| %>
-                <% if values.key?(pollutant)%>
-                  <% if pollutant == :pm2_5 %>
-                    <td data-e_pm2_5="<%= values[:e_pm2_5][:value] %>" 
-                        data-e_class="<%= values[:e_pm2_5][:class] %>" 
-                        data-pm2_5="<%= values[pollutant][:value] %>" 
-                        data-class="<%= values[pollutant][:class] %>" 
-                        class="<%= values[:e_pm2_5][:class] %>">
-                      <%= values[:e_pm2_5][:value] %>
-                    </td>
-                  <% else %>   
-                    <td class="<%= values[pollutant][:class] %>">
-                      <%= values[pollutant][:value] %>
-                    </td>
-                  <% end %>
+              <% %i[so2 no2 o3 pm10 pm2_5].each do |pollutant| %>
+                <% if values.key?(pollutant)%>        
+                  <td style="background-color: <%= values[pollutant][:class] %>">
+                    <%= values[pollutant][:value] %>
+                  </td>
                 <% else %>
                   <td></td>
                 <% end %>         
@@ -316,31 +262,17 @@
             </tr>
           <% end %>
           <% stations_pollutants_aqi.each do |station, values| %>
-            <% next if ['vijecnica', 'bjelave', 'embassy', 'otoka'].include?(station) %>
+            <% next if ['vijecnica', 'bjelave', 'otoka'].include?(station) %>
             <tr class="hiddenRow" style="display: none;">
-              <td data-e_aqi="<%= values[:e_aqi][:value] %>"
-                  data-e_class="<%= values[:e_aqi][:class] %>" 
-                  data-aqi="<%= values[:aqi][:value] %>"
-                  data-class="<%= values[:aqi][:class] %>"
-                  class="<%= values[:e_aqi][:class] %>">
-                  <%= values[:e_aqi][:value] %>
-                </td>  
+              <td style="background-color: <%= values[:aqi][:class] %>">
+                <%= values[:aqi][:value] %>
+            </td> 
               <td class="station_name"><%= values[:name] %></td>
               <% %i[so2 no2 co o3 pm10 pm2_5].each do |pollutant| %>
                 <% if values.key?(pollutant)%>
-                  <% if pollutant == :pm2_5 %>
-                    <td data-e_pm2_5="<%= values[:e_pm2_5][:value] %>" 
-                        data-e_class="<%= values[:e_pm2_5][:class] %>" 
-                        data-pm2_5="<%= values[pollutant][:value] %>" 
-                        data-class="<%= values[pollutant][:class] %>" 
-                        class="<%= values[:e_pm2_5][:class] %>">
-                      <%= values[:e_pm2_5][:value] %>
-                    </td>
-                  <% else %>   
                     <td class="<%= values[pollutant][:class] %>">
                       <%= values[pollutant][:value] %>
                     </td>
-                  <% end %>
                 <% else %>
                   <td></td>
                 <% end %>         
@@ -351,117 +283,7 @@
         </table>
         <button id="see_more_stations" data-text_more="<%= I18n.t(:see_more_stations) %>" data-text_less="<%= I18n.t(:show_less_stations) %>"><%= I18n.t(:see_more_stations) %></button>
 
-        <script>
-          var checkbox = document.getElementById('cb_e_pm2_5');
-          checkbox.addEventListener('click', estimatePm2_5);
 
-          function estimatePm2_5() {
-            var checkbox = document.getElementById('cb_e_pm2_5');
-
-            var elementsWithEstimatedPm2_5 = document.querySelectorAll('[data-e_pm2_5]');
-            var elementsWithEstimatedAQI = document.querySelectorAll('[data-e_aqi]');
-            var who = document.getElementById('who');
-            var advisory = document.getElementById('advisory');
-
-            if (checkbox.checked){ 
-              who.innerHTML = who.dataset.who_e_aqi;
-              advisory.innerHTML = advisory.dataset.advisory_e_aqi; 
-
-              elementsWithEstimatedPm2_5.forEach(function(element) {
-                element.innerText = element.dataset.e_pm2_5;
-
-                if (element.dataset.class !== ""){
-                  element.classList.remove(element.dataset.class);
-                  }
-                
-                if (element.dataset.e_class !==""){
-                  element.classList.add(element.dataset.e_class);
-                  }           
-              });
-              elementsWithEstimatedAQI.forEach(function(element) {
-                element.innerText = element.dataset.e_aqi;
-
-                if (element.dataset.class !== ""){
-                  element.classList.remove(element.dataset.class);
-                  }
-                
-                if (element.dataset.e_class !==""){
-                  element.classList.add(element.dataset.e_class);
-                  }           
-              });
-            }
-            else{
-              who.innerHTML = who.dataset.who_aqi;
-              advisory.innerHTML = advisory.dataset.advisory_aqi;
-
-              elementsWithEstimatedPm2_5.forEach(function(element) {
-                
-                element.innerText = element.dataset.pm2_5;
-
-                if (element.dataset.e_class !== ""){
-                  element.classList.remove(element.dataset.e_class);
-                  }
-                
-                if (element.dataset.class !==""){
-                  element.classList.add(element.dataset.class);
-                  } 
-              });
-              elementsWithEstimatedAQI.forEach(function(element) {
-                element.innerText = element.dataset.aqi;
-
-                if (element.dataset.e_class !== ""){
-                  element.classList.remove(element.dataset.e_class);
-                  }
-                
-                if (element.dataset.class !==""){
-                  element.classList.add(element.dataset.class);
-                  }           
-              });
-            }
-
-            var city_main = document.getElementById("city_aqi_main");
-            var who_section =  document.getElementById("who_section");
-
-            if(city_main.classList[0] === "good"){
-              who_section.style.display = "none";
-            } 
-            else {
-              who_section.style.display="block";
-            }
-          }
-        </script>
-
-        <table id="aqi_legend" class="centered-table">
-          <tr>
-            <td class="aqi_val">0 - 50 &nbsp</td>
-            <td class="good empty"></td>
-            <td ><%= I18n.t('good.name') %></td>
-          </tr>
-          <tr>
-            <td class="aqi_val">51 - 100</td>
-            <td class="moderate empty"></td>
-            <td ><%= I18n.t('moderate.name') %></td>
-          </tr>
-          <tr>
-            <td class="aqi_val">101 - 150</td>
-            <td class="unhealthy_for_sensitive_groups empty"></td>
-            <td ><%= I18n.t('unhealthy_for_sensitive_groups.name') %></td>
-          </tr>
-          <tr>
-            <td class="aqi_val">151 - 200</td>
-            <td class="unhealthy empty"></td>
-            <td ><%= I18n.t('unhealthy.name') %></td>
-          </tr>
-            <td class="aqi_val">201 - 300</td>
-            <td class="very_unhealthy empty"></td>
-            <td ><%= I18n.t('very_unhealthy.name') %></td>
-          </tr>
-          <tr>
-            <td class="aqi_val">301 - 500</td>
-            <td class="hazardous empty"></td>
-            <td ><%= I18n.t('hazardous.name') %></td>
-          </tr>
-        </table>
 
         <br><hr>
         <h3><%= I18n.t(:aqi_more) %></h3>
@@ -550,6 +372,38 @@
           </table>
         <br>
 
+        <table id="aqi_legend" class="centered-table">
+          <tr>
+            <td class="aqi_val">0 - 50 &nbsp</td>
+            <td class="good empty"></td>
+            <td ><%= I18n.t('good.name') %></td>
+          </tr>
+          <tr>
+            <td class="aqi_val">51 - 100</td>
+            <td class="moderate empty"></td>
+            <td ><%= I18n.t('moderate.name') %></td>
+          </tr>
+          <tr>
+            <td class="aqi_val">101 - 150</td>
+            <td class="unhealthy_for_sensitive_groups empty"></td>
+            <td ><%= I18n.t('unhealthy_for_sensitive_groups.name') %></td>
+          </tr>
+          <tr>
+            <td class="aqi_val">151 - 200</td>
+            <td class="unhealthy empty"></td>
+            <td ><%= I18n.t('unhealthy.name') %></td>
+          </tr>
+            <td class="aqi_val">201 - 300</td>
+            <td class="very_unhealthy empty"></td>
+            <td ><%= I18n.t('very_unhealthy.name') %></td>
+          </tr>
+          <tr>
+            <td class="aqi_val">301 - 500</td>
+            <td class="hazardous empty"></td>
+            <td ><%= I18n.t('hazardous.name') %></td>
+          </tr>
+        </table>
+        
       </div>
 
       <div id="weather_forecast" class="section">

@@ -29,7 +29,7 @@ module WeatherAir
       ks_aqi = aqi.aqi_by_ks
       eko_akcija = aqi.aqi_by_ekoakcija
 
-      city_pollutants = aqi.city_pollutants_aqi
+      city_pollutants = nil # aqi.city_pollutants_aqi
       stations_pollutants_aqi = aqi.stations_pollutants_aqi_data
 
       style = File.read("src/style.css")
