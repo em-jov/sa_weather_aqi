@@ -29,11 +29,10 @@ module WeatherAir
       ks_aqi = aqi.aqi_by_ks
       eko_akcija = aqi.aqi_by_ekoakcija
 
-      city_pollutants = nil # aqi.city_pollutants_aqi
+      city_pollutants = aqi.city_pollutants_aqi
       stations_pollutants_aqi = aqi.stations_pollutants_aqi_data
 
       style = File.read("src/style.css")
-      toggle_switchy = File.read("src/toggle-switchy.css")
       js_script = File.read('src/script.js')
       scrollBtn_script =  File.read('src/scrollBtnScript.js')
       template = ERB.new(File.read('src/template.html.erb'))

@@ -110,6 +110,33 @@ en:
               *<i>Sensitive groups</i><br> include people with heart or lung disease, older
               adults, children and teenagers, minority populations and outdoor workers."
   no_cookies: This website does not use cookies.
+  health_messages: "<b>Health-related messages</b><br><br> These provide recommendations for both the general population and sensitive groups, such as adults and children with respiratory problems and adults with heart conditions."
+  general_population: General population
+  sensitive_population: Sensitive population
+  good_eea:
+    name: good
+    general_population: The air quality is good. Enjoy your usual outdoor Enjoy your usual outdoor activities.
+    sensitive_population: The air quality is good. Enjoy your usual outdoor Enjoy your usual outdoor activities.
+  fair_eea:
+    name: fair
+    general_population: Enjoy your usual outdoor activities.
+    sensitive_population: Enjoy your usual outdoor activities.
+  moderate_eea:
+    name: moderate
+    general_population: Enjoy your usual outdoor activities.
+    sensitive_population: Consider reducing intense outdoor activities, if you experience symptoms.
+  poor_eea: 
+    name: poor
+    general_population: Consider reducing intense activities outdoors, if you experience symptoms such as sore eyes, a cough or sore throat.
+    sensitive_population: Consider reducing physical activities, particularly outdoors, especially if you experience symptoms.
+  very_poor_eea:
+    name: very poor
+    general_population: Consider reducing intense activities outdoors, if you experience symptoms such as sore eyes, a cough or sore throat.
+    sensitive_population: Reduce physical activities, particularly outdoors, especially if you experience symptoms.
+  extremely_poor_eea:
+    name: extremely poor
+    general_population: Reduce physical activities outdoors.
+    sensitive_population: Avoid physical activities outdoors.
   date:
     abbr_day_names:
     - Sun

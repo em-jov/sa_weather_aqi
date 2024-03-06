@@ -479,38 +479,68 @@ span.rain {
   color:whitesmoke;
 }
 
-#air .unhealthy, #air .very_unhealthy, #air .hazardous{
+.good_eea {
+  background: #50F0E6;
+  color: #333;
+}
+
+.fair_eea {
+  background: #50CCAA;
+  color: #333;
+}
+
+.moderate_eea {
+  background: #F0E641;
+  color: #333;
+}
+
+.poor_eea {
+  background: #FF5050;
+  color: #333;
+}
+
+.very_poor_eea {
+  background: #960005;
+  color: whitesmoke;
+}
+
+.extremely_poor_eea {
+  background: #7D2181;
+  color: whitesmoke;
+}
+
+#air .unhealthy, #air .very_unhealthy, #air .hazardous {
   color: lightgrey;
 }
 
-#air .unhealthy, #air .very_unhealthy, #air .hazardous{
+#air .unhealthy, #air .very_unhealthy, #air .hazardous {
   color: lightgray;
 }
 
-#aqi_legend{
+#aqi_legend {
   font-size: 80%;
   text-align: left;
   margin: 0.5em auto;
 }
 
-#aqi_legend td{
+#aqi_legend td {
   border-radius: 0.5em;
   padding: 0.2em 1em; 
 }
 
-#aqi_legend td.aqi_val{
+#aqi_legend td.aqi_val {
   text-align: right;
 }
 
-td.empty{
+td.empty {
   border-radius: 0.4em;
 }
 
-#meteoalarms td.empty{
+#meteoalarms td.empty {
   padding: 0.3em 0.7em;
 }
 
-#meteoalarms td{
+#meteoalarms td {
   font-size: 80%;
 }
 
@@ -532,11 +562,11 @@ td.empty{
   align-items: center;
 }
 
-label#speed{
+label#speed {
   font-size: 100%;
 }
 
-.stations_aqi{
+.stations_aqi {
   font-size: 90%;
 }
 

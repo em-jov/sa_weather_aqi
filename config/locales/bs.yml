@@ -105,7 +105,33 @@ bs:
               *<i>Osjetljive grupe stanovništva</i><br> uključuju plućne bolesnike (poput astme), djecu, starije osobe, 
               osobe nižeg socijalnoekonomskog statusa, osobe aktivne na otvorenom (uključujući radnike na otvorenom)."
   no_cookies: Ova web stranica ne koristi kolačiće.
-  
+  health_messages: "<b>Zdravstvene preporuke</b><br><br> Indeks zraka daje zdravstvene preporuke koje se odnose na zdravlje i pružaju preporuke kako za opću populaciju, tako i za osjetljive skupine. Osjetljive skupine uključuju odrasle i djecu s respiratornim problemima te odrasle osobe sa kardio-vaskularnim stanjima."
+  general_population: Generalna populacija
+  sensitive_population: Osjetljiva populacija
+  good_eea:
+    name: odličan
+    general_population: Kvaliteta zraka je dobra. Uživajte u svojim uobičajenim aktivnostima na otvorenom.
+    sensitive_population: Kvaliteta zraka je dobra. Uživajte u svojim uobičajenim aktivnostima na otvorenom.
+  fair_eea:
+    name: dobar
+    general_population: Uživajte u svojim uobičajenim aktivnostima na otvorenom.
+    sensitive_population: Uživajte u svojim uobičajenim aktivnostima na otvorenom.
+  moderate_eea:
+    name: umjeren
+    general_population: Uživajte u svojim uobičajenim aktivnostima na otvorenom.
+    sensitive_population: Razmotrite smanjenje intenzivnih aktivnosti na otvorenom, ako osjetite simptome.
+  poor_eea: 
+    name: zagađen
+    general_population: Razmislite o smanjenju intenzivnih aktivnosti na otvorenom ako primijetite simptome poput bolnih očiju, kašlja ili bolnog grla.
+    sensitive_population: Razmotrite smanjenje fizičkih aktivnosti, posebno na otvorenom, pogotovo ako osjetite simptome.
+  very_poor_eea:
+    name: vrlo zagađen
+    general_population: Razmotrite smanjenje intenzivnih aktivnosti na otvorenom ako osjećate simptome poput bolnih očiju, kašlja ili bolnog grla.
+    sensitive_population: Smanjite fizičke aktivnosti, posebno na otvorenom, pogotovo ako osjetite simptome.
+  extremely_poor_eea:
+    name: izuzetno zagađen
+    general_population: Smanjite fizičke aktivnosti na otvorenom.
+    sensitive_population: Izbjegavajte fizičke aktivnosti na otvorenom.
   date:
     abbr_day_names:
     - ned

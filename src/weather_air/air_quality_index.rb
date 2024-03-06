@@ -8,18 +8,12 @@ module WeatherAir
             very_unhealthy: 201..300, 
             hazardous: 301..500 }
 
-    EUAQI = { very_good: 1,
-              good: 2,
-              medium: 3,
-              poor: 4,
-              very_poor: 5,
-              extremely_poor: 6 }
-
-    EUAQIBGC = ['', '#5AAA5F', '#A7D25C', '#ECD347', '#F5BE41', '#F09235', '#D93322']
-    
-    
-    # cmap = ListedColormap(['#5AAA5F', '#A7D25C', '#ECD347', '#F5BE41', '#F09235', '#D93322'])
-    # labels = ['Very good', 'Good', 'Medium', 'Poor', 'Very Poor', 'Extremely Poor']
+    EUAQI = { good_eea: 1,
+              fair_eea: 2,
+              moderate_eea: 3,
+              poor_eea: 4,
+              very_poor_eea: 5,
+              extremely_poor_eea: 6 }
     
     STATIONS = { 'vijecnica' => { name: 'Vijećnica' , latitude: 43.859, longitude: 18.434 },
                  'bjelave'  => { name: 'Bjelave' , latitude: 43.867, longitude: 18.420 },                         
@@ -40,24 +34,7 @@ module WeatherAir
         stations[station] = pollutants.merge(STATIONS[station])
       end
 
-      pp stations
-
-      # stations.each do |station, pollutants|
-      #   pollutants[:aqi] = calculate_total_aqi(pollutants)
-      #   pollutants[:e_pm2_5] = estimate_pm2_5(pollutants[:pm10], pollutants[:pm2_5])
-      #   pollutants[:e_aqi] = calculate_total_aqi(pollutants)
-      #   stations[station] = add_aqi_descriptor(pollutants).merge(STATIONS[station])
-      # end
       @stations_pollutants_aqi_data = stations
-    end
-
-    def city_pollutants_aqi
-      city_pollutants = fetch_max_values(stations_pollutants_aqi_data)
-                  
-      city_pollutants[:e_aqi] = calculate_total_aqi(city_pollutants)
-      city_pollutants[:aqi] = calculate_total_aqi(city_pollutants.reject{|k, _v| k==:e_pm2_5})
-
-      add_aqi_descriptor(city_pollutants)
     end
 
     def aqi_by_ks(locale = :en)
@@ -132,6 +109,15 @@ module WeatherAir
       end
     end
 
+    def city_pollutants_aqi
+      city_pollutants = fetch_max_values(stations_pollutants_aqi_data)
+
+      city_pollutants[:value] = city_pollutants.max_by{|k,v| v}[1]
+      city_pollutants[:class] = EUAQI.key(city_pollutants[:value])
+
+      city_pollutants
+    end
+
     private
 
     def fetch_fhmzbih_data
@@ -145,7 +131,6 @@ module WeatherAir
       # the station name is checked before collecting <tr> content to ensure reliable data extraction
       2.upto(10).each_with_object({}) do |index, stations_tr_html|
         row = table.css('tr')[index]
-        # stations_tr_html['embassy'] = row and next if row.css('td')[1].content.include?('Ambasada SAD')
         stations_tr_html['bjelave'] = row and next if row.css('td')[0].content.include?('Bjelave')
         stations_tr_html['vijecnica'] = row and next if row.css('td')[0].content.include?('Vijećnica')
         stations_tr_html['otoka'] = row and next if row.css('td')[0].content.include?('Otoka')
@@ -157,10 +142,18 @@ module WeatherAir
       end
     end
 
+    def fetch_max_values(stations_pollutants)
+      stations_pollutants = stations_pollutants.reject! { |k,v| !['Vijećnica', 'Bjelave', 'Otoka'].include?(v[:name]) }
+
+      pollutants = [:so2, :no2, :o3, :pm10, :pm25]
+      pollutants.each_with_object({}) do |pollutant, result|
+        result[pollutant] = stations_pollutants&.values&.map { |v| v&.dig(pollutant, :value) }&.compact&.max.to_i
+      end
+    end
+
     def extract_pollutants_aqi_values_for_stations(stations_tr_html)
       STATIONS.each_with_object({}) do |(station, _value), monitoring_stations|
         monitoring_stations[station] = eea_index(stations_tr_html[station], station)
-        #monitoring_stations[station] = extract_pollutants_aqi_values(stations_tr_html[station], station)
       end
     end
 
@@ -189,16 +182,7 @@ module WeatherAir
         pollutants[:pm25][:value] = station_tr_html.css('td')[10].content
       end
       pollutants.each do |key, value|
-        pollutants[key][:class] = EUAQIBGC[value[:value].to_i]
-      end
-      pollutants
-    end
-
-    def add_aqi_descriptor(pollutants)
-      pollutants.each do |k, v|
-        (key, _values) =  AQI.select { |_x, y| y.include?(v) }.first
-        pollutants[k] = { value: v, 
-                          class: v.nil? ? '' : key.to_s }
+        pollutants[key][:class] = EUAQI.key(value[:value].to_i)
       end
       pollutants
     end
