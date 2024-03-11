@@ -33,7 +33,6 @@ module WeatherAir
       stations.each do |station, pollutants|
         stations[station] = pollutants.merge(STATIONS[station])
       end
-
       @stations_pollutants_aqi_data = stations
     end
 
@@ -143,7 +142,7 @@ module WeatherAir
     end
 
     def fetch_max_values(stations_pollutants)
-      stations_pollutants = stations_pollutants.reject! { |k,v| !['Vijećnica', 'Bjelave', 'Otoka'].include?(v[:name]) }
+      stations_pollutants = stations_pollutants.reject { |k,v| !['Vijećnica', 'Bjelave', 'Otoka'].include?(v[:name]) }
 
       pollutants = [:so2, :no2, :o3, :pm10, :pm25]
       pollutants.each_with_object({}) do |pollutant, result|

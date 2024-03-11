@@ -50,62 +50,50 @@ bs:
   latest_aqi_data_ms: "Indeks kvalitete zraka <br> po mjernim stanicama"
   good:
     name: dobar 
-    who: "x"
-    advisory: Dan je odličan za aktivnosti na otvorenom.
+    advisory: "(0-25) Kvaliteta zraka smatra se zadovoljavajućom, a onečišćenje zraka ne predstavlja rizik po zdravlje. Nema ograničenja u boravku na otvorenom. 
+    U cilju održavanja i unaprijeđenja zdravih stilova života, u ovakvim uslovima preporučuje se boravak na otvorenom uz fizičke aktivnosti, u skladu sa 
+    zdravstvenim stanjem pojedinaca. Osim toga, preporučuje se iskoristiti pogodne vremenske prilike i provjetriti prostorije u kojima se boravi duži 
+    vremenski period kako bi se smanjilo zagađenje unutrašnjeg zraka, koje takođe ima značajan uticaj na zdravlje ljudi.
+    <br>  
+    (26-50) Kvaliteta zraka smatra se zadovoljavajućom, a onečišćenje zraka predstavlja mali ili nikakav rizik. Nema ograničenja u boravku na otvorenom. Međutim,
+    aktivnosti na otvorenom treba obavljati na što je moguće većoj udaljenosti od vidljivih izvora zagađenja zraka (saobraćajnice, industrija, kućna ložišta...)."
   moderate:
     name: umjereno zagađen  
-    who: Osobe izuzetno osjetljive na onečišćenje zraka česticama
-    advisory: "<u>Izuzetno osjetljive osobe</u>: Razmotrite reduciranje dužih ili napornih aktivnosti osobito u blizini frekventnih saobraćajnica. 
-              <br><br> 
-              <u>Ostali</u>: Dan je odličan za aktivnosti na otvorenom."
+    advisory: "(51-70) Kvaliteta zraka je prihvatljiva, međutim, usljed prisustva nekih zagađivača, može postojati umjereni zdravstveni rizik za vrlo mali broj 
+    ljudi koji su prekomjerno osjetljivi na onečišćenje zraka, kod kojih se mogu javiti blage do umjerene zdravstvene tegobe (iritacija dišnog sistema, kašalj, 
+    bol u grlu) Za izuzetno osjetljive kategorije stanovništva (hronični plućni i/ili srčani bolesnici koji ne koriste pravilno i pravovremeno terapiju, osobe 
+    sklone težim oblicima alergijskih reakcija i astmatičnih napada) preporuke su da prate eventualnu pojavu simptoma kao što su: kašalj ili otežano disanje. 
+    Ukoliko se jave takvi simptomi, preporučuje se da obustave naporne fizičke aktivnosti, odnosno aktivnosti koje su praćene dubokim i ubrzanim disanjem. 
+    Ukoliko i nakon prestanka fizičkih aktivnosti simptomi ne nestanu, potrebno je javiti se u zdravstvenu ustanovu. Ne predstavlja rizik za većinu populacije.
+    <br>  
+    (71-100) Kvaliteta zraka je prihvatljiva, međutim, usljed prisustva nekih zagađivača, može postojati umjereni zdravstveni rizik za manji broj ljudi koji su 
+    prekomjerno osjetljivi na onečišćenje zraka kod kojih se mogu javiti blage do umjerene zdravstvene tegobe (iritacija dišnog sistema, kašalj, bol u grlu). 
+    Za izuzetno osjetljive kategorije stanovništva (hronični plućni i/ili srčani bolesnici koji ne koriste pravilno i pravovremeno terapiju, osobe sklone težim 
+    oblicima alergijskih reakcija i astmatičnih napada) preporuke su da potpuno izbjegavaju naporne fizičke aktivnosti, odnosno aktivnosti koje su praćene dubokim 
+    i ubrzanim disanjem i da koliko je moguće skrate boravak na otvorenom. Ne predstavlja rizik za većinu populacije."
   unhealthy_for_sensitive_groups:
     name: nezdrav za osjetljive grupe
-    who: "Osjetljive grupe stanovništva uključuju plućne bolesnike (poput astme), djecu, starije osobe, 
-          osobe nižeg socijalnoekonomskog statusa, osobe aktivne na otvorenom (uključujući radnike na otvorenom)." 
-    advisory: "<u>Osjetljive grupe stanovništva</u>: Reducirajte duže ili naporne aktivnosti na otvorenom. 
-                U redu je biti aktivan na otvorenom, ali pravite više pauza. Pripazite na simptome poput kašlja ili
-                otežanog disanja.
-                <br><br> 
-                <u>Osobe sa astmom</u>: Slijedite svoj akcijski plan za astmu i
-                držite pri ruci lijek za ublažavanje simptoma.
-                <br><br> 
-                <u>Osobe sa srčanim bolestima</u>: Simptomi kao što su
-                palpitacije (preskakanje srca), otežano disanje ili neobičan umor mogu
-                ukazivati na ozbiljan problem. Ako iskusite nešto od navedenog,
-                obratite se svom liječniku."
+    advisory: "Kvalitet zraka je takav da osjetljive kategorije stanovništva (starija populacija, hronični stabilni blesnici, trudnice, mlađa djeca...) mogu 
+    osjetiti određeni uticaj na zdravlje. Vjerovatno neće uticati na ostatak građana. Može se boraviti vani ali se ipak preporučuje skratiti dužinu boravka, 
+    te pratiti eventualnu pojavu simptoma kao što su kašalj, otežano disanje, pojavu lupanja srca i neuobičajenog osjećaja umora kod osoba sa hroničnim oboljenjima. 
+    Ostaloj populaciji se preporučuje da izbjegavaju rekreaciju na otvorenom i naporne aktivnosti, odnosno aktivnosti koje su praćene dubokim i ubrzanim disanjem."
   unhealthy:
     name: nezdrav 
-    who: "Svako" 
-    advisory: "<u>Osjetljive grupe stanovništva</u>*: Izbjegavajte duže ili napornije aktivnosti na otvorenom.
-                Razmotrite prolongiranje istih ili budite aktivni u zatvorenom prostoru.
-                <br><br>
-                <u>Ostali</u>: Smanjite duže ili napornije aktivnosti. Pravite
-                više pauza tijekom aktivnosti na otvorenom.
-                <br><br><br>
-                *<i>Osjetljive grupe stanovništva</i><br> uključuju plućne bolesnike (poput astme), djecu, starije osobe, 
-                osobe nižeg socijalnoekonomskog statusa, osobe aktivne na otvorenom (uključujući radnike na otvorenom)." 
+    advisory: "Svako može početi osjećati uticaj na zdravlje. Osjetljive kategorije stanovništva mogu osjećati ozbiljniji uticaj na zdravlje. Zdravstvene tegobe 
+    se mogu javiti u cjeloj populaciji, s tim što se kod osjetljivih kategorija stanovništva, mogu javiti ozbiljnije zdravstvene tegobe. Preporučuje se koliko je 
+    moguće smanjiti kretanje na otvorenom u zonama zagađenog zraka i obustaviti rekreaciju na otvorenom i naporne aktivnosti, odnosno aktivnosti koje su praćene 
+    dubokim i ubrzanim disanjem." 
   very_unhealthy:
     name: vrlo nezdrav 
-    who: "Svako" 
-    advisory: "<u>Osjetljive grupe stanovništva</u>*: Izbjegavajte sve fizičke aktivnosti na otvorenom.
-                <br><br>
-                <u>Ostali</u>: Izbjegavajte duže ili napornije aktivnosti.
-                Razmotrite prolongiranje istih ili budite aktivni u zatvorenom prostoru.
-                <br><br><br>
-                *<i>Osjetljive grupe stanovništva</i><br> uključuju plućne bolesnike (poput astme), djecu, starije osobe, 
-                osobe nižeg socijalnoekonomskog statusa, osobe aktivne na otvorenom (uključujući radnike na otvorenom)."
+    advisory: "Zdravstveno upozorenje o vanrednim okolnostima. Moguć uticaj na cijelu populaciju. Ozbiljne zdravstvene tegobe, osim kod osjetljivih kategorija 
+    stanovništa, mogu se očekivati i u zdravoj populaciji. Preporuke za sve populacione grupe su da izbjegavaju boravak na otvorenom."
   hazardous:
     name: opasan  
-    who: "Svako" 
-    advisory: "<u>Svako</u>: Izbjegavajte sve fizičke aktivnosti na otvorenom.
-              <br><br>
-              <u>Osjetljive grupe stanovništva*</u>: Ostanite kod kuće i smanjite sve fizičke aktivnosti.
-              Slijedite savjete za održavanje niske razine čestica zagađivača u zatvorenom prostoru.
-              <br><br><br>
-              *<i>Osjetljive grupe stanovništva</i><br> uključuju plućne bolesnike (poput astme), djecu, starije osobe, 
-              osobe nižeg socijalnoekonomskog statusa, osobe aktivne na otvorenom (uključujući radnike na otvorenom)."
+    advisory: "Zrak je opasan po zdravlje za svakog pojedinca!"
   no_cookies: Ova web stranica ne koristi kolačiće.
-  health_messages: "<b>Zdravstvene preporuke</b><br><br> Indeks zraka daje zdravstvene preporuke koje se odnose na zdravlje i pružaju preporuke kako za opću populaciju, tako i za osjetljive skupine. Osjetljive skupine uključuju odrasle i djecu s respiratornim problemima te odrasle osobe sa kardio-vaskularnim stanjima."
+  health_messages: Zdravstvene preporuke
+  health_messages_text: "Indeks zraka daje zdravstvene preporuke koje se odnose na zdravlje i pružaju preporuke kako za opću 
+  populaciju, tako i za osjetljive skupine. Osjetljive skupine uključuju odrasle i djecu s respiratornim problemima te odrasle osobe sa kardio-vaskularnim stanjima."
   general_population: Generalna populacija
   sensitive_population: Osjetljiva populacija
   good_eea:
@@ -184,6 +172,6 @@ bs:
       normal: "%d. %b %Y."
       short: "%A %d.%m."
       hm: "%H:%M"
-      alarms_date: "%d.%m.%Y."
+      alarms_date: "%A (%d. %B %Y.)"
       alarms_time: "%H:%M"
     pm: pm  

@@ -24,7 +24,8 @@
 
       <div class="lang_btn">
         <% if I18n.locale == :bs %>
-          <div class="lang_on">bs</div>  
+          <div class="lang_on">bs</div>
+          <div> / </div>  
           <div> 
             <a class="lang_off" href="en/index.html">en</a> 
           </div>
@@ -32,14 +33,16 @@
           <div>
             <a class="lang_off" href="../index.html">bs</a> 
           </div> 
+          <div> / </div>  
           <div class="lang_on">en</div> 
         <% end %>
       </div>
 
       <% if I18n.locale == :en %>
       <div class="units_btn">
-        <button id="metric" class="unit_on">metric: °C, km/h</button>
-        <button id="imperial" class="unit_off">imperial: °F, mph</button>
+        <div id="metric" class="unit_on">metric: °C, km/h</div>
+        <div> / </div>  
+        <div id="imperial" class="unit_off">imperial: °F, mph</div>
       </div>
       <% end %>
 
@@ -57,13 +60,13 @@
             <div class="<%= alarm[:alert][:info][I18n.locale][:parameter].first[:value].partition('; ')[2].partition(';')[0] + ' alarm'%>">
               <span>
                 <b><%= I18n.localize(Time.parse(alarm[:alert][:info][I18n.locale][:onset]), format: :alarms_date) %></b>
-                (<%= I18n.localize(Time.parse(alarm[:alert][:info][I18n.locale][:onset]), format: :alarms_time) %>
-                - <%= I18n.localize(Time.parse(alarm[:alert][:info][I18n.locale][:expires]), format: :alarms_time) %>)
+                <%= I18n.localize(Time.parse(alarm[:alert][:info][I18n.locale][:onset]), format: :alarms_time) %>
+                - <%= I18n.localize(Time.parse(alarm[:alert][:info][I18n.locale][:expires]), format: :alarms_time) %>
               </span>
               <h4><%= alarm[:alert][:info][I18n.locale][:event] %></h4> 
               </span>
               <span><%= alarm[:alert][:info][I18n.locale][:description] %></span>
-              <span><%= alarm[:alert][:info][I18n.locale][:instruction] %></span>
+              <span id="meteoalarm_instruction"><%= alarm[:alert][:info][I18n.locale][:instruction] %></span>
               <a href=<%= alarm[:alert][:info][I18n.locale][:web] %>><%= alarm[:alert][:info][I18n.locale][:senderName] %></a>
             </div>
           <% end %>
@@ -168,12 +171,13 @@
           </h3>
 
           <div id="who_section">
-            <p> <%= I18n.t("health_messages") %> </p>
+            <p class="hm_title"><b> <%= I18n.t("health_messages") %> </b></p>
+            <p id="health_messages"> <%= I18n.t("health_messages_text") %> </p>
 
-            <p><b> <%= I18n.t("general_population") %> </b></p>
+            <p class="hm_title"><b> <%= I18n.t("general_population") %> </b></p>
             <p> <%= I18n.t("#{city_pollutants[:class]}.general_population") %> </p>
 
-            <p><b> <%= I18n.t("sensitive_population") %> </b></p>
+            <p class="hm_title"><b> <%= I18n.t("sensitive_population") %> </b></p>
             <p> <%= I18n.t("#{city_pollutants[:class]}.sensitive_population") %> </p>
           </div>
           <br>
@@ -262,7 +266,7 @@
           <div>
         </table>
         <button id="see_more_stations" data-text_more="<%= I18n.t(:see_more_stations) %>" data-text_less="<%= I18n.t(:show_less_stations) %>"><%= I18n.t(:see_more_stations) %></button>
-
+        <hr>
         <table id="aqi_legend" class="centered-table">
           <tr>
             <td class="good_eea">1</td>
@@ -287,7 +291,10 @@
           </tr>
         </table>
 
-        <br><hr>
+        </div>  
+        <div id="air_more" class="section">
+
+      
         <h3><%= I18n.t(:aqi_more) %></h3>
 
         <h4>
@@ -314,7 +321,7 @@
             </tr>
           <% end %>
         </table>
-        <br>
+        <br><hr>
         <h4>
           <%= I18n.t(:data_provided_by) %><br>  
           <a href="https://aqms.live/kvalitetzraka/index.php" target=”_blank”><%= I18n.t(:aqi_ks) %></a>
@@ -372,7 +379,7 @@
             </tr>
             <% end %>
           </table>
-        <br>
+        <br><hr>
 
         <table id="aqi_legend" class="centered-table">
           <tr>

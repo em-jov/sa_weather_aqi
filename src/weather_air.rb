@@ -14,6 +14,7 @@ module WeatherAir
       I18n.load_path += Dir[File.expand_path("config/locales") + "/*.yml"]
       I18n.config.available_locales = %i[en bs]
       I18n.default_locale = :en
+      # $logger.debug "debug.."
 
       # weather
       weather = WeatherAir::WeatherClient.new
