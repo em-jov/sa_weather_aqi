@@ -151,7 +151,7 @@ module WeatherAir
       # Output the local time
       # puts local_time
 
-      pp data
+      data
 
     end
    

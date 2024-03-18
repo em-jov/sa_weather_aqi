@@ -22,7 +22,7 @@ module WeatherAir
       (forecast_today, weather_forecast) = weather.weather_forecast_data
       yr = weather.yr_sarajevo
 
-      pp forecast_today
+      forecast_today
       # meteoalarm
       (current_alarms, future_alarms) = weather.active_meteoalarms
 
