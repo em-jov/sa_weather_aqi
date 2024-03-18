@@ -21,22 +21,22 @@ document.addEventListener('DOMContentLoaded', function() {
       metricBtn.classList.add("unit_off")
 
       if (speedString.length > 0) {
-          var currentSpeed = parseFloat(speedString);
-          var newSpeed = convertSpeed(currentSpeed, 'km/h', 'mph')
-          speedElement.innerText = newSpeed.toFixed(2) + ' mph';
+        var currentSpeed = parseFloat(speedString);
+        var newSpeed = convertSpeed(currentSpeed, 'km/h', 'mph')
+        speedElement.innerText = newSpeed.toFixed(2) + ' mph';
       } else {
-          console.error('Speed string is empty or undefined.');
+        console.error('Speed string is empty or undefined.');
       }
 
       temperatureElements.forEach(function(temperatureElement) {
         var temperatureString = temperatureElement.innerText.trim(); 
 
         if (temperatureString.length > 0) {
-            var currentTemperature = parseFloat(temperatureString);
-            var newTemperature = Math.round(convertTemperature(currentTemperature, 'C', 'F'));
-            temperatureElement.innerText = newTemperature + '°F';
+          var currentTemperature = parseFloat(temperatureString);
+          var newTemperature = Math.round(convertTemperature(currentTemperature, 'C', 'F'));
+          temperatureElement.innerText = newTemperature + '°F';
         } else {
-            console.error('Temperature string is empty or undefined.');
+          console.error('Temperature string is empty or undefined.');
         }
       });
     };

@@ -38,6 +38,7 @@ bs:
   weather_forecast: Vremenska prognoza
   weather_forecast_today: Vrijeme danas
   data_provided_by: Podaci preuzeti od
+  met_norway: Norveškog meteorološkog instituta (Yr)
   fhmz: Federalnog hidrometeorološkog zavoda
   meteo_alarms: Meteoalarmi
   moderate_alarm: potencijalno opasno
@@ -50,62 +51,62 @@ bs:
   latest_aqi_data_ms: "Indeks kvalitete zraka <br> po mjernim stanicama"
   good:
     name: dobar 
-    who: "x"
-    advisory: Dan je odličan za aktivnosti na otvorenom.
+    advisory: "Kvalitet zraka se smatra zadovoljavajućim, a zagađenje zraka predstavlja mali ili nikakav rizik."
   moderate:
     name: umjereno zagađen  
-    who: Osobe izuzetno osjetljive na onečišćenje zraka česticama
-    advisory: "<u>Izuzetno osjetljive osobe</u>: Razmotrite reduciranje dužih ili napornih aktivnosti osobito u blizini frekventnih saobraćajnica. 
-              <br><br> 
-              <u>Ostali</u>: Dan je odličan za aktivnosti na otvorenom."
+    advisory: "Kvalitet zraka je prihvatljiv; međutim, za neke zagađivače može postojati umjerena zdravstvena zabrinutost za vrlo mali broj ljudi koji su neobično osjetljivi na zagađenje zraka.
+    <br><br>
+    Aktivna djeca i odrasli, te osobe s respiratornim oboljenjima, kao što je astma, treba da ograniče produženi napor na otvorenom."
   unhealthy_for_sensitive_groups:
     name: nezdrav za osjetljive grupe
-    who: "Osjetljive grupe stanovništva uključuju plućne bolesnike (poput astme), djecu, starije osobe, 
-          osobe nižeg socijalnoekonomskog statusa, osobe aktivne na otvorenom (uključujući radnike na otvorenom)." 
-    advisory: "<u>Osjetljive grupe stanovništva</u>: Reducirajte duže ili naporne aktivnosti na otvorenom. 
-                U redu je biti aktivan na otvorenom, ali pravite više pauza. Pripazite na simptome poput kašlja ili
-                otežanog disanja.
-                <br><br> 
-                <u>Osobe sa astmom</u>: Slijedite svoj akcijski plan za astmu i
-                držite pri ruci lijek za ublažavanje simptoma.
-                <br><br> 
-                <u>Osobe sa srčanim bolestima</u>: Simptomi kao što su
-                palpitacije (preskakanje srca), otežano disanje ili neobičan umor mogu
-                ukazivati na ozbiljan problem. Ako iskusite nešto od navedenog,
-                obratite se svom liječniku."
+    advisory: "Pripadnici osjetljivih grupa mogu imati zdravstvene posljedice. Nije vjerovatno da će šira javnost biti pogođena.
+    <br><br>
+    Aktivna djeca i odrasli, te osobe s respiratornim oboljenjima, kao što je astma, treba da ograniče produženi napor na otvorenom."
   unhealthy:
     name: nezdrav 
-    who: "Svako" 
-    advisory: "<u>Osjetljive grupe stanovništva</u>*: Izbjegavajte duže ili napornije aktivnosti na otvorenom.
-                Razmotrite prolongiranje istih ili budite aktivni u zatvorenom prostoru.
-                <br><br>
-                <u>Ostali</u>: Smanjite duže ili napornije aktivnosti. Pravite
-                više pauza tijekom aktivnosti na otvorenom.
-                <br><br><br>
-                *<i>Osjetljive grupe stanovništva</i><br> uključuju plućne bolesnike (poput astme), djecu, starije osobe, 
-                osobe nižeg socijalnoekonomskog statusa, osobe aktivne na otvorenom (uključujući radnike na otvorenom)." 
+    advisory: "Svi mogu početi osjećati zdravstvene posljedice; pripadnici osetljivih grupa mogu imati ozbiljnije zdravstvene posledice.
+    <br><br>
+    Aktivna djeca i odrasli, te osobe s respiratornim oboljenjima, kao što je astma, trebaju izbjegavati dugotrajno naprezanje na otvorenom; svi ostali, posebno djeca, trebali bi ograničiti produženi napor na otvorenom." 
   very_unhealthy:
     name: vrlo nezdrav 
-    who: "Svako" 
-    advisory: "<u>Osjetljive grupe stanovništva</u>*: Izbjegavajte sve fizičke aktivnosti na otvorenom.
-                <br><br>
-                <u>Ostali</u>: Izbjegavajte duže ili napornije aktivnosti.
-                Razmotrite prolongiranje istih ili budite aktivni u zatvorenom prostoru.
-                <br><br><br>
-                *<i>Osjetljive grupe stanovništva</i><br> uključuju plućne bolesnike (poput astme), djecu, starije osobe, 
-                osobe nižeg socijalnoekonomskog statusa, osobe aktivne na otvorenom (uključujući radnike na otvorenom)."
+    advisory: "Zdravstvena upozorenja o vanrednim situacijama. Vjerovatnije je da će cijela populacija biti pogođena.
+    <br><br>
+    Aktivna djeca i odrasli, te osobe s respiratornim oboljenjima, kao što je astma, trebaju izbjegavati sve napore na otvorenom; svi ostali, posebno djeca, trebali bi ograničiti napore na otvorenom."
   hazardous:
     name: opasan  
-    who: "Svako" 
-    advisory: "<u>Svako</u>: Izbjegavajte sve fizičke aktivnosti na otvorenom.
-              <br><br>
-              <u>Osjetljive grupe stanovništva*</u>: Ostanite kod kuće i smanjite sve fizičke aktivnosti.
-              Slijedite savjete za održavanje niske razine čestica zagađivača u zatvorenom prostoru.
-              <br><br><br>
-              *<i>Osjetljive grupe stanovništva</i><br> uključuju plućne bolesnike (poput astme), djecu, starije osobe, 
-              osobe nižeg socijalnoekonomskog statusa, osobe aktivne na otvorenom (uključujući radnike na otvorenom)."
+    advisory: "Zdravstveno upozorenje: svako može doživjeti ozbiljnije zdravstvene posljedice.
+    <br><br>
+    Svako treba da izbegava sve napore na otvorenom."
   no_cookies: Ova web stranica ne koristi kolačiće.
-  
+  health_messages: Zdravstvene preporuke
+  health_messages_text: "Indeks zraka daje zdravstvene preporuke koje se odnose na zdravlje i pružaju preporuke kako za opću 
+  populaciju, tako i za osjetljive skupine. Osjetljive skupine uključuju odrasle i djecu s respiratornim problemima te odrasle osobe sa kardio-vaskularnim stanjima."
+  general_population: Generalna populacija
+  sensitive_population: Osjetljiva populacija
+  good_eea:
+    name: odličan
+    general_population: Kvaliteta zraka je dobra. Uživajte u svojim uobičajenim aktivnostima na otvorenom.
+    sensitive_population: Kvaliteta zraka je dobra. Uživajte u svojim uobičajenim aktivnostima na otvorenom.
+  fair_eea:
+    name: dobar
+    general_population: Uživajte u svojim uobičajenim aktivnostima na otvorenom.
+    sensitive_population: Uživajte u svojim uobičajenim aktivnostima na otvorenom.
+  moderate_eea:
+    name: umjeren
+    general_population: Uživajte u svojim uobičajenim aktivnostima na otvorenom.
+    sensitive_population: Razmotrite smanjenje intenzivnih aktivnosti na otvorenom, ako osjetite simptome.
+  poor_eea: 
+    name: zagađen
+    general_population: Razmislite o smanjenju intenzivnih aktivnosti na otvorenom ako primijetite simptome poput bolnih očiju, kašlja ili bolnog grla.
+    sensitive_population: Razmotrite smanjenje fizičkih aktivnosti, posebno na otvorenom, pogotovo ako osjetite simptome.
+  very_poor_eea:
+    name: vrlo zagađen
+    general_population: Razmotrite smanjenje intenzivnih aktivnosti na otvorenom ako osjećate simptome poput bolnih očiju, kašlja ili bolnog grla.
+    sensitive_population: Smanjite fizičke aktivnosti, posebno na otvorenom, pogotovo ako osjetite simptome.
+  extremely_poor_eea:
+    name: izuzetno zagađen
+    general_population: Smanjite fizičke aktivnosti na otvorenom.
+    sensitive_population: Izbjegavajte fizičke aktivnosti na otvorenom.
   date:
     abbr_day_names:
     - ned
@@ -158,6 +159,6 @@ bs:
       normal: "%d. %b %Y."
       short: "%A %d.%m."
       hm: "%H:%M"
-      alarms_date: "%d.%m.%Y."
+      alarms_date: "%A (%d. %B %Y.)"
       alarms_time: "%H:%M"
     pm: pm  

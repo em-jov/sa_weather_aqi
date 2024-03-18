@@ -97,8 +97,6 @@
 }
 
 .lang_btn{
-  border-radius: 0.5em;
-  background-color: darkgray;
   padding: 0.25em;
   max-width: 70px;
   display: flex;
@@ -114,48 +112,43 @@
 }
 
 .lang_on{
-  color: #333;
-  background: lightgrey;
+  color: darkgray;
   border-radius: 0.4em;
 }
 
 a.lang_off:visited{
-  color: #515151;
+  color: #333;
 }
 
 a.lang_off:hover{
   font-style: normal;
-  color: whitesmoke;
+  color: lightgray;
 }
 
 .units_btn{
-  border-radius: 0.5em;
-  background-color: darkgray;
   padding: 0.25em;
   max-width: 222px;
-  margin: 0.3em auto;
+  margin: auto;
   display: flex;
   justify-content: center;
-  font-size: 90%;
+  font-size: 80%;
+}
+
+.units_btn div{
+  margin: auto;
 }
 
 .unit_off{
-  background: darkgray;
-  color: #515151 ;
-  border-style: none;
+  color: #333 ;
 }
 
 .unit_on{
-  background: lightgray;
-  color: #333;
-  padding: 0.3em 0.5em;
-  border-radius: 0.4em;
-  border-style: none;
-  margin: auto;
+  color: darkgray;
 }
 
 .unit_off:hover{
   color: lightgray;
+  cursor: pointer;
 }
 
 #changeButton  {
@@ -192,7 +185,7 @@ a.lang_off:hover{
   padding: 1em;
 }
 
-#weather, #air, #health_advisory, #meteoalarms{
+#weather, #air, #air_more, #health_advisory, #meteoalarms{
   box-shadow: 0px 0px 6px 6px rgb(200, 200, 200);
   border-radius: 0.5em;
 }
@@ -379,21 +372,25 @@ p#weather_description {
   padding: 0.25em;
 }
 
+#ea_health_messages{
+  text-align: justify;
+}
 
-#air h3 {
+#air h3, #air_more h3 {
   padding: 0.5em ;
   font-size: 120%;
   border-radius: 0.5em;
   margin: 0.5em;
 }
-h3#city_aqi_main {
+h3.city_aqi_main {
   margin-top: 1em;
 }
 button#see_more_stations{
-  margin: 0.5em 0 1.5em 0;
+  margin: 0.5em 0 0.5em 0;
   border-radius: 0.5em;
   border-style: none;
   padding: 0.2em 0.5em;
+  cursor: pointer;
 }
 
 #city_aqi td{
@@ -479,38 +476,68 @@ span.rain {
   color:whitesmoke;
 }
 
-#air .unhealthy, #air .very_unhealthy, #air .hazardous{
+.good_eea {
+  background: #50F0E6;
+  color: #333;
+}
+
+.fair_eea {
+  background: #50CCAA;
+  color: #333;
+}
+
+.moderate_eea {
+  background: #F0E641;
+  color: #333;
+}
+
+.poor_eea {
+  background: #FF5050;
+  color: #333;
+}
+
+.very_poor_eea {
+  background: #960005;
+  color: whitesmoke;
+}
+
+.extremely_poor_eea {
+  background: #7D2181;
+  color: whitesmoke;
+}
+
+#air .unhealthy, #air .very_unhealthy, #air .hazardous {
   color: lightgrey;
 }
 
-#air .unhealthy, #air .very_unhealthy, #air .hazardous{
+#air .unhealthy, #air .very_unhealthy, #air .hazardous {
   color: lightgray;
 }
 
-#aqi_legend{
+#aqi_legend {
   font-size: 80%;
   text-align: left;
   margin: 0.5em auto;
 }
 
-#aqi_legend td{
+#aqi_legend td {
   border-radius: 0.5em;
   padding: 0.2em 1em; 
 }
 
-#aqi_legend td.aqi_val{
+#aqi_legend td.aqi_val {
   text-align: right;
 }
 
-td.empty{
+td.empty {
   border-radius: 0.4em;
 }
 
-#meteoalarms td.empty{
+#meteoalarms td.empty {
   padding: 0.3em 0.7em;
 }
 
-#meteoalarms td{
+#meteoalarms td {
   font-size: 80%;
 }
 
@@ -532,52 +559,58 @@ td.empty{
   align-items: center;
 }
 
-label#speed{
+label#speed {
   font-size: 100%;
 }
 
-.stations_aqi{
+.stations_aqi {
   font-size: 90%;
+}
+
+#health_messages {
+  font-size: 80%;
+}
+
+#who_section {
+  text-align: justify;
+}
+
+.hm_title {
+  text-align: center;
+}
+
+#meteoalarm_instruction{
+  text-align: justify;
+  padding: 0.5em 0;
 }
 
 @media (prefers-color-scheme: dark) {
 
-  .lang_btn{
-    background-color: #272626;
-  }
-  
   .lang_on{
-    color: lightgrey;
-    background: #333;
+    color: darkgray;
   }
   
   a.lang_off:visited{
-    color: #515151;
+    color: whitesmoke;
   }
   
   a.lang_off:hover{
-    color: lightgray;
+    color: darkgray;
   }
 
-  .units_btn{
-    background-color: #272626;
-  }
-  
   .unit_off{
-    background: #272626;
-    color: #515151 ;
+    color: whitesmoke;
   }
   
   .unit_on{
-    background: #333;
-    color: lightgray;
+    color: darkgray;
   }
   
   .unit_off:hover{
-    color: lightgray;
+    color: darkgrey;
   }
 
-  #weather, #air, #health_advisory, #meteoalarms{
+  #weather, #air, #air_more, #health_advisory, #meteoalarms{
     box-shadow: 0px 0px 6px 6px rgb(30, 30, 30);
   }
 

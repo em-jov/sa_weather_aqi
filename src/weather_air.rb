@@ -14,12 +14,15 @@ module WeatherAir
       I18n.load_path += Dir[File.expand_path("config/locales") + "/*.yml"]
       I18n.config.available_locales = %i[en bs]
       I18n.default_locale = :en
+      # $logger.debug "debug.."
 
       # weather
       weather = WeatherAir::WeatherClient.new
       current_weather = weather.current_weather_data
       (forecast_today, weather_forecast) = weather.weather_forecast_data
+      yr = weather.yr_sarajevo
 
+      forecast_today
       # meteoalarm
       (current_alarms, future_alarms) = weather.active_meteoalarms
 
@@ -27,13 +30,12 @@ module WeatherAir
       aqi = WeatherAir::AirQualityIndex.new
 
       ks_aqi = aqi.aqi_by_ks
-      eko_akcija = aqi.aqi_by_ekoakcija
+      (eko_akcija, ea_city_aqi_value, ea_city_aqi_class) = aqi.aqi_by_ekoakcija
 
       city_pollutants = aqi.city_pollutants_aqi
       stations_pollutants_aqi = aqi.stations_pollutants_aqi_data
 
       style = File.read("src/style.css")
-      toggle_switchy = File.read("src/toggle-switchy.css")
       js_script = File.read('src/script.js')
       scrollBtn_script =  File.read('src/scrollBtnScript.js')
       template = ERB.new(File.read('src/template.html.erb'))

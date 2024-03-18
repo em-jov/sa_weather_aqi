@@ -12,9 +12,8 @@ Ruby script retrieves data from 3rd-party APIs or resorts to web scraping when A
     - 5-day forecast in 3-hour intervals
 - Air Quality information
     - Hourly AQI data from multiple monitoring sites
-    - City-wide AQI calculation 
+    - Map of monitoring sites locations 
     - Health recommendations
-    - Map of monitoring site locations 
     - AQI data from additional sources for cross-verification
 - Internationalization (I18n) Support
     - Available in Bosnian and English languages

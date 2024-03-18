@@ -114,6 +114,46 @@ module WeatherAir
 
       grouped_alarms.values
     end
+
+    def yr_sarajevo
+      ENV['TZ'] = 'Europe/Sarajevo'
+
+      # Do not use more than 4 decimals to avoid blocking
+      lat = 43.8519
+      lon = 18.3866
+      altitude = 520
+      sitename = 'https://sarajevo-meteo.com/ https://github.com/em-jov/sa_weather_aqi'
+      # locationforecastURL = "https://api.met.no/weatherapi/locationforecast/2.0/complete.json?altitude=#{altitude}&lat=#{lat}&lon=#{lon}"
+
+      conn = Faraday.new(
+        url: 'https://api.met.no/weatherapi/locationforecast/2.0/complete.json',
+        params: { altitude: altitude, lat: lat, lon: lon },
+        headers: { 'Content-Type' => 'application/json', 'User-Agent' => sitename }) do |f|
+        f.response :json
+      end
+
+      yr_response = conn.get()
+      status = yr_response.status
+      headers = yr_response.headers
+      data = yr_response.body
+
+      #pp data["properties"]["timeseries"][0]["time"]
+
+      weather = {}
+      data["properties"]["timeseries"].each do |ts|
+        weather["time"] = Time.parse(data["properties"]["timeseries"][0]["time"])
+      end
+
+      # Assuming you have a UTC time, you can convert it to the local time zone
+      utc_time = Time.parse(data["properties"]["timeseries"][0]["time"])
+      local_time = utc_time.localtime
+
+      # Output the local time
+      # puts local_time
+
+      data
+
+    end
    
   end
 end

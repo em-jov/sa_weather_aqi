@@ -38,6 +38,7 @@ en:
   weather_forecast: Weather forecast
   weather_forecast_today: Weather today 
   data_provided_by: Data provided by
+  met_norway: The Norwegian Meteorological Institute (Yr)
   fhmz: Federal Hydro-Meteorological Institute
   meteo_alarms: Meteoalarms
   moderate_alarm: moderate
@@ -51,65 +52,61 @@ en:
   latest_aqi_data_ms: "Air quality index <br> per monitoring stations"
   good:
     name: good 
-    who: "x"
-    advisory: "It’s a great day to be active outside." 
+    advisory: "Air quality is considered satisfactory, and air pollution poses little or no risk." 
   moderate:
     name: moderate  
-    who: "Some people who may be unusually sensitive to particle pollution." 
-    advisory: "<u>Unusually sensitive people</u>: Consider making outdoor activities shorter and less intense.
-              Watch for symptoms such as coughing or shortness of breath. These are signs to take it easier. 
-              <br><br> 
-              <u>Everyone else</u>: It’s a good day to be active outside."
+    advisory: "Air quality is acceptable; however, for some pollutants there may be a moderate health concern for a very small number of people who are unusually sensitive to air pollution.
+    <br><br>
+    Active children and adults, and people with respiratory disease, such as asthma, should limit prolonged outdoor exertion."
   unhealthy_for_sensitive_groups:
     name: unhealthy for sensitive groups
-    who: "Sensitive groups include people with heart or lung disease, older
-          adults, children and teenagers, minority populations, and outdoor workers." 
-    advisory: "<u>Sensitive groups</u>: Make outdoor activities shorter and less
-                intense. It’s OK to be active outdoors, but take more
-                breaks. Watch for symptoms such as coughing or
-                shortness of breath.
-                <br><br> 
-                <u>People with asthma</u>: Follow your asthma action plan and
-                keep quick relief medicine handy.
-                <br><br> 
-                <u>People with heart disease</u>: Symptoms such as
-                palpitations, shortness of breath, or unusual fatigue may
-                indicate a serious problem. If you have any of these,
-                contact your health care provider."
+    advisory: "Members of sensitive groups may experience health effects. The general public is not likely to be affected.
+    <br><br>
+    Active children and adults, and people with respiratory disease, such as asthma, should limit prolonged outdoor exertion."
   unhealthy:
     name: unhealthy 
-    who: "Everyone" 
-    advisory: "<u>Sensitive groups</u>*: Avoid long or intense outdoor activities.
-                Consider rescheduling or moving activities indoors.
-                <br><br>
-                <u>Everyone else</u>: Reduce long or intense activities. Take
-                more breaks during outdoor activities.
-                <br><br><br>
-                *<i>Sensitive groups</i><br> include people with heart or lung disease, older
-                adults, children and teenagers, minority populations and outdoor workers."
+    advisory: "Everyone may begin to experience health effects; members of sensitive groups may experience more serious health effects.
+    <br><br>
+    Active children and adults, and people with respiratory disease, such as asthma, should avoid prolonged outdoor exertion; everyone else, especially children, should limit prolonged outdoor exertion."
   very_unhealthy:
     name: very unhealthy  
-    who: "Everyone" 
-    advisory: "<u>Sensitive groups</u>*: Avoid all physical activity outdoors.
-                Reschedule to a time when air quality is better or move
-                activities indoors.
-                <br><br>
-                <u>Everyone else</u>: Avoid long or intense activities. Consider
-                rescheduling or moving activities indoors.
-                <br><br><br>
-                *<i>Sensitive groups</i><br> include people with heart or lung disease, older
-                adults, children and teenagers, minority populations and outdoor workers."
+    advisory: "Health warnings of emergency conditions. The entire population is more likely to be affected.
+    <br><br>
+    Active children and adults, and people with respiratory disease, such as asthma, should avoid all outdoor exertion; everyone else, especially children, should limit outdoor exertion."
   hazardous: 
     name: hazardous  
-    who: "Everyone" 
-    advisory: "<u>Everyone</u>: Avoid all physical activity outdoors.
-              <br><br>
-              <u>Sensitive groups</u>*: Remain indoors and keep activity levels
-              low. Follow tips for keeping particle levels low indoors.
-              <br><br><br>
-              *<i>Sensitive groups</i><br> include people with heart or lung disease, older
-              adults, children and teenagers, minority populations and outdoor workers."
+    advisory: "Health alert: everyone may experience more serious health effects.
+    <br><br>
+    Everyone should avoid all outdoor exertion."
   no_cookies: This website does not use cookies.
+  health_messages: Health-related messages
+  health_messages_text: "These provide recommendations for both the general population and sensitive groups, such as adults and children with respiratory problems and adults with heart conditions."
+  general_population: General population
+  sensitive_population: Sensitive population
+  good_eea:
+    name: good
+    general_population: The air quality is good. Enjoy your usual outdoor Enjoy your usual outdoor activities.
+    sensitive_population: The air quality is good. Enjoy your usual outdoor Enjoy your usual outdoor activities.
+  fair_eea:
+    name: fair
+    general_population: Enjoy your usual outdoor activities.
+    sensitive_population: Enjoy your usual outdoor activities.
+  moderate_eea:
+    name: moderate
+    general_population: Enjoy your usual outdoor activities.
+    sensitive_population: Consider reducing intense outdoor activities, if you experience symptoms.
+  poor_eea: 
+    name: poor
+    general_population: Consider reducing intense activities outdoors, if you experience symptoms such as sore eyes, a cough or sore throat.
+    sensitive_population: Consider reducing physical activities, particularly outdoors, especially if you experience symptoms.
+  very_poor_eea:
+    name: very poor
+    general_population: Consider reducing intense activities outdoors, if you experience symptoms such as sore eyes, a cough or sore throat.
+    sensitive_population: Reduce physical activities, particularly outdoors, especially if you experience symptoms.
+  extremely_poor_eea:
+    name: extremely poor
+    general_population: Reduce physical activities outdoors.
+    sensitive_population: Avoid physical activities outdoors.
   date:
     abbr_day_names:
     - Sun
@@ -162,6 +159,6 @@ en:
       normal: "%d %b %Y"
       short: "%A %d.%m."
       hm: "%I:%M %P"
-      alarms_date: "%B %d, %Y"
+      alarms_date: "%A (%B %d, %Y)"
       alarms_time: "%I:%M %P"
     pm: pm  
