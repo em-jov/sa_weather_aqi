@@ -38,6 +38,7 @@ bs:
   weather_forecast: Vremenska prognoza
   weather_forecast_today: Vrijeme danas
   data_provided_by: Podaci preuzeti od
+  met_norway: Norveškog meteorološkog instituta (Yr)
   fhmz: Federalnog hidrometeorološkog zavoda
   meteo_alarms: Meteoalarmi
   moderate_alarm: potencijalno opasno
@@ -50,46 +51,32 @@ bs:
   latest_aqi_data_ms: "Indeks kvalitete zraka <br> po mjernim stanicama"
   good:
     name: dobar 
-    advisory: "(0-25) Kvaliteta zraka smatra se zadovoljavajućom, a onečišćenje zraka ne predstavlja rizik po zdravlje. Nema ograničenja u boravku na otvorenom. 
-    U cilju održavanja i unaprijeđenja zdravih stilova života, u ovakvim uslovima preporučuje se boravak na otvorenom uz fizičke aktivnosti, u skladu sa 
-    zdravstvenim stanjem pojedinaca. Osim toga, preporučuje se iskoristiti pogodne vremenske prilike i provjetriti prostorije u kojima se boravi duži 
-    vremenski period kako bi se smanjilo zagađenje unutrašnjeg zraka, koje takođe ima značajan uticaj na zdravlje ljudi.
-    <br>  
-    (26-50) Kvaliteta zraka smatra se zadovoljavajućom, a onečišćenje zraka predstavlja mali ili nikakav rizik. Nema ograničenja u boravku na otvorenom. Međutim,
-    aktivnosti na otvorenom treba obavljati na što je moguće većoj udaljenosti od vidljivih izvora zagađenja zraka (saobraćajnice, industrija, kućna ložišta...)."
+    advisory: "Kvalitet zraka se smatra zadovoljavajućim, a zagađenje zraka predstavlja mali ili nikakav rizik."
   moderate:
     name: umjereno zagađen  
-    advisory: "(51-70) Kvaliteta zraka je prihvatljiva, međutim, usljed prisustva nekih zagađivača, može postojati umjereni zdravstveni rizik za vrlo mali broj 
-    ljudi koji su prekomjerno osjetljivi na onečišćenje zraka, kod kojih se mogu javiti blage do umjerene zdravstvene tegobe (iritacija dišnog sistema, kašalj, 
-    bol u grlu) Za izuzetno osjetljive kategorije stanovništva (hronični plućni i/ili srčani bolesnici koji ne koriste pravilno i pravovremeno terapiju, osobe 
-    sklone težim oblicima alergijskih reakcija i astmatičnih napada) preporuke su da prate eventualnu pojavu simptoma kao što su: kašalj ili otežano disanje. 
-    Ukoliko se jave takvi simptomi, preporučuje se da obustave naporne fizičke aktivnosti, odnosno aktivnosti koje su praćene dubokim i ubrzanim disanjem. 
-    Ukoliko i nakon prestanka fizičkih aktivnosti simptomi ne nestanu, potrebno je javiti se u zdravstvenu ustanovu. Ne predstavlja rizik za većinu populacije.
-    <br>  
-    (71-100) Kvaliteta zraka je prihvatljiva, međutim, usljed prisustva nekih zagađivača, može postojati umjereni zdravstveni rizik za manji broj ljudi koji su 
-    prekomjerno osjetljivi na onečišćenje zraka kod kojih se mogu javiti blage do umjerene zdravstvene tegobe (iritacija dišnog sistema, kašalj, bol u grlu). 
-    Za izuzetno osjetljive kategorije stanovništva (hronični plućni i/ili srčani bolesnici koji ne koriste pravilno i pravovremeno terapiju, osobe sklone težim 
-    oblicima alergijskih reakcija i astmatičnih napada) preporuke su da potpuno izbjegavaju naporne fizičke aktivnosti, odnosno aktivnosti koje su praćene dubokim 
-    i ubrzanim disanjem i da koliko je moguće skrate boravak na otvorenom. Ne predstavlja rizik za većinu populacije."
+    advisory: "Kvalitet zraka je prihvatljiv; međutim, za neke zagađivače može postojati umjerena zdravstvena zabrinutost za vrlo mali broj ljudi koji su neobično osjetljivi na zagađenje zraka.
+    <br><br>
+    Aktivna djeca i odrasli, te osobe s respiratornim oboljenjima, kao što je astma, treba da ograniče produženi napor na otvorenom."
   unhealthy_for_sensitive_groups:
     name: nezdrav za osjetljive grupe
-    advisory: "Kvalitet zraka je takav da osjetljive kategorije stanovništva (starija populacija, hronični stabilni blesnici, trudnice, mlađa djeca...) mogu 
-    osjetiti određeni uticaj na zdravlje. Vjerovatno neće uticati na ostatak građana. Može se boraviti vani ali se ipak preporučuje skratiti dužinu boravka, 
-    te pratiti eventualnu pojavu simptoma kao što su kašalj, otežano disanje, pojavu lupanja srca i neuobičajenog osjećaja umora kod osoba sa hroničnim oboljenjima. 
-    Ostaloj populaciji se preporučuje da izbjegavaju rekreaciju na otvorenom i naporne aktivnosti, odnosno aktivnosti koje su praćene dubokim i ubrzanim disanjem."
+    advisory: "Pripadnici osjetljivih grupa mogu imati zdravstvene posljedice. Nije vjerovatno da će šira javnost biti pogođena.
+    <br><br>
+    Aktivna djeca i odrasli, te osobe s respiratornim oboljenjima, kao što je astma, treba da ograniče produženi napor na otvorenom."
   unhealthy:
     name: nezdrav 
-    advisory: "Svako može početi osjećati uticaj na zdravlje. Osjetljive kategorije stanovništva mogu osjećati ozbiljniji uticaj na zdravlje. Zdravstvene tegobe 
-    se mogu javiti u cjeloj populaciji, s tim što se kod osjetljivih kategorija stanovništva, mogu javiti ozbiljnije zdravstvene tegobe. Preporučuje se koliko je 
-    moguće smanjiti kretanje na otvorenom u zonama zagađenog zraka i obustaviti rekreaciju na otvorenom i naporne aktivnosti, odnosno aktivnosti koje su praćene 
-    dubokim i ubrzanim disanjem." 
+    advisory: "Svi mogu početi osjećati zdravstvene posljedice; pripadnici osetljivih grupa mogu imati ozbiljnije zdravstvene posledice.
+    <br><br>
+    Aktivna djeca i odrasli, te osobe s respiratornim oboljenjima, kao što je astma, trebaju izbjegavati dugotrajno naprezanje na otvorenom; svi ostali, posebno djeca, trebali bi ograničiti produženi napor na otvorenom." 
   very_unhealthy:
     name: vrlo nezdrav 
-    advisory: "Zdravstveno upozorenje o vanrednim okolnostima. Moguć uticaj na cijelu populaciju. Ozbiljne zdravstvene tegobe, osim kod osjetljivih kategorija 
-    stanovništa, mogu se očekivati i u zdravoj populaciji. Preporuke za sve populacione grupe su da izbjegavaju boravak na otvorenom."
+    advisory: "Zdravstvena upozorenja o vanrednim situacijama. Vjerovatnije je da će cijela populacija biti pogođena.
+    <br><br>
+    Aktivna djeca i odrasli, te osobe s respiratornim oboljenjima, kao što je astma, trebaju izbjegavati sve napore na otvorenom; svi ostali, posebno djeca, trebali bi ograničiti napore na otvorenom."
   hazardous:
     name: opasan  
-    advisory: "Zrak je opasan po zdravlje za svakog pojedinca!"
+    advisory: "Zdravstveno upozorenje: svako može doživjeti ozbiljnije zdravstvene posljedice.
+    <br><br>
+    Svako treba da izbegava sve napore na otvorenom."
   no_cookies: Ova web stranica ne koristi kolačiće.
   health_messages: Zdravstvene preporuke
   health_messages_text: "Indeks zraka daje zdravstvene preporuke koje se odnose na zdravlje i pružaju preporuke kako za opću 

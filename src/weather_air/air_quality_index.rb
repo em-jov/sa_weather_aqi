@@ -98,14 +98,22 @@ module WeatherAir
     end
 
     def aqi_by_ekoakcija
-      station_ks_site = Nokogiri::HTML(URI.open("https://zrak.ekoakcija.org/sarajevo"))
-      table = station_ks_site.search(".views-table.cols-6 tbody tr")
+      station_ea_site = Nokogiri::HTML(URI.open("https://zrak.ekoakcija.org/sarajevo"))
+      table = station_ea_site.search(".views-table.cols-6 tbody tr")
 
-      table.each_with_object([]) do |tr, ea_table|
+      ea_table = []
+      table.each do |tr|
         ea_table << tr.search('td').each_with_object([]) do |td, n|
           n << td.text.strip 
         end
       end
+      aqi_values = []
+      ea_table.each do |x|
+        aqi_values << x[4].to_i
+      end
+      city_aqi_value =  aqi_values.max
+      city_aqi_desc = AQI.find{|key, value| value.include?(city_aqi_value)}.first.to_s
+      [ea_table, city_aqi_value, city_aqi_desc]
     end
 
     def city_pollutants_aqi

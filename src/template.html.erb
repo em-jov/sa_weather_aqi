@@ -17,7 +17,7 @@
      crossorigin=""></script>
   </head>
   <body>
-
+  
     <header>
       <h1>Sarajevo</h1>
       <p><%= I18n.t(:last_update) %>: <br> <%= last_update %></p>
@@ -48,7 +48,14 @@
 
     </header>
 
+
     <main class="theme adaptive">
+   
+      <div>
+ 
+        <img src="yr_icons/rain.svg" width="100"/>
+      </div>
+
       <% if current_alarms != [] || future_alarms != [] %>
       <div id="meteoalarms" class="section">
         <h2> <%= I18n.t(:meteo_alarms) %></h2>
@@ -165,22 +172,9 @@
 
         <% unless city_pollutants[:class].nil? %> 
 
-          <h3 id="city_aqi_main"
-              class="<%= city_pollutants[:class] %>">
-              <%= I18n.t("#{city_pollutants[:class]}.name") %> (<%= city_pollutants[:value] %>)  
-          </h3>
-
-          <div id="who_section">
-            <p class="hm_title"><b> <%= I18n.t("health_messages") %> </b></p>
-            <p id="health_messages"> <%= I18n.t("health_messages_text") %> </p>
-
-            <p class="hm_title"><b> <%= I18n.t("general_population") %> </b></p>
-            <p> <%= I18n.t("#{city_pollutants[:class]}.general_population") %> </p>
-
-            <p class="hm_title"><b> <%= I18n.t("sensitive_population") %> </b></p>
-            <p> <%= I18n.t("#{city_pollutants[:class]}.sensitive_population") %> </p>
-          </div>
-          <br>
+        <h3 class="<%= city_pollutants[:class] %> city_aqi_main">
+            <%= I18n.t("#{city_pollutants[:class]}.name") %> (<%= city_pollutants[:value] %>)  
+        </h3>
 
         <% end %>
 
@@ -266,7 +260,20 @@
           <div>
         </table>
         <button id="see_more_stations" data-text_more="<%= I18n.t(:see_more_stations) %>" data-text_less="<%= I18n.t(:show_less_stations) %>"><%= I18n.t(:see_more_stations) %></button>
-        <hr>
+
+        <% unless city_pollutants[:class].nil? %> 
+          <div id="who_section">
+            <p class="hm_title"><b> <%= I18n.t("health_messages") %> </b></p>
+            <p id="health_messages"> <%= I18n.t("health_messages_text") %> </p>
+
+            <p class="hm_title"><b> <%= I18n.t("general_population") %> </b></p>
+            <p> <%= I18n.t("#{city_pollutants[:class]}.general_population") %> </p>
+
+            <p class="hm_title"><b> <%= I18n.t("sensitive_population") %> </b></p>
+            <p> <%= I18n.t("#{city_pollutants[:class]}.sensitive_population") %> </p>
+          </div>
+        <% end %>
+        
         <table id="aqi_legend" class="centered-table">
           <tr>
             <td class="good_eea">1</td>
@@ -301,6 +308,7 @@
           <%= I18n.t(:data_provided_by) %><br>  
           <a href="https://zrak.ekoakcija.org/sarajevo" target=”_blank”><%= I18n.t(:aqi_eko_akcija) %></a>
         </h4>
+        <h3 class="<%= ea_city_aqi_class %> city_aqi_main"><%= I18n.t(ea_city_aqi_class + ".name") %> (<%= ea_city_aqi_value %>)</h3>
         <p class="small">*<%= I18n.t(:aqi_eko_akcija_disclaimer) %></p>
         <table class="stations_aqi centered-table">
             <th><%= I18n.t(:station) %> </th>
@@ -321,6 +329,42 @@
             </tr>
           <% end %>
         </table>
+        <p id="ea_health_messages"><%= I18n.t(ea_city_aqi_class + ".advisory") %></p>
+
+        <br>
+
+        <table id="aqi_legend" class="centered-table">
+          <tr>
+            <td class="aqi_val">0 - 50 &nbsp</td>
+            <td class="good empty"></td>
+            <td ><%= I18n.t('good.name') %></td>
+          </tr>
+          <tr>
+            <td class="aqi_val">51 - 100</td>
+            <td class="moderate empty"></td>
+            <td ><%= I18n.t('moderate.name') %></td>
+          </tr>
+          <tr>
+            <td class="aqi_val">101 - 150</td>
+            <td class="unhealthy_for_sensitive_groups empty"></td>
+            <td ><%= I18n.t('unhealthy_for_sensitive_groups.name') %></td>
+          </tr>
+          <tr>
+            <td class="aqi_val">151 - 200</td>
+            <td class="unhealthy empty"></td>
+            <td ><%= I18n.t('unhealthy.name') %></td>
+          </tr>
+            <td class="aqi_val">201 - 300</td>
+            <td class="very_unhealthy empty"></td>
+            <td ><%= I18n.t('very_unhealthy.name') %></td>
+          </tr>
+          <tr>
+            <td class="aqi_val">301 - 500</td>
+            <td class="hazardous empty"></td>
+            <td ><%= I18n.t('hazardous.name') %></td>
+          </tr>
+        </table>
+
         <br><hr>
         <h4>
           <%= I18n.t(:data_provided_by) %><br>  
@@ -370,7 +414,7 @@
             <tr>
               <td class="ks_station"> <%= station %> </td>
               <% %w[SO2 NO2 O3 CO PM10 PM2.5].each do |pollutant| %>
-                <% if values.key?(pollutant) %>
+                <% if values.key?(pollutant) && values[pollutant][:date] ==  I18n.localize(Time.now, format: :normal) %>
                   <td class="<%= values[pollutant][:css_class] %>">
                     <%= values[pollutant][:aqi] %>
                   </td> 
@@ -378,41 +422,7 @@
               <% end %>
             </tr>
             <% end %>
-          </table>
-        <br><hr>
-
-        <table id="aqi_legend" class="centered-table">
-          <tr>
-            <td class="aqi_val">0 - 50 &nbsp</td>
-            <td class="good empty"></td>
-            <td ><%= I18n.t('good.name') %></td>
-          </tr>
-          <tr>
-            <td class="aqi_val">51 - 100</td>
-            <td class="moderate empty"></td>
-            <td ><%= I18n.t('moderate.name') %></td>
-          </tr>
-          <tr>
-            <td class="aqi_val">101 - 150</td>
-            <td class="unhealthy_for_sensitive_groups empty"></td>
-            <td ><%= I18n.t('unhealthy_for_sensitive_groups.name') %></td>
-          </tr>
-          <tr>
-            <td class="aqi_val">151 - 200</td>
-            <td class="unhealthy empty"></td>
-            <td ><%= I18n.t('unhealthy.name') %></td>
-          </tr>
-            <td class="aqi_val">201 - 300</td>
-            <td class="very_unhealthy empty"></td>
-            <td ><%= I18n.t('very_unhealthy.name') %></td>
-          </tr>
-          <tr>
-            <td class="aqi_val">301 - 500</td>
-            <td class="hazardous empty"></td>
-            <td ><%= I18n.t('hazardous.name') %></td>
-          </tr>
-        </table>
-        
+          </table>        
       </div>
 
       <div id="weather_forecast" class="section">

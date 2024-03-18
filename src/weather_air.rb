@@ -20,7 +20,9 @@ module WeatherAir
       weather = WeatherAir::WeatherClient.new
       current_weather = weather.current_weather_data
       (forecast_today, weather_forecast) = weather.weather_forecast_data
+      yr = weather.yr_sarajevo
 
+      pp forecast_today
       # meteoalarm
       (current_alarms, future_alarms) = weather.active_meteoalarms
 
@@ -28,7 +30,7 @@ module WeatherAir
       aqi = WeatherAir::AirQualityIndex.new
 
       ks_aqi = aqi.aqi_by_ks
-      eko_akcija = aqi.aqi_by_ekoakcija
+      (eko_akcija, ea_city_aqi_value, ea_city_aqi_class) = aqi.aqi_by_ekoakcija
 
       city_pollutants = aqi.city_pollutants_aqi
       stations_pollutants_aqi = aqi.stations_pollutants_aqi_data

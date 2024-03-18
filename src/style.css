@@ -372,14 +372,17 @@ p#weather_description {
   padding: 0.25em;
 }
 
+#ea_health_messages{
+  text-align: justify;
+}
 
-#air h3 {
+#air h3, #air_more h3 {
   padding: 0.5em ;
   font-size: 120%;
   border-radius: 0.5em;
   margin: 0.5em;
 }
-h3#city_aqi_main {
+h3.city_aqi_main {
   margin-top: 1em;
 }
 button#see_more_stations{
