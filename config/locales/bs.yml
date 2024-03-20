@@ -35,8 +35,10 @@ bs:
   wind: VJETAR
   sunrise: IZLAZAK SUNCA
   sunset: ZALAZAK SUNCA
+  uv_index: UV INDEKS
   weather_forecast: Vremenska prognoza
   weather_forecast_today: Vrijeme danas
+  weather_forcast_24h: Naredna 24 sata
   data_provided_by: Podaci preuzeti od
   met_norway: Norveškog meteorološkog instituta (Yr)
   fhmz: Federalnog hidrometeorološkog zavoda

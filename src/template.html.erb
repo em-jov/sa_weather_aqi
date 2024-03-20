@@ -50,11 +50,6 @@
 
 
     <main class="theme adaptive">
-   
-      <div>
- 
-        <img src="yr_icons/rain.svg" width="100"/>
-      </div>
 
       <% if current_alarms != [] || future_alarms != [] %>
       <div id="meteoalarms" class="section">
@@ -123,43 +118,51 @@
         <% else %> 
           <div class="cw_container">
             <div class="float-child">
-              <h3 class="temp"><%= current_weather[:currenttemp] %>°C</h3>
-              <label class="temp_desc"><%= I18n.t(:feels_like) %>: </label><span class="temp"><%= current_weather[:feelslike] %>°C</span><br>
-              <img src="https://openweathermap.org/img/wn/<%= current_weather[:icon] %>@2x.png" />
-              <p id="weather_description"><%= current_weather[:description] %></p>
+              <h3 class="temp"><%= yr_weather[:air_temperature] %>°C</h3>
+              <img src="<%= icon_path(yr_weather[:icon]) %>" width="100"/>
             </div>
             <div class="other_info float-child">
-              <span><label><%= I18n.t(:humidity) %>: </label><%= current_weather[:humidity] %>%</span>
-              <span class="rain"><label class="rain"><%= I18n.t(:rain) %>: </label><%= current_weather[:rain] %>mm</span>
-              <span><label><%= I18n.t(:wind) %>: </label><label id="speed"><%= current_weather[:wind] %>km/h</label></span>
+              <span><label><%= I18n.t(:humidity) %>: </label><%= yr_weather[:relative_humidity] %>%</span>
+              <span class="rain"><label class="rain"><%= I18n.t(:rain) %>: </label><%= yr_weather[:precipitation_amount] %>mm</span>
+              <span><label><%= I18n.t(:wind) %>: </label><label id="speed"><%= yr_weather[:wind_speed] %> m/s </label></span>
+              <span><label><%= I18n.t(:uv_index) %>: </label><%= yr_weather[:uv_index] %></span>        
               <span><label><%= I18n.t(:sunrise) %>: </label><%= current_weather[:sunrise] %></span>
               <span><label><%= I18n.t(:sunset) %>: </label><%= current_weather[:sunset] %></span>
             </div>
-          </div>  
+          </div>
+          
+          <% if yr_weather_forecast != [] %>
+          <div id="yr_forecast_table">
+            <table>
+              <td id="fc_today" class="sticky-col first-col"><%= I18n.t(:weather_forcast_24h) %></td>
+              <% yr_weather_forecast.each do |interval| %>
+                <td class="yr_td">
+                  <span><%= interval[:time] %></span>
+                  <img src="<%= icon_path(interval[:icon]) %>" width="50"/>
+                  <span class="temp temp_yr"><%= interval[:air_temperature] %>°C</span>
+                  <% if interval[:uv_index] != 0.0 %>
+                    <div class="small">UVI <%= interval[:uv_index] %></div>
+                  <% else %>
+                    <div class="small">&nbsp</div>
+                  <% end %>
+                  <% if interval[:precipitation_amount] == 0.0 || interval[:precipitation_amount] == nil %>
+                  <div class="small">&nbsp</div>
+                <% else %>
+                  <div class="small"><span class="rain"><%= interval[:precipitation_amount] %>mm</span></div>
+                <% end %>
+                </td>
+              <% end %>
+            </table>
+          </div>
+          <% end %> 
+        <% end %>
+        <div class="small">
+          <%= I18n.t(:data_provided_by) %><br>  
+          <a href="https://www.yr.no/en" target=”_blank”><%= I18n.t(:met_norway) %></a>
+        </div> 
+
       </div>
 
-          <% if forecast_today != [] %>
-          <div id="today_forecast">
-            <div id="today_forecast_table">
-              <table>
-                <td id="fc_today" class="sticky-col first-col"><%= I18n.t(:weather_forecast_today) %></td>
-                <% forecast_today.each do |interval| %>
-                  <td class="fc_today_intervals" >
-                    <p class="time"><%= interval[:time] %></p>
-                    <img src="https://openweathermap.org/img/wn/<%= interval[:icon] %>.png" title="<%= interval[:description] %>"/><br>
-                    <span class="temp"><%= interval[:temp] %>°C</span><br>
-                    <% if interval[:rain] != 0 %>
-                      <div class="small"><span class="rain"><%= interval[:rain] %>mm</span></div>
-                    <% else %>
-                      <div class="small">&nbsp</div>
-                    <% end %>
-                  </td>
-                <% end %>
-              </table>
-            </div>
-          </div>
-          <% end %>
-        <% end %>
 
 
       <div id="air" class="section">

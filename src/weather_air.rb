@@ -20,7 +20,7 @@ module WeatherAir
       weather = WeatherAir::WeatherClient.new
       current_weather = weather.current_weather_data
       (forecast_today, weather_forecast) = weather.weather_forecast_data
-      yr = weather.yr_sarajevo
+      (yr_weather, yr_weather_forecast) = weather.yr_sarajevo
 
       forecast_today
       # meteoalarm
@@ -48,6 +48,7 @@ module WeatherAir
       I18n.locale = :bs
       current_weather = weather.current_weather_data(I18n.locale)
       (forecast_today, weather_forecast) = weather.weather_forecast_data(I18n.locale)
+      (yr_weather, yr_weather_forecast) = weather.yr_sarajevo(I18n.locale)
       ks_aqi = aqi.aqi_by_ks(I18n.locale)
       bosnian = template.result(binding) 
       [bosnian, english, feed, sa_aqi, ms_aqi]
@@ -55,6 +56,14 @@ module WeatherAir
 
     def last_update 
       I18n.localize(Time.now + (1*60*60), format: :default)
+    end
+
+    def icon_path(icon)
+      if I18n.locale == :en
+        "../yr_icons/#{icon}.svg"
+      else
+        "yr_icons/#{icon}.svg"
+      end
     end
 
     def text_to_class(text)

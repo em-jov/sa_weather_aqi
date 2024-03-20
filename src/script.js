@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       if (speedString.length > 0) {
         var currentSpeed = parseFloat(speedString);
-        var newSpeed = convertSpeed(currentSpeed, 'km/h', 'mph')
+        var newSpeed = convertSpeed(currentSpeed, 'm/s', 'mph')
         speedElement.innerText = newSpeed.toFixed(2) + ' mph';
       } else {
         console.error('Speed string is empty or undefined.');
@@ -43,8 +43,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function changeToMetric(){
       var speedString = speedElement.innerText;
-      var currentUnit = speedString.slice(-4)
-      if (currentUnit === 'km/h'){
+      var currentUnit = speedString.slice(-3)
+      if (currentUnit === 'm/s'){
         return;
       }
 
@@ -55,8 +55,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
       if (speedString.length > 0) {
           var currentSpeed = parseFloat(speedString);
-          var newSpeed = convertSpeed(currentSpeed, 'mph', 'km/h')
-          speedElement.innerText = newSpeed.toFixed(2) + ' km/h';
+          var newSpeed = convertSpeed(currentSpeed, 'mph', 'm/s')
+          speedElement.innerText = newSpeed.toFixed(2) + ' m/s';
       } else {
           console.error('Speed string is empty or undefined.');
       }
@@ -85,11 +85,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function convertSpeed(speed, fromUnit, toUnit) {
-        const conversionFactor = 0.621371;
+        const conversionFactor = 2.23694;
     
-        if (fromUnit === 'km/h' && toUnit === 'mph') {
+        if (fromUnit === 'm/s' && toUnit === 'mph') {
             return speed * conversionFactor;
-        } else if (fromUnit === 'mph' && toUnit === 'km/h') {
+        } else if (fromUnit === 'mph' && toUnit === 'm/s') {
             return speed / conversionFactor;
         } else {
             return speed;
