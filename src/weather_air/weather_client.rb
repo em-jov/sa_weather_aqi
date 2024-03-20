@@ -115,7 +115,7 @@ module WeatherAir
       grouped_alarms.values
     end
 
-    def yr_sarajevo
+    def yr_sarajevo(locale = :en)
       ENV['TZ'] = 'Europe/Sarajevo'
 
       # Do not use more than 4 decimals to avoid blocking
@@ -139,20 +139,33 @@ module WeatherAir
 
       #pp data["properties"]["timeseries"][0]["time"]
 
-      weather = {}
+      weather = []
       data["properties"]["timeseries"].each do |ts|
-        weather["time"] = Time.parse(data["properties"]["timeseries"][0]["time"])
+        utc_time = Time.parse(ts["time"])
+        ts_data = { 
+          # time: I18n.localize(utc_time.localtime, format: :hm ),
+          time: utc_time.localtime,
+          air_temperature: ts.dig("data", "instant", "details", "air_temperature")&.round,
+          icon: ts.dig("data", "next_1_hours", "summary", "symbol_code"),
+          precipitation_amount: ts.dig("data", "next_1_hours", "details", "precipitation_amount"),
+          relative_humidity: ts.dig("data", "instant", "details", "relative_humidity"),
+          uv_index: ts.dig("data", "instant", "details", "ultraviolet_index_clear_sky"),
+          wind_from_direction: ts.dig("data", "instant", "details", "wind_from_direction"),
+          wind_speed: ts.dig("data", "instant", "details", "wind_speed"),
+        }
+        weather << ts_data
+        #weather[utc_time.localtime] = ts["data"]["instant"]["details"]["air_temperature"]
       end
 
-      # Assuming you have a UTC time, you can convert it to the local time zone
-      utc_time = Time.parse(data["properties"]["timeseries"][0]["time"])
-      local_time = utc_time.localtime
+      
 
-      # Output the local time
-      # puts local_time
+      forecast = weather.take(25).map do |el|
+        el[:time] = I18n.localize(el[:time], format: :hm )
+        el
+      end
 
-      data
-
+      today = forecast.shift
+      [today, forecast]
     end
    
   end

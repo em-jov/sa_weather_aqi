@@ -35,8 +35,10 @@ en:
   wind: WIND
   sunrise: SUNRISE
   sunset: SUNSET
+  uv_index: UV INDEX
   weather_forecast: Weather forecast
-  weather_forecast_today: Weather today 
+  weather_forecast_today: Weather today
+  weather_forcast_24h:  Next 24 hours 
   data_provided_by: Data provided by
   met_norway: The Norwegian Meteorological Institute (Yr)
   fhmz: Federal Hydro-Meteorological Institute

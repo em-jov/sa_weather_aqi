@@ -226,7 +226,11 @@ h2 {
   padding: 0 1em;
 }
 
-#today_forecast_table{
+#yr_forecast_table {
+  margin: 0.5em 0;
+}
+
+#today_forecast_table, #yr_forecast_table{
   width: 370px;  
   overflow: auto;
 } 
@@ -330,7 +334,7 @@ footer {
 }
 
 #weather h3 {
-  color: #EC6E4C;
+  color: #00b8f1;
   font-size: 170%;
   margin-block-start: 0em;
   margin-block-end: 0.25em;
@@ -370,6 +374,15 @@ p#weather_description {
 .small{
   font-size: 75%;
   padding: 0.25em;
+}
+
+.smaller{
+  font-size: 65%;
+}
+
+.yr_td{
+  padding: 0 0.3em;
+  text-align: center;
 }
 
 #ea_health_messages{
@@ -432,6 +445,10 @@ p.flex {
 
 span.temp {
   color: rgb(236, 110, 76)
+}
+
+span.temp_yr {
+  color: #00b8f1
 }
 
 #weather label.temp {
@@ -641,6 +658,10 @@ label#speed {
 
   #forecast_table td.sticky-col {
     background-color: #272626;
+  }
+
+  #yr_forecast_table td.sticky-col {
+    background-color: #333;
   }
 
   #today_forecast_table td.sticky-col {
