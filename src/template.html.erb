@@ -123,9 +123,13 @@
             </div>
             <div class="other_info float-child">
               <span><label><%= I18n.t(:humidity) %>: </label><%= yr_weather[:relative_humidity] %>%</span>
-              <span class="rain"><label class="rain"><%= I18n.t(:rain) %>: </label><%= yr_weather[:precipitation_amount] %>mm</span>
+              <% if yr_weather[:precipitation_amount] != 0.0 && interval[:precipitation_amount] == nil %>
+                <span class="rain"><label class="rain"><%= I18n.t(:rain) %>: </label><%= yr_weather[:precipitation_amount] %>mm</span>
+              <% end %>
               <span><label><%= I18n.t(:wind) %>: </label><label id="speed"><%= yr_weather[:wind_speed] %> m/s </label></span>
-              <span><label><%= I18n.t(:uv_index) %>: </label><%= yr_weather[:uv_index] %></span>        
+              <% if yr_weather[:uv_index] != 0.0 %>
+                <span class="<%= yr_weather[:uv_class] %> uv_index"><label><%= I18n.t(:uv_index) %>: </label><%= yr_weather[:uv_index] %></span>
+              <% end %>        
               <span><label><%= I18n.t(:sunrise) %>: </label><%= current_weather[:sunrise] %></span>
               <span><label><%= I18n.t(:sunset) %>: </label><%= current_weather[:sunset] %></span>
             </div>
@@ -134,14 +138,13 @@
           <% if yr_weather_forecast != [] %>
           <div id="yr_forecast_table">
             <table>
-              <td id="fc_today" class="sticky-col first-col"><%= I18n.t(:weather_forcast_24h) %></td>
               <% yr_weather_forecast.each do |interval| %>
                 <td class="yr_td">
                   <span><%= interval[:time] %></span>
                   <img src="<%= icon_path(interval[:icon]) %>" width="50"/>
                   <span class="temp temp_yr"><%= interval[:air_temperature] %>°C</span>
                   <% if interval[:uv_index] != 0.0 %>
-                    <div class="small">UVI <%= interval[:uv_index] %></div>
+                    <div class="smaller <%= interval[:uv_class] %> uv_index">UVI <%= interval[:uv_index] %></div>
                   <% else %>
                     <div class="small">&nbsp</div>
                   <% end %>
@@ -160,6 +163,40 @@
           <%= I18n.t(:data_provided_by) %><br>  
           <a href="https://www.yr.no/en" target=”_blank”><%= I18n.t(:met_norway) %></a>
         </div> 
+
+        <% if yr_weather[:uv_index] != 0.0 %>
+          <div>
+            <h4><%= I18n.t(:uv_index) %> - <%= I18n.t(:uv_messages) %></h4>
+            <%= I18n.t(yr_weather[:uv_class] + ".advisory") %>
+            <br><br>
+            <table id="uvi_legend" class="centered-table uvi_legend">
+              <tr>
+                <td class="aqi_val">1 - 2</td>
+                <td class="uv_low empty"></td>
+                <td ><%= I18n.t('uv_low.name') %></td>
+              </tr>
+              <tr>
+                <td class="aqi_val">3 - 5</td>
+                <td class="uv_moderate empty"></td>
+                <td ><%= I18n.t('uv_moderate.name') %></td>
+              </tr>
+              <tr>
+                <td class="aqi_val">6 - 7</td>
+                <td class="uv_high empty"></td>
+                <td ><%= I18n.t('uv_high.name') %></td>
+              </tr>
+              <tr>
+                <td class="aqi_val">8 - 10</td>
+                <td class="uv_very_high empty"></td>
+                <td ><%= I18n.t('uv_very_high.name') %></td>
+              </tr>
+                <td class="aqi_val">11+</td>
+                <td class="uv_extreme empty"></td>
+                <td ><%= I18n.t('uv_extreme.name') %></td>
+              </tr>
+            </table>
+          </div>
+        <% end %>
 
       </div>
 

@@ -31,11 +31,67 @@ bs:
   current_weather: Trenutno vrijeme
   feels_like: FEELS LIKE
   humidity: VLAŽNOST
-  rain: KIŠA
+  rain: OBORINE
   wind: VJETAR
   sunrise: IZLAZAK SUNCA
   sunset: ZALAZAK SUNCA
   uv_index: UV INDEKS
+  uv_messages: Preporuke za zaštitu od sunca
+  uv_low:
+    name: nizak 
+    advisory: "Vrijednosti UV indeksa 1 i 2 označuju nisku opasnost od UV zračenja. Većina ljudi može biti izložena suncu i više od sat vremena a da ne dobije opekline.
+              <br><br>
+              Za zaštitu se preporuča korištenje sunčanih naočala.
+              <br><br>
+              Za ljude koji imaju vrlo osjetljivu kožu i za novorođenčad nalaže se stalan oprez. Ukoliko moraju boraviti na suncu sredinom dana, dobro je upotrijebiti sunčane naočale i zaštitnu kremu.
+              <br><br>
+              <b>Napomena</b>
+              <br><br>
+              Zbog odbijenog zračenja posebno oprezni moraju biti skijaši, planinari, plivači i jedriličari."
+  uv_moderate:
+    name: umjeren
+    advisory: "Vrijednosti UV indeksa 3, 4, i 5 označuju umjerenu opasnost od UV zračenja.
+              <br><br>
+              Za zaštitu se preporuča nošenje šešira sa širokim obodom, sunčanih naočala, te korištenje zaštitnih krema.
+              <br><br>
+              Ljudi s osjetljivom kožom bi, osim tih mjera, trebali nositi i odjeću s dugim rukavima, jer mogu dobiti opekline već za 20 minuta.
+              <br><br>
+              <b>Napomena</b>
+              <br><br>
+              Dobro je pratiti vlastitu sjenu. Što je ona kraća, veća je opasnost od UV zračenja."
+  uv_high:
+    name: visok
+    advisory: "Vrijednosti UV indeksa 6 i 7 označuju već visoku opasnost od UV zračenja.
+              <br><br>
+              Za zaštitu se preporuča nošenje šešira sa širokim obodom, sunčanih naočala, odjeće s dugim rukavima, te korištenje zaštitnih krema.
+              <br><br>
+              Ljudi s osjetljivom kožom i mala djeca mogu dobiti opekline za manje od 20 minuta. Za njih je bolje da se ne izlažu suncu u doba dana između 11 i 16 sati.
+              <br><br>
+              <b>Napomena</b>
+              <br><br>
+              Prilikom boravka na otvorenom potrebno je zaštititi nos, uši i usnice."
+  uv_very_high:
+    name: vrlo visok
+    advisory: "Vrijednosti UV indeksa 8, 9 i 10 označuju vrlo visoku opasnost od UV zračenja.
+              <br><br>
+              Za zaštitu se preporuča nošenje šešira sa širokim obodom, sunčanih naočala i odjeće s dugih rukavima, te korištenje zaštitnih krema. Maksimalno valja smanjiti boravak na suncu u doba dana između 11 i 16 sati.
+              <br><br>
+              Djeca mogu dobiti opekline za manje od 10 minuta.
+              <br><br>
+              <b>Napomena</b>
+              <br><br>
+              UV zračenje može prodrijeti kroz odjeću od rijetkog tkanja i naštetiti koži."
+  uv_extreme:
+    name: ekstreman
+    advisory: "Vrijednosti UV indeksa 11 i iznad označuju ekstremnu opasnost od UV zračenja.
+              <br><br>
+              Za zaštitu se preporuča boravak u zatvorenom prostoru u doba dana između 11 i 16 sati. Ukoliko je izlazak neizbježan, potrebno je nositi šešir sa širokim obodom, sunčane naočale i odjeću dugih rukava od gustog tkanja, koristiti zaštitne kreme i izbjegavati boravak na izravnom suncu.
+              <br><br>
+              Djeca mogu dobiti opekline za manje od 5 minuta.
+              <br><br>
+              <b>Napomena</b>
+              <br><br>
+              Film ili knjiga uz osvježenje u kući puno su zdraviji od ležanja na plaži."
   weather_forecast: Vremenska prognoza
   weather_forecast_today: Vrijeme danas
   weather_forcast_24h: Naredna 24 sata
@@ -76,7 +132,7 @@ bs:
     Aktivna djeca i odrasli, te osobe s respiratornim oboljenjima, kao što je astma, trebaju izbjegavati sve napore na otvorenom; svi ostali, posebno djeca, trebali bi ograničiti napore na otvorenom."
   hazardous:
     name: opasan  
-    advisory: "Zdravstveno upozorenje: svako može doživjeti ozbiljnije zdravstvene posljedice.
+    advisory: "Zdravstveno Napomena: svako može doživjeti ozbiljnije zdravstvene posljedice.
     <br><br>
     Svako treba da izbegava sve napore na otvorenom."
   no_cookies: Ova web stranica ne koristi kolačiće.
