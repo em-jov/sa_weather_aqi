@@ -6,10 +6,12 @@
 Ruby script retrieves data from 3rd-party APIs or resorts to web scraping when APIs are not available. It generates HTML files by integrating the collected data into an ERB (Embedded Ruby) template. To ensure that information is up-to-date, the script is scheduled to run automatically every hour using AWS Lambda.
 
 ### Features
-- Meteoalarms (created a [gem](https://github.com/em-jov/meteoalarm) to implement this feature)
+- Meteoalarms (There is also a [gem](https://github.com/em-jov/meteoalarm) created to implement this feature)
 - Weather information
     - Current weather 
+    - Next 24 hours forecast
     - 5-day forecast in 3-hour intervals
+    - UV index and related sun protection recommendations
 - Air Quality information
     - Hourly AQI data from multiple monitoring sites
     - Map of monitoring sites locations 

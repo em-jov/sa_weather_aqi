@@ -61,6 +61,7 @@ Before proceeding, ensure you have the following:
     - Ensure you've enabled `Static website hosting`.
     - Set permissions for website access by adding [bucket policy](https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteAccessPermissionsReqd.html#bucket-policy-static-site). 
     - Make sure you add `bucket name` in `.env` file to the `BUCKET` environment variable.
+    - Add Yr weather icons [svg directory](https://github.com/metno/weathericons/tree/main/weather/svg).
 
 <sub>[back on top ^](#table-of-contents)</sub>
 

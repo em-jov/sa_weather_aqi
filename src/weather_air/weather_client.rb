@@ -4,6 +4,12 @@ module WeatherAir
     LAT = 43.8519774
     LON = 18.3866868
 
+    UV_INDEX = { uv_low: 0.1..2,
+                 uv_moderate: 2..5,
+                 uv_high: 5..7,
+                 uv_very_high: 7..10,
+                 uv_extreme: 10.. }
+
     class CustomErrors < Faraday::Middleware
       def on_complete(env)
         raise RuntimeError if env[:status].to_i != 200
@@ -123,7 +129,6 @@ module WeatherAir
       lon = 18.3866
       altitude = 520
       sitename = 'https://sarajevo-meteo.com/ https://github.com/em-jov/sa_weather_aqi'
-      # locationforecastURL = "https://api.met.no/weatherapi/locationforecast/2.0/complete.json?altitude=#{altitude}&lat=#{lat}&lon=#{lon}"
 
       conn = Faraday.new(
         url: 'https://api.met.no/weatherapi/locationforecast/2.0/complete.json',
@@ -137,13 +142,10 @@ module WeatherAir
       headers = yr_response.headers
       data = yr_response.body
 
-      #pp data["properties"]["timeseries"][0]["time"]
-
       weather = []
       data["properties"]["timeseries"].each do |ts|
         utc_time = Time.parse(ts["time"])
         ts_data = { 
-          # time: I18n.localize(utc_time.localtime, format: :hm ),
           time: utc_time.localtime,
           air_temperature: ts.dig("data", "instant", "details", "air_temperature")&.round,
           icon: ts.dig("data", "next_1_hours", "summary", "symbol_code"),
@@ -154,18 +156,15 @@ module WeatherAir
           wind_speed: ts.dig("data", "instant", "details", "wind_speed"),
         }
         weather << ts_data
-        #weather[utc_time.localtime] = ts["data"]["instant"]["details"]["air_temperature"]
       end
-
-      
 
       forecast = weather.take(25).map do |el|
         el[:time] = I18n.localize(el[:time], format: :hm )
+        el[:uv_class] = UV_INDEX.select{|k, v| v.include?(el[:uv_index])}&.first&.first&.to_s
         el
       end
 
-      today = forecast.shift
-      [today, forecast]
+      [forecast.shift, forecast]
     end
    
   end

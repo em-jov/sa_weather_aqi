@@ -55,7 +55,7 @@ module WeatherAir
     end
 
     def last_update 
-      I18n.localize(Time.now + (1*60*60), format: :default)
+      I18n.localize(Time.now, format: :default)
     end
 
     def icon_path(icon)

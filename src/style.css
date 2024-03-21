@@ -463,27 +463,37 @@ span.rain {
   color: #0F5495;
 }
 
-.good, td.good, h3.good, span.good {
+.uv_index{
+  border-radius: 0.5em;
+  padding: 0.5em;
+  margin: 0.15em;
+}
+
+#uvi_legend td.aqi_val {
+  text-align: center;
+}
+
+.good, td.good, h3.good, span.good, .uv_low {
   background: #02E364;
   color:#333;
 }
 
-.moderate, td.moderate, h3.moderate {
+.moderate, td.moderate, h3.moderate, .uv_moderate {
   background: #FBF304;
   color:#333;
 }
 
-.unhealthy_for_sensitive_groups, td.unhealthy_for_sensitive_groups, h3.unhealthy_for_sensitive_groups, span.unhealthy_for_sensitive_groups{
+.uv_high, .unhealthy_for_sensitive_groups, td.unhealthy_for_sensitive_groups, h3.unhealthy_for_sensitive_groups, span.unhealthy_for_sensitive_groups{
   background: #FFB042;
   color:#333;
 }
 
-.unhealthy, td.unhealthy, h3.unhealthy, span.unhealthy{
+.uv_very_high, .unhealthy, td.unhealthy, h3.unhealthy, span.unhealthy{
   background: #AA0808;
   color:whitesmoke;
 }
 
-.very_unhealthy, td.very_unhealthy, h3.very_unhealthy, span.very_unhealthy{
+.uv_extreme, .very_unhealthy, td.very_unhealthy, h3.very_unhealthy, span.very_unhealthy{
   background: #530279;
   color:whitesmoke;
 }
@@ -531,13 +541,13 @@ span.rain {
   color: lightgray;
 }
 
-#aqi_legend {
+#aqi_legend, #uvi_legend {
   font-size: 80%;
   text-align: left;
   margin: 0.5em auto;
 }
 
-#aqi_legend td {
+#aqi_legend td, #uvi_legend td {
   border-radius: 0.5em;
   padding: 0.2em 1em; 
 }
