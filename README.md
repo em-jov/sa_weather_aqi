@@ -1,5 +1,5 @@
 # Sarajevo weather & air pollution
-> Simple, static website providing information about Air Quality Index (AQI) and weather conditions in Sarajevo. https://sarajevo-meteo.com/
+> Simple, static website providing information about air quality index (AQI) and weather conditions in Sarajevo. https://sarajevo-meteo.com/
 
 ### Overview
 
@@ -11,7 +11,8 @@ Ruby script retrieves data from 3rd-party APIs or resorts to web scraping when A
     - Current weather 
     - Next 24 hours forecast
     - 5-day forecast in 3-hour intervals
-    - UV index and related sun protection recommendations
+    - UV index and sun protection recommendations
+    - 24 hours forecast for local mountains 
 - Air Quality information
     - Hourly AQI data from multiple monitoring sites
     - Map of monitoring sites locations 

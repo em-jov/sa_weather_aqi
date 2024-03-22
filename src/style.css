@@ -226,11 +226,20 @@ h2 {
   padding: 0 1em;
 }
 
-#yr_forecast_table {
+.yr_forecast_table {
   margin: 0.5em 0;
 }
 
-#today_forecast_table, #yr_forecast_table{
+.yr_mountains{
+  margin-top: 0.5em;
+}
+
+#weather summary{
+  text-align: left;
+  margin-bottom: 0.5em;
+}
+
+#today_forecast_table, .yr_forecast_table{
   width: 370px;  
   overflow: auto;
 } 
@@ -670,7 +679,7 @@ label#speed {
     background-color: #272626;
   }
 
-  #yr_forecast_table td.sticky-col {
+  .yr_forecast_table td.sticky-col {
     background-color: #333;
   }
 

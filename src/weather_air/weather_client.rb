@@ -121,13 +121,9 @@ module WeatherAir
       grouped_alarms.values
     end
 
-    def yr_sarajevo(locale = :en)
+    def yr_weather(locale, lat, lon, altitude)
       ENV['TZ'] = 'Europe/Sarajevo'
 
-      # Do not use more than 4 decimals to avoid blocking
-      lat = 43.8519
-      lon = 18.3866
-      altitude = 520
       sitename = 'https://sarajevo-meteo.com/ https://github.com/em-jov/sa_weather_aqi'
 
       conn = Faraday.new(
@@ -163,10 +159,46 @@ module WeatherAir
         el[:uv_class] = UV_INDEX.select{|k, v| v.include?(el[:uv_index])}&.first&.first&.to_s
         el
       end
+      today = forecast[0]
+      forecast[0][:time] = "Now"
+      [forecast, today]
+    end
 
-      [forecast.shift, forecast]
+    def yr_sarajevo(locale = :en)
+      lat = 43.8519
+      lon = 18.3866
+      altitude = 520
+      yr_weather(locale, lat, lon, altitude)
+    end
+
+    def yr_trebevic(locale = :en)
+      lat = 43.8383
+      lon = 18.4498
+      altitude = 1100
+      yr_weather(locale, lat, lon, altitude)
     end
    
+    def yr_igman(locale = :en)
+      lat = 43.7507
+      lon = 18.2632
+      altitude = 1200
+      yr_weather(locale, lat, lon, altitude)
+    end
+
+    def yr_bjelasnica(locale = :en)
+      lat = 43.7163
+      lon = 18.2870
+      altitude = 1287
+      yr_weather(locale, lat, lon, altitude)
+    end
+
+    def yr_jahorina(locale = :en)
+      lat = 43.7383
+      lon = 18.5645
+      altitude = 1557
+      yr_weather(locale, lat, lon, altitude)
+    end
+
   end
 end
 

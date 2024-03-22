@@ -20,7 +20,11 @@ module WeatherAir
       weather = WeatherAir::WeatherClient.new
       current_weather = weather.current_weather_data
       (forecast_today, weather_forecast) = weather.weather_forecast_data
-      (yr_weather, yr_weather_forecast) = weather.yr_sarajevo
+      (yr_weather_forecast, yr_weather) = weather.yr_sarajevo
+      (yr_trebevic,) = weather.yr_trebevic
+      (yr_igman,) = weather.yr_igman
+      (yr_bjelasnica,) = weather.yr_bjelasnica
+      (yr_jahorina,) = weather.yr_jahorina
 
       forecast_today
       # meteoalarm
@@ -48,7 +52,12 @@ module WeatherAir
       I18n.locale = :bs
       current_weather = weather.current_weather_data(I18n.locale)
       (forecast_today, weather_forecast) = weather.weather_forecast_data(I18n.locale)
-      (yr_weather, yr_weather_forecast) = weather.yr_sarajevo(I18n.locale)
+      (yr_weather_forecast, yr_weather) = weather.yr_sarajevo(I18n.locale)
+      (yr_trebevic,) = weather.yr_trebevic(I18n.locale)
+      (yr_igman,) = weather.yr_igman(I18n.locale)
+      (yr_bjelasnica,) = weather.yr_bjelasnica(I18n.locale)
+      (yr_jahorina,) = weather.yr_jahorina(I18n.locale)
+
       ks_aqi = aqi.aqi_by_ks(I18n.locale)
       bosnian = template.result(binding) 
       [bosnian, english, feed, sa_aqi, ms_aqi]
