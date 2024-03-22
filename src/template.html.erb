@@ -136,7 +136,7 @@
           </div>
           
           <% if yr_weather_forecast != [] %>
-          <div id="yr_forecast_table">
+          <div class="yr_forecast_table">
             <table>
               <% yr_weather_forecast.each do |interval| %>
                 <td class="yr_td">
@@ -156,8 +156,96 @@
                 </td>
               <% end %>
             </table>
-          </div>
           <% end %> 
+          <details>
+            <summary>Trebeviċ</summary>
+            <table class="yr_mountains">
+              <% yr_trebevic.each do |interval| %>
+                <td class="yr_td">
+                  <span><%= interval[:time] %></span>
+                  <img src="<%= icon_path(interval[:icon]) %>" width="50"/>
+                  <span class="temp temp_yr"><%= interval[:air_temperature] %>°C</span>
+                  <% if interval[:uv_index] != 0.0 %>
+                    <div class="smaller <%= interval[:uv_class] %> uv_index">UVI <%= interval[:uv_index] %></div>
+                  <% else %>
+                    <div class="small">&nbsp</div>
+                  <% end %>
+                  <% if interval[:precipitation_amount] == 0.0 || interval[:precipitation_amount] == nil %>
+                  <div class="small">&nbsp</div>
+                <% else %>
+                  <div class="small"><span class="rain"><%= interval[:precipitation_amount] %>mm</span></div>
+                <% end %>
+                </td>
+              <% end %>
+            </table>
+          </details>
+          <details>
+            <summary>Igman</summary>
+            <table class="yr_mountains">
+              <% yr_igman.each do |interval| %>
+                <td class="yr_td">
+                  <span><%= interval[:time] %></span>
+                  <img src="<%= icon_path(interval[:icon]) %>" width="50"/>
+                  <span class="temp temp_yr"><%= interval[:air_temperature] %>°C</span>
+                  <% if interval[:uv_index] != 0.0 %>
+                    <div class="smaller <%= interval[:uv_class] %> uv_index">UVI <%= interval[:uv_index] %></div>
+                  <% else %>
+                    <div class="small">&nbsp</div>
+                  <% end %>
+                  <% if interval[:precipitation_amount] == 0.0 || interval[:precipitation_amount] == nil %>
+                  <div class="small">&nbsp</div>
+                <% else %>
+                  <div class="small"><span class="rain"><%= interval[:precipitation_amount] %>mm</span></div>
+                <% end %>
+                </td>
+              <% end %>
+            </table>
+          </details>
+          <details>
+            <summary>Bjelašnica</summary>
+            <table class="yr_mountains">
+              <% yr_bjelasnica.each do |interval| %>
+                <td class="yr_td">
+                  <span><%= interval[:time] %></span>
+                  <img src="<%= icon_path(interval[:icon]) %>" width="50"/>
+                  <span class="temp temp_yr"><%= interval[:air_temperature] %>°C</span>
+                  <% if interval[:uv_index] != 0.0 %>
+                    <div class="smaller <%= interval[:uv_class] %> uv_index">UVI <%= interval[:uv_index] %></div>
+                  <% else %>
+                    <div class="small">&nbsp</div>
+                  <% end %>
+                  <% if interval[:precipitation_amount] == 0.0 || interval[:precipitation_amount] == nil %>
+                  <div class="small">&nbsp</div>
+                <% else %>
+                  <div class="small"><span class="rain"><%= interval[:precipitation_amount] %>mm</span></div>
+                <% end %>
+                </td>
+              <% end %>
+            </table>
+          </details>
+          <details>
+            <summary>Jahorina</summary>
+            <table class="yr_mountains">
+              <% yr_jahorina.each do |interval| %>
+                <td class="yr_td">
+                  <span><%= interval[:time] %></span>
+                  <img src="<%= icon_path(interval[:icon]) %>" width="50"/>
+                  <span class="temp temp_yr"><%= interval[:air_temperature] %>°C</span>
+                  <% if interval[:uv_index] != 0.0 %>
+                    <div class="smaller <%= interval[:uv_class] %> uv_index">UVI <%= interval[:uv_index] %></div>
+                  <% else %>
+                    <div class="small">&nbsp</div>
+                  <% end %>
+                  <% if interval[:precipitation_amount] == 0.0 || interval[:precipitation_amount] == nil %>
+                  <div class="small">&nbsp</div>
+                <% else %>
+                  <div class="small"><span class="rain"><%= interval[:precipitation_amount] %>mm</span></div>
+                <% end %>
+                </td>
+              <% end %>
+            </table>
+          </details>
+          </div>
         <% end %>
         <div class="small">
           <%= I18n.t(:data_provided_by) %><br>  
