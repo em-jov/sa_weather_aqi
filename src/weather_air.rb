@@ -6,16 +6,18 @@ require 'open-uri'
 require 'time'
 require 'i18n'
 require 'meteoalarm'
+require 'sentry-ruby'
 Dir['./src/weather_air/*.rb'].each { |file| require file }
 
 module WeatherAir
   class << self
     def run
+      Sentry.init
       I18n.load_path += Dir[File.expand_path("config/locales") + "/*.yml"]
       I18n.config.available_locales = %i[en bs]
       I18n.default_locale = :en
       # $logger.debug "debug.."
-
+      Sentry.capture_message "Error 2"
       # weather
       weather = WeatherAir::WeatherClient.new
       current_weather = weather.current_weather_data
