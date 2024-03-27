@@ -22,3 +22,5 @@ group :test do
   gem 'rake'
   gem 'mocha'
 end
+
+gem "sentry-ruby"
