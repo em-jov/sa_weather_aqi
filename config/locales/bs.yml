@@ -36,6 +36,7 @@ bs:
   sunrise: IZLAZAK SUNCA
   sunset: ZALAZAK SUNCA
   uv_index: UV INDEKS
+  uv_index_dc: UV indeks
   uv_messages: Preporuke za zaštitu od sunca
   uv_low:
     name: nizak 

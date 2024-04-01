@@ -35,14 +35,7 @@ module WeatherAir
         data = weather_response.body
       end
 
-      { currenttemp: data.dig('main', 'temp').to_f.round,
-        feelslike: data.dig('main', 'feels_like').to_f.round,
-        humidity: data.dig('main', 'humidity'),
-        description: data.dig('weather', 0, 'description'),
-        icon: data.dig('weather', 0, 'icon'),
-        rain: data.dig('rain', '1h') || 0,
-        wind: data.dig('wind', 'speed'),
-        sunrise: utc_to_datetime(data.dig('sys', 'sunrise')),
+      { sunrise: utc_to_datetime(data.dig('sys', 'sunrise')),
         sunset: utc_to_datetime(data.dig('sys','sunset')) }
 
     rescue StandardError => exception
@@ -77,7 +70,8 @@ module WeatherAir
           dates[key] = [interval] 
         end
       end
-      [today_forecast, dates]
+      dates
+      #[today_forecast, dates]
       
     rescue StandardError => exception
       Sentry.capture_exception(exception)
@@ -123,7 +117,22 @@ module WeatherAir
       grouped_alarms.values
     end
 
-    def yr_weather(locale, lat, lon, altitude)
+    def yr_weather(locale = :en)
+      forecast_locations = { sarajevo: { name: "Sarajevo", lat: 43.8519, lon: 18.3866, altitude: 520 },
+                             trebevic: { name: "Trebević", lat: 43.8383, lon: 18.4498, altitude: 1100 },
+                             igman: { name: "Igman", lat: 43.7507, lon: 18.2632, altitude: 1200 },
+                             bjelasnica: { name: "Bjelašnica", lat: 43.7163, lon: 18.2870, altitude: 1287 },
+                             jahorina: { name: "Jahorina" , lat: 43.7383, lon: 18.5645, altitude: 1557 }
+                            }
+      
+      forecast_locations.each do |(k, v)|
+        v[:forecast] = yr_weather_api(locale, v[:lat], v[:lon], v[:altitude])
+      end
+    end
+
+    private
+
+    def yr_weather_api(locale, lat, lon, altitude)
       ENV['TZ'] = 'Europe/Sarajevo'
 
       sitename = 'https://sarajevo-meteo.com/ https://github.com/em-jov/sa_weather_aqi'
@@ -133,6 +142,7 @@ module WeatherAir
         params: { altitude: altitude, lat: lat, lon: lon },
         headers: { 'Content-Type' => 'application/json', 'User-Agent' => sitename }) do |f|
         f.response :json
+        f.use CustomErrors
       end
 
       yr_response = conn.get()
@@ -161,44 +171,14 @@ module WeatherAir
         el[:uv_class] = UV_INDEX.select{|k, v| v.include?(el[:uv_index])}&.first&.first&.to_s
         el
       end
-      today = forecast[0]
+
       forecast[0][:time] = "Now"
-      [forecast, today]
-    end
+      forecast 
 
-    def yr_sarajevo(locale = :en)
-      lat = 43.8519
-      lon = 18.3866
-      altitude = 520
-      yr_weather(locale, lat, lon, altitude)
-    end
-
-    def yr_trebevic(locale = :en)
-      lat = 43.8383
-      lon = 18.4498
-      altitude = 1100
-      yr_weather(locale, lat, lon, altitude)
-    end
-   
-    def yr_igman(locale = :en)
-      lat = 43.7507
-      lon = 18.2632
-      altitude = 1200
-      yr_weather(locale, lat, lon, altitude)
-    end
-
-    def yr_bjelasnica(locale = :en)
-      lat = 43.7163
-      lon = 18.2870
-      altitude = 1287
-      yr_weather(locale, lat, lon, altitude)
-    end
-
-    def yr_jahorina(locale = :en)
-      lat = 43.7383
-      lon = 18.5645
-      altitude = 1557
-      yr_weather(locale, lat, lon, altitude)
+    rescue StandardError => exception
+      Sentry.capture_exception(exception)
+      { error: { en: 'Error: No weather forecast data available for this location!', 
+                 bs: 'Greška: Nedostupni podaci o vremenskoj prognozi za ovu lokaciju!' } }        
     end
 
   end

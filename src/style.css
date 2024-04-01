@@ -12,6 +12,15 @@
   font-size: 90%;
 }
 
+#uvi_div h4{
+  margin: 0.5em;
+  padding: 0.5em;
+  font-size: 120%;
+}
+
+#uvi_div p{
+  text-align: justify;
+}
 
 .alarm{
   border-radius: 0.4em;
@@ -482,37 +491,37 @@ span.rain {
   text-align: center;
 }
 
-.good, td.good, h3.good, span.good, .uv_low {
+.good, td.good, h3.good, span.good, .uv_low, .good_eea {
   background: #02E364;
   color:#333;
 }
 
-.moderate, td.moderate, h3.moderate, .uv_moderate {
+.moderate, td.moderate, h3.moderate, .uv_moderate, .fair_eea {
   background: #FBF304;
   color:#333;
 }
 
-.uv_high, .unhealthy_for_sensitive_groups, td.unhealthy_for_sensitive_groups, h3.unhealthy_for_sensitive_groups, span.unhealthy_for_sensitive_groups{
+.uv_high, .unhealthy_for_sensitive_groups, td.unhealthy_for_sensitive_groups, h3.unhealthy_for_sensitive_groups, span.unhealthy_for_sensitive_groups, .moderate_eea{
   background: #FFB042;
   color:#333;
 }
 
-.uv_very_high, .unhealthy, td.unhealthy, h3.unhealthy, span.unhealthy{
+.uv_very_high, .unhealthy, td.unhealthy, h3.unhealthy, span.unhealthy, .poor_eea{
   background: #AA0808;
   color:whitesmoke;
 }
 
-.uv_extreme, .very_unhealthy, td.very_unhealthy, h3.very_unhealthy, span.very_unhealthy{
+.uv_extreme, .very_unhealthy, td.very_unhealthy, h3.very_unhealthy, span.very_unhealthy, .very_poor_eea{
   background: #530279;
   color:whitesmoke;
 }
 
-.hazardous, td.hazardous, h3.hazardous, span.hazardous{
+.hazardous, td.hazardous, h3.hazardous, span.hazardous, .extremely_poor_eea{
   background: #760404;
   color:whitesmoke;
 }
 
-.good_eea {
+/* .good_eea {
   background: #50F0E6;
   color: #333;
 }
@@ -540,7 +549,7 @@ span.rain {
 .extremely_poor_eea {
   background: #7D2181;
   color: whitesmoke;
-}
+} */
 
 #air .unhealthy, #air .very_unhealthy, #air .hazardous {
   color: lightgrey;

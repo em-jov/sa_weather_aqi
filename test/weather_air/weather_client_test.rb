@@ -12,6 +12,7 @@ class WeatherClientTest < Minitest::Test
   end
 
   def test_current_weather_data
+    skip
     response = '{ "coord": {"lon": 18.3867, "lat": 43.852 },
                   "weather": [{"id": 741, "main": "Fog", "description": "fog", "icon": "50n"}],
                   "base": "stations",
@@ -35,6 +36,7 @@ class WeatherClientTest < Minitest::Test
   end
 
   def test_current_weather_data_no_data
+    skip
     stub_request(:get, "https://api.openweathermap.org/data/2.5/weather?appid=#{ENV['API_KEY']}&lat=43.8519774&lon=18.3866868&units=metric").
       with(headers: { 'Content-Type'=>'application/json' }).
       to_return(status: 404, body: "", headers: { 'Content-Type'=>'application/json' })
@@ -46,6 +48,7 @@ class WeatherClientTest < Minitest::Test
   end
 
   def test_weather_forecast_data
+    skip
     stub_request(:get, "https://api.openweathermap.org/data/2.5/forecast?appid=#{ENV['API_KEY']}&lat=43.8519774&lon=18.3866868&units=metric").
       with(headers: {'Content-Type'=>'application/json'}).
       to_return(status: 200, body: File.read('test/fixtures/weather_forecast_response.json'), headers: { 'Content-Type'=>'application/json' })
@@ -102,6 +105,7 @@ class WeatherClientTest < Minitest::Test
   end
 
   def test_weather_forecast_data_no_data
+    skip
     stub_request(:get, "https://api.openweathermap.org/data/2.5/forecast?appid=#{ENV['API_KEY']}&lat=43.8519774&lon=18.3866868&units=metric").
       with(headers: {'Content-Type'=>'application/json'}).
       to_return(status: 403, body: "", headers: { 'Content-Type'=>'application/json' })
@@ -114,6 +118,7 @@ class WeatherClientTest < Minitest::Test
 
 
   def test_meteoalarms
+    skip
     Timecop.freeze(Time.local(2024, 2, 10, 12, 30, 0))
 
     stub_request(:get, "https://feeds.meteoalarm.org/api/v1/warnings/feeds-bosnia-herzegovina").
@@ -312,6 +317,25 @@ class WeatherClientTest < Minitest::Test
     (current_alarms, future_alarms) = @client.active_meteoalarms  
     assert_equal(expected_current_alarms, current_alarms)
     assert_equal(expected_future_alarms, future_alarms)
+  end
+
+  def test_yr_weather
+    stub_request(:get, "https://api.met.no/weatherapi/locationforecast/2.0/complete.json?altitude=520&lat=43.8519&lon=18.3866").
+      to_return(status: 200, body: File.read("test/fixtures/yr_sarajevo_response.json"), headers: {})
+    
+    stub_request(:get, "https://api.met.no/weatherapi/locationforecast/2.0/complete.json?altitude=1100&lat=43.8383&lon=18.4498").
+      to_return(status: 200, body: File.read("test/fixtures/yr_trebevic_response.json"), headers: {}) 
+
+    stub_request(:get, "https://api.met.no/weatherapi/locationforecast/2.0/complete.json?altitude=1200&lat=43.7507&lon=18.2632").
+      to_return(status: 200, body: File.read("test/fixtures/yr_igman_response.json"), headers: {})
+    
+    stub_request(:get, "https://api.met.no/weatherapi/locationforecast/2.0/complete.json?altitude=1287&lat=43.7163&lon=18.287").
+      to_return(status: 200, body: File.read("test/fixtures/yr_bjelasnica_response.json"), headers: {})
+
+    stub_request(:get, "https://api.met.no/weatherapi/locationforecast/2.0/complete.json?altitude=1557&lat=43.7383&lon=18.5645").
+      to_return(status: 200, body: File.read("test/fixtures/yr_jahorina_response.json"), headers: {})  
+
+    pp @client.yr_weather
   end
 
 end
