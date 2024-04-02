@@ -12,7 +12,7 @@ module WeatherAir
 
     class CustomErrors < Faraday::Middleware
       def on_complete(env)
-        raise RuntimeError if env[:status].to_i != 200
+        raise RuntimeError.new(env[:response_body]) if env[:status].to_i != 200
       end
     end
 
@@ -39,6 +39,9 @@ module WeatherAir
         sunset: utc_to_datetime(data.dig('sys','sunset')) }
 
     rescue StandardError => exception
+      # print exception.message
+      # exception.backtrace.each { |bt| print bt }
+      # print data if data
       Sentry.capture_exception(exception)
       { error: { en: 'Error: No current weather data available!', 
                  bs: 'Greška: Nedostupni podaci o trenutnom vremenu!' } }

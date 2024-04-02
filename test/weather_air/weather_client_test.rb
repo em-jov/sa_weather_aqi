@@ -321,21 +321,23 @@ class WeatherClientTest < Minitest::Test
 
   def test_yr_weather
     stub_request(:get, "https://api.met.no/weatherapi/locationforecast/2.0/complete.json?altitude=520&lat=43.8519&lon=18.3866").
-      to_return(status: 200, body: File.read("test/fixtures/yr_sarajevo_response.json"), headers: {})
+      to_return(status: 200, body: File.read("test/fixtures/yr_sarajevo_response.json"), headers: {'Content-Type'=>'application/json'})
     
     stub_request(:get, "https://api.met.no/weatherapi/locationforecast/2.0/complete.json?altitude=1100&lat=43.8383&lon=18.4498").
-      to_return(status: 200, body: File.read("test/fixtures/yr_trebevic_response.json"), headers: {}) 
+      to_return(status: 200, body: File.read("test/fixtures/yr_trebevic_response.json"), headers: {'Content-Type'=>'application/json'}) 
 
     stub_request(:get, "https://api.met.no/weatherapi/locationforecast/2.0/complete.json?altitude=1200&lat=43.7507&lon=18.2632").
-      to_return(status: 200, body: File.read("test/fixtures/yr_igman_response.json"), headers: {})
+      to_return(status: 403, body: "", headers: {'Content-Type'=>'application/json'})
     
     stub_request(:get, "https://api.met.no/weatherapi/locationforecast/2.0/complete.json?altitude=1287&lat=43.7163&lon=18.287").
-      to_return(status: 200, body: File.read("test/fixtures/yr_bjelasnica_response.json"), headers: {})
+      to_return(status: 200, body: File.read("test/fixtures/yr_bjelasnica_response.json"), headers: {'Content-Type'=>'application/json'})
 
     stub_request(:get, "https://api.met.no/weatherapi/locationforecast/2.0/complete.json?altitude=1557&lat=43.7383&lon=18.5645").
-      to_return(status: 200, body: File.read("test/fixtures/yr_jahorina_response.json"), headers: {})  
+      to_return(status: 200, body: File.read("test/fixtures/yr_jahorina_response.json"), headers: {'Content-Type'=>'application/json'})  
 
-    pp @client.yr_weather
+    result = @client.yr_weather
+    assert(result[:bjelasnica][:forecast][0][:air_temperature], 10)
+    assert(result[:igman][:forecast].key?(:error))
   end
 
 end

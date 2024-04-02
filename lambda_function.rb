@@ -2,8 +2,9 @@ require './src/weather_air'
 require 'aws-sdk-s3'
 require 'aws-sdk-cloudfront'
 require 'time'
+require 'sentry-ruby'
 
-# $logger = LambdaLogger.new
+$logger = Logger.new($stdout)
 
 def lambda_handler(event:, context:)
   (bosnian, english, feed, sa_aqi, ms_aqi) = WeatherAir.run
@@ -34,4 +35,7 @@ def lambda_handler(event:, context:)
       caller_reference: Time.now.to_s
     }
   } )
+
+rescue StandardError => e 
+  Sentry.capture_exception(e)  
 end
