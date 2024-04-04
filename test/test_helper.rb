@@ -1,3 +1,8 @@
+require 'simplecov'
+SimpleCov.start do
+  add_filter "/test/"
+end
+
 require "minitest/autorun"
 require_relative '../src/weather_air'
 require 'webmock/minitest'

@@ -16,18 +16,16 @@ module WeatherAir
       I18n.load_path += Dir[File.expand_path("config/locales") + "/*.yml"]
       I18n.config.available_locales = %i[en bs]
       I18n.default_locale = :en
-      # $logger.debug "debug.."
-      # Sentry.capture_message "Error 2"
+
       # weather
       weather = WeatherAir::WeatherClient.new
-      current_weather = weather.current_weather_data
-      weather_forecast = weather.weather_forecast_data
+      sunrise_sunset = weather.owm_sunrise_sunset
+      own_weather_forecast = weather.owm_weather_forecast
       yr_weather_forecast = weather.yr_weather
-      yr_weather = yr_weather_forecast[:sarajevo][:forecast][0]
+      yr_current_weather = yr_weather_forecast[:sarajevo][:forecast][0]
       
-      
-      # meteoalarm
-      (current_alarms, future_alarms) = weather.active_meteoalarms
+      # meteoalarms
+      (current_alarms, future_alarms) = weather.meteoalarms
 
       # air quality index
       aqi = WeatherAir::AirQualityIndex.new
@@ -44,17 +42,17 @@ module WeatherAir
       template = ERB.new(File.read('src/template.html.erb'))
       english = template.result(binding)
 
-      feed = { current_weather:, weather_forecast:, stations_pollutants_aqi:, city_pollutants: }.to_json
+      feed = { sunrise_sunset:, own_weather_forecast:, stations_pollutants_aqi:, city_pollutants: }.to_json
       sa_aqi = { city_pollutants: }.to_json
       ms_aqi = { stations_pollutants_aqi: }.to_json
 
       I18n.locale = :bs
-      current_weather = weather.current_weather_data(I18n.locale)
-      weather_forecast = weather.weather_forecast_data(I18n.locale)
-      yr_weather_forecast = weather.yr_weather(I18n.locale)
-      yr_weather = yr_weather_forecast[:sarajevo][:forecast][0]
+      sunrise_sunset = weather.owm_sunrise_sunset
+      own_weather_forecast = weather.owm_weather_forecast
+      yr_weather_forecast = weather.yr_weather
+      yr_current_weather = yr_weather_forecast[:sarajevo][:forecast][0]
 
-      ks_aqi = aqi.aqi_by_ks(I18n.locale)
+      ks_aqi = aqi.aqi_by_ks
       bosnian = template.result(binding) 
       [bosnian, english, feed, sa_aqi, ms_aqi]
     rescue StandardError => e 

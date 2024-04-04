@@ -16,22 +16,16 @@ module WeatherAir
       end
     end
 
-    def initialize
-      @conn = Faraday.new(
-        url: 'https://api.openweathermap.org/data/2.5/',
-        params: { lat: LAT, lon: LON, appid: ENV['API_KEY'] },
-        headers: { 'Content-Type' => 'application/json' }) do |f|
-        f.response :json
-        f.use CustomErrors
-      end
+    def meteoalarms
+      [current_alarms, future_alarms]
     end
 
-    def current_weather_data(locale = :en)
-      if locale == :bs
-        weather_response = @conn.get('weather', { lang: 'hr', units: 'metric' })
+    def owm_sunrise_sunset
+      if I18n.locale == :bs
+        weather_response = openweathermap_client.get('weather', { lang: 'hr', units: 'metric' })
         data = weather_response.body
       else
-        weather_response = @conn.get('weather', { units: 'metric' })
+        weather_response = openweathermap_client.get('weather', { units: 'metric' })
         data = weather_response.body
       end
 
@@ -43,23 +37,23 @@ module WeatherAir
       # exception.backtrace.each { |bt| print bt }
       # print data if data
       Sentry.capture_exception(exception)
-      { error: { en: 'Error: No current weather data available!', 
-                 bs: 'Greška: Nedostupni podaci o trenutnom vremenu!' } }
+      { error: { en: 'Error: No current sunrise/sunset data available! Please visit openweathermap.org for more information.', 
+                 bs: 'Greška: Nedostupni podaci o izlasku/zalasku sunca! Posjetite openweathermap.org za više informacija.' } }
     end
 
-    def weather_forecast_data(locale = :en)
-      if locale == :bs
-        weather_response = @conn.get('forecast', { lang: 'hr', units: 'metric' })
+    def owm_weather_forecast
+      if I18n.locale == :bs
+        weather_response = openweathermap_client.get('forecast', { lang: 'hr', units: 'metric' })
         weather_data = weather_response.body['list']
       else
-        weather_response = @conn.get('forecast', { units: 'metric' })
+        weather_response = openweathermap_client.get('forecast', { units: 'metric' })
         weather_data = weather_response.body['list']
       end
 
       today_forecast = []
       dates = {}
       weather_data.each do |e|
-        key = I18n.localize(Time.at(e.dig('dt')&.to_i)&.getlocal('+01:00'), format: :short) # what if nil ? Time&.at(nil) still throws error ?
+        key = I18n.localize(Time.at(e.dig('dt')&.to_i)&.getlocal('+01:00'), format: :short) 
         interval = { description: e.dig('weather', 0, 'description'),
                       icon: e.dig('weather', 0, 'icon'),
                       temp: e.dig('main', 'temp')&.to_f&.round,
@@ -74,19 +68,33 @@ module WeatherAir
         end
       end
       dates
-      #[today_forecast, dates]
       
     rescue StandardError => exception
       Sentry.capture_exception(exception)
-      { error: { en: 'Error: No weather forecast data available!', 
-                 bs: 'Greška: Nedostupni podaci o vremenskoj prognozi!' } }
+      { error: { en: 'Error: No weather forecast data available! Please visit openweathermap.org for more information.', 
+                 bs: 'Greška: Nedostupni podaci o vremenskoj prognozi! Posjetite openweathermap.org za više informacija.' } }
     end
 
     def utc_to_datetime(seconds)
       I18n.localize(Time.at(seconds.to_i).getlocal('+01:00'), format: :hm)
     end 
 
-    def active_meteoalarms
+    def yr_weather
+      forecast_locations = { sarajevo: { name: "Sarajevo", lat: 43.8519, lon: 18.3866, altitude: 520 },
+                             trebevic: { name: "Trebević", lat: 43.8383, lon: 18.4498, altitude: 1100 },
+                             igman: { name: "Igman", lat: 43.7507, lon: 18.2632, altitude: 1200 },
+                             bjelasnica: { name: "Bjelašnica", lat: 43.7163, lon: 18.2870, altitude: 1287 },
+                             jahorina: { name: "Jahorina" , lat: 43.7383, lon: 18.5645, altitude: 1557 }
+                            }
+      
+      forecast_locations.each do |(k, v)|
+        v[:forecast] = yr_client(v[:lat], v[:lon], v[:altitude])
+      end
+    end
+
+    private
+
+    def current_alarms
       current_alarms_unsorted = Meteoalarm::Client.alarms('BA', area: 'Sarajevo', active_now: true)
       current_alarms = remove_duplicate_alarms(current_alarms_unsorted)
 
@@ -95,7 +103,13 @@ module WeatherAir
           result[info[:language].to_sym] = info
         end
       end
+    rescue StandardError => exception
+      Sentry.capture_exception(exception)
+      { error: { en: 'Error: No current meteoalarms data available! Please visit meteoalarm.org for more information.', 
+                 bs: 'Greška: Nedostupni podaci o trenutnim meteoalarmima! Posjetite meteoalarm.org za više informacija.' } }
+    end
 
+    def future_alarms
       future_alarms_unsorted = Meteoalarm::Client.alarms('BA', area: 'Sarajevo', future_alarms: true)
       future_alarms = remove_duplicate_alarms(future_alarms_unsorted)
 
@@ -106,7 +120,10 @@ module WeatherAir
         end
       end
       future_alarms.sort_by! {|element| element[:start_date]}
-      [current_alarms, future_alarms]
+    rescue StandardError => exception
+      Sentry.capture_exception(exception)
+      { error: { en: 'Error: No future meteoalarms data available! Please visit meteoalarm.org for more information.', 
+                 bs: 'Greška: Nedostupni podaci o nadolazeċim meteoalarmima! Posjetite meteoalarm.org za više informacija.' } }
     end
 
     def remove_duplicate_alarms(unsorted_alarms)
@@ -120,24 +137,18 @@ module WeatherAir
       grouped_alarms.values
     end
 
-    def yr_weather(locale = :en)
-      forecast_locations = { sarajevo: { name: "Sarajevo", lat: 43.8519, lon: 18.3866, altitude: 520 },
-                             trebevic: { name: "Trebević", lat: 43.8383, lon: 18.4498, altitude: 1100 },
-                             igman: { name: "Igman", lat: 43.7507, lon: 18.2632, altitude: 1200 },
-                             bjelasnica: { name: "Bjelašnica", lat: 43.7163, lon: 18.2870, altitude: 1287 },
-                             jahorina: { name: "Jahorina" , lat: 43.7383, lon: 18.5645, altitude: 1557 }
-                            }
-      
-      forecast_locations.each do |(k, v)|
-        v[:forecast] = yr_weather_api(locale, v[:lat], v[:lon], v[:altitude])
+    def openweathermap_client 
+      @openweathermap_client ||= Faraday.new(
+        url: 'https://api.openweathermap.org/data/2.5/',
+        params: { lat: LAT, lon: LON, appid: ENV['API_KEY'] },
+        headers: { 'Content-Type' => 'application/json' }) do |f|
+        f.response :json
+        f.use CustomErrors
       end
     end
 
-    private
-
-    def yr_weather_api(locale, lat, lon, altitude)
+    def yr_client(lat, lon, altitude)
       ENV['TZ'] = 'Europe/Sarajevo'
-
       sitename = 'https://sarajevo-meteo.com/ https://github.com/em-jov/sa_weather_aqi'
 
       conn = Faraday.new(
@@ -149,8 +160,6 @@ module WeatherAir
       end
 
       yr_response = conn.get()
-      status = yr_response.status
-      headers = yr_response.headers
       data = yr_response.body
 
       weather = []
@@ -175,15 +184,19 @@ module WeatherAir
         el
       end
 
-      forecast[0][:time] = "Now"
+      if I18n.locale == :bs
+        forecast[0][:time] = "Now"
+      else
+        forecast[0][:time] = "Now <br><br>"
+      end
+
       forecast 
 
     rescue StandardError => exception
       Sentry.capture_exception(exception)
-      { error: { en: 'Error: No weather forecast data available for this location!', 
-                 bs: 'Greška: Nedostupni podaci o vremenskoj prognozi za ovu lokaciju!' } }        
+      { error: { en: 'Error: No weather forecast data available for this location! Please visit yr.no for more information.', 
+                 bs: 'Greška: Nedostupni podaci o vremenskoj prognozi za ovu lokaciju! Posjetite yr.no za više informacija.' } }        
     end
-
   end
 end
 

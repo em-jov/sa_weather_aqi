@@ -36,7 +36,7 @@ module WeatherAir
       @stations_pollutants_aqi_data = stations
     end
 
-    def aqi_by_ks(locale = :en)
+    def aqi_by_ks
       stations = { 'Vijećnica' => { name: 'vijecnica', latitude: 43.859, longitude: 18.434 },
                    'Otoka' => { name: 'otoka', latitude: 43.848, longitude: 18.363 },
                    'Ilidža' => { name: 'ilidza', latitude: 43.830 , longitude: 18.310 },
@@ -44,13 +44,13 @@ module WeatherAir
                    'Ilijaš' => { name: 'ilijas', latitude: 43.960, longitude: 18.269 }}
 
       stations.each do |station, values|
-        values.merge!(fetch_pollutants_from_ks_website(values[:name], locale))
+        values.merge!(fetch_pollutants_from_ks_website(values[:name]))
       end
 
       stations
     end
 
-    def fetch_pollutants_from_ks_website(station, locale)
+    def fetch_pollutants_from_ks_website(station)
       station_ks_site = Nokogiri::HTML(URI.open("https://aqms.live/kvalitetzraka/st.php?st=#{station}"))
       table = station_ks_site.search(".table.table-hover").first
 

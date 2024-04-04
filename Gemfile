@@ -21,6 +21,7 @@ group :test do
   gem 'timecop'
   gem 'rake'
   gem 'mocha'
+  gem 'simplecov', require: false
 end
 
 gem "sentry-ruby"
