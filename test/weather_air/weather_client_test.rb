@@ -466,6 +466,7 @@ class WeatherClientTest < Minitest::Test
     stub_request(:get, "https://api.met.no/weatherapi/locationforecast/2.0/complete.json?altitude=1557&lat=43.7383&lon=18.5645").
       to_return(status: 200, body: File.read("test/fixtures/yr_jahorina_response.json"), headers: {'Content-Type'=>'application/json'})  
 
+    I18n.locale = :bs  
     Sentry.expects(:capture_exception)
     result = @client.yr_weather
     expected = { :error=> { :en=>"Error: No weather forecast data available for this location! Please visit yr.no for more information.", 
