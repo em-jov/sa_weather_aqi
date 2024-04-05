@@ -131,8 +131,8 @@
                 <span><label><%= I18n.t(:uv_index) %>: </label><%= yr_current_weather[:uv_index] %></span>
               <% end %>    
               <% unless sunrise_sunset.key?(:error) %>      
-                <span><label><%= I18n.t(:sunrise) %>: </label><%= sunrise_sunset[:sunrise] %></span>
-                <span><label><%= I18n.t(:sunset) %>: </label><%= sunrise_sunset[:sunset] %></span>
+                <span><label><%= I18n.t(:sunrise) %>: </label><%= utc_to_datetime(sunrise_sunset[:sunrise]) %></span>
+                <span><label><%= I18n.t(:sunset) %>: </label><%= utc_to_datetime(sunrise_sunset[:sunset]) %></span>
               <% end %>
             </div>
           </div>
@@ -148,9 +148,15 @@
               <table>
               <tr>
 
-                <% values[:forecast].each do |interval| %>
+                <% values[:forecast].each_with_index do |interval, index| %>
                   <td class="yr_td">
-                    <span><%= interval[:time] %></span>
+                    <span>
+                      <% if index == 0 %>
+                          <p>Now</p>
+                      <% else %>
+                        <%= I18n.localize(interval[:time], format: :hm ) %>
+                      <% end %>  
+                    </span>
                     <img src="<%= icon_path(interval[:icon]) %>" width="50"/>
                     <span class="temp temp_yr"><%= interval[:air_temperature] %>°C</span>
                     <% if interval[:uv_index] != 0.0 %>
@@ -357,69 +363,71 @@
         </div>  
         <div id="air_more" class="section">
 
-      
         <h3><%= I18n.t(:aqi_more) %></h3>
 
+        <% if eko_error %>
+          <p><%= eko_error[:error][I18n.locale] %></p>
+        <% else %>
         <h4>
           <%= I18n.t(:data_provided_by) %><br>  
           <a href="https://zrak.ekoakcija.org/sarajevo" target=”_blank”><%= I18n.t(:aqi_eko_akcija) %></a>
         </h4>
-        <h3 class="<%= ea_city_aqi_class %> city_aqi_main"><%= I18n.t(:aqi) %>: <%= I18n.t(ea_city_aqi_class + ".name") %> (<%= ea_city_aqi_value %>)</h3>
-        <p class="small">*<%= I18n.t(:aqi_eko_akcija_disclaimer) %></p>
-        <table class="stations_aqi centered-table">
-            <th><%= I18n.t(:station) %> </th>
-            <th>PM<sub>10</sub></th>
-            <th>PM<sub>2.5</sub></th>
-            <th>SO<sub>2</sub></th>
-            <th><%= I18n.t(:aqi) %></th>
-          <% eko_akcija.each do |raw| %>
-            <tr>
-            <% raw.each_with_index do |el, index| %>
-              <% next if index == 5 %>
-              <% if index == 4 %>
-                <td class="<%= text_to_class(raw[5]) %>"><%= el %></td>
-              <% else %>
-                <td><%= el %></td>
+          <h3 class="<%= ea_city_aqi_class %> city_aqi_main"><%= I18n.t(:aqi) %>: <%= I18n.t(ea_city_aqi_class + ".name") %> (<%= ea_city_aqi_value %>)</h3>
+          <p class="small">*<%= I18n.t(:aqi_eko_akcija_disclaimer) %></p>
+          <table class="stations_aqi centered-table">
+              <th><%= I18n.t(:station) %> </th>
+              <th>PM<sub>10</sub></th>
+              <th>PM<sub>2.5</sub></th>
+              <th>SO<sub>2</sub></th>
+              <th><%= I18n.t(:aqi) %></th>
+            <% eko_akcija.each do |raw| %>
+              <tr>
+              <% raw.each_with_index do |el, index| %>
+                <% next if index == 5 %>
+                <% if index == 4 %>
+                  <td class="<%= text_to_class(raw[5]) %>"><%= el %></td>
+                <% else %>
+                  <td><%= el %></td>
+                <% end %>
               <% end %>
+              </tr>
             <% end %>
+          </table>
+          <p id="ea_health_messages"><%= I18n.t(ea_city_aqi_class + ".advisory") %></p>
+          <br>
+
+          <table id="aqi_legend" class="centered-table">
+            <tr>
+              <td class="aqi_val">0 - 50 &nbsp</td>
+              <td class="good empty"></td>
+              <td ><%= I18n.t('good.name') %></td>
             </tr>
-          <% end %>
-        </table>
-        <p id="ea_health_messages"><%= I18n.t(ea_city_aqi_class + ".advisory") %></p>
-
-        <br>
-
-        <table id="aqi_legend" class="centered-table">
-          <tr>
-            <td class="aqi_val">0 - 50 &nbsp</td>
-            <td class="good empty"></td>
-            <td ><%= I18n.t('good.name') %></td>
-          </tr>
-          <tr>
-            <td class="aqi_val">51 - 100</td>
-            <td class="moderate empty"></td>
-            <td ><%= I18n.t('moderate.name') %></td>
-          </tr>
-          <tr>
-            <td class="aqi_val">101 - 150</td>
-            <td class="unhealthy_for_sensitive_groups empty"></td>
-            <td ><%= I18n.t('unhealthy_for_sensitive_groups.name') %></td>
-          </tr>
-          <tr>
-            <td class="aqi_val">151 - 200</td>
-            <td class="unhealthy empty"></td>
-            <td ><%= I18n.t('unhealthy.name') %></td>
-          </tr>
-            <td class="aqi_val">201 - 300</td>
-            <td class="very_unhealthy empty"></td>
-            <td ><%= I18n.t('very_unhealthy.name') %></td>
-          </tr>
-          <tr>
-            <td class="aqi_val">301 - 500</td>
-            <td class="hazardous empty"></td>
-            <td ><%= I18n.t('hazardous.name') %></td>
-          </tr>
-        </table>
+            <tr>
+              <td class="aqi_val">51 - 100</td>
+              <td class="moderate empty"></td>
+              <td ><%= I18n.t('moderate.name') %></td>
+            </tr>
+            <tr>
+              <td class="aqi_val">101 - 150</td>
+              <td class="unhealthy_for_sensitive_groups empty"></td>
+              <td ><%= I18n.t('unhealthy_for_sensitive_groups.name') %></td>
+            </tr>
+            <tr>
+              <td class="aqi_val">151 - 200</td>
+              <td class="unhealthy empty"></td>
+              <td ><%= I18n.t('unhealthy.name') %></td>
+            </tr>
+              <td class="aqi_val">201 - 300</td>
+              <td class="very_unhealthy empty"></td>
+              <td ><%= I18n.t('very_unhealthy.name') %></td>
+            </tr>
+            <tr>
+              <td class="aqi_val">301 - 500</td>
+              <td class="hazardous empty"></td>
+              <td ><%= I18n.t('hazardous.name') %></td>
+            </tr>
+          </table>
+        <% end %>  
 
         <br><hr>
         <h4>
@@ -446,8 +454,10 @@
                 <% if values.key?(pollutant) %>
                   <td class="<%= values[pollutant][:css_class] %>">
                     <b><%= values[pollutant][:concentration] %></b>
-                    <%= values[pollutant][:date] %>
-                    <%= values[pollutant][:time] %>
+                    <% unless values[pollutant][:date].nil? %>
+                      <%= I18n.localize(values[pollutant][:date], format: :normal) %>
+                      <%= I18n.localize(values[pollutant][:time], format: :hm) %>
+                    <% end %>
                   </td>
                 <% end %>
               <% end %>
@@ -470,7 +480,7 @@
             <tr>
               <td class="ks_station"> <%= station %> </td>
               <% %w[SO2 NO2 O3 CO PM10 PM2.5].each do |pollutant| %>
-                <% if values.key?(pollutant) && values[pollutant][:date] ==  I18n.localize(Time.now, format: :normal) %>
+                <% if values.key?(pollutant) && values[pollutant][:date] != nil && I18n.localize(values[pollutant][:date], format: :normal) ==  I18n.localize(Time.now, format: :normal) %>
                   <td class="<%= values[pollutant][:css_class] %>">
                     <%= values[pollutant][:aqi] %>
                   </td> 

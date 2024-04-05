@@ -19,22 +19,31 @@ module WeatherAir
 
       # weather
       weather = WeatherAir::WeatherClient.new
+      # openweathermap
       sunrise_sunset = weather.owm_sunrise_sunset
       own_weather_forecast = weather.owm_weather_forecast
+      # yr.no
       yr_weather_forecast = weather.yr_weather
       yr_current_weather = yr_weather_forecast[:sarajevo][:forecast][0]
       
       # meteoalarms
+      weather.meteoalarms
       (current_alarms, future_alarms) = weather.meteoalarms
 
       # air quality index
       aqi = WeatherAir::AirQualityIndex.new
-
-      ks_aqi = aqi.aqi_by_ks
-      (eko_akcija, ea_city_aqi_value, ea_city_aqi_class) = aqi.aqi_by_ekoakcija
-
+      # fhmz
       city_pollutants = aqi.city_pollutants_aqi
       stations_pollutants_aqi = aqi.stations_pollutants_aqi_data
+      # kanton sarajevo
+      ks_aqi = aqi.aqi_by_ks
+      # eko akcija
+      data = aqi.aqi_by_ekoakcija
+      if data.is_a?(Array)
+        (eko_akcija, ea_city_aqi_value, ea_city_aqi_class) = data
+      else
+        eko_error = data
+      end
 
       style = File.read("src/style.css")
       js_script = File.read('src/script.js')
@@ -47,12 +56,8 @@ module WeatherAir
       ms_aqi = { stations_pollutants_aqi: }.to_json
 
       I18n.locale = :bs
-      sunrise_sunset = weather.owm_sunrise_sunset
       own_weather_forecast = weather.owm_weather_forecast
-      yr_weather_forecast = weather.yr_weather
-      yr_current_weather = yr_weather_forecast[:sarajevo][:forecast][0]
 
-      ks_aqi = aqi.aqi_by_ks
       bosnian = template.result(binding) 
       [bosnian, english, feed, sa_aqi, ms_aqi]
     rescue StandardError => e 
@@ -62,6 +67,10 @@ module WeatherAir
     def last_update 
       I18n.localize(Time.now, format: :default)
     end
+
+    def utc_to_datetime(seconds)
+      I18n.localize(Time.at(seconds.to_i).getlocal('+01:00'), format: :hm)
+    end 
 
     def icon_path(icon)
       if I18n.locale == :en

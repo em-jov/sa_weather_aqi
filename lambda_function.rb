@@ -4,8 +4,6 @@ require 'aws-sdk-cloudfront'
 require 'time'
 require 'sentry-ruby'
 
-$logger = Logger.new($stdout)
-
 def lambda_handler(event:, context:)
   (bosnian, english, feed, sa_aqi, ms_aqi) = WeatherAir.run
 

@@ -1,15 +1,9 @@
 require_relative '../test_helper'
 
-class WeatherClientTest < Minitest::Test
+class WeatherClientTest < TestCase
   def setup 
+    super
     @client = WeatherAir::WeatherClient.new
-    I18n.load_path += Dir[File.expand_path("config/locales") + "/*.yml"]
-    I18n.config.available_locales = %i[en bs]
-  end
-
-  def teardown
-    Timecop.return
-    I18n.locale = :en
   end
 
   def test_owm_sunrise_sunset
@@ -31,61 +25,7 @@ class WeatherClientTest < Minitest::Test
       to_return(status: 200, body: response, headers: { 'Content-Type'=>'application/json' })
 
     sarajevo_current_weather = @client.owm_sunrise_sunset
-    expected = {:sunrise => "07:16 am", :sunset => "04:10 pm"}
-    assert_equal(expected, sarajevo_current_weather)
-  end
-
-  def test_owm_sunrise_sunset_bs_locale
-    response = '{
-                  "coord": {
-                    "lon": 18.3867,
-                    "lat": 43.852
-                  },
-                  "weather": [
-                    {
-                      "id": 800,
-                      "main": "Clear",
-                      "description": "vedro",
-                      "icon": "01d"
-                    }
-                  ],
-                  "base": "stations",
-                  "main": {
-                    "temp": 19.88,
-                    "feels_like": 18.76,
-                    "temp_min": 19.88,
-                    "temp_max": 19.88,
-                    "pressure": 1018,
-                    "humidity": 32
-                  },
-                  "visibility": 10000,
-                  "wind": {
-                    "speed": 1.54,
-                    "deg": 0
-                  },
-                  "clouds": {
-                    "all": 0
-                  },
-                  "dt": 1712231102,
-                  "sys": {
-                    "type": 2,
-                    "id": 145110,
-                    "country": "BA",
-                    "sunrise": 1712204517,
-                    "sunset": 1712250982
-                  },
-                  "timezone": 7200,
-                  "id": 3268175,
-                  "name": "Hrasno",
-                  "cod": 200
-                }'
-    stub_request(:get, "https://api.openweathermap.org/data/2.5/weather?appid=#{ENV['API_KEY']}&lat=43.8519774&lon=18.3866868&units=metric&lang=hr").
-      with(headers: { 'Content-Type'=>'application/json' }).
-      to_return(status: 200, body: response, headers: { 'Content-Type'=>'application/json' })
-    
-    I18n.locale = :bs
-    sarajevo_current_weather = @client.owm_sunrise_sunset
-    expected = {:sunrise => "05:21", :sunset => "18:16"}
+    expected = {:sunrise=>1702966568, :sunset=>1702998632}
     assert_equal(expected, sarajevo_current_weather)
   end
 
@@ -466,7 +406,6 @@ class WeatherClientTest < Minitest::Test
     stub_request(:get, "https://api.met.no/weatherapi/locationforecast/2.0/complete.json?altitude=1557&lat=43.7383&lon=18.5645").
       to_return(status: 200, body: File.read("test/fixtures/yr_jahorina_response.json"), headers: {'Content-Type'=>'application/json'})  
 
-    I18n.locale = :bs  
     Sentry.expects(:capture_exception)
     result = @client.yr_weather
     expected = { :error=> { :en=>"Error: No weather forecast data available for this location! Please visit yr.no for more information.", 

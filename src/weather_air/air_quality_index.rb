@@ -67,6 +67,10 @@ module WeatherAir
       city_aqi_value =  aqi_values.max
       city_aqi_desc = AQI.find{|key, value| value.include?(city_aqi_value)}.first.to_s
       [ea_table, city_aqi_value, city_aqi_desc]
+    rescue StandardError => exception
+      # Sentry.capture_exception(exception)
+      { error: { en: 'Error: No current data available from zrak.ekoakcija.org.', 
+                 bs: 'Greška: Nedostupni podaci sa stranice zrak.ekoakcija.org.' } }  
     end
 
     def city_pollutants_aqi
@@ -97,8 +101,10 @@ module WeatherAir
         key = /\(.*?\)/.match(el.children.first.text)[0].delete("()")
         if pollutants.has_key?(key)
           pollutants[key] = {
-            date: I18n.localize(Time.parse(el.children[1].text), format: :normal),
-            time: I18n.localize(Time.parse(el.children[1].text.split(' ')[1][0..1] + ":00"), format: :hm),
+            # date: I18n.localize(Time.parse(el.children[1].text), format: :normal),
+            # time: I18n.localize(Time.parse(el.children[1].text.split(' ')[1][0..1] + ":00"), format: :hm),
+            date: Time.parse(el.children[1].text),
+            time: Time.parse(el.children[1].text.split(' ')[1][0..1] + ":00"),
             display: Time.parse(el.children[1].text).to_date == Time.now.to_date,
             concentration: el.children[3].text,
             css_class: bg_color_to_class(el.children[5].attribute_nodes.first.value[18..24]),

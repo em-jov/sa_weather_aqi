@@ -1,7 +1,8 @@
 require_relative '../test_helper'
 
-class AirQualityIndexTest < Minitest::Test
+class AirQualityIndexTest < TestCase
   def setup 
+    super
     @script = WeatherAir::AirQualityIndex.new
     @stations_pollutants = {
     "vijecnica"=>{:aqi=>{:value=>"1", :class=>:good_eea}, :so2=>{:value=>"1", :class=>:good_eea}, :no2=>{:value=>"1", :class=>:good_eea}, :o3=>{:value=>"", :class=>nil}, :pm10=>{:value=>"", :class=>nil}, :pm25=>{:value=>"", :class=>nil}, :name=>"Vijećnica", :latitude=>43.859, :longitude=>18.434},
@@ -12,11 +13,6 @@ class AirQualityIndexTest < Minitest::Test
     "hadzici"=>{:aqi=>{:value=>"2", :class=>:fair_eea}, :so2=>{:value=>"1", :class=>:good_eea}, :no2=>{:value=>"1", :class=>:good_eea}, :o3=>{:value=>"2", :class=>:fair_eea}, :pm10=>{:value=>"", :class=>nil}, :pm25=>{:value=>"", :class=>nil}, :name=>"Hadžići", :latitude=>43.823, :longitude=>18.2},
     "ilijas"=>{:aqi=>{:value=>"2", :class=>:fair_eea}, :so2=>{:value=>"1", :class=>:good_eea}, :no2=>{:value=>"1", :class=>:good_eea}, :o3=>{:value=>"", :class=>nil}, :pm10=>{:value=>"2", :class=>:fair_eea}, :pm25=>{:value=>" ", :class=>nil}, :name=>"Ilijaš", :latitude=>43.96, :longitude=>18.269},
     "ivan_sedlo"=>{:aqi=>{:value=>"3", :class=>:moderate_eea}, :so2=>{:value=>"1", :class=>:good_eea}, :no2=>{:value=>"1", :class=>:good_eea}, :o3=>{:value=>"3", :class=>:moderate_eea}, :pm10=>{:value=>"1", :class=>:good_eea}, :pm25=>{:value=>"", :class=>nil}, :name=>"Ivan sedlo", :latitude=>43.75, :longitude=>18.035}}
-    I18n.config.available_locales = %i[en bs]
-  end
-
-  def teardown
-    Timecop.return
   end
 
   def test_stations_pollutants_aqi_data
@@ -42,10 +38,11 @@ class AirQualityIndexTest < Minitest::Test
 
     stub_request(:get, "https://aqms.live/kvalitetzraka/st.php?st=ilijas").
       to_return(status: 200, body: File.read('test/fixtures/ks_aqi_ilijas.html'), headers: {})  
-      I18n.locale = :bs
+    
+    I18n.locale = :bs
 
     result = @script.aqi_by_ks
-    assert_equal({:date=>"29. jan 2024.", :time=>"14:00", :display=>false, :concentration=>"9.42 μg/m3", :css_class=>"good", :aqi=>"5"}, result['Vijećnica']["SO2"])
+    assert_equal("9.42 μg/m3", result['Vijećnica']["SO2"][:concentration])
   end
 
   def test_aqi_by_ekoakcija

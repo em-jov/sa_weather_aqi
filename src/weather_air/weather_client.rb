@@ -21,16 +21,11 @@ module WeatherAir
     end
 
     def owm_sunrise_sunset
-      if I18n.locale == :bs
-        weather_response = openweathermap_client.get('weather', { lang: 'hr', units: 'metric' })
-        data = weather_response.body
-      else
-        weather_response = openweathermap_client.get('weather', { units: 'metric' })
-        data = weather_response.body
-      end
+      weather_response = openweathermap_client.get('weather', { units: 'metric' })
+      data = weather_response.body
 
-      { sunrise: utc_to_datetime(data.dig('sys', 'sunrise')),
-        sunset: utc_to_datetime(data.dig('sys','sunset')) }
+      { sunrise: data.dig('sys', 'sunrise'),
+        sunset: data.dig('sys','sunset') }
 
     rescue StandardError => exception
       # print exception.message
@@ -179,18 +174,9 @@ module WeatherAir
       end
 
       forecast = weather.take(25).map do |el|
-        el[:time] = I18n.localize(el[:time], format: :hm )
         el[:uv_class] = UV_INDEX.select{|k, v| v.include?(el[:uv_index])}&.first&.first&.to_s
         el
       end
-
-      if I18n.locale == :bs
-        forecast[0][:time] = "Now"
-      else
-        forecast[0][:time] = "Now <br><br>"
-      end
-
-      forecast 
 
     rescue StandardError => exception
       Sentry.capture_exception(exception)
