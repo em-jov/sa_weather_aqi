@@ -68,7 +68,7 @@ module WeatherAir
       city_aqi_desc = AQI.find{|key, value| value.include?(city_aqi_value)}.first.to_s
       [ea_table, city_aqi_value, city_aqi_desc]
     rescue StandardError => exception
-      # Sentry.capture_exception(exception)
+      Sentry.capture_exception(exception)
       { error: { en: 'Error: No current data available from zrak.ekoakcija.org.', 
                  bs: 'Greška: Nedostupni podaci sa stranice zrak.ekoakcija.org.' } }  
     end

@@ -359,7 +359,8 @@ class WeatherClientTest < TestCase
 
     stub_request(:get, "https://feeds.meteoalarm.org/api/v1/warnings/feeds-bosnia-herzegovina").
       to_return(status: 403, body: "", headers: { 'Content-Type'=>'application/json' })
-    
+    Sentry.expects(:capture_exception).twice
+
     (current_alarms, future_alarms) = @client.meteoalarms  
     expected_no_current_alarms = { :error => { :en=>"Error: No current meteoalarms data available! Please visit meteoalarm.org for more information.", 
                                                :bs=>"Greška: Nedostupni podaci o trenutnim meteoalarmima! Posjetite meteoalarm.org za više informacija." } }

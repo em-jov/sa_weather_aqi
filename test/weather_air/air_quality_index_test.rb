@@ -59,6 +59,17 @@ class AirQualityIndexTest < TestCase
     assert_equal(expected, result)
   end
 
+  def test_aqi_by_ekoakcija_no_data
+    stub_request(:get, "https://zrak.ekoakcija.org/sarajevo").
+      to_return(status: 403, body: "", headers: {})
+
+    Sentry.expects(:capture_exception)  
+    result = @script.aqi_by_ekoakcija
+    expected = {:error=>{:en=>"Error: No current data available from zrak.ekoakcija.org.", 
+                         :bs=>"Greška: Nedostupni podaci sa stranice zrak.ekoakcija.org."}}
+    assert_equal(expected, result)
+  end
+
   def test_city_pollutants_aqi_no_values
     # skip
     stations_pollutants = { "vijecnica" => { :so2 => nil, :no2 => nil, :co => nil, :o3 => nil, :pm10 => nil, :pm2_5 => nil, :pm => nil, :aqi => nil },

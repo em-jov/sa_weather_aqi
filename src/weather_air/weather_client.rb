@@ -70,10 +70,6 @@ module WeatherAir
                  bs: 'Greška: Nedostupni podaci o vremenskoj prognozi! Posjetite openweathermap.org za više informacija.' } }
     end
 
-    def utc_to_datetime(seconds)
-      I18n.localize(Time.at(seconds.to_i).getlocal('+01:00'), format: :hm)
-    end 
-
     def yr_weather
       forecast_locations = { sarajevo: { name: "Sarajevo", lat: 43.8519, lon: 18.3866, altitude: 520 },
                              trebevic: { name: "Trebević", lat: 43.8383, lon: 18.4498, altitude: 1100 },

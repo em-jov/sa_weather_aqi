@@ -38,12 +38,7 @@ module WeatherAir
       # kanton sarajevo
       ks_aqi = aqi.aqi_by_ks
       # eko akcija
-      data = aqi.aqi_by_ekoakcija
-      if data.is_a?(Array)
-        (eko_akcija, ea_city_aqi_value, ea_city_aqi_class) = data
-      else
-        eko_error = data
-      end
+      ekoakcija_aqi_data = aqi.aqi_by_ekoakcija
 
       style = File.read("src/style.css")
       js_script = File.read('src/script.js')
@@ -57,10 +52,11 @@ module WeatherAir
 
       I18n.locale = :bs
       own_weather_forecast = weather.owm_weather_forecast
-
       bosnian = template.result(binding) 
       [bosnian, english, feed, sa_aqi, ms_aqi]
     rescue StandardError => e 
+      # pp e.message
+      # pp e.backtrace.join("\n")
       Sentry.capture_exception(e)  
     end
 
