@@ -31,8 +31,8 @@ class WeatherAirTest < TestCase
                             ["Otoka", "10", "4", "8", "21", "Dobar"],
                             ["Bjelave", "11", "4", "7", "17", "Dobar"],
                             ["Ilidža", "6", "3", "3", "13", "Dobar"]],
-                          60,
-                          "moderate"]                    
+                           60,
+                           "moderate"]                    
     WeatherAir::AirQualityIndex.any_instance.stubs(:aqi_by_ekoakcija).returns(eko_akcija_aqi_data)
 
     assert_equal(5, WeatherAir.run.length)

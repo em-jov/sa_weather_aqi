@@ -28,10 +28,7 @@ module WeatherAir
         sunset: data.dig('sys','sunset') }
 
     rescue StandardError => exception
-      # print exception.message
-      # exception.backtrace.each { |bt| print bt }
-      # print data if data
-      Sentry.capture_exception(exception)
+      ExceptionNotifier.notify(exception)  
       { error: { en: 'Error: No current sunrise/sunset data available! Please visit openweathermap.org for more information.', 
                  bs: 'Greška: Nedostupni podaci o izlasku/zalasku sunca! Posjetite openweathermap.org za više informacija.' } }
     end
@@ -65,7 +62,7 @@ module WeatherAir
       dates
       
     rescue StandardError => exception
-      Sentry.capture_exception(exception)
+      ExceptionNotifier.notify(exception)  
       { error: { en: 'Error: No weather forecast data available! Please visit openweathermap.org for more information.', 
                  bs: 'Greška: Nedostupni podaci o vremenskoj prognozi! Posjetite openweathermap.org za više informacija.' } }
     end
@@ -86,6 +83,7 @@ module WeatherAir
     private
 
     def current_alarms
+      raise "bla"
       current_alarms_unsorted = Meteoalarm::Client.alarms('BA', area: 'Sarajevo', active_now: true)
       current_alarms = remove_duplicate_alarms(current_alarms_unsorted)
 
@@ -95,7 +93,7 @@ module WeatherAir
         end
       end
     rescue StandardError => exception
-      Sentry.capture_exception(exception)
+      ExceptionNotifier.notify(exception)  
       { error: { en: 'Error: No current meteoalarms data available! Please visit meteoalarm.org for more information.', 
                  bs: 'Greška: Nedostupni podaci o trenutnim meteoalarmima! Posjetite meteoalarm.org za više informacija.' } }
     end
@@ -112,7 +110,7 @@ module WeatherAir
       end
       future_alarms.sort_by! {|element| element[:start_date]}
     rescue StandardError => exception
-      Sentry.capture_exception(exception)
+      ExceptionNotifier.notify(exception)  
       { error: { en: 'Error: No future meteoalarms data available! Please visit meteoalarm.org for more information.', 
                  bs: 'Greška: Nedostupni podaci o nadolazeċim meteoalarmima! Posjetite meteoalarm.org za više informacija.' } }
     end
@@ -175,7 +173,7 @@ module WeatherAir
       end
 
     rescue StandardError => exception
-      Sentry.capture_exception(exception)
+      ExceptionNotifier.notify(exception)  
       { error: { en: 'Error: No weather forecast data available for this location! Please visit yr.no for more information.', 
                  bs: 'Greška: Nedostupni podaci o vremenskoj prognozi za ovu lokaciju! Posjetite yr.no za više informacija.' } }        
     end

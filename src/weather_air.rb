@@ -7,11 +7,15 @@ require 'time'
 require 'i18n'
 require 'meteoalarm'
 require 'sentry-ruby'
+require_relative 'exception_notifier'
+require_relative 'app_logger'
 Dir['./src/weather_air/*.rb'].each { |file| require file }
 
 module WeatherAir
   class << self
     def run
+      logger = AppLogger.instance.logger
+      logger.debug "Starting..."
       Sentry.init
       I18n.load_path += Dir[File.expand_path("config/locales") + "/*.yml"]
       I18n.config.available_locales = %i[en bs]
@@ -54,10 +58,8 @@ module WeatherAir
       own_weather_forecast = weather.owm_weather_forecast
       bosnian = template.result(binding) 
       [bosnian, english, feed, sa_aqi, ms_aqi]
-    rescue StandardError => e 
-      # pp e.message
-      # pp e.backtrace.join("\n")
-      Sentry.capture_exception(e)  
+    rescue StandardError => e
+      ExceptionNotifier.notify(e)  
     end
 
     def last_update 
