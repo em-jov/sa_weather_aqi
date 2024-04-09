@@ -23,9 +23,11 @@ GEM
     aws-sigv4 (1.7.0)
       aws-eventstream (~> 1, >= 1.0.2)
     base64 (0.1.1)
+    bigdecimal (3.1.7)
     concurrent-ruby (1.2.2)
     crack (0.4.5)
       rexml
+    docile (1.4.0)
     dotenv (2.8.1)
     faraday (2.7.11)
       base64
@@ -51,6 +53,15 @@ GEM
     rake (13.1.0)
     rexml (3.2.6)
     ruby2_keywords (0.0.5)
+    sentry-ruby (5.17.1)
+      bigdecimal
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+    simplecov (0.22.0)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.12.3)
+    simplecov_json_formatter (0.1.4)
     timecop (0.9.8)
     webmock (3.19.1)
       addressable (>= 2.8.0)
@@ -73,6 +84,8 @@ DEPENDENCIES
   mocha
   nokogiri
   rake
+  sentry-ruby
+  simplecov
   timecop
   webmock
 

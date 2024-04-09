@@ -113,150 +113,84 @@
       
       <div id="weather" class="section">
         <h2><%= I18n.t(:current_weather) %></h2>
-        <% if current_weather.has_key?(:error) %>
-          <p><%= current_weather[:error][I18n.locale] %></p>
+        <% if yr_current_weather.key?(:error) %>
+          <p><%= yr_current_weather[:error][I18n.locale] %></p>
         <% else %> 
           <div class="cw_container">
             <div class="float-child">
-              <h3 class="temp"><%= yr_weather[:air_temperature] %>°C</h3>
-              <img src="<%= icon_path(yr_weather[:icon]) %>" width="100"/>
+              <h3 class="temp"><%= yr_current_weather[:air_temperature] %>°C</h3>
+              <img src="<%= icon_path(yr_current_weather[:icon]) %>" width="100"/>
             </div>
             <div class="other_info float-child">
-              <span><label><%= I18n.t(:humidity) %>: </label><%= yr_weather[:relative_humidity] %>%</span>
-              <% if yr_weather[:precipitation_amount] != 0.0 && interval[:precipitation_amount] == nil %>
-                <span class="rain"><label class="rain"><%= I18n.t(:rain) %>: </label><%= yr_weather[:precipitation_amount] %>mm</span>
+              <span><label><%= I18n.t(:humidity) %>: </label><%= yr_current_weather[:relative_humidity] %>%</span>
+              <% if yr_current_weather[:precipitation_amount] != 0.0 && interval[:precipitation_amount] == nil %>
+                <span class="rain"><label class="rain"><%= I18n.t(:rain) %>: </label><%= yr_current_weather[:precipitation_amount] %>mm</span>
               <% end %>
-              <span><label><%= I18n.t(:wind) %>: </label><label id="speed"><%= yr_weather[:wind_speed] %> m/s </label></span>
-              <% if yr_weather[:uv_index] != 0.0 %>
-                <span class="<%= yr_weather[:uv_class] %> uv_index"><label><%= I18n.t(:uv_index) %>: </label><%= yr_weather[:uv_index] %></span>
-              <% end %>        
-              <span><label><%= I18n.t(:sunrise) %>: </label><%= current_weather[:sunrise] %></span>
-              <span><label><%= I18n.t(:sunset) %>: </label><%= current_weather[:sunset] %></span>
+              <span><label><%= I18n.t(:wind) %>: </label><label id="speed"><%= yr_current_weather[:wind_speed] %> m/s </label></span>
+              <% if yr_current_weather[:uv_index] != 0.0 %>
+                <span><label><%= I18n.t(:uv_index) %>: </label><%= yr_current_weather[:uv_index] %></span>
+              <% end %>    
+              <% unless sunrise_sunset.key?(:error) %>      
+                <span><label><%= I18n.t(:sunrise) %>: </label><%= utc_to_datetime(sunrise_sunset[:sunrise]) %></span>
+                <span><label><%= I18n.t(:sunset) %>: </label><%= utc_to_datetime(sunrise_sunset[:sunset]) %></span>
+              <% end %>
             </div>
           </div>
-          
-          <% if yr_weather_forecast != [] %>
-          <div class="yr_forecast_table">
-            <table>
-              <% yr_weather_forecast.each do |interval| %>
-                <td class="yr_td">
-                  <span><%= interval[:time] %></span>
-                  <img src="<%= icon_path(interval[:icon]) %>" width="50"/>
-                  <span class="temp temp_yr"><%= interval[:air_temperature] %>°C</span>
-                  <% if interval[:uv_index] != 0.0 %>
-                    <div class="smaller <%= interval[:uv_class] %> uv_index">UVI <%= interval[:uv_index] %></div>
-                  <% else %>
-                    <div class="small">&nbsp</div>
-                  <% end %>
-                  <% if interval[:precipitation_amount] == 0.0 || interval[:precipitation_amount] == nil %>
-                  <div class="small">&nbsp</div>
-                <% else %>
-                  <div class="small"><span class="rain"><%= interval[:precipitation_amount] %>mm</span></div>
-                <% end %>
-                </td>
-              <% end %>
-            </table>
-          <% end %> 
-          <details>
-            <summary>Trebeviċ</summary>
-            <table class="yr_mountains">
-              <% yr_trebevic.each do |interval| %>
-                <td class="yr_td">
-                  <span><%= interval[:time] %></span>
-                  <img src="<%= icon_path(interval[:icon]) %>" width="50"/>
-                  <span class="temp temp_yr"><%= interval[:air_temperature] %>°C</span>
-                  <% if interval[:uv_index] != 0.0 %>
-                    <div class="smaller <%= interval[:uv_class] %> uv_index">UVI <%= interval[:uv_index] %></div>
-                  <% else %>
-                    <div class="small">&nbsp</div>
-                  <% end %>
-                  <% if interval[:precipitation_amount] == 0.0 || interval[:precipitation_amount] == nil %>
-                  <div class="small">&nbsp</div>
-                <% else %>
-                  <div class="small"><span class="rain"><%= interval[:precipitation_amount] %>mm</span></div>
-                <% end %>
-                </td>
-              <% end %>
-            </table>
-          </details>
-          <details>
-            <summary>Igman</summary>
-            <table class="yr_mountains">
-              <% yr_igman.each do |interval| %>
-                <td class="yr_td">
-                  <span><%= interval[:time] %></span>
-                  <img src="<%= icon_path(interval[:icon]) %>" width="50"/>
-                  <span class="temp temp_yr"><%= interval[:air_temperature] %>°C</span>
-                  <% if interval[:uv_index] != 0.0 %>
-                    <div class="smaller <%= interval[:uv_class] %> uv_index">UVI <%= interval[:uv_index] %></div>
-                  <% else %>
-                    <div class="small">&nbsp</div>
-                  <% end %>
-                  <% if interval[:precipitation_amount] == 0.0 || interval[:precipitation_amount] == nil %>
-                  <div class="small">&nbsp</div>
-                <% else %>
-                  <div class="small"><span class="rain"><%= interval[:precipitation_amount] %>mm</span></div>
-                <% end %>
-                </td>
-              <% end %>
-            </table>
-          </details>
-          <details>
-            <summary>Bjelašnica</summary>
-            <table class="yr_mountains">
-              <% yr_bjelasnica.each do |interval| %>
-                <td class="yr_td">
-                  <span><%= interval[:time] %></span>
-                  <img src="<%= icon_path(interval[:icon]) %>" width="50"/>
-                  <span class="temp temp_yr"><%= interval[:air_temperature] %>°C</span>
-                  <% if interval[:uv_index] != 0.0 %>
-                    <div class="smaller <%= interval[:uv_class] %> uv_index">UVI <%= interval[:uv_index] %></div>
-                  <% else %>
-                    <div class="small">&nbsp</div>
-                  <% end %>
-                  <% if interval[:precipitation_amount] == 0.0 || interval[:precipitation_amount] == nil %>
-                  <div class="small">&nbsp</div>
-                <% else %>
-                  <div class="small"><span class="rain"><%= interval[:precipitation_amount] %>mm</span></div>
-                <% end %>
-                </td>
-              <% end %>
-            </table>
-          </details>
-          <details>
-            <summary>Jahorina</summary>
-            <table class="yr_mountains">
-              <% yr_jahorina.each do |interval| %>
-                <td class="yr_td">
-                  <span><%= interval[:time] %></span>
-                  <img src="<%= icon_path(interval[:icon]) %>" width="50"/>
-                  <span class="temp temp_yr"><%= interval[:air_temperature] %>°C</span>
-                  <% if interval[:uv_index] != 0.0 %>
-                    <div class="smaller <%= interval[:uv_class] %> uv_index">UVI <%= interval[:uv_index] %></div>
-                  <% else %>
-                    <div class="small">&nbsp</div>
-                  <% end %>
-                  <% if interval[:precipitation_amount] == 0.0 || interval[:precipitation_amount] == nil %>
-                  <div class="small">&nbsp</div>
-                <% else %>
-                  <div class="small"><span class="rain"><%= interval[:precipitation_amount] %>mm</span></div>
-                <% end %>
-                </td>
-              <% end %>
-            </table>
-          </details>
-          </div>
         <% end %>
+
+        <div class="yr_forecast_table">
+            <% yr_weather_forecast.each do |key, values| %>             
+            <details <%= "open=true" if values[:name]=="Sarajevo" %>>
+              <summary><%= values[:name] %></summary>
+              <% if values[:forecast].is_a?(Hash) %>
+                <p><%= values[:forecast][:error][I18n.locale] %></p>
+              <% else %>
+              <table>
+              <tr>
+
+                <% values[:forecast].each_with_index do |interval, index| %>
+                  <td class="yr_td">
+                    <span>
+                      <% if index == 0 %>
+                          <p>Now</p>
+                      <% else %>
+                        <%= I18n.localize(interval[:time], format: :hm ) %>
+                      <% end %>  
+                    </span>
+                    <img src="<%= icon_path(interval[:icon]) %>" width="50"/>
+                    <span class="temp temp_yr"><%= interval[:air_temperature] %>°C</span>
+                    <% if interval[:uv_index] != 0.0 %>
+                      <div class="smaller <%= interval[:uv_class] %> uv_index">UVI <%= interval[:uv_index] %></div>
+                    <% else %>
+                      <div class="small">&nbsp</div>
+                    <% end %>
+                    <% if interval[:precipitation_amount] == 0.0 || interval[:precipitation_amount] == nil %>
+                      <div class="small">&nbsp</div>
+                    <% else %>
+                      <div class="small"><span class="rain"><%= interval[:precipitation_amount] %>mm</span></div>
+                    <% end %>
+                  </td>
+                <% end %>
+              </tr>
+              </table>
+              <% end %>
+            </details>
+
+            <% end %>
+        </div>  
+         
         <div class="small">
           <%= I18n.t(:data_provided_by) %><br>  
           <a href="https://www.yr.no/en" target=”_blank”><%= I18n.t(:met_norway) %></a>
         </div> 
 
-        <% if yr_weather[:uv_index] != 0.0 %>
-          <div>
-            <h4><%= I18n.t(:uv_index) %> - <%= I18n.t(:uv_messages) %></h4>
-            <%= I18n.t(yr_weather[:uv_class] + ".advisory") %>
-            <br><br>
+        <% if yr_current_weather[:uv_index] != 0.0 %>
+          <div id="uvi_div">
+            <h4 class="<%= yr_current_weather[:uv_class] %> uv_index"><%= I18n.t(:uv_index_dc) %>:  <%= I18n.t(yr_current_weather[:uv_class] + ".name") %> (<%= yr_current_weather[:uv_index] %>)</h4>
+            <b><%= I18n.t(:uv_messages) %></b>
+            <br>
+            <p><%= I18n.t(yr_current_weather[:uv_class] + ".advisory") %></p>
+            <br>
             <table id="uvi_legend" class="centered-table uvi_legend">
               <tr>
                 <td class="aqi_val">1 - 2</td>
@@ -300,8 +234,8 @@
 
         <% unless city_pollutants[:class].nil? %> 
 
-        <h3 class="<%= city_pollutants[:class] %> city_aqi_main">
-            <%= I18n.t("#{city_pollutants[:class]}.name") %> (<%= city_pollutants[:value] %>)  
+        <h3 class="<%= city_pollutants[:class] %> city_aqi_main"> 
+          <%= I18n.t(:aqi) %>:  <%= I18n.t("#{city_pollutants[:class]}.name") %> (<%= city_pollutants[:value] %>)  
         </h3>
 
         <% end %>
@@ -429,69 +363,72 @@
         </div>  
         <div id="air_more" class="section">
 
-      
         <h3><%= I18n.t(:aqi_more) %></h3>
 
+        <% if ekoakcija_aqi_data.is_a?(Hash) %>
+          <p><%= ekoakcija_aqi_data[:error][I18n.locale] %></p>
+        <% else %>
+          <% (eko_akcija, ea_city_aqi_value, ea_city_aqi_class) = ekoakcija_aqi_data %>
         <h4>
           <%= I18n.t(:data_provided_by) %><br>  
           <a href="https://zrak.ekoakcija.org/sarajevo" target=”_blank”><%= I18n.t(:aqi_eko_akcija) %></a>
         </h4>
-        <h3 class="<%= ea_city_aqi_class %> city_aqi_main"><%= I18n.t(ea_city_aqi_class + ".name") %> (<%= ea_city_aqi_value %>)</h3>
-        <p class="small">*<%= I18n.t(:aqi_eko_akcija_disclaimer) %></p>
-        <table class="stations_aqi centered-table">
-            <th><%= I18n.t(:station) %> </th>
-            <th>PM<sub>10</sub></th>
-            <th>PM<sub>2.5</sub></th>
-            <th>SO<sub>2</sub></th>
-            <th><%= I18n.t(:aqi) %></th>
-          <% eko_akcija.each do |raw| %>
-            <tr>
-            <% raw.each_with_index do |el, index| %>
-              <% next if index == 5 %>
-              <% if index == 4 %>
-                <td class="<%= text_to_class(raw[5]) %>"><%= el %></td>
-              <% else %>
-                <td><%= el %></td>
+          <h3 class="<%= ea_city_aqi_class %> city_aqi_main"><%= I18n.t(:aqi) %>: <%= I18n.t(ea_city_aqi_class + ".name") %> (<%= ea_city_aqi_value %>)</h3>
+          <p class="small">*<%= I18n.t(:aqi_eko_akcija_disclaimer) %></p>
+          <table class="stations_aqi centered-table">
+              <th><%= I18n.t(:station) %> </th>
+              <th>PM<sub>10</sub></th>
+              <th>PM<sub>2.5</sub></th>
+              <th>SO<sub>2</sub></th>
+              <th><%= I18n.t(:aqi) %></th>
+            <% eko_akcija.each do |raw| %>
+              <tr>
+              <% raw.each_with_index do |el, index| %>
+                <% next if index == 5 %>
+                <% if index == 4 %>
+                  <td class="<%= text_to_class(raw[5]) %>"><%= el %></td>
+                <% else %>
+                  <td><%= el %></td>
+                <% end %>
               <% end %>
+              </tr>
             <% end %>
+          </table>
+          <p id="ea_health_messages"><%= I18n.t(ea_city_aqi_class + ".advisory") %></p>
+          <br>
+
+          <table id="aqi_legend" class="centered-table">
+            <tr>
+              <td class="aqi_val">0 - 50 &nbsp</td>
+              <td class="good empty"></td>
+              <td ><%= I18n.t('good.name') %></td>
             </tr>
-          <% end %>
-        </table>
-        <p id="ea_health_messages"><%= I18n.t(ea_city_aqi_class + ".advisory") %></p>
-
-        <br>
-
-        <table id="aqi_legend" class="centered-table">
-          <tr>
-            <td class="aqi_val">0 - 50 &nbsp</td>
-            <td class="good empty"></td>
-            <td ><%= I18n.t('good.name') %></td>
-          </tr>
-          <tr>
-            <td class="aqi_val">51 - 100</td>
-            <td class="moderate empty"></td>
-            <td ><%= I18n.t('moderate.name') %></td>
-          </tr>
-          <tr>
-            <td class="aqi_val">101 - 150</td>
-            <td class="unhealthy_for_sensitive_groups empty"></td>
-            <td ><%= I18n.t('unhealthy_for_sensitive_groups.name') %></td>
-          </tr>
-          <tr>
-            <td class="aqi_val">151 - 200</td>
-            <td class="unhealthy empty"></td>
-            <td ><%= I18n.t('unhealthy.name') %></td>
-          </tr>
-            <td class="aqi_val">201 - 300</td>
-            <td class="very_unhealthy empty"></td>
-            <td ><%= I18n.t('very_unhealthy.name') %></td>
-          </tr>
-          <tr>
-            <td class="aqi_val">301 - 500</td>
-            <td class="hazardous empty"></td>
-            <td ><%= I18n.t('hazardous.name') %></td>
-          </tr>
-        </table>
+            <tr>
+              <td class="aqi_val">51 - 100</td>
+              <td class="moderate empty"></td>
+              <td ><%= I18n.t('moderate.name') %></td>
+            </tr>
+            <tr>
+              <td class="aqi_val">101 - 150</td>
+              <td class="unhealthy_for_sensitive_groups empty"></td>
+              <td ><%= I18n.t('unhealthy_for_sensitive_groups.name') %></td>
+            </tr>
+            <tr>
+              <td class="aqi_val">151 - 200</td>
+              <td class="unhealthy empty"></td>
+              <td ><%= I18n.t('unhealthy.name') %></td>
+            </tr>
+              <td class="aqi_val">201 - 300</td>
+              <td class="very_unhealthy empty"></td>
+              <td ><%= I18n.t('very_unhealthy.name') %></td>
+            </tr>
+            <tr>
+              <td class="aqi_val">301 - 500</td>
+              <td class="hazardous empty"></td>
+              <td ><%= I18n.t('hazardous.name') %></td>
+            </tr>
+          </table>
+        <% end %>  
 
         <br><hr>
         <h4>
@@ -518,8 +455,10 @@
                 <% if values.key?(pollutant) %>
                   <td class="<%= values[pollutant][:css_class] %>">
                     <b><%= values[pollutant][:concentration] %></b>
-                    <%= values[pollutant][:date] %>
-                    <%= values[pollutant][:time] %>
+                    <% unless values[pollutant][:date].nil? %>
+                      <%= I18n.localize(values[pollutant][:date], format: :normal) %>
+                      <%= I18n.localize(values[pollutant][:time], format: :hm) %>
+                    <% end %>
                   </td>
                 <% end %>
               <% end %>
@@ -542,7 +481,7 @@
             <tr>
               <td class="ks_station"> <%= station %> </td>
               <% %w[SO2 NO2 O3 CO PM10 PM2.5].each do |pollutant| %>
-                <% if values.key?(pollutant) && values[pollutant][:date] ==  I18n.localize(Time.now, format: :normal) %>
+                <% if values.key?(pollutant) && values[pollutant][:date] != nil && I18n.localize(values[pollutant][:date], format: :normal) ==  I18n.localize(Time.now, format: :normal) %>
                   <td class="<%= values[pollutant][:css_class] %>">
                     <%= values[pollutant][:aqi] %>
                   </td> 
@@ -555,8 +494,8 @@
 
       <div id="weather_forecast" class="section">
         <h2><%= I18n.t(:weather_forecast) %></h2>
-        <% if weather_forecast.has_key?(:error) %>
-          <p><%= weather_forecast[:error][I18n.locale] %></p>
+        <% if own_weather_forecast.has_key?(:error) %>
+          <p><%= own_weather_forecast[:error][I18n.locale] %></p>
         <% else %>  
         <div id="forecast_table">
           <table class="centered-table" cellspacing="0">
@@ -573,7 +512,7 @@
               </div>
             </tr>
             <% first = true %>
-            <% weather_forecast.each do |day, values| %>
+            <% own_weather_forecast.each do |day, values| %>
             <tr class="border_bottom">
               <td class="forecast_day sticky-col first-col"><%= day %></td>
               <% if first == true %>

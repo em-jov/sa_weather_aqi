@@ -4,6 +4,7 @@ require 'dotenv/load'
 
 Rake::TestTask.new do |task|
  task.pattern = 'test/**/*_test.rb'
+ task.warning = false
 end
 
 desc 'Run lambda function locally'

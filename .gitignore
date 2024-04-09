@@ -1,6 +1,7 @@
 .env
 index.html
 vendor/
+coverage/
 deployment_package.zip
 en/index.html
 feed.json

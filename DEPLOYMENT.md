@@ -107,7 +107,7 @@ Before proceeding, ensure you have the following:
         ```
     -  In Lambda console, under the `Configuration` tab:
         - select `General configuration` and set `Timeout` to 10 sec (or more).
-        - select `Environment variables` and add key/value pairs `API_KEY`, `BUCKET` and `CLOUDFRONT_DISTRIBUTION` that you can find in `.env` file.
+        - select `Environment variables` and add key/value pairs `API_KEY`, `BUCKET`, `CLOUDFRONT_DISTRIBUTION` and `SENTRY_DSN` that you can find in `.env` file.
         - select `Permissions`, follow `Role name` link to IAM console. Under `Permissions policies` panel, choose `Add permissions` and `Attach policy`. Search for `AmazonS3FullAccess` and `CloudFrontFullAccess` and add them.
 
 <sub>[back on top ^](#table-of-contents)</sub>

@@ -36,6 +36,7 @@ en:
   sunrise: SUNRISE
   sunset: SUNSET
   uv_index: UV INDEX
+  uv_index_dc: UV index
   uv_messages: Sun Protection Messages
   uv_low:
     name: low

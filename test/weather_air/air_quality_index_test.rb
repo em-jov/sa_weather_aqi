@@ -1,7 +1,8 @@
 require_relative '../test_helper'
 
-class AirQualityIndexTest < Minitest::Test
+class AirQualityIndexTest < TestCase
   def setup 
+    super
     @script = WeatherAir::AirQualityIndex.new
     @stations_pollutants = {
     "vijecnica"=>{:aqi=>{:value=>"1", :class=>:good_eea}, :so2=>{:value=>"1", :class=>:good_eea}, :no2=>{:value=>"1", :class=>:good_eea}, :o3=>{:value=>"", :class=>nil}, :pm10=>{:value=>"", :class=>nil}, :pm25=>{:value=>"", :class=>nil}, :name=>"Vijećnica", :latitude=>43.859, :longitude=>18.434},
@@ -14,8 +15,59 @@ class AirQualityIndexTest < Minitest::Test
     "ivan_sedlo"=>{:aqi=>{:value=>"3", :class=>:moderate_eea}, :so2=>{:value=>"1", :class=>:good_eea}, :no2=>{:value=>"1", :class=>:good_eea}, :o3=>{:value=>"3", :class=>:moderate_eea}, :pm10=>{:value=>"1", :class=>:good_eea}, :pm25=>{:value=>"", :class=>nil}, :name=>"Ivan sedlo", :latitude=>43.75, :longitude=>18.035}}
   end
 
-  def teardown
-    Timecop.return
+  def test_stations_pollutants_aqi_data
+    stub_request(:get, "https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php").
+      to_return(status: 200, body: File.read('test/fixtures/fhmzbih.html'), headers: {})
+          
+    result = @script.stations_pollutants_aqi_data
+    assert_equal({:value=>"3", :class=>:moderate_eea}, result['otoka'][:o3])
+  end
+
+  def test_aqi_by_ks
+    stub_request(:get, "https://aqms.live/kvalitetzraka/st.php?st=vijecnica").
+      to_return(status: 200, body: File.read('test/fixtures/ks_aqi_vijecnica.html'), headers: {})
+    
+    stub_request(:get, "https://aqms.live/kvalitetzraka/st.php?st=otoka").
+      to_return(status: 200, body: File.read('test/fixtures/ks_aqi_otoka.html'), headers: {})
+
+    stub_request(:get, "https://aqms.live/kvalitetzraka/st.php?st=ilidza").
+      to_return(status: 200, body: File.read('test/fixtures/ks_aqi_ilidza.html'), headers: {})
+
+    stub_request(:get, "https://aqms.live/kvalitetzraka/st.php?st=vogosca").
+      to_return(status: 200, body: File.read('test/fixtures/ks_aqi_vogosca.html'), headers: {})
+
+    stub_request(:get, "https://aqms.live/kvalitetzraka/st.php?st=ilijas").
+      to_return(status: 200, body: File.read('test/fixtures/ks_aqi_ilijas.html'), headers: {})  
+    
+    I18n.locale = :bs
+
+    result = @script.aqi_by_ks
+    assert_equal("9.42 μg/m3", result['Vijećnica']["SO2"][:concentration])
+  end
+
+  def test_aqi_by_ekoakcija
+    stub_request(:get, "https://zrak.ekoakcija.org/sarajevo").
+      to_return(status: 200, body: File.read("test/fixtures/ekoakcija_aqi.html"), headers: {})
+
+    result = @script.aqi_by_ekoakcija
+    expected = [[["Ambasada SAD", "", "26", "", "75", "Umjereno zagađen"],
+                ["Otoka", "28", "17", "9", "55", "Umjereno zagađen"],
+                ["Vijećnica", "14", "13", "2", "53", "Umjereno zagađen"],
+                ["Bjelave", "35", "10", "8", "33", "Dobar"],
+                ["Ilidža", "13", "8", "4", "25", "Dobar"]],
+                75, "moderate"]
+    assert_equal(expected, result)
+  end
+
+  def test_aqi_by_ekoakcija_no_data
+    stub_request(:get, "https://zrak.ekoakcija.org/sarajevo").
+      to_return(status: 403, body: "", headers: {})
+
+    ExceptionNotifier.expects(:notify)  
+    result = @script.aqi_by_ekoakcija
+    expected = {:error=>{:en=>"Error: No current data available from zrak.ekoakcija.org.", 
+                         :bs=>"Greška: Nedostupni podaci sa stranice zrak.ekoakcija.org."}}
+    assert_equal(expected, result)
   end
 
   def test_city_pollutants_aqi_no_values

@@ -1,0 +1,154 @@
+---
+utorak 09.04.:
+- :description: oblačno
+  :icon: 04n
+  :temp: 13
+  :rain: 0
+- :description: oblačno
+  :icon: 04n
+  :temp: 12
+  :rain: 0
+- :description: oblačno
+  :icon: 04d
+  :temp: 15
+  :rain: 0
+- :description: oblačno
+  :icon: 04d
+  :temp: 21
+  :rain: 0
+- :description: oblačno
+  :icon: 04d
+  :temp: 23
+  :rain: 0
+- :description: oblačno
+  :icon: 04d
+  :temp: 23
+  :rain: 0
+- :description: oblačno
+  :icon: 04n
+  :temp: 15
+  :rain: 0
+- :description: isprekidani oblaci
+  :icon: 04n
+  :temp: 13
+  :rain: 0
+srijeda 10.04.:
+- :description: isprekidani oblaci
+  :icon: 04n
+  :temp: 12
+  :rain: 0
+- :description: oblačno
+  :icon: 04n
+  :temp: 11
+  :rain: 0
+- :description: oblačno
+  :icon: 04d
+  :temp: 14
+  :rain: 0
+- :description: oblačno
+  :icon: 04d
+  :temp: 19
+  :rain: 0
+- :description: oblačno
+  :icon: 04d
+  :temp: 21
+  :rain: 0
+- :description: slaba kiša
+  :icon: 10d
+  :temp: 16
+  :rain: 0.12
+- :description: oblačno
+  :icon: 04n
+  :temp: 14
+  :rain: 0
+- :description: oblačno
+  :icon: 04n
+  :temp: 13
+  :rain: 0
+četvrtak 11.04.:
+- :description: oblačno
+  :icon: 04n
+  :temp: 12
+  :rain: 0
+- :description: oblačno
+  :icon: 04n
+  :temp: 10
+  :rain: 0
+- :description: oblačno
+  :icon: 04d
+  :temp: 11
+  :rain: 0
+- :description: oblačno
+  :icon: 04d
+  :temp: 16
+  :rain: 0
+- :description: oblačno
+  :icon: 04d
+  :temp: 20
+  :rain: 0
+- :description: oblačno
+  :icon: 04d
+  :temp: 20
+  :rain: 0
+- :description: oblačno
+  :icon: 04n
+  :temp: 13
+  :rain: 0
+- :description: oblačno
+  :icon: 04n
+  :temp: 11
+  :rain: 0
+petak 12.04.:
+- :description: oblačno
+  :icon: 04n
+  :temp: 10
+  :rain: 0
+- :description: raštrkani oblaci
+  :icon: 03n
+  :temp: 9
+  :rain: 0
+- :description: blaga naoblaka
+  :icon: 02d
+  :temp: 12
+  :rain: 0
+- :description: blaga naoblaka
+  :icon: 02d
+  :temp: 19
+  :rain: 0
+- :description: blaga naoblaka
+  :icon: 02d
+  :temp: 22
+  :rain: 0
+- :description: raštrkani oblaci
+  :icon: 03d
+  :temp: 20
+  :rain: 0
+- :description: slaba kiša
+  :icon: 10n
+  :temp: 14
+  :rain: 0.1
+- :description: isprekidani oblaci
+  :icon: 04n
+  :temp: 13
+  :rain: 0
+subota 13.04.:
+- :description: slaba kiša
+  :icon: 10n
+  :temp: 14
+  :rain: 0.26
+- :description: slaba kiša
+  :icon: 10n
+  :temp: 13
+  :rain: 0.5
+- :description: slaba kiša
+  :icon: 10d
+  :temp: 14
+  :rain: 0.1
+- :description: raštrkani oblaci
+  :icon: 03d
+  :temp: 17
+  :rain: 0
+- :description: raštrkani oblaci
+  :icon: 03d
+  :temp: 20
+  :rain: 0

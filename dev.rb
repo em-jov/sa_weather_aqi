@@ -1,8 +1,5 @@
 require './src/weather_air'
 require 'dotenv/load'
-require 'logger'
-
-#$logger = Logger.new
 
 (bosnian, english, feed, sa_aqi, ms_aqi) = WeatherAir.run
 File.write('index.html', bosnian)

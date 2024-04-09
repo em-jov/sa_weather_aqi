@@ -36,7 +36,7 @@ module WeatherAir
       @stations_pollutants_aqi_data = stations
     end
 
-    def aqi_by_ks(locale = :en)
+    def aqi_by_ks
       stations = { 'Vijećnica' => { name: 'vijecnica', latitude: 43.859, longitude: 18.434 },
                    'Otoka' => { name: 'otoka', latitude: 43.848, longitude: 18.363 },
                    'Ilidža' => { name: 'ilidza', latitude: 43.830 , longitude: 18.310 },
@@ -44,13 +44,47 @@ module WeatherAir
                    'Ilijaš' => { name: 'ilijas', latitude: 43.960, longitude: 18.269 }}
 
       stations.each do |station, values|
-        values.merge!(fetch_pollutants_from_ks_website(values[:name], locale))
+        values.merge!(fetch_pollutants_from_ks_website(values[:name]))
       end
 
       stations
     end
 
-    def fetch_pollutants_from_ks_website(station, locale)
+    def aqi_by_ekoakcija
+      station_ea_site = Nokogiri::HTML(URI.open("https://zrak.ekoakcija.org/sarajevo"))
+      table = station_ea_site.search(".views-table.cols-6 tbody tr")
+
+      ea_table = []
+      table.each do |tr|
+        ea_table << tr.search('td').each_with_object([]) do |td, n|
+          n << td.text.strip 
+        end
+      end
+      aqi_values = []
+      ea_table.each do |x|
+        aqi_values << x[4].to_i
+      end
+      city_aqi_value =  aqi_values.max
+      city_aqi_desc = AQI.find{|key, value| value.include?(city_aqi_value)}.first.to_s
+      [ea_table, city_aqi_value, city_aqi_desc]
+    rescue StandardError => exception
+      ExceptionNotifier.notify(exception)  
+      { error: { en: 'Error: No current data available from zrak.ekoakcija.org.', 
+                 bs: 'Greška: Nedostupni podaci sa stranice zrak.ekoakcija.org.' } }  
+    end
+
+    def city_pollutants_aqi
+      city_pollutants = fetch_max_values(stations_pollutants_aqi_data)
+
+      city_pollutants[:value] = city_pollutants.max_by{|k,v| v}[1]
+      city_pollutants[:class] = EUAQI.key(city_pollutants[:value])
+
+      city_pollutants
+    end
+
+    private
+
+    def fetch_pollutants_from_ks_website(station)
       station_ks_site = Nokogiri::HTML(URI.open("https://aqms.live/kvalitetzraka/st.php?st=#{station}"))
       table = station_ks_site.search(".table.table-hover").first
 
@@ -67,8 +101,8 @@ module WeatherAir
         key = /\(.*?\)/.match(el.children.first.text)[0].delete("()")
         if pollutants.has_key?(key)
           pollutants[key] = {
-            date: I18n.localize(Time.parse(el.children[1].text), format: :normal),
-            time: I18n.localize(Time.parse(el.children[1].text.split(' ')[1][0..1] + ":00"), format: :hm),
+            date: Time.parse(el.children[1].text),
+            time: Time.parse(el.children[1].text.split(' ')[1][0..1] + ":00"),
             display: Time.parse(el.children[1].text).to_date == Time.now.to_date,
             concentration: el.children[3].text,
             css_class: bg_color_to_class(el.children[5].attribute_nodes.first.value[18..24]),
@@ -96,36 +130,6 @@ module WeatherAir
         "hazardous"
       end
     end
-
-    def aqi_by_ekoakcija
-      station_ea_site = Nokogiri::HTML(URI.open("https://zrak.ekoakcija.org/sarajevo"))
-      table = station_ea_site.search(".views-table.cols-6 tbody tr")
-
-      ea_table = []
-      table.each do |tr|
-        ea_table << tr.search('td').each_with_object([]) do |td, n|
-          n << td.text.strip 
-        end
-      end
-      aqi_values = []
-      ea_table.each do |x|
-        aqi_values << x[4].to_i
-      end
-      city_aqi_value =  aqi_values.max
-      city_aqi_desc = AQI.find{|key, value| value.include?(city_aqi_value)}.first.to_s
-      [ea_table, city_aqi_value, city_aqi_desc]
-    end
-
-    def city_pollutants_aqi
-      city_pollutants = fetch_max_values(stations_pollutants_aqi_data)
-
-      city_pollutants[:value] = city_pollutants.max_by{|k,v| v}[1]
-      city_pollutants[:class] = EUAQI.key(city_pollutants[:value])
-
-      city_pollutants
-    end
-
-    private
 
     def fetch_fhmzbih_data
       fhmzbih_website = Nokogiri::HTML(URI.open('https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php'))

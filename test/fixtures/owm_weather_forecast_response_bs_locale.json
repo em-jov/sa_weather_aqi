@@ -1,0 +1,1460 @@
+{
+  "cod": "200",
+  "message": 0,
+  "cnt": 40,
+  "list": [
+    {
+      "dt": 1712242800,
+      "main": {
+        "temp": 18.09,
+        "feels_like": 16.95,
+        "temp_min": 16.72,
+        "temp_max": 18.09,
+        "pressure": 1018,
+        "sea_level": 1018,
+        "grnd_level": 909,
+        "humidity": 38,
+        "temp_kf": 1.37
+      },
+      "weather": [
+        {
+          "id": 800,
+          "main": "Clear",
+          "description": "vedro",
+          "icon": "01d"
+        }
+      ],
+      "clouds": {
+        "all": 4
+      },
+      "wind": {
+        "speed": 1.33,
+        "deg": 293,
+        "gust": 2.15
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "d"
+      },
+      "dt_txt": "2024-04-04 15:00:00"
+    },
+    {
+      "dt": 1712253600,
+      "main": {
+        "temp": 14,
+        "feels_like": 13.05,
+        "temp_min": 11.61,
+        "temp_max": 14,
+        "pressure": 1019,
+        "sea_level": 1019,
+        "grnd_level": 910,
+        "humidity": 61,
+        "temp_kf": 2.39
+      },
+      "weather": [
+        {
+          "id": 801,
+          "main": "Clouds",
+          "description": "blaga naoblaka",
+          "icon": "02n"
+        }
+      ],
+      "clouds": {
+        "all": 20
+      },
+      "wind": {
+        "speed": 2.03,
+        "deg": 207,
+        "gust": 1.73
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "n"
+      },
+      "dt_txt": "2024-04-04 18:00:00"
+    },
+    {
+      "dt": 1712264400,
+      "main": {
+        "temp": 9.36,
+        "feels_like": 8.51,
+        "temp_min": 9.36,
+        "temp_max": 9.36,
+        "pressure": 1021,
+        "sea_level": 1021,
+        "grnd_level": 910,
+        "humidity": 85,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 802,
+          "main": "Clouds",
+          "description": "raštrkani oblaci",
+          "icon": "03n"
+        }
+      ],
+      "clouds": {
+        "all": 35
+      },
+      "wind": {
+        "speed": 1.93,
+        "deg": 182,
+        "gust": 1.98
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "n"
+      },
+      "dt_txt": "2024-04-04 21:00:00"
+    },
+    {
+      "dt": 1712275200,
+      "main": {
+        "temp": 8.42,
+        "feels_like": 7.86,
+        "temp_min": 8.42,
+        "temp_max": 8.42,
+        "pressure": 1022,
+        "sea_level": 1022,
+        "grnd_level": 911,
+        "humidity": 89,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 803,
+          "main": "Clouds",
+          "description": "isprekidani oblaci",
+          "icon": "04n"
+        }
+      ],
+      "clouds": {
+        "all": 67
+      },
+      "wind": {
+        "speed": 1.49,
+        "deg": 196,
+        "gust": 1.3
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "n"
+      },
+      "dt_txt": "2024-04-05 00:00:00"
+    },
+    {
+      "dt": 1712286000,
+      "main": {
+        "temp": 7.28,
+        "feels_like": 7.28,
+        "temp_min": 7.28,
+        "temp_max": 7.28,
+        "pressure": 1023,
+        "sea_level": 1023,
+        "grnd_level": 912,
+        "humidity": 91,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 803,
+          "main": "Clouds",
+          "description": "isprekidani oblaci",
+          "icon": "04n"
+        }
+      ],
+      "clouds": {
+        "all": 52
+      },
+      "wind": {
+        "speed": 1.3,
+        "deg": 187,
+        "gust": 1.09
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "n"
+      },
+      "dt_txt": "2024-04-05 03:00:00"
+    },
+    {
+      "dt": 1712296800,
+      "main": {
+        "temp": 9.91,
+        "feels_like": 9.91,
+        "temp_min": 9.91,
+        "temp_max": 9.91,
+        "pressure": 1023,
+        "sea_level": 1023,
+        "grnd_level": 912,
+        "humidity": 78,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 802,
+          "main": "Clouds",
+          "description": "raštrkani oblaci",
+          "icon": "03d"
+        }
+      ],
+      "clouds": {
+        "all": 43
+      },
+      "wind": {
+        "speed": 0.67,
+        "deg": 220,
+        "gust": 0.95
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "d"
+      },
+      "dt_txt": "2024-04-05 06:00:00"
+    },
+    {
+      "dt": 1712307600,
+      "main": {
+        "temp": 15.96,
+        "feels_like": 15,
+        "temp_min": 15.96,
+        "temp_max": 15.96,
+        "pressure": 1022,
+        "sea_level": 1022,
+        "grnd_level": 913,
+        "humidity": 53,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 802,
+          "main": "Clouds",
+          "description": "raštrkani oblaci",
+          "icon": "03d"
+        }
+      ],
+      "clouds": {
+        "all": 42
+      },
+      "wind": {
+        "speed": 1.02,
+        "deg": 305,
+        "gust": 0.91
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "d"
+      },
+      "dt_txt": "2024-04-05 09:00:00"
+    },
+    {
+      "dt": 1712318400,
+      "main": {
+        "temp": 18.03,
+        "feels_like": 17.04,
+        "temp_min": 18.03,
+        "temp_max": 18.03,
+        "pressure": 1022,
+        "sea_level": 1022,
+        "grnd_level": 913,
+        "humidity": 44,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 803,
+          "main": "Clouds",
+          "description": "isprekidani oblaci",
+          "icon": "04d"
+        }
+      ],
+      "clouds": {
+        "all": 71
+      },
+      "wind": {
+        "speed": 1.56,
+        "deg": 308,
+        "gust": 1.42
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "d"
+      },
+      "dt_txt": "2024-04-05 12:00:00"
+    },
+    {
+      "dt": 1712329200,
+      "main": {
+        "temp": 17.13,
+        "feels_like": 16.18,
+        "temp_min": 17.13,
+        "temp_max": 17.13,
+        "pressure": 1021,
+        "sea_level": 1021,
+        "grnd_level": 912,
+        "humidity": 49,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 804,
+          "main": "Clouds",
+          "description": "oblačno",
+          "icon": "04d"
+        }
+      ],
+      "clouds": {
+        "all": 100
+      },
+      "wind": {
+        "speed": 1.79,
+        "deg": 326,
+        "gust": 1.61
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "d"
+      },
+      "dt_txt": "2024-04-05 15:00:00"
+    },
+    {
+      "dt": 1712340000,
+      "main": {
+        "temp": 11.98,
+        "feels_like": 11.09,
+        "temp_min": 11.98,
+        "temp_max": 11.98,
+        "pressure": 1022,
+        "sea_level": 1022,
+        "grnd_level": 913,
+        "humidity": 71,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 804,
+          "main": "Clouds",
+          "description": "oblačno",
+          "icon": "04n"
+        }
+      ],
+      "clouds": {
+        "all": 89
+      },
+      "wind": {
+        "speed": 1.42,
+        "deg": 179,
+        "gust": 1.08
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "n"
+      },
+      "dt_txt": "2024-04-05 18:00:00"
+    },
+    {
+      "dt": 1712350800,
+      "main": {
+        "temp": 10.25,
+        "feels_like": 9.55,
+        "temp_min": 10.25,
+        "temp_max": 10.25,
+        "pressure": 1024,
+        "sea_level": 1024,
+        "grnd_level": 913,
+        "humidity": 85,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 803,
+          "main": "Clouds",
+          "description": "isprekidani oblaci",
+          "icon": "04n"
+        }
+      ],
+      "clouds": {
+        "all": 52
+      },
+      "wind": {
+        "speed": 1.48,
+        "deg": 184,
+        "gust": 1.27
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "n"
+      },
+      "dt_txt": "2024-04-05 21:00:00"
+    },
+    {
+      "dt": 1712361600,
+      "main": {
+        "temp": 9.34,
+        "feels_like": 8.95,
+        "temp_min": 9.34,
+        "temp_max": 9.34,
+        "pressure": 1024,
+        "sea_level": 1024,
+        "grnd_level": 913,
+        "humidity": 90,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 802,
+          "main": "Clouds",
+          "description": "raštrkani oblaci",
+          "icon": "03n"
+        }
+      ],
+      "clouds": {
+        "all": 49
+      },
+      "wind": {
+        "speed": 1.45,
+        "deg": 173,
+        "gust": 1.34
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "n"
+      },
+      "dt_txt": "2024-04-06 00:00:00"
+    },
+    {
+      "dt": 1712372400,
+      "main": {
+        "temp": 8.98,
+        "feels_like": 8.63,
+        "temp_min": 8.98,
+        "temp_max": 8.98,
+        "pressure": 1024,
+        "sea_level": 1024,
+        "grnd_level": 913,
+        "humidity": 89,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 804,
+          "main": "Clouds",
+          "description": "oblačno",
+          "icon": "04n"
+        }
+      ],
+      "clouds": {
+        "all": 95
+      },
+      "wind": {
+        "speed": 1.37,
+        "deg": 178,
+        "gust": 1.29
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "n"
+      },
+      "dt_txt": "2024-04-06 03:00:00"
+    },
+    {
+      "dt": 1712383200,
+      "main": {
+        "temp": 11.98,
+        "feels_like": 11.22,
+        "temp_min": 11.98,
+        "temp_max": 11.98,
+        "pressure": 1024,
+        "sea_level": 1024,
+        "grnd_level": 914,
+        "humidity": 76,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 803,
+          "main": "Clouds",
+          "description": "isprekidani oblaci",
+          "icon": "04d"
+        }
+      ],
+      "clouds": {
+        "all": 74
+      },
+      "wind": {
+        "speed": 0.2,
+        "deg": 198,
+        "gust": 0.61
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "d"
+      },
+      "dt_txt": "2024-04-06 06:00:00"
+    },
+    {
+      "dt": 1712394000,
+      "main": {
+        "temp": 18.54,
+        "feels_like": 17.81,
+        "temp_min": 18.54,
+        "temp_max": 18.54,
+        "pressure": 1022,
+        "sea_level": 1022,
+        "grnd_level": 914,
+        "humidity": 52,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 804,
+          "main": "Clouds",
+          "description": "oblačno",
+          "icon": "04d"
+        }
+      ],
+      "clouds": {
+        "all": 89
+      },
+      "wind": {
+        "speed": 0.59,
+        "deg": 324,
+        "gust": 0.7
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "d"
+      },
+      "dt_txt": "2024-04-06 09:00:00"
+    },
+    {
+      "dt": 1712404800,
+      "main": {
+        "temp": 21.64,
+        "feels_like": 20.93,
+        "temp_min": 21.64,
+        "temp_max": 21.64,
+        "pressure": 1020,
+        "sea_level": 1020,
+        "grnd_level": 912,
+        "humidity": 41,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 802,
+          "main": "Clouds",
+          "description": "raštrkani oblaci",
+          "icon": "03d"
+        }
+      ],
+      "clouds": {
+        "all": 47
+      },
+      "wind": {
+        "speed": 1.69,
+        "deg": 305,
+        "gust": 1.16
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "d"
+      },
+      "dt_txt": "2024-04-06 12:00:00"
+    },
+    {
+      "dt": 1712415600,
+      "main": {
+        "temp": 20.6,
+        "feels_like": 19.89,
+        "temp_min": 20.6,
+        "temp_max": 20.6,
+        "pressure": 1020,
+        "sea_level": 1020,
+        "grnd_level": 912,
+        "humidity": 45,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 800,
+          "main": "Clear",
+          "description": "vedro",
+          "icon": "01d"
+        }
+      ],
+      "clouds": {
+        "all": 8
+      },
+      "wind": {
+        "speed": 1.9,
+        "deg": 315,
+        "gust": 1.15
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "d"
+      },
+      "dt_txt": "2024-04-06 15:00:00"
+    },
+    {
+      "dt": 1712426400,
+      "main": {
+        "temp": 14.57,
+        "feels_like": 13.86,
+        "temp_min": 14.57,
+        "temp_max": 14.57,
+        "pressure": 1021,
+        "sea_level": 1021,
+        "grnd_level": 912,
+        "humidity": 68,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 800,
+          "main": "Clear",
+          "description": "vedro",
+          "icon": "01n"
+        }
+      ],
+      "clouds": {
+        "all": 5
+      },
+      "wind": {
+        "speed": 0.36,
+        "deg": 182,
+        "gust": 1.01
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "n"
+      },
+      "dt_txt": "2024-04-06 18:00:00"
+    },
+    {
+      "dt": 1712437200,
+      "main": {
+        "temp": 12.91,
+        "feels_like": 12.21,
+        "temp_min": 12.91,
+        "temp_max": 12.91,
+        "pressure": 1022,
+        "sea_level": 1022,
+        "grnd_level": 913,
+        "humidity": 75,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 800,
+          "main": "Clear",
+          "description": "vedro",
+          "icon": "01n"
+        }
+      ],
+      "clouds": {
+        "all": 10
+      },
+      "wind": {
+        "speed": 0.95,
+        "deg": 172,
+        "gust": 0.93
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "n"
+      },
+      "dt_txt": "2024-04-06 21:00:00"
+    },
+    {
+      "dt": 1712448000,
+      "main": {
+        "temp": 11.66,
+        "feels_like": 10.94,
+        "temp_min": 11.66,
+        "temp_max": 11.66,
+        "pressure": 1022,
+        "sea_level": 1022,
+        "grnd_level": 913,
+        "humidity": 79,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 801,
+          "main": "Clouds",
+          "description": "blaga naoblaka",
+          "icon": "02n"
+        }
+      ],
+      "clouds": {
+        "all": 17
+      },
+      "wind": {
+        "speed": 0.42,
+        "deg": 181,
+        "gust": 0.68
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "n"
+      },
+      "dt_txt": "2024-04-07 00:00:00"
+    },
+    {
+      "dt": 1712458800,
+      "main": {
+        "temp": 10.85,
+        "feels_like": 10.24,
+        "temp_min": 10.85,
+        "temp_max": 10.85,
+        "pressure": 1022,
+        "sea_level": 1022,
+        "grnd_level": 912,
+        "humidity": 86,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 803,
+          "main": "Clouds",
+          "description": "isprekidani oblaci",
+          "icon": "04n"
+        }
+      ],
+      "clouds": {
+        "all": 59
+      },
+      "wind": {
+        "speed": 1.16,
+        "deg": 148,
+        "gust": 1.02
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "n"
+      },
+      "dt_txt": "2024-04-07 03:00:00"
+    },
+    {
+      "dt": 1712469600,
+      "main": {
+        "temp": 13.96,
+        "feels_like": 13.37,
+        "temp_min": 13.96,
+        "temp_max": 13.96,
+        "pressure": 1022,
+        "sea_level": 1022,
+        "grnd_level": 912,
+        "humidity": 75,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 803,
+          "main": "Clouds",
+          "description": "isprekidani oblaci",
+          "icon": "04d"
+        }
+      ],
+      "clouds": {
+        "all": 64
+      },
+      "wind": {
+        "speed": 0.34,
+        "deg": 50,
+        "gust": 0.72
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "d"
+      },
+      "dt_txt": "2024-04-07 06:00:00"
+    },
+    {
+      "dt": 1712480400,
+      "main": {
+        "temp": 19.87,
+        "feels_like": 19.27,
+        "temp_min": 19.87,
+        "temp_max": 19.87,
+        "pressure": 1021,
+        "sea_level": 1021,
+        "grnd_level": 913,
+        "humidity": 52,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 803,
+          "main": "Clouds",
+          "description": "isprekidani oblaci",
+          "icon": "04d"
+        }
+      ],
+      "clouds": {
+        "all": 57
+      },
+      "wind": {
+        "speed": 1.68,
+        "deg": 340,
+        "gust": 2.16
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "d"
+      },
+      "dt_txt": "2024-04-07 09:00:00"
+    },
+    {
+      "dt": 1712491200,
+      "main": {
+        "temp": 22.17,
+        "feels_like": 21.57,
+        "temp_min": 22.17,
+        "temp_max": 22.17,
+        "pressure": 1020,
+        "sea_level": 1020,
+        "grnd_level": 912,
+        "humidity": 43,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 802,
+          "main": "Clouds",
+          "description": "raštrkani oblaci",
+          "icon": "03d"
+        }
+      ],
+      "clouds": {
+        "all": 34
+      },
+      "wind": {
+        "speed": 2.23,
+        "deg": 328,
+        "gust": 3.77
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "d"
+      },
+      "dt_txt": "2024-04-07 12:00:00"
+    },
+    {
+      "dt": 1712502000,
+      "main": {
+        "temp": 21.46,
+        "feels_like": 20.86,
+        "temp_min": 21.46,
+        "temp_max": 21.46,
+        "pressure": 1019,
+        "sea_level": 1019,
+        "grnd_level": 912,
+        "humidity": 46,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 800,
+          "main": "Clear",
+          "description": "vedro",
+          "icon": "01d"
+        }
+      ],
+      "clouds": {
+        "all": 8
+      },
+      "wind": {
+        "speed": 2.74,
+        "deg": 20,
+        "gust": 3.61
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "d"
+      },
+      "dt_txt": "2024-04-07 15:00:00"
+    },
+    {
+      "dt": 1712512800,
+      "main": {
+        "temp": 14.87,
+        "feels_like": 14.42,
+        "temp_min": 14.87,
+        "temp_max": 14.87,
+        "pressure": 1021,
+        "sea_level": 1021,
+        "grnd_level": 912,
+        "humidity": 77,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 802,
+          "main": "Clouds",
+          "description": "raštrkani oblaci",
+          "icon": "03n"
+        }
+      ],
+      "clouds": {
+        "all": 48
+      },
+      "wind": {
+        "speed": 1.72,
+        "deg": 76,
+        "gust": 1.3
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "n"
+      },
+      "dt_txt": "2024-04-07 18:00:00"
+    },
+    {
+      "dt": 1712523600,
+      "main": {
+        "temp": 12.91,
+        "feels_like": 12.42,
+        "temp_min": 12.91,
+        "temp_max": 12.91,
+        "pressure": 1021,
+        "sea_level": 1021,
+        "grnd_level": 912,
+        "humidity": 83,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 801,
+          "main": "Clouds",
+          "description": "blaga naoblaka",
+          "icon": "02n"
+        }
+      ],
+      "clouds": {
+        "all": 14
+      },
+      "wind": {
+        "speed": 1.41,
+        "deg": 103,
+        "gust": 1.28
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "n"
+      },
+      "dt_txt": "2024-04-07 21:00:00"
+    },
+    {
+      "dt": 1712534400,
+      "main": {
+        "temp": 11.78,
+        "feels_like": 11.29,
+        "temp_min": 11.78,
+        "temp_max": 11.78,
+        "pressure": 1021,
+        "sea_level": 1021,
+        "grnd_level": 911,
+        "humidity": 87,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 801,
+          "main": "Clouds",
+          "description": "blaga naoblaka",
+          "icon": "02n"
+        }
+      ],
+      "clouds": {
+        "all": 13
+      },
+      "wind": {
+        "speed": 1.77,
+        "deg": 134,
+        "gust": 1.6
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "n"
+      },
+      "dt_txt": "2024-04-08 00:00:00"
+    },
+    {
+      "dt": 1712545200,
+      "main": {
+        "temp": 11.29,
+        "feels_like": 10.82,
+        "temp_min": 11.29,
+        "temp_max": 11.29,
+        "pressure": 1020,
+        "sea_level": 1020,
+        "grnd_level": 911,
+        "humidity": 90,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 803,
+          "main": "Clouds",
+          "description": "isprekidani oblaci",
+          "icon": "04n"
+        }
+      ],
+      "clouds": {
+        "all": 63
+      },
+      "wind": {
+        "speed": 1.89,
+        "deg": 140,
+        "gust": 1.66
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "n"
+      },
+      "dt_txt": "2024-04-08 03:00:00"
+    },
+    {
+      "dt": 1712556000,
+      "main": {
+        "temp": 14.06,
+        "feels_like": 13.58,
+        "temp_min": 14.06,
+        "temp_max": 14.06,
+        "pressure": 1020,
+        "sea_level": 1020,
+        "grnd_level": 910,
+        "humidity": 79,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 803,
+          "main": "Clouds",
+          "description": "isprekidani oblaci",
+          "icon": "04d"
+        }
+      ],
+      "clouds": {
+        "all": 76
+      },
+      "wind": {
+        "speed": 1.83,
+        "deg": 147,
+        "gust": 2.71
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "d"
+      },
+      "dt_txt": "2024-04-08 06:00:00"
+    },
+    {
+      "dt": 1712566800,
+      "main": {
+        "temp": 21.13,
+        "feels_like": 20.5,
+        "temp_min": 21.13,
+        "temp_max": 21.13,
+        "pressure": 1018,
+        "sea_level": 1018,
+        "grnd_level": 910,
+        "humidity": 46,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 801,
+          "main": "Clouds",
+          "description": "blaga naoblaka",
+          "icon": "02d"
+        }
+      ],
+      "clouds": {
+        "all": 12
+      },
+      "wind": {
+        "speed": 1.32,
+        "deg": 195,
+        "gust": 1.89
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "d"
+      },
+      "dt_txt": "2024-04-08 09:00:00"
+    },
+    {
+      "dt": 1712577600,
+      "main": {
+        "temp": 24.32,
+        "feels_like": 23.83,
+        "temp_min": 24.32,
+        "temp_max": 24.32,
+        "pressure": 1016,
+        "sea_level": 1016,
+        "grnd_level": 909,
+        "humidity": 39,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 802,
+          "main": "Clouds",
+          "description": "raštrkani oblaci",
+          "icon": "03d"
+        }
+      ],
+      "clouds": {
+        "all": 34
+      },
+      "wind": {
+        "speed": 1.73,
+        "deg": 265,
+        "gust": 1.47
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "d"
+      },
+      "dt_txt": "2024-04-08 12:00:00"
+    },
+    {
+      "dt": 1712588400,
+      "main": {
+        "temp": 22.52,
+        "feels_like": 22.11,
+        "temp_min": 22.52,
+        "temp_max": 22.52,
+        "pressure": 1016,
+        "sea_level": 1016,
+        "grnd_level": 908,
+        "humidity": 49,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 804,
+          "main": "Clouds",
+          "description": "oblačno",
+          "icon": "04d"
+        }
+      ],
+      "clouds": {
+        "all": 100
+      },
+      "wind": {
+        "speed": 2.03,
+        "deg": 254,
+        "gust": 2.09
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "d"
+      },
+      "dt_txt": "2024-04-08 15:00:00"
+    },
+    {
+      "dt": 1712599200,
+      "main": {
+        "temp": 15.82,
+        "feels_like": 15.47,
+        "temp_min": 15.82,
+        "temp_max": 15.82,
+        "pressure": 1017,
+        "sea_level": 1017,
+        "grnd_level": 909,
+        "humidity": 77,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 804,
+          "main": "Clouds",
+          "description": "oblačno",
+          "icon": "04n"
+        }
+      ],
+      "clouds": {
+        "all": 98
+      },
+      "wind": {
+        "speed": 2.02,
+        "deg": 197,
+        "gust": 2.02
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "n"
+      },
+      "dt_txt": "2024-04-08 18:00:00"
+    },
+    {
+      "dt": 1712610000,
+      "main": {
+        "temp": 13.71,
+        "feels_like": 13.3,
+        "temp_min": 13.71,
+        "temp_max": 13.71,
+        "pressure": 1017,
+        "sea_level": 1017,
+        "grnd_level": 908,
+        "humidity": 83,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 803,
+          "main": "Clouds",
+          "description": "isprekidani oblaci",
+          "icon": "04n"
+        }
+      ],
+      "clouds": {
+        "all": 69
+      },
+      "wind": {
+        "speed": 2.14,
+        "deg": 182,
+        "gust": 2.08
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "n"
+      },
+      "dt_txt": "2024-04-08 21:00:00"
+    },
+    {
+      "dt": 1712620800,
+      "main": {
+        "temp": 12.41,
+        "feels_like": 11.87,
+        "temp_min": 12.41,
+        "temp_max": 12.41,
+        "pressure": 1017,
+        "sea_level": 1017,
+        "grnd_level": 908,
+        "humidity": 83,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 804,
+          "main": "Clouds",
+          "description": "oblačno",
+          "icon": "04n"
+        }
+      ],
+      "clouds": {
+        "all": 85
+      },
+      "wind": {
+        "speed": 2.02,
+        "deg": 185,
+        "gust": 1.91
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "n"
+      },
+      "dt_txt": "2024-04-09 00:00:00"
+    },
+    {
+      "dt": 1712631600,
+      "main": {
+        "temp": 11.87,
+        "feels_like": 11.18,
+        "temp_min": 11.87,
+        "temp_max": 11.87,
+        "pressure": 1016,
+        "sea_level": 1016,
+        "grnd_level": 907,
+        "humidity": 79,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 804,
+          "main": "Clouds",
+          "description": "oblačno",
+          "icon": "04n"
+        }
+      ],
+      "clouds": {
+        "all": 99
+      },
+      "wind": {
+        "speed": 2.11,
+        "deg": 174,
+        "gust": 2.02
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "n"
+      },
+      "dt_txt": "2024-04-09 03:00:00"
+    },
+    {
+      "dt": 1712642400,
+      "main": {
+        "temp": 14.06,
+        "feels_like": 13.4,
+        "temp_min": 14.06,
+        "temp_max": 14.06,
+        "pressure": 1016,
+        "sea_level": 1016,
+        "grnd_level": 907,
+        "humidity": 72,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 804,
+          "main": "Clouds",
+          "description": "oblačno",
+          "icon": "04d"
+        }
+      ],
+      "clouds": {
+        "all": 100
+      },
+      "wind": {
+        "speed": 1.63,
+        "deg": 188,
+        "gust": 2.4
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "d"
+      },
+      "dt_txt": "2024-04-09 06:00:00"
+    },
+    {
+      "dt": 1712653200,
+      "main": {
+        "temp": 19.9,
+        "feels_like": 19.33,
+        "temp_min": 19.9,
+        "temp_max": 19.9,
+        "pressure": 1015,
+        "sea_level": 1015,
+        "grnd_level": 907,
+        "humidity": 53,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 804,
+          "main": "Clouds",
+          "description": "oblačno",
+          "icon": "04d"
+        }
+      ],
+      "clouds": {
+        "all": 100
+      },
+      "wind": {
+        "speed": 2.21,
+        "deg": 221,
+        "gust": 3.2
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "d"
+      },
+      "dt_txt": "2024-04-09 09:00:00"
+    },
+    {
+      "dt": 1712664000,
+      "main": {
+        "temp": 21.64,
+        "feels_like": 21.06,
+        "temp_min": 21.64,
+        "temp_max": 21.64,
+        "pressure": 1013,
+        "sea_level": 1013,
+        "grnd_level": 906,
+        "humidity": 46,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 804,
+          "main": "Clouds",
+          "description": "oblačno",
+          "icon": "04d"
+        }
+      ],
+      "clouds": {
+        "all": 100
+      },
+      "wind": {
+        "speed": 2.63,
+        "deg": 219,
+        "gust": 3.13
+      },
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {
+        "pod": "d"
+      },
+      "dt_txt": "2024-04-09 12:00:00"
+    }
+  ],
+  "city": {
+    "id": 3268175,
+    "name": "Hrasno",
+    "coord": {
+      "lat": 43.852,
+      "lon": 18.3867
+    },
+    "country": "BA",
+    "population": 0,
+    "timezone": 7200,
+    "sunrise": 1712204517,
+    "sunset": 1712250982
+  }
+}

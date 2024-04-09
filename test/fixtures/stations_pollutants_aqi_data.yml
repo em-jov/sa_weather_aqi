@@ -1,0 +1,177 @@
+---
+vijecnica:
+  :aqi:
+    :value: '1'
+    :class: :good_eea
+  :so2:
+    :value: '1'
+    :class: :good_eea
+  :no2:
+    :value: '1'
+    :class: :good_eea
+  :o3:
+    :value: ''
+    :class:
+  :pm10:
+    :value: '1'
+    :class: :good_eea
+  :pm25:
+    :value: ''
+    :class:
+  :name: Vijećnica
+  :latitude: 43.859
+  :longitude: 18.434
+bjelave:
+  :aqi:
+    :value: '4'
+    :class: :poor_eea
+  :so2:
+    :value: '1'
+    :class: :good_eea
+  :no2:
+    :value: '1'
+    :class: :good_eea
+  :o3:
+    :value: '4'
+    :class: :poor_eea
+  :pm10:
+    :value: '1'
+    :class: :good_eea
+  :pm25:
+    :value: '1'
+    :class: :good_eea
+  :name: Bjelave
+  :latitude: 43.867
+  :longitude: 18.42
+otoka:
+  :aqi:
+    :value: '3'
+    :class: :moderate_eea
+  :so2:
+    :value: '1'
+    :class: :good_eea
+  :no2:
+    :value: '1'
+    :class: :good_eea
+  :o3:
+    :value: '3'
+    :class: :moderate_eea
+  :pm10:
+    :value: '2'
+    :class: :fair_eea
+  :pm25:
+    :value: '1'
+    :class: :good_eea
+  :name: Otoka
+  :latitude: 43.848
+  :longitude: 18.363
+ilidza:
+  :aqi:
+    :value: '1'
+    :class: :good_eea
+  :so2:
+    :value: '1'
+    :class: :good_eea
+  :no2:
+    :value: '1'
+    :class: :good_eea
+  :o3:
+    :value: ''
+    :class:
+  :pm10:
+    :value: '1'
+    :class: :good_eea
+  :pm25:
+    :value: '1'
+    :class: :good_eea
+  :name: Ilidža
+  :latitude: 43.83
+  :longitude: 18.31
+vogosca:
+  :aqi:
+    :value: '1'
+    :class: :good_eea
+  :so2:
+    :value: '1'
+    :class: :good_eea
+  :no2:
+    :value: '1'
+    :class: :good_eea
+  :o3:
+    :value: ''
+    :class:
+  :pm10:
+    :value: '1'
+    :class: :good_eea
+  :pm25:
+    :value: '1'
+    :class: :good_eea
+  :name: Vogošća
+  :latitude: 43.9
+  :longitude: 18.342
+hadzici:
+  :aqi:
+    :value: '2'
+    :class: :fair_eea
+  :so2:
+    :value: '1'
+    :class: :good_eea
+  :no2:
+    :value: '1'
+    :class: :good_eea
+  :o3:
+    :value: '2'
+    :class: :fair_eea
+  :pm10:
+    :value: ''
+    :class:
+  :pm25:
+    :value: ''
+    :class:
+  :name: Hadžići
+  :latitude: 43.823
+  :longitude: 18.2
+ilijas:
+  :aqi:
+    :value: '2'
+    :class: :fair_eea
+  :so2:
+    :value: '1'
+    :class: :good_eea
+  :no2:
+    :value: '1'
+    :class: :good_eea
+  :o3:
+    :value: ''
+    :class:
+  :pm10:
+    :value: '2'
+    :class: :fair_eea
+  :pm25:
+    :value: " "
+    :class:
+  :name: Ilijaš
+  :latitude: 43.96
+  :longitude: 18.269
+ivan_sedlo:
+  :aqi:
+    :value: '4'
+    :class: :poor_eea
+  :so2:
+    :value: '1'
+    :class: :good_eea
+  :no2:
+    :value: '1'
+    :class: :good_eea
+  :o3:
+    :value: '4'
+    :class: :poor_eea
+  :pm10:
+    :value: ''
+    :class:
+  :pm25:
+    :value: ''
+    :class:
+  :name: Ivan sedlo
+  :latitude: 43.75
+  :longitude: 18.035

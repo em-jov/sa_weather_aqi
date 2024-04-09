@@ -6,38 +6,43 @@ require 'open-uri'
 require 'time'
 require 'i18n'
 require 'meteoalarm'
+require 'sentry-ruby'
+require_relative 'exception_notifier'
+require_relative 'app_logger'
 Dir['./src/weather_air/*.rb'].each { |file| require file }
 
 module WeatherAir
   class << self
     def run
+      logger = AppLogger.instance.logger
+      logger.debug "Starting..."
+      Sentry.init
       I18n.load_path += Dir[File.expand_path("config/locales") + "/*.yml"]
       I18n.config.available_locales = %i[en bs]
       I18n.default_locale = :en
-      # $logger.debug "debug.."
 
       # weather
       weather = WeatherAir::WeatherClient.new
-      current_weather = weather.current_weather_data
-      (forecast_today, weather_forecast) = weather.weather_forecast_data
-      (yr_weather_forecast, yr_weather) = weather.yr_sarajevo
-      (yr_trebevic,) = weather.yr_trebevic
-      (yr_igman,) = weather.yr_igman
-      (yr_bjelasnica,) = weather.yr_bjelasnica
-      (yr_jahorina,) = weather.yr_jahorina
-
-      forecast_today
-      # meteoalarm
-      (current_alarms, future_alarms) = weather.active_meteoalarms
+      # openweathermap
+      sunrise_sunset = weather.owm_sunrise_sunset
+      own_weather_forecast = weather.owm_weather_forecast
+      # yr.no
+      yr_weather_forecast = weather.yr_weather
+      yr_current_weather = yr_weather_forecast[:sarajevo][:forecast][0]
+      
+      # meteoalarms
+      weather.meteoalarms
+      (current_alarms, future_alarms) = weather.meteoalarms
 
       # air quality index
       aqi = WeatherAir::AirQualityIndex.new
-
-      ks_aqi = aqi.aqi_by_ks
-      (eko_akcija, ea_city_aqi_value, ea_city_aqi_class) = aqi.aqi_by_ekoakcija
-
+      # fhmz
       city_pollutants = aqi.city_pollutants_aqi
       stations_pollutants_aqi = aqi.stations_pollutants_aqi_data
+      # kanton sarajevo
+      ks_aqi = aqi.aqi_by_ks
+      # eko akcija
+      ekoakcija_aqi_data = aqi.aqi_by_ekoakcija
 
       style = File.read("src/style.css")
       js_script = File.read('src/script.js')
@@ -45,27 +50,25 @@ module WeatherAir
       template = ERB.new(File.read('src/template.html.erb'))
       english = template.result(binding)
 
-      feed = { current_weather:, forecast_today:, weather_forecast:, stations_pollutants_aqi:, city_pollutants: }.to_json
+      feed = { sunrise_sunset:, own_weather_forecast:, stations_pollutants_aqi:, city_pollutants: }.to_json
       sa_aqi = { city_pollutants: }.to_json
       ms_aqi = { stations_pollutants_aqi: }.to_json
 
       I18n.locale = :bs
-      current_weather = weather.current_weather_data(I18n.locale)
-      (forecast_today, weather_forecast) = weather.weather_forecast_data(I18n.locale)
-      (yr_weather_forecast, yr_weather) = weather.yr_sarajevo(I18n.locale)
-      (yr_trebevic,) = weather.yr_trebevic(I18n.locale)
-      (yr_igman,) = weather.yr_igman(I18n.locale)
-      (yr_bjelasnica,) = weather.yr_bjelasnica(I18n.locale)
-      (yr_jahorina,) = weather.yr_jahorina(I18n.locale)
-
-      ks_aqi = aqi.aqi_by_ks(I18n.locale)
+      own_weather_forecast = weather.owm_weather_forecast
       bosnian = template.result(binding) 
       [bosnian, english, feed, sa_aqi, ms_aqi]
+    rescue StandardError => e
+      ExceptionNotifier.notify(e)  
     end
 
     def last_update 
       I18n.localize(Time.now, format: :default)
     end
+
+    def utc_to_datetime(seconds)
+      I18n.localize(Time.at(seconds.to_i).getlocal('+01:00'), format: :hm)
+    end 
 
     def icon_path(icon)
       if I18n.locale == :en

@@ -1,17 +1,12 @@
 require_relative '../test_helper'
 
-class WeatherClientTest < Minitest::Test
+class WeatherClientTest < TestCase
   def setup 
+    super
     @client = WeatherAir::WeatherClient.new
-    I18n.load_path += Dir[File.expand_path("config/locales") + "/*.yml"]
-    I18n.config.available_locales = %i[en bs]
   end
 
-  def teardown
-    Timecop.return
-  end
-
-  def test_current_weather_data
+  def test_owm_sunrise_sunset
     response = '{ "coord": {"lon": 18.3867, "lat": 43.852 },
                   "weather": [{"id": 741, "main": "Fog", "description": "fog", "icon": "50n"}],
                   "base": "stations",
@@ -29,39 +24,32 @@ class WeatherClientTest < Minitest::Test
       with(headers: { 'Content-Type'=>'application/json' }).
       to_return(status: 200, body: response, headers: { 'Content-Type'=>'application/json' })
 
-    sarajevo_current_weather = @client.current_weather_data
-    expected = {currenttemp: -3, feelslike: -3, humidity: 100, description: "fog", icon: "50n", rain: 0, wind: 0.51, :sunrise => "07:16 am", :sunset => "04:10 pm"}
+    sarajevo_current_weather = @client.owm_sunrise_sunset
+    expected = {:sunrise=>1702966568, :sunset=>1702998632}
     assert_equal(expected, sarajevo_current_weather)
   end
 
-  def test_current_weather_data_no_data
+  def test_owm_sunrise_sunset_no_data
     stub_request(:get, "https://api.openweathermap.org/data/2.5/weather?appid=#{ENV['API_KEY']}&lat=43.8519774&lon=18.3866868&units=metric").
       with(headers: { 'Content-Type'=>'application/json' }).
       to_return(status: 404, body: "", headers: { 'Content-Type'=>'application/json' })
 
-    sarajevo_current_weather = @client.current_weather_data
-    expected = { error: { en: 'Error: No current weather data available!', 
-                          bs: 'Greška: Nedostupni podaci o trenutnom vremenu!' } }
+    ExceptionNotifier.expects(:notify)
+    sarajevo_current_weather = @client.owm_sunrise_sunset
+    expected = { error: { en: 'Error: No current sunrise/sunset data available! Please visit openweathermap.org for more information.', 
+                          bs: 'Greška: Nedostupni podaci o izlasku/zalasku sunca! Posjetite openweathermap.org za više informacija.' } }
     assert_equal(expected, sarajevo_current_weather)
   end
 
-  def test_weather_forecast_data
+  def test_owm_weather_forecast
     stub_request(:get, "https://api.openweathermap.org/data/2.5/forecast?appid=#{ENV['API_KEY']}&lat=43.8519774&lon=18.3866868&units=metric").
       with(headers: {'Content-Type'=>'application/json'}).
-      to_return(status: 200, body: File.read('test/fixtures/weather_forecast_response.json'), headers: { 'Content-Type'=>'application/json' })
+      to_return(status: 200, body: File.read('test/fixtures/owm_weather_forecast_response.json'), headers: { 'Content-Type'=>'application/json' })
     
     Timecop.freeze(Time.local(2023, 12, 20, 14, 30, 0))
 
-    sarajevo_weather_forecast = @client.weather_forecast_data
-    expected =  [[ { :description => "scattered clouds", :icon => "03n", :temp => -1, :rain => 0, :time => "01:00 am" }, 
-                   { :description => "scattered clouds", :icon => "03n", :temp => 2, :rain => 0, :time => "04:00 am" }, 
-                   { :description => "few clouds", :icon => "02n", :temp => 5, :rain => 0, :time => "07:00 am" }, 
-                   { :description => "overcast clouds", :icon => "04d", :temp => 9, :rain => 0, :time => "10:00 am" }, 
-                   { :description => "overcast clouds", :icon => "04d", :temp => 12, :rain => 0, :time => "01:00 pm" }, 
-                   { :description => "overcast clouds", :icon => "04d", :temp => 8, :rain => 0, :time => "04:00 pm" }, 
-                   { :description => "overcast clouds", :icon => "04n", :temp => 6, :rain => 0, :time => "07:00 pm" }, 
-                   { :description => "overcast clouds", :icon => "04n", :temp => 5, :rain => 0, :time => "10:00 pm" }],
-                 { "Thursday 21.12." =>
+    sarajevo_weather_forecast = @client.owm_weather_forecast
+    expected =  { "Thursday 21.12." =>
                    [ { :description => "overcast clouds", :icon => "04n", :temp => 4, :rain => 0 },
                      { :description => "overcast clouds", :icon => "04n", :temp => 4, :rain => 0 },
                      { :description => "overcast clouds", :icon => "04n", :temp => 3, :rain => 0 },
@@ -96,33 +84,85 @@ class WeatherClientTest < Minitest::Test
                      { :description => "few clouds", :icon => "02d", :temp => 12, :rain => 0 },
                      { :description => "scattered clouds", :icon => "03d", :temp => 9, :rain => 0 },
                      { :description => "scattered clouds", :icon => "03n", :temp => 7, :rain => 0 },
-                     { :description => "few clouds", :icon => "02n", :temp => 7, :rain => 0 } ] } ]
+                     { :description => "few clouds", :icon => "02n", :temp => 7, :rain => 0 } ] }
 
     assert_equal(expected, sarajevo_weather_forecast)
   end
 
-  def test_weather_forecast_data_no_data
+  def test_owm_weather_forecast_bs_locale
+    stub_request(:get, "https://api.openweathermap.org/data/2.5/forecast?appid=#{ENV['API_KEY']}&lat=43.8519774&lon=18.3866868&units=metric&lang=hr").
+      with(headers: {'Content-Type'=>'application/json'}).
+      to_return(status: 200, body: File.read('test/fixtures/owm_weather_forecast_response_bs_locale.json'), headers: { 'Content-Type'=>'application/json' })
+    
+    Timecop.freeze(Time.local(2023, 4, 4, 14, 00, 0))
+    I18n.locale = :bs
+    sarajevo_weather_forecast = @client.owm_weather_forecast
+    expected =  {"četvrtak 04.04."=>
+                [{:description=>"vedro", :icon=>"01d", :temp=>18, :rain=>0}, 
+                  {:description=>"blaga naoblaka", :icon=>"02n", :temp=>14, :rain=>0}, 
+                  {:description=>"raštrkani oblaci", :icon=>"03n", :temp=>9, :rain=>0}],
+                "petak 05.04."=>
+                [{:description=>"isprekidani oblaci", :icon=>"04n", :temp=>8, :rain=>0},
+                  {:description=>"isprekidani oblaci", :icon=>"04n", :temp=>7, :rain=>0},
+                  {:description=>"raštrkani oblaci", :icon=>"03d", :temp=>10, :rain=>0},
+                  {:description=>"raštrkani oblaci", :icon=>"03d", :temp=>16, :rain=>0},
+                  {:description=>"isprekidani oblaci", :icon=>"04d", :temp=>18, :rain=>0},
+                  {:description=>"oblačno", :icon=>"04d", :temp=>17, :rain=>0},
+                  {:description=>"oblačno", :icon=>"04n", :temp=>12, :rain=>0},
+                  {:description=>"isprekidani oblaci", :icon=>"04n", :temp=>10, :rain=>0}],
+                "subota 06.04."=>
+                [{:description=>"raštrkani oblaci", :icon=>"03n", :temp=>9, :rain=>0},
+                  {:description=>"oblačno", :icon=>"04n", :temp=>9, :rain=>0},
+                  {:description=>"isprekidani oblaci", :icon=>"04d", :temp=>12, :rain=>0},
+                  {:description=>"oblačno", :icon=>"04d", :temp=>19, :rain=>0},
+                  {:description=>"raštrkani oblaci", :icon=>"03d", :temp=>22, :rain=>0},
+                  {:description=>"vedro", :icon=>"01d", :temp=>21, :rain=>0},
+                  {:description=>"vedro", :icon=>"01n", :temp=>15, :rain=>0},
+                  {:description=>"vedro", :icon=>"01n", :temp=>13, :rain=>0}],
+                "nedjelja 07.04."=>
+                [{:description=>"blaga naoblaka", :icon=>"02n", :temp=>12, :rain=>0},
+                  {:description=>"isprekidani oblaci", :icon=>"04n", :temp=>11, :rain=>0},
+                  {:description=>"isprekidani oblaci", :icon=>"04d", :temp=>14, :rain=>0},
+                  {:description=>"isprekidani oblaci", :icon=>"04d", :temp=>20, :rain=>0},
+                  {:description=>"raštrkani oblaci", :icon=>"03d", :temp=>22, :rain=>0},
+                  {:description=>"vedro", :icon=>"01d", :temp=>21, :rain=>0},
+                  {:description=>"raštrkani oblaci", :icon=>"03n", :temp=>15, :rain=>0},
+                  {:description=>"blaga naoblaka", :icon=>"02n", :temp=>13, :rain=>0}],
+                "ponedjeljak 08.04."=>
+                [{:description=>"blaga naoblaka", :icon=>"02n", :temp=>12, :rain=>0},
+                  {:description=>"isprekidani oblaci", :icon=>"04n", :temp=>11, :rain=>0},
+                  {:description=>"isprekidani oblaci", :icon=>"04d", :temp=>14, :rain=>0},
+                  {:description=>"blaga naoblaka", :icon=>"02d", :temp=>21, :rain=>0},
+                  {:description=>"raštrkani oblaci", :icon=>"03d", :temp=>24, :rain=>0},
+                  {:description=>"oblačno", :icon=>"04d", :temp=>23, :rain=>0},
+                  {:description=>"oblačno", :icon=>"04n", :temp=>16, :rain=>0},
+                  {:description=>"isprekidani oblaci", :icon=>"04n", :temp=>14, :rain=>0}],
+                "utorak 09.04."=>
+                [{:description=>"oblačno", :icon=>"04n", :temp=>12, :rain=>0}, 
+                {:description=>"oblačno", :icon=>"04n", :temp=>12, :rain=>0}, 
+                {:description=>"oblačno", :icon=>"04d", :temp=>14, :rain=>0}, 
+                {:description=>"oblačno", :icon=>"04d", :temp=>20, :rain=>0}, 
+                {:description=>"oblačno", :icon=>"04d", :temp=>22, :rain=>0}]}
+
+    assert_equal(expected, sarajevo_weather_forecast)
+  end
+
+  def test_owm_weather_forecast_no_data
     stub_request(:get, "https://api.openweathermap.org/data/2.5/forecast?appid=#{ENV['API_KEY']}&lat=43.8519774&lon=18.3866868&units=metric").
       with(headers: {'Content-Type'=>'application/json'}).
       to_return(status: 403, body: "", headers: { 'Content-Type'=>'application/json' })
 
-    sarajevo_weather_forecast = @client.weather_forecast_data
-    expected = { error: { en: 'Error: No weather forecast data available!', 
-                          bs: 'Greška: Nedostupni podaci o vremenskoj prognozi!' } }
+    ExceptionNotifier.expects(:notify)
+    sarajevo_weather_forecast = @client.owm_weather_forecast
+    expected = { error: { en: 'Error: No weather forecast data available! Please visit openweathermap.org for more information.', 
+                          bs: 'Greška: Nedostupni podaci o vremenskoj prognozi! Posjetite openweathermap.org za više informacija.' } }
     assert_equal(expected, sarajevo_weather_forecast)
   end
-
 
   def test_meteoalarms
     Timecop.freeze(Time.local(2024, 2, 10, 12, 30, 0))
 
     stub_request(:get, "https://feeds.meteoalarm.org/api/v1/warnings/feeds-bosnia-herzegovina").
-      with(
-        headers: {
-              'Accept'=>'*/*',
-              'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-              'User-Agent'=>'Ruby'
-        }).
       to_return(status: 200, body: YAML.load(File.read("test/fixtures/duplicate_meteoalarms.yml")).to_json, headers: { 'Content-Type'=>'application/json' })
 
     expected_current_alarms = [{:alert=>
@@ -216,7 +256,7 @@ class WeatherClientTest < Minitest::Test
                                 :status=>"Actual"},
                               :uuid=>"3f1ce011-d0c1-4b45-bf54-1686a875a89d"}]
 
-   expected_future_alarms = [{:alert=>
+    expected_future_alarms = [{:alert=>
                               {:identifier=>"2.49.0.0.70.0.BA.240210074143.65630350",
                                 :incidents=>"Alert",
                                 :info=>
@@ -309,9 +349,70 @@ class WeatherClientTest < Minitest::Test
                               :uuid=>"3f1ce011-d0c1-4b45-bf54-1686a875a89d",
                               :start_date=>"2024-02-12 06:00:00 +0100"}]
  
-    (current_alarms, future_alarms) = @client.active_meteoalarms  
+    (current_alarms, future_alarms) = @client.meteoalarms  
     assert_equal(expected_current_alarms, current_alarms)
     assert_equal(expected_future_alarms, future_alarms)
+  end
+
+  def test_meteoalarms_no_data
+    Timecop.freeze(Time.local(2024, 2, 10, 12, 30, 0))
+
+    stub_request(:get, "https://feeds.meteoalarm.org/api/v1/warnings/feeds-bosnia-herzegovina").
+      to_return(status: 403, body: "", headers: { 'Content-Type'=>'application/json' })
+    ExceptionNotifier.expects(:notify).twice
+
+    (current_alarms, future_alarms) = @client.meteoalarms  
+    expected_no_current_alarms = { :error => { :en=>"Error: No current meteoalarms data available! Please visit meteoalarm.org for more information.", 
+                                               :bs=>"Greška: Nedostupni podaci o trenutnim meteoalarmima! Posjetite meteoalarm.org za više informacija." } }
+    expected_no_future_alarms = { :error => { :en=>"Error: No future meteoalarms data available! Please visit meteoalarm.org for more information.", 
+                                               :bs=>"Greška: Nedostupni podaci o nadolazeċim meteoalarmima! Posjetite meteoalarm.org za više informacija." } }
+
+    assert_equal(expected_no_current_alarms, current_alarms)
+    assert_equal(expected_no_future_alarms, future_alarms)                                          
+  end
+
+  def test_yr_weather
+    stub_request(:get, "https://api.met.no/weatherapi/locationforecast/2.0/complete.json?altitude=520&lat=43.8519&lon=18.3866").
+      to_return(status: 200, body: File.read("test/fixtures/yr_sarajevo_response.json"), headers: {'Content-Type'=>'application/json'})
+    
+    stub_request(:get, "https://api.met.no/weatherapi/locationforecast/2.0/complete.json?altitude=1100&lat=43.8383&lon=18.4498").
+      to_return(status: 200, body: File.read("test/fixtures/yr_trebevic_response.json"), headers: {'Content-Type'=>'application/json'}) 
+
+    stub_request(:get, "https://api.met.no/weatherapi/locationforecast/2.0/complete.json?altitude=1200&lat=43.7507&lon=18.2632").
+      to_return(status: 200, body: File.read("test/fixtures/yr_igman_response.json"), headers: {'Content-Type'=>'application/json'})
+    
+    stub_request(:get, "https://api.met.no/weatherapi/locationforecast/2.0/complete.json?altitude=1287&lat=43.7163&lon=18.287").
+      to_return(status: 200, body: File.read("test/fixtures/yr_bjelasnica_response.json"), headers: {'Content-Type'=>'application/json'})
+
+    stub_request(:get, "https://api.met.no/weatherapi/locationforecast/2.0/complete.json?altitude=1557&lat=43.7383&lon=18.5645").
+      to_return(status: 200, body: File.read("test/fixtures/yr_jahorina_response.json"), headers: {'Content-Type'=>'application/json'})  
+
+    result = @client.yr_weather
+    assert(result[:bjelasnica][:forecast][0][:air_temperature], 10)
+  end
+
+  def test_yr_weather_no_data
+    stub_request(:get, "https://api.met.no/weatherapi/locationforecast/2.0/complete.json?altitude=520&lat=43.8519&lon=18.3866").
+      to_return(status: 200, body: File.read("test/fixtures/yr_sarajevo_response.json"), headers: {'Content-Type'=>'application/json'})
+    
+    stub_request(:get, "https://api.met.no/weatherapi/locationforecast/2.0/complete.json?altitude=1100&lat=43.8383&lon=18.4498").
+      to_return(status: 200, body: File.read("test/fixtures/yr_trebevic_response.json"), headers: {'Content-Type'=>'application/json'}) 
+
+    stub_request(:get, "https://api.met.no/weatherapi/locationforecast/2.0/complete.json?altitude=1200&lat=43.7507&lon=18.2632").
+      to_return(status: 403, body: "", headers: {'Content-Type'=>'application/json'})
+    
+    stub_request(:get, "https://api.met.no/weatherapi/locationforecast/2.0/complete.json?altitude=1287&lat=43.7163&lon=18.287").
+      to_return(status: 200, body: File.read("test/fixtures/yr_bjelasnica_response.json"), headers: {'Content-Type'=>'application/json'})
+
+    stub_request(:get, "https://api.met.no/weatherapi/locationforecast/2.0/complete.json?altitude=1557&lat=43.7383&lon=18.5645").
+      to_return(status: 200, body: File.read("test/fixtures/yr_jahorina_response.json"), headers: {'Content-Type'=>'application/json'})  
+
+    ExceptionNotifier.expects(:notify)
+    result = @client.yr_weather
+    expected = { :error=> { :en=>"Error: No weather forecast data available for this location! Please visit yr.no for more information.", 
+                            :bs=>"Greška: Nedostupni podaci o vremenskoj prognozi za ovu lokaciju! Posjetite yr.no za više informacija." } }
+    
+    assert_equal(expected, result[:igman][:forecast])
   end
 
 end
