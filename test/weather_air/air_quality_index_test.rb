@@ -63,7 +63,7 @@ class AirQualityIndexTest < TestCase
     stub_request(:get, "https://zrak.ekoakcija.org/sarajevo").
       to_return(status: 403, body: "", headers: {})
 
-    Sentry.expects(:capture_exception)  
+    ExceptionNotifier.expects(:notify)  
     result = @script.aqi_by_ekoakcija
     expected = {:error=>{:en=>"Error: No current data available from zrak.ekoakcija.org.", 
                          :bs=>"Greška: Nedostupni podaci sa stranice zrak.ekoakcija.org."}}

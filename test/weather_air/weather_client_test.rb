@@ -34,7 +34,7 @@ class WeatherClientTest < TestCase
       with(headers: { 'Content-Type'=>'application/json' }).
       to_return(status: 404, body: "", headers: { 'Content-Type'=>'application/json' })
 
-    Sentry.expects(:capture_exception)
+    ExceptionNotifier.expects(:notify)
     sarajevo_current_weather = @client.owm_sunrise_sunset
     expected = { error: { en: 'Error: No current sunrise/sunset data available! Please visit openweathermap.org for more information.', 
                           bs: 'Greška: Nedostupni podaci o izlasku/zalasku sunca! Posjetite openweathermap.org za više informacija.' } }
@@ -152,7 +152,7 @@ class WeatherClientTest < TestCase
       with(headers: {'Content-Type'=>'application/json'}).
       to_return(status: 403, body: "", headers: { 'Content-Type'=>'application/json' })
 
-    Sentry.expects(:capture_exception)
+    ExceptionNotifier.expects(:notify)
     sarajevo_weather_forecast = @client.owm_weather_forecast
     expected = { error: { en: 'Error: No weather forecast data available! Please visit openweathermap.org for more information.', 
                           bs: 'Greška: Nedostupni podaci o vremenskoj prognozi! Posjetite openweathermap.org za više informacija.' } }
@@ -359,7 +359,7 @@ class WeatherClientTest < TestCase
 
     stub_request(:get, "https://feeds.meteoalarm.org/api/v1/warnings/feeds-bosnia-herzegovina").
       to_return(status: 403, body: "", headers: { 'Content-Type'=>'application/json' })
-    Sentry.expects(:capture_exception).twice
+    ExceptionNotifier.expects(:notify).twice
 
     (current_alarms, future_alarms) = @client.meteoalarms  
     expected_no_current_alarms = { :error => { :en=>"Error: No current meteoalarms data available! Please visit meteoalarm.org for more information.", 
@@ -407,7 +407,7 @@ class WeatherClientTest < TestCase
     stub_request(:get, "https://api.met.no/weatherapi/locationforecast/2.0/complete.json?altitude=1557&lat=43.7383&lon=18.5645").
       to_return(status: 200, body: File.read("test/fixtures/yr_jahorina_response.json"), headers: {'Content-Type'=>'application/json'})  
 
-    Sentry.expects(:capture_exception)
+    ExceptionNotifier.expects(:notify)
     result = @client.yr_weather
     expected = { :error=> { :en=>"Error: No weather forecast data available for this location! Please visit yr.no for more information.", 
                             :bs=>"Greška: Nedostupni podaci o vremenskoj prognozi za ovu lokaciju! Posjetite yr.no za više informacija." } }

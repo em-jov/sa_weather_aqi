@@ -83,7 +83,6 @@ module WeatherAir
     private
 
     def current_alarms
-      raise "bla"
       current_alarms_unsorted = Meteoalarm::Client.alarms('BA', area: 'Sarajevo', active_now: true)
       current_alarms = remove_duplicate_alarms(current_alarms_unsorted)
 

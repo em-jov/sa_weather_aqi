@@ -6,7 +6,7 @@ class WeatherAirTest < TestCase
   end
 
   def test_run
-     WeatherAir::WeatherClient.any_instance.stubs(:owm_sunrise_sunset).returns({:sunrise=>1712290810, :sunset=>1712337454})
+    WeatherAir::WeatherClient.any_instance.stubs(:owm_sunrise_sunset).returns({:sunrise=>1712290810, :sunset=>1712337454})
 
     owm_weather_forecast_data = YAML.load(File.read("test/fixtures/owm_weather_forecast_data.yml"), permitted_classes: [Symbol])
     owm_weather_forecast_data_bs = YAML.load(File.read("test/fixtures/owm_weather_forecast_data_bs.yml"), permitted_classes: [Symbol])
@@ -40,7 +40,7 @@ class WeatherAirTest < TestCase
 
   def test_run_error
     WeatherAir::WeatherClient.expects(:new).raises(StandardError)
-    Sentry.expects(:capture_exception)
+    ExceptionNotifier.expects(:notify)
     WeatherAir.run
   end
 
