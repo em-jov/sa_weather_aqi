@@ -29,8 +29,8 @@ module WeatherAir
 
     rescue StandardError => exception
       ExceptionNotifier.notify(exception)  
-      { error: { en: 'Error: No current sunrise/sunset data available! Please visit openweathermap.org for more information.', 
-                 bs: 'Greška: Nedostupni podaci o izlasku/zalasku sunca! Posjetite openweathermap.org za više informacija.' } }
+      { error: { en: 'Error: No current sunrise/sunset data available! Please visit <a href="https://openweathermap.org/city/3191281">openweathermap.org</a> for more information.', 
+                 bs: 'Greška: Nedostupni podaci o izlasku/zalasku sunca! Posjetite <a href="https://openweathermap.org/city/3191281">openweathermap.org</a> za više informacija.' } }
     end
 
     def owm_weather_forecast
@@ -42,41 +42,34 @@ module WeatherAir
         weather_data = weather_response.body['list']
       end
 
-      today_forecast = []
-      dates = {}
-      weather_data.each do |e|
+      weather_data.each_with_object({}) do |e, dates|
         key = I18n.localize(Time.at(e.dig('dt')&.to_i)&.getlocal('+01:00'), format: :short) 
         interval = { description: e.dig('weather', 0, 'description'),
                       icon: e.dig('weather', 0, 'icon'),
                       temp: e.dig('main', 'temp')&.to_f&.round,
                       rain: e.dig('rain', '3h') || 0 }
-        if key == I18n.localize(Time.now + (1*60*60), format: :short)
-          interval[:time] = I18n.localize(Time.parse(e.dig('dt_txt')) + (1*60*60), format: :hm)
-          today_forecast << interval      
-        elsif dates.key?(key) 
+        if dates.key?(key) 
           dates[key] << interval 
         else
           dates[key] = [interval] 
         end
       end
-      dates
       
     rescue StandardError => exception
       ExceptionNotifier.notify(exception)  
-      { error: { en: 'Error: No weather forecast data available! Please visit openweathermap.org for more information.', 
-                 bs: 'Greška: Nedostupni podaci o vremenskoj prognozi! Posjetite openweathermap.org za više informacija.' } }
+      { error: { en: 'Error: No weather forecast data available! Please visit <a href="https://openweathermap.org/city/3191281">openweathermap.org</a> for more information.', 
+                 bs: 'Greška: Nedostupni podaci o vremenskoj prognozi! Posjetite <a href="https://openweathermap.org/city/3191281">openweathermap.org</a> za više informacija.' } }
     end
 
-    def yr_weather
+    def yr_weather_forecast
       forecast_locations = { sarajevo: { name: "Sarajevo", lat: 43.8519, lon: 18.3866, altitude: 520 },
                              trebevic: { name: "Trebević", lat: 43.8383, lon: 18.4498, altitude: 1100 },
                              igman: { name: "Igman", lat: 43.7507, lon: 18.2632, altitude: 1200 },
                              bjelasnica: { name: "Bjelašnica", lat: 43.7163, lon: 18.2870, altitude: 1287 },
-                             jahorina: { name: "Jahorina" , lat: 43.7383, lon: 18.5645, altitude: 1557 }
-                            }
+                             jahorina: { name: "Jahorina" , lat: 43.7383, lon: 18.5645, altitude: 1557 }}
       
       forecast_locations.each do |(k, v)|
-        v[:forecast] = yr_client(v[:lat], v[:lon], v[:altitude])
+        v[:forecast] = yr_client(v[:lat], v[:lon], v[:altitude], v[:name])
       end
     end
 
@@ -93,8 +86,8 @@ module WeatherAir
       end
     rescue StandardError => exception
       ExceptionNotifier.notify(exception)  
-      { error: { en: 'Error: No current meteoalarms data available! Please visit meteoalarm.org for more information.', 
-                 bs: 'Greška: Nedostupni podaci o trenutnim meteoalarmima! Posjetite meteoalarm.org za više informacija.' } }
+      { error: { en: 'Error: No current meteoalarms data available! Please visit <a href="https://meteoalarm.org">meteoalarm.org</a> for more information.', 
+                 bs: 'Greška: Nedostupni podaci o trenutnim meteoalarmima! Posjetite <a href="https://meteoalarm.org">meteoalarm.org</a> za više informacija.' } }
     end
 
     def future_alarms
@@ -110,12 +103,15 @@ module WeatherAir
       future_alarms.sort_by! {|element| element[:start_date]}
     rescue StandardError => exception
       ExceptionNotifier.notify(exception)  
-      { error: { en: 'Error: No future meteoalarms data available! Please visit meteoalarm.org for more information.', 
-                 bs: 'Greška: Nedostupni podaci o nadolazeċim meteoalarmima! Posjetite meteoalarm.org za više informacija.' } }
+      { error: { en: 'Error: No future meteoalarms data available! Please visit <a href="https://meteoalarm.org">meteoalarm.org</a> for more information.', 
+                 bs: 'Greška: Nedostupni podaci o nadolazeċim meteoalarmima! Posjetite <a href="https://meteoalarm.org">meteoalarm.org</a> za više informacija.' } }
     end
 
+    # function handles multiple meteoalarms from the API for the same event (sent on different dates by National Meteorological Service)
+    # it groups these alerts by their awareness type (wind, fog, etc.), sorts them by their sent date and retrieves the latest one sent
     def remove_duplicate_alarms(unsorted_alarms)
-      grouped_alarms = unsorted_alarms.group_by{|alarm| alarm[:alert][:info][0][:parameter][1][:value]}
+      awareness_type = [:alert, :info, 0, :parameter, 1, :value]
+      grouped_alarms = unsorted_alarms.group_by{|alarm| alarm.dig(*awareness_type)}
 
       grouped_alarms.each do |type, alarms|
         alarms.sort_by! {|element| element[:alert][:sent]}.reverse!
@@ -135,7 +131,7 @@ module WeatherAir
       end
     end
 
-    def yr_client(lat, lon, altitude)
+    def yr_client(lat, lon, altitude, location_name)
       ENV['TZ'] = 'Europe/Sarajevo'
       sitename = 'https://sarajevo-meteo.com/ https://github.com/em-jov/sa_weather_aqi'
 
@@ -173,8 +169,8 @@ module WeatherAir
 
     rescue StandardError => exception
       ExceptionNotifier.notify(exception)  
-      { error: { en: 'Error: No weather forecast data available for this location! Please visit yr.no for more information.', 
-                 bs: 'Greška: Nedostupni podaci o vremenskoj prognozi za ovu lokaciju! Posjetite yr.no za više informacija.' } }        
+      { error: { en: "Error: No weather forecast data available for #{location_name}! Please visit <a href='https://www.yr.no/en'>yr.no</a> for more information.", 
+                 bs: "Greška: Nedostupni podaci o vremenskoj prognozi za lokaciju: #{location_name}! Posjetite <a href='https://www.yr.no/en'>yr.no</a> za više informacija." } }        
     end
   end
 end

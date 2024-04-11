@@ -25,14 +25,17 @@ module WeatherAir
       weather = WeatherAir::WeatherClient.new
       # openweathermap
       sunrise_sunset = weather.owm_sunrise_sunset
+      logger.debug "finished owm_sunrise_sunset..."
       own_weather_forecast = weather.owm_weather_forecast
+      logger.debug "finished owm_forecast..."
       # yr.no
-      yr_weather_forecast = weather.yr_weather
+      yr_weather_forecast = weather.yr_weather_forecast
+      logger.debug "finished yr_weather_forecast..."
       yr_current_weather = yr_weather_forecast[:sarajevo][:forecast][0]
-      
+      logger.debug "finished yr_current_weather..."
       # meteoalarms
-      weather.meteoalarms
       (current_alarms, future_alarms) = weather.meteoalarms
+      logger.debug "finished meteoalarms..."
 
       # air quality index
       aqi = WeatherAir::AirQualityIndex.new

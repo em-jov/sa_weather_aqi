@@ -14,7 +14,7 @@ class WeatherAirTest < TestCase
     WeatherAir::WeatherClient.any_instance.stubs(:owm_weather_forecast).returns(owm_weather_forecast_data_bs)
 
     yr_weather_data = YAML.load(File.read("test/fixtures/yr_weather_data.yml"), permitted_classes: [Time, Symbol])
-    WeatherAir::WeatherClient.any_instance.stubs(:yr_weather).returns(yr_weather_data)
+    WeatherAir::WeatherClient.any_instance.stubs(:yr_weather_forecast).returns(yr_weather_data)
 
     WeatherAir::WeatherClient.any_instance.stubs(:meteoalarms).returns([[], []])
 

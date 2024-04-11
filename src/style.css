@@ -1,3 +1,8 @@
+.error {
+  font-size: 90%;
+  color: red;
+}
+
 #meteoalarms h4{
   margin: 0.3em;
 }
@@ -469,7 +474,7 @@ span.temp_yr {
   color: #00b8f1
 }
 
-#weather label.temp {
+#weather label.temp, .owm_data {
   color: rgb(236, 110, 76)
 }
 

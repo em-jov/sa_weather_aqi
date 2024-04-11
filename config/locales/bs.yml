@@ -103,7 +103,6 @@ bs:
   moderate_alarm: potencijalno opasno
   severe_alarm: opasno
   extreme_alarm: izuzetno opasno
-  no_current_alarms: Trenutno nema aktivnih meteoalarma.
   upcoming_alarms: Meteoalarmi za nadolazeće dane
   meteoalarm_disclaimer: Odricanje od odgovornosti <br> Moguća su vremenska kašnjenja između ove i web stranice www.meteoalarm.org. 
                          Za najnovije informacije koje su objavile nacionalne meteorološke i hidrološke službe, pogledajte <a href="https://www.meteoalarm.org" target=”_blank”>www.meteoalarm.org</a>.
