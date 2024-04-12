@@ -104,7 +104,6 @@ module WeatherAir
         end
       end
       future_alarms.sort_by! {|element| element[:start_date]}
-      []
     rescue StandardError => exception
       ExceptionNotifier.notify(exception)  
       { error: { en: 'Error: No future meteoalarms data available! Please visit <a href="https://meteoalarm.org">meteoalarm.org</a> for more information.', 
