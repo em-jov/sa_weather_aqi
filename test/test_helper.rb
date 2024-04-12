@@ -16,6 +16,7 @@ class TestCase < Minitest::Test
     I18n.load_path += Dir[File.expand_path("config/locales") + "/*.yml"]
     I18n.config.available_locales = %i[en bs]
     I18n.locale = :en
+    ENV['DEVELOPMENT'] = nil
   end
 
   def teardown
