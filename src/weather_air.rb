@@ -30,8 +30,11 @@ module WeatherAir
       logger.debug "finished owm_forecast..."
       # yr.no
       yr_weather_forecast = weather.yr_weather_forecast
+      logger.debug yr_weather_forecast
       logger.debug "finished yr_weather_forecast..."
-      yr_current_weather = yr_weather_forecast[:sarajevo][:forecast][0]
+      yr_current_weather = yr_weather_forecast[:sarajevo][:forecast]#[0]
+      yr_current_weather = yr_current_weather.first if yr_current_weather.is_a?(Array)
+      logger.debug yr_current_weather
       logger.debug "finished yr_current_weather..."
       # meteoalarms
       (current_alarms, future_alarms) = weather.meteoalarms
