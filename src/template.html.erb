@@ -213,6 +213,7 @@
           </div>
         <% end %>
       </div>
+
       <div id="air" class="section">
         <h2><%= I18n.t(:aqi_quality_index) %></h2>
 
@@ -221,10 +222,10 @@
           <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php" target=”_blank”><%= I18n.t(:fhmz) %></a>
         </h4>
 
-        <% unless city_pollutants[:class].nil? %> 
+        <% unless fhmz_citywide_aqi[:class].nil? %> 
 
-        <h3 class="<%= city_pollutants[:class] %> city_aqi_main"> 
-          <%= I18n.t(:aqi) %>:  <%= I18n.t("#{city_pollutants[:class]}.name") %> (<%= city_pollutants[:value] %>)  
+        <h3 class="<%= fhmz_citywide_aqi[:class] %> city_aqi_main"> 
+          <%= I18n.t(:aqi) %>:  <%= I18n.t("#{fhmz_citywide_aqi[:class]}.name") %> (<%= fhmz_citywide_aqi[:value] %>)  
         </h3>
 
         <% end %>
@@ -242,7 +243,7 @@
               attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           }).addTo(map);
 
-          <% stations_pollutants_aqi.each do |_station, values| %>
+          <% fhmz_aqi.each do |_station, values| %>
             <% next if values[:aqi][:value].nil? %>
             
             // Define a custom HTML for the marker
@@ -272,7 +273,7 @@
             <th>PM<sub>10</sub></th>
             <th>PM<sub>2.5</sub></th>
           </tr>
-          <% stations_pollutants_aqi.each do |station, values| %>
+          <% fhmz_aqi.each do |station, values| %>
             <% next if ['ilidza', 'vogosca', 'hadzici', 'ivan_sedlo', 'ilijas'].include?(station) %>
             <tr>
               <td class="<%= values[:aqi][:class] %>">
@@ -290,7 +291,7 @@
               <% end %>
             </tr>
           <% end %>
-          <% stations_pollutants_aqi.each do |station, values| %>
+          <% fhmz_aqi.each do |station, values| %>
             <% next if ['vijecnica', 'bjelave', 'otoka'].include?(station) %>
             <tr class="hiddenRow" style="display: none;">
               <td class="<%= values[:aqi][:class] %>">
@@ -312,16 +313,16 @@
         </table>
         <button id="see_more_stations" data-text_more="<%= I18n.t(:see_more_stations) %>" data-text_less="<%= I18n.t(:show_less_stations) %>"><%= I18n.t(:see_more_stations) %></button>
 
-        <% unless city_pollutants[:class].nil? %> 
+        <% unless fhmz_citywide_aqi[:class].nil? %> 
           <div id="who_section">
             <p class="hm_title"><b> <%= I18n.t("health_messages") %> </b></p>
             <p id="health_messages"> <%= I18n.t("health_messages_text") %> </p>
 
             <p class="hm_title"><b> <%= I18n.t("general_population") %> </b></p>
-            <p> <%= I18n.t("#{city_pollutants[:class]}.general_population") %> </p>
+            <p> <%= I18n.t("#{fhmz_citywide_aqi[:class]}.general_population") %> </p>
 
             <p class="hm_title"><b> <%= I18n.t("sensitive_population") %> </b></p>
-            <p> <%= I18n.t("#{city_pollutants[:class]}.sensitive_population") %> </p>
+            <p> <%= I18n.t("#{fhmz_citywide_aqi[:class]}.sensitive_population") %> </p>
           </div>
         <% end %>
         
@@ -354,10 +355,10 @@
 
         <h3><%= I18n.t(:aqi_more) %></h3>
 
-        <% if ekoakcija_aqi_data.is_a?(Hash) %>
-          <p><%= ekoakcija_aqi_data[:error][I18n.locale] %></p>
+        <% if ekoakcija_aqi.is_a?(Hash) %>
+          <p><%= ekoakcija_aqi[:error][I18n.locale] %></p>
         <% else %>
-          <% (eko_akcija, ea_city_aqi_value, ea_city_aqi_class) = ekoakcija_aqi_data %>
+          <% (eko_akcija, ea_city_aqi_value, ea_city_aqi_class) = ekoakcija_aqi %>
         <h4>
           <%= I18n.t(:data_provided_by) %><br>  
           <a href="https://zrak.ekoakcija.org/sarajevo" target=”_blank”><%= I18n.t(:aqi_eko_akcija) %></a>
