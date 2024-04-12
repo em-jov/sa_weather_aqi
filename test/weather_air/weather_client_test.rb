@@ -36,8 +36,8 @@ class WeatherClientTest < TestCase
 
     ExceptionNotifier.expects(:notify)
     sarajevo_current_weather = @client.owm_sunrise_sunset
-    expected = { error: { en: 'Error: No current sunrise/sunset data available! Please visit openweathermap.org for more information.', 
-                          bs: 'Greška: Nedostupni podaci o izlasku/zalasku sunca! Posjetite openweathermap.org za više informacija.' } }
+    expected = { error: { en: 'Error: No current sunrise/sunset data available! Please visit <a href="https://openweathermap.org/city/3191281">openweathermap.org</a> for more information.', 
+                          bs: 'Greška: Nedostupni podaci o izlasku/zalasku sunca! Posjetite <a href="https://openweathermap.org/city/3191281">openweathermap.org</a> za više informacija.' } }
     assert_equal(expected, sarajevo_current_weather)
   end
 
@@ -49,7 +49,16 @@ class WeatherClientTest < TestCase
     Timecop.freeze(Time.local(2023, 12, 20, 14, 30, 0))
 
     sarajevo_weather_forecast = @client.owm_weather_forecast
-    expected =  { "Thursday 21.12." =>
+    expected =  { "Wednesday 20.12."=>
+                   [ { :description=>"scattered clouds", :icon=>"03n", :temp=>-1, :rain=>0 }, 
+                     { :description=>"scattered clouds", :icon=>"03n", :temp=>2, :rain=>0 }, 
+                     { :description=>"few clouds", :icon=>"02n", :temp=>5, :rain=>0 }, 
+                     { :description=>"overcast clouds", :icon=>"04d", :temp=>9, :rain=>0 }, 
+                     { :description=>"overcast clouds", :icon=>"04d", :temp=>12, :rain=>0 }, 
+                     { :description=>"overcast clouds", :icon=>"04d", :temp=>8, :rain=>0 }, 
+                     { :description=>"overcast clouds", :icon=>"04n", :temp=>6, :rain=>0 }, 
+                     { :description=>"overcast clouds", :icon=>"04n", :temp=>5, :rain=>0 } ],
+                  "Thursday 21.12." =>
                    [ { :description => "overcast clouds", :icon => "04n", :temp => 4, :rain => 0 },
                      { :description => "overcast clouds", :icon => "04n", :temp => 4, :rain => 0 },
                      { :description => "overcast clouds", :icon => "04n", :temp => 3, :rain => 0 },
@@ -154,8 +163,8 @@ class WeatherClientTest < TestCase
 
     ExceptionNotifier.expects(:notify)
     sarajevo_weather_forecast = @client.owm_weather_forecast
-    expected = { error: { en: 'Error: No weather forecast data available! Please visit openweathermap.org for more information.', 
-                          bs: 'Greška: Nedostupni podaci o vremenskoj prognozi! Posjetite openweathermap.org za više informacija.' } }
+    expected = { error: { en: 'Error: No weather forecast data available! Please visit <a href="https://openweathermap.org/city/3191281">openweathermap.org</a> for more information.', 
+                          bs: 'Greška: Nedostupni podaci o vremenskoj prognozi! Posjetite <a href="https://openweathermap.org/city/3191281">openweathermap.org</a> za više informacija.' } }
     assert_equal(expected, sarajevo_weather_forecast)
   end
 
@@ -362,10 +371,10 @@ class WeatherClientTest < TestCase
     ExceptionNotifier.expects(:notify).twice
 
     (current_alarms, future_alarms) = @client.meteoalarms  
-    expected_no_current_alarms = { :error => { :en=>"Error: No current meteoalarms data available! Please visit meteoalarm.org for more information.", 
-                                               :bs=>"Greška: Nedostupni podaci o trenutnim meteoalarmima! Posjetite meteoalarm.org za više informacija." } }
-    expected_no_future_alarms = { :error => { :en=>"Error: No future meteoalarms data available! Please visit meteoalarm.org for more information.", 
-                                               :bs=>"Greška: Nedostupni podaci o nadolazeċim meteoalarmima! Posjetite meteoalarm.org za više informacija." } }
+    expected_no_current_alarms = { :error => { :en=>'Error: No current meteoalarms data available! Please visit <a href="https://meteoalarm.org">meteoalarm.org</a> for more information.', 
+                                               :bs=>'Greška: Nedostupni podaci o trenutnim meteoalarmima! Posjetite <a href="https://meteoalarm.org">meteoalarm.org</a> za više informacija.' } }
+    expected_no_future_alarms = { :error => { :en=>'Error: No future meteoalarms data available! Please visit <a href="https://meteoalarm.org">meteoalarm.org</a> for more information.', 
+                                              :bs=>'Greška: Nedostupni podaci o nadolazeċim meteoalarmima! Posjetite <a href="https://meteoalarm.org">meteoalarm.org</a> za više informacija.' } }
 
     assert_equal(expected_no_current_alarms, current_alarms)
     assert_equal(expected_no_future_alarms, future_alarms)                                          
@@ -387,7 +396,7 @@ class WeatherClientTest < TestCase
     stub_request(:get, "https://api.met.no/weatherapi/locationforecast/2.0/complete.json?altitude=1557&lat=43.7383&lon=18.5645").
       to_return(status: 200, body: File.read("test/fixtures/yr_jahorina_response.json"), headers: {'Content-Type'=>'application/json'})  
 
-    result = @client.yr_weather
+    result = @client.yr_weather_forecast
     assert(result[:bjelasnica][:forecast][0][:air_temperature], 10)
   end
 
@@ -408,9 +417,9 @@ class WeatherClientTest < TestCase
       to_return(status: 200, body: File.read("test/fixtures/yr_jahorina_response.json"), headers: {'Content-Type'=>'application/json'})  
 
     ExceptionNotifier.expects(:notify)
-    result = @client.yr_weather
-    expected = { :error=> { :en=>"Error: No weather forecast data available for this location! Please visit yr.no for more information.", 
-                            :bs=>"Greška: Nedostupni podaci o vremenskoj prognozi za ovu lokaciju! Posjetite yr.no za više informacija." } }
+    result = @client.yr_weather_forecast
+    expected = { :error=> { :en=>"Error: No weather forecast data available for Igman! Please visit <a href='https://www.yr.no/en'>yr.no</a> for more information.", 
+                            :bs=>"Greška: Nedostupni podaci o vremenskoj prognozi za lokaciju: Igman! Posjetite <a href='https://www.yr.no/en'>yr.no</a> za više informacija." } }
     
     assert_equal(expected, result[:igman][:forecast])
   end

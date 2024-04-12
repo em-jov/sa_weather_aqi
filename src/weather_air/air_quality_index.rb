@@ -24,8 +24,8 @@ module WeatherAir
                  'ilijas' => { name: 'Ilijaš', latitude: 43.960, longitude: 18.269 },
                  'ivan_sedlo' => { name: 'Ivan sedlo', latitude: 43.750, longitude: 18.035 } }
 
-    def stations_pollutants_aqi_data
-      return @stations_pollutants_aqi_data if @stations_pollutants_aqi_data
+    def aqi_by_fhmz
+      return @aqi_by_fhmz if @aqi_by_fhmz
       
       stations_tr_html = fetch_fhmzbih_data 
       stations = extract_pollutants_aqi_values_for_stations(stations_tr_html)
@@ -33,7 +33,7 @@ module WeatherAir
       stations.each do |station, pollutants|
         stations[station] = pollutants.merge(STATIONS[station])
       end
-      @stations_pollutants_aqi_data = stations
+      @aqi_by_fhmz = stations
     end
 
     def aqi_by_ks
@@ -73,13 +73,13 @@ module WeatherAir
                  bs: 'Greška: Nedostupni podaci sa stranice zrak.ekoakcija.org.' } }  
     end
 
-    def city_pollutants_aqi
-      city_pollutants = fetch_max_values(stations_pollutants_aqi_data)
+    def citywide_aqi_by_fhmz
+      citywide_aqi = fetch_max_values(aqi_by_fhmz)
 
-      city_pollutants[:value] = city_pollutants.max_by{|k,v| v}[1]
-      city_pollutants[:class] = EUAQI.key(city_pollutants[:value])
+      citywide_aqi[:value] = citywide_aqi.max_by{|k,v| v}[1]
+      citywide_aqi[:class] = EUAQI.key(citywide_aqi[:value])
 
-      city_pollutants
+      citywide_aqi
     end
 
     private

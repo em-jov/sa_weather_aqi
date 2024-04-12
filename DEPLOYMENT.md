@@ -120,7 +120,7 @@ Before proceeding, ensure you have the following:
     - Open the `Functions` page of the Lambda console and choose your function.
     - Under `Function overview`, choose `Add trigger`.
     - Set the trigger type to `EventBridge (CloudWatch Events)`.
-    - For `Rule`, choose `Create a new rule.` This project is using `cron(17 * ? * * *)`, which means it triggers Lambda every day at 17 minutes past the hour (regardless of the hour, day of the month, month, day of the week, or year). 
+    - For `Rule`, choose `Create a new rule.` This project is using `cron(17 * ? * * *)`, which means it triggers Lambda every day at 17 minutes past the hour. 
 
 <sub>[back on top ^](#table-of-contents)</sub>
 

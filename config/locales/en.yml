@@ -84,7 +84,6 @@ en:
   moderate_alarm: moderate
   severe_alarm: severe
   extreme_alarm: extreme
-  no_current_alarms: Currently, there are no meteoalarms in effect.
   upcoming_alarms: Meteoalarms for the upcoming days
   meteoalarm_disclaimer: Disclaimer <br> Time delays between this website and the www.meteoalarm.org website are possible. 
                          For the most up-to-date awareness information as published by the participating National

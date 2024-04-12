@@ -15,7 +15,6 @@ module WeatherAir
   class << self
     def run
       logger = AppLogger.instance.logger
-      logger.debug "Starting..."
       Sentry.init
       I18n.load_path += Dir[File.expand_path("config/locales") + "/*.yml"]
       I18n.config.available_locales = %i[en bs]
@@ -23,26 +22,25 @@ module WeatherAir
 
       # weather
       weather = WeatherAir::WeatherClient.new
+      # meteoalarms
+      (current_alarms, future_alarms) = weather.meteoalarms
       # openweathermap
       sunrise_sunset = weather.owm_sunrise_sunset
       own_weather_forecast = weather.owm_weather_forecast
       # yr.no
-      yr_weather_forecast = weather.yr_weather
-      yr_current_weather = yr_weather_forecast[:sarajevo][:forecast][0]
-      
-      # meteoalarms
-      weather.meteoalarms
-      (current_alarms, future_alarms) = weather.meteoalarms
-
+      yr_weather_forecast = weather.yr_weather_forecast
+      yr_current_weather = yr_weather_forecast[:sarajevo][:forecast]
+      yr_current_weather = yr_current_weather.first if yr_current_weather.is_a?(Array)
+     
       # air quality index
       aqi = WeatherAir::AirQualityIndex.new
-      # fhmz
-      city_pollutants = aqi.city_pollutants_aqi
-      stations_pollutants_aqi = aqi.stations_pollutants_aqi_data
+      # fhmzbih.gov.ba
+      fhmz_aqi = aqi.aqi_by_fhmz
+      fhmz_citywide_aqi = aqi.citywide_aqi_by_fhmz
       # kanton sarajevo
       ks_aqi = aqi.aqi_by_ks
       # eko akcija
-      ekoakcija_aqi_data = aqi.aqi_by_ekoakcija
+      ekoakcija_aqi = aqi.aqi_by_ekoakcija
 
       style = File.read("src/style.css")
       js_script = File.read('src/script.js')
@@ -50,9 +48,9 @@ module WeatherAir
       template = ERB.new(File.read('src/template.html.erb'))
       english = template.result(binding)
 
-      feed = { sunrise_sunset:, own_weather_forecast:, stations_pollutants_aqi:, city_pollutants: }.to_json
-      sa_aqi = { city_pollutants: }.to_json
-      ms_aqi = { stations_pollutants_aqi: }.to_json
+      feed = { sunrise_sunset:, own_weather_forecast:, fhmz_aqi:, fhmz_citywide_aqi: }.to_json
+      sa_aqi = { fhmz_citywide_aqi: }.to_json
+      ms_aqi = { fhmz_aqi: }.to_json
 
       I18n.locale = :bs
       own_weather_forecast = weather.owm_weather_forecast

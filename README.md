@@ -26,7 +26,8 @@ Ruby script retrieves data from 3rd-party APIs or resorts to web scraping when A
 - Ensure that you have the following installed on your machine:
     - Ruby: Download and install Ruby 3.2.
     - Bundler: Install Bundler by running `gem install bundler`
-- API key from [OpenWeather](https://openweathermap.org/api) 
+- API key from [OpenWeather](https://openweathermap.org/api)
+- [Sentry](https://sentry.io) account for error monitoring   
 
 ### Setup
 1. Clone the Repository:
@@ -53,6 +54,3 @@ Your contributions are welcome and appreciated. If you find issues or have impro
 
 ### License
 [MIT License](MIT-LICENCE.txt)
-
-### Project Status
-Project is _in progress_.
