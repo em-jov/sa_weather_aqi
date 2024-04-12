@@ -18,22 +18,22 @@ class WeatherAirTest < TestCase
 
     WeatherAir::WeatherClient.any_instance.stubs(:meteoalarms).returns([[], []])
 
-    WeatherAir::AirQualityIndex.any_instance.stubs(:city_pollutants_aqi).returns({:so2=>1, :no2=>1, :o3=>4, :pm10=>2, :pm25=>1, :value=>4, :class=>:poor_eea})
+    WeatherAir::AirQualityIndex.any_instance.stubs(:citywide_aqi_by_fhmz).returns({:so2=>1, :no2=>1, :o3=>4, :pm10=>2, :pm25=>1, :value=>4, :class=>:poor_eea})
     
-    stations_pollutants_aqi_data = YAML.load(File.read("test/fixtures/stations_pollutants_aqi_data.yml"), permitted_classes: [Symbol])
-    WeatherAir::AirQualityIndex.any_instance.stubs(:stations_pollutants_aqi_data).returns(stations_pollutants_aqi_data)
+    fhmz_aqi_data = YAML.load(File.read("test/fixtures/stations_pollutants_aqi_data.yml"), permitted_classes: [Symbol])
+    WeatherAir::AirQualityIndex.any_instance.stubs(:aqi_by_fhmz).returns(fhmz_aqi_data)
     
     ks_aqi_data = YAML.load(File.read("test/fixtures/ks_aqi_data.yml"), permitted_classes: [Time, Symbol])
     WeatherAir::AirQualityIndex.any_instance.stubs(:aqi_by_ks).returns(ks_aqi_data)
     
-    eko_akcija_aqi_data = [[["Ambasada SAD", "", "14", "", "60", "Umjereno zagađen"],
+    ekoakcija_aqi_data = [[["Ambasada SAD", "", "14", "", "60", "Umjereno zagađen"],
                             ["Vijećnica", "10", "9", "1", "42", "Dobar"],
                             ["Otoka", "10", "4", "8", "21", "Dobar"],
                             ["Bjelave", "11", "4", "7", "17", "Dobar"],
                             ["Ilidža", "6", "3", "3", "13", "Dobar"]],
                            60,
                            "moderate"]                    
-    WeatherAir::AirQualityIndex.any_instance.stubs(:aqi_by_ekoakcija).returns(eko_akcija_aqi_data)
+    WeatherAir::AirQualityIndex.any_instance.stubs(:aqi_by_ekoakcija).returns(ekoakcija_aqi_data)
 
     assert_equal(5, WeatherAir.run.length)
   end

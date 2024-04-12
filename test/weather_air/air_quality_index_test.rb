@@ -15,11 +15,11 @@ class AirQualityIndexTest < TestCase
     "ivan_sedlo"=>{:aqi=>{:value=>"3", :class=>:moderate_eea}, :so2=>{:value=>"1", :class=>:good_eea}, :no2=>{:value=>"1", :class=>:good_eea}, :o3=>{:value=>"3", :class=>:moderate_eea}, :pm10=>{:value=>"1", :class=>:good_eea}, :pm25=>{:value=>"", :class=>nil}, :name=>"Ivan sedlo", :latitude=>43.75, :longitude=>18.035}}
   end
 
-  def test_stations_pollutants_aqi_data
+  def test_aqi_by_fhmz
     stub_request(:get, "https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php").
       to_return(status: 200, body: File.read('test/fixtures/fhmzbih.html'), headers: {})
           
-    result = @script.stations_pollutants_aqi_data
+    result = @script.aqi_by_fhmz
     assert_equal({:value=>"3", :class=>:moderate_eea}, result['otoka'][:o3])
   end
 
@@ -70,7 +70,7 @@ class AirQualityIndexTest < TestCase
     assert_equal(expected, result)
   end
 
-  def test_city_pollutants_aqi_no_values
+  def test_citywide_aqi_by_fhmz_no_values
     # skip
     stations_pollutants = { "vijecnica" => { :so2 => nil, :no2 => nil, :co => nil, :o3 => nil, :pm10 => nil, :pm2_5 => nil, :pm => nil, :aqi => nil },
                             "bjelave" => { :so2 => nil, :no2 => nil, :co => nil, :o3 => nil, :pm10 => nil, :pm2_5 => nil, :pm => nil, :aqi => nil },
@@ -79,17 +79,17 @@ class AirQualityIndexTest < TestCase
                             "ilidza" => { :so2 => nil, :no2 => nil, :co => nil, :o3 => nil, :pm10 => nil, :pm2_5 => nil, :pm => nil, :aqi => nil } }
 
 
-    @script.expects(:stations_pollutants_aqi_data).returns(stations_pollutants)
-    result = @script.city_pollutants_aqi
+    @script.expects(:aqi_by_fhmz).returns(stations_pollutants)
+    result = @script.citywide_aqi_by_fhmz
     
     assert_equal(result[:value],  0)
     assert_nil(result[:class])
   end
 
-  def test_city_pollutants_aqi
+  def test_citywide_aqi_by_fhmz
     # skip
-    @script.expects(:stations_pollutants_aqi_data).returns(@stations_pollutants)
-    result = @script.city_pollutants_aqi
+    @script.expects(:aqi_by_fhmz).returns(@stations_pollutants)
+    result = @script.citywide_aqi_by_fhmz
 
     assert_equal(result[:value],  3)
     assert_equal(result[:class],  :moderate_eea)
