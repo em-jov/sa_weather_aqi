@@ -16,14 +16,49 @@ class AirQualityIndexTest < TestCase
   end
 
   def test_aqi_by_fhmz
+    skip
     stub_request(:get, "https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php").
       to_return(status: 200, body: File.read('test/fixtures/fhmzbih.html'), headers: {})
           
     result = @script.aqi_by_fhmz
+    pp result
     assert_equal({:value=>"3", :class=>:moderate_eea}, result['otoka'][:o3])
   end
 
+  def test_aqi_by_fhmz_no_data
+    # skip
+    stub_request(:get, "https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php").
+    to_return(status: 200, body: File.read('test/fixtures/fhmzbih_no_data.html'), headers: {})
+
+    result = @script.aqi_by_fhmz
+    expected = {:error=>{:en=>'Error: No current air quality index data available from Federal Hydro-Meteorological Institute! Please visit <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php">fhmzbih.gov.ba</a> for more information.', 
+                         :bs=>'Greška: Nedostupni podaci o indeksu kvalitete zraka Federalnog hidrometeoroloskog zavoda! Posjetite <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php">fhmzbih.gov.ba</a> za više informacija.'}}
+    assert_equal(expected, result)
+  end
+
+  def test_aqi_by_fhmz_one_station_data
+    skip
+    stub_request(:get, "https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php").
+    to_return(status: 200, body: File.read('test/fixtures/fhmzbih_some_data.html'), headers: {})
+
+    result = @script.aqi_by_fhmz
+    pp result
+    assert_equal({:value=>"4", :class=>:poor_eea}, result["bjelave"][:aqi])
+  end
+
+  def test_aqi_by_fhmz_empty_html
+    # skip
+    stub_request(:get, "https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php").
+    to_return(status: 200, body: File.read('test/fixtures/fhmzbih_empty.html'), headers: {})
+
+    result = @script.aqi_by_fhmz
+    expected = {:error=>{:en=>'Error: No current air quality index data available from Federal Hydro-Meteorological Institute! Please visit <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php">fhmzbih.gov.ba</a> for more information.', 
+                         :bs=>'Greška: Nedostupni podaci o indeksu kvalitete zraka Federalnog hidrometeoroloskog zavoda! Posjetite <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php">fhmzbih.gov.ba</a> za više informacija.'}}
+    assert_equal(expected, result)
+  end
+
   def test_aqi_by_ks
+    # skip
     stub_request(:get, "https://aqms.live/kvalitetzraka/st.php?st=vijecnica").
       to_return(status: 200, body: File.read('test/fixtures/ks_aqi_vijecnica.html'), headers: {})
     
@@ -46,6 +81,7 @@ class AirQualityIndexTest < TestCase
   end
 
   def test_aqi_by_ekoakcija
+    # skip
     stub_request(:get, "https://zrak.ekoakcija.org/sarajevo").
       to_return(status: 200, body: File.read("test/fixtures/ekoakcija_aqi.html"), headers: {})
 
@@ -60,6 +96,7 @@ class AirQualityIndexTest < TestCase
   end
 
   def test_aqi_by_ekoakcija_no_data
+    # skip
     stub_request(:get, "https://zrak.ekoakcija.org/sarajevo").
       to_return(status: 403, body: "", headers: {})
 

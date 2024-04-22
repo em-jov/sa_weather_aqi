@@ -217,6 +217,9 @@
       <div id="air" class="section">
         <h2><%= I18n.t(:aqi_quality_index) %></h2>
 
+        <% if fhmz_aqi.key?(:error) %>
+          <p class="error"><%= fhmz_aqi[:error][I18n.locale] %></p>
+        <% else %>
         <h4>
           <%= I18n.t(:data_provided_by) %><br>  
           <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php" target=”_blank”><%= I18n.t(:fhmz) %></a>
@@ -349,8 +352,9 @@
             <td ><%= I18n.t('extremely_poor_eea.name') %></td>
           </tr>
         </table>
-
+      <% end %>  
       </div>
+
       <div id="air_more" class="section">
 
         <h3><%= I18n.t(:aqi_more) %></h3>

@@ -27,13 +27,25 @@ module WeatherAir
     def aqi_by_fhmz
       return @aqi_by_fhmz if @aqi_by_fhmz
       
-      stations_tr_html = fetch_fhmzbih_data 
+      stations_tr_html = fetch_fhmzbih_data
       stations = extract_pollutants_aqi_values_for_stations(stations_tr_html)
 
       stations.each do |station, pollutants|
         stations[station] = pollutants.merge(STATIONS[station])
       end
+
+      stations.each do |station, pollutants|
+        if pollutants[:aqi][:value].empty?
+          stations.delete(station)
+        end
+      end
       @aqi_by_fhmz = stations
+
+      raise 'No fhmzbih data.' if stations == {}
+    rescue StandardError => exception
+      ExceptionNotifier.notify(exception)  
+      { error: { en: 'Error: No current air quality index data available from Federal Hydro-Meteorological Institute! Please visit <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php">fhmzbih.gov.ba</a> for more information.', 
+                 bs: 'Greška: Nedostupni podaci o indeksu kvalitete zraka Federalnog hidrometeoroloskog zavoda! Posjetite <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php">fhmzbih.gov.ba</a> za više informacija.' } }  
     end
 
     def aqi_by_ks
@@ -135,13 +147,13 @@ module WeatherAir
       fhmzbih_website = Nokogiri::HTML(URI.open('https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php'))
       
       # !!! hard-coded (table), potential problems if source HTML changes
-      table = fhmzbih_website.css('table table').first
-
+      table = fhmzbih_website&.css('table table').first
+      
       # all of the pollutant values for one monitoring station are contained within one <tr> element
       # inside that <tr> element, within the first <td> element, the name of the station is specified
       # the station name is checked before collecting <tr> content to ensure reliable data extraction
       2.upto(10).each_with_object({}) do |index, stations_tr_html|
-        row = table.css('tr')[index]
+        row = table&.css('tr')[index] 
         stations_tr_html['bjelave'] = row and next if row.css('td')[0].content.include?('Bjelave')
         stations_tr_html['vijecnica'] = row and next if row.css('td')[0].content.include?('Vijećnica')
         stations_tr_html['otoka'] = row and next if row.css('td')[0].content.include?('Otoka')
