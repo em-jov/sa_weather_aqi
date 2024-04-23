@@ -48,18 +48,48 @@ module WeatherAir
                  bs: 'Greška: Nedostupni podaci o indeksu kvalitete zraka Federalnog hidrometeoroloskog zavoda! Posjetite <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php">fhmzbih.gov.ba</a> za više informacija.' } }  
     end
 
+    def citywide_aqi_by_fhmz
+      citywide_aqi = fetch_max_values(aqi_by_fhmz)
+
+      citywide_aqi[:value] = citywide_aqi.max_by{|k,v| v}[1]
+      citywide_aqi[:class] = EUAQI.key(citywide_aqi[:value])
+ 
+      citywide_aqi
+    end
+
     def aqi_by_ks
-      stations = { 'Vijećnica' => { name: 'vijecnica', latitude: 43.859, longitude: 18.434 },
+      stations_raw_data = { 'Vijećnica' => { name: 'vijecnica', latitude: 43.859, longitude: 18.434 },
                    'Otoka' => { name: 'otoka', latitude: 43.848, longitude: 18.363 },
                    'Ilidža' => { name: 'ilidza', latitude: 43.830 , longitude: 18.310 },
                    'Vogošća' => { name: 'vogosca', latitude: 43.900, longitude: 18.342 },
                    'Ilijaš' => { name: 'ilijas', latitude: 43.960, longitude: 18.269 }}
 
-      stations.each do |station, values|
+      stations_raw_data.each do |station, values|
         values.merge!(fetch_pollutants_from_ks_website(values[:name]))
       end
 
-      stations
+      relevant_data = stations_raw_data.deep_dup
+
+      relevant_data.each do |station, values|
+        %w[SO2 NO2 O3 CO PM10 PM2.5].each do |pollutant|
+          if !values[pollutant].empty? &&  I18n.localize(values[pollutant][:date], format: :normal) !=  I18n.localize(Time.now, format: :normal)
+            values[pollutant] = {}
+          end          
+        end
+      end
+
+      relevant_data.each do |station, values|
+        if %w[SO2 NO2 O3 CO PM10 PM2.5].all? { |pollutant| values[pollutant].empty? } 
+          relevant_data.delete(station)
+        end
+      end
+
+      [stations_raw_data, relevant_data]
+    rescue StandardError => exception
+      ExceptionNotifier.notify(exception)  
+      { error: { en: 'Error: No current air quality index data available from Sarajevo Canton Ministry of Communal Industry, Infrastructure, Physical Planning, Construction and Environmental Protection. Please visit <a href="https://aqms.live/kvalitetzraka/index.php">mkipgo.ks.gov.ba</a> for more information.', 
+                 bs: 'Greška: Nedostupni podaci o indeksu kvalitete zraka sa webstranice Ministarstva komunalne privrede, infrastrukture, prostornog uređenja, građenja i zaštite okoliša Kantona Sarajevo! Posjetite <a href="https://aqms.live/kvalitetzraka/index.php">mkipgo.ks.gov.ba</a> za više informacija.' } }  
+   
     end
 
     def aqi_by_ekoakcija
@@ -84,15 +114,6 @@ module WeatherAir
       ExceptionNotifier.notify(exception)  
       { error: { en: 'Error: No current air quality index data available from ekoakcija.org. Please visit <a href="https://zrak.ekoakcija.org/sarajevo">zrak.ekoakcija.org</a> for more information.', 
                  bs: 'Greška: Nedostupni podaci o indeksu kvalitete zraka sa webstranice ekoakcija.org! Posjetite <a href="https://zrak.ekoakcija.org/sarajevo">zrak.ekoakcija.org</a> za više informacija.' } }  
-    end
-
-    def citywide_aqi_by_fhmz
-      citywide_aqi = fetch_max_values(aqi_by_fhmz)
-
-      citywide_aqi[:value] = citywide_aqi.max_by{|k,v| v}[1]
-      citywide_aqi[:class] = EUAQI.key(citywide_aqi[:value])
- 
-      citywide_aqi
     end
 
     private

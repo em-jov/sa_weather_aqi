@@ -1,165 +1,166 @@
 ---
-Vijećnica:
-  :name: vijecnica
-  :latitude: 43.859
-  :longitude: 18.434
-  SO2:
-    :date: 2024-01-29 14:00:00.000000000 +01:00
-    :time: 2024-04-08 14:00:00.000000000 +02:00
-    :display: false
-    :concentration: 9.42 μg/m3
-    :css_class: good
-    :aqi: '5'
-  NO2:
-    :date: 2024-01-29 14:00:00.000000000 +01:00
-    :time: 2024-04-08 14:00:00.000000000 +02:00
-    :display: false
-    :concentration: 25.28 μg/m3
-    :css_class: good
-    :aqi: '12'
-  CO:
-    :date: 2024-01-29 14:00:00.000000000 +01:00
-    :time: 2024-04-08 14:00:00.000000000 +02:00
-    :display: false
-    :concentration: 0.33 mg/m3
-    :css_class: good
-    :aqi: '3'
-  O3: {}
-  PM10:
-    :date: 2024-01-29 14:00:00.000000000 +01:00
-    :time: 2024-04-08 14:00:00.000000000 +02:00
-    :display: false
-    :concentration: 23.39 μg/m3
-    :css_class: good
-    :aqi: '22'
-  PM2.5: {}
-Otoka:
-  :name: otoka
-  :latitude: 43.848
-  :longitude: 18.363
-  SO2:
-    :date: 2024-02-26 10:00:00.000000000 +01:00
-    :time: 2024-04-08 10:00:00.000000000 +02:00
-    :display: false
-    :concentration: 19.94 μg/m3
-    :css_class: good
-    :aqi: '11'
-  NO2:
-    :date: 2024-02-26 10:00:00.000000000 +01:00
-    :time: 2024-04-08 10:00:00.000000000 +02:00
-    :display: false
-    :concentration: 61.74 μg/m3
-    :css_class: good
-    :aqi: '30'
-  CO: {}
-  O3:
-    :date: 2024-02-26 10:00:00.000000000 +01:00
-    :time: 2024-04-08 10:00:00.000000000 +02:00
-    :display: false
-    :concentration: 10.96 μg/m3
-    :css_class: good
-    :aqi: '5'
-  PM10:
-    :date: 2024-02-26 10:00:00.000000000 +01:00
-    :time: 2024-04-08 10:00:00.000000000 +02:00
-    :display: false
-    :concentration: 86.42 μg/m3
-    :css_class: moderate
-    :aqi: '67'
-  PM2.5: {}
-Ilidža:
-  :name: ilidza
-  :latitude: 43.83
-  :longitude: 18.31
-  SO2:
-    :date: 2023-05-07 02:00:00.000000000 +02:00
-    :time: 2024-04-08 02:00:00.000000000 +02:00
-    :display: false
-    :concentration: 6.88 μg/m3
-    :css_class: good
-    :aqi: '4'
-  NO2:
-    :date: 2023-05-07 02:00:00.000000000 +02:00
-    :time: 2024-04-08 02:00:00.000000000 +02:00
-    :display: false
-    :concentration: 9.04 μg/m3
-    :css_class: good
-    :aqi: '4'
-  CO: {}
-  O3: {}
-  PM10:
-    :date: 2023-05-07 02:00:00.000000000 +02:00
-    :time: 2024-04-08 02:00:00.000000000 +02:00
-    :display: false
-    :concentration: 13.87 μg/m3
-    :css_class: good
-    :aqi: '13'
-  PM2.5:
-    :date: 2023-05-07 02:00:00.000000000 +02:00
-    :time: 2024-04-08 02:00:00.000000000 +02:00
-    :display: false
-    :concentration: 9.67 μg/m3
-    :css_class: good
-    :aqi: '40'
-Vogošća:
-  :name: vogosca
-  :latitude: 43.9
-  :longitude: 18.342
-  SO2:
-    :date: 2024-01-29 14:00:00.000000000 +01:00
-    :time: 2024-04-08 14:00:00.000000000 +02:00
-    :display: false
-    :concentration: 16.37 μg/m3
-    :css_class: good
-    :aqi: '9'
-  NO2:
-    :date: 2024-01-29 14:00:00.000000000 +01:00
-    :time: 2024-04-08 14:00:00.000000000 +02:00
-    :display: false
-    :concentration: 18.66 μg/m3
-    :css_class: good
-    :aqi: '9'
-  CO: {}
-  O3: {}
-  PM10:
-    :date: 2024-01-29 14:00:00.000000000 +01:00
-    :time: 2024-04-08 14:00:00.000000000 +02:00
-    :display: false
-    :concentration: 32.54 μg/m3
-    :css_class: good
-    :aqi: '30'
-  PM2.5:
-    :date: 2024-01-29 14:00:00.000000000 +01:00
-    :time: 2024-04-08 14:00:00.000000000 +02:00
-    :display: false
-    :concentration: 20.89 μg/m3
-    :css_class: moderate
-    :aqi: '69'
-Ilijaš:
-  :name: ilijas
-  :latitude: 43.96
-  :longitude: 18.269
-  SO2:
-    :date: 2024-04-08 14:00:00.000000000 +02:00
-    :time: 2024-04-08 14:00:00.000000000 +02:00
-    :display: true
-    :concentration: 2.51 μg/m3
-    :css_class: good
-    :aqi: '1'
-  NO2:
-    :date: 2024-04-08 14:00:00.000000000 +02:00
-    :time: 2024-04-08 14:00:00.000000000 +02:00
-    :display: true
-    :concentration: 2.91 μg/m3
-    :css_class: good
-    :aqi: '1'
-  CO: {}
-  O3: {}
-  PM10:
-    :date: 2024-04-08 14:00:00.000000000 +02:00
-    :time: 2024-04-08 14:00:00.000000000 +02:00
-    :display: true
-    :concentration: 18.78 μg/m3
-    :css_class: good
-    :aqi: '17'
-  PM2.5: {}
+- Vijećnica:
+    :name: vijecnica
+    :latitude: 43.859
+    :longitude: 18.434
+    SO2:
+      :date: 2024-01-29 14:00:00.000000000 +01:00
+      :time: 2024-04-23 14:00:00.000000000 +02:00
+      :display: false
+      :concentration: 9.42 μg/m3
+      :css_class: good
+      :aqi: '5'
+    NO2:
+      :date: 2024-01-29 14:00:00.000000000 +01:00
+      :time: 2024-04-23 14:00:00.000000000 +02:00
+      :display: false
+      :concentration: 25.28 μg/m3
+      :css_class: good
+      :aqi: '12'
+    CO:
+      :date: 2024-01-29 14:00:00.000000000 +01:00
+      :time: 2024-04-23 14:00:00.000000000 +02:00
+      :display: false
+      :concentration: 0.33 mg/m3
+      :css_class: good
+      :aqi: '3'
+    O3: {}
+    PM10:
+      :date: 2024-01-29 14:00:00.000000000 +01:00
+      :time: 2024-04-23 14:00:00.000000000 +02:00
+      :display: false
+      :concentration: 23.39 μg/m3
+      :css_class: good
+      :aqi: '22'
+    PM2.5: {}
+  Otoka:
+    :name: otoka
+    :latitude: 43.848
+    :longitude: 18.363
+    SO2:
+      :date: 2024-02-26 10:00:00.000000000 +01:00
+      :time: 2024-04-23 10:00:00.000000000 +02:00
+      :display: false
+      :concentration: 19.94 μg/m3
+      :css_class: good
+      :aqi: '11'
+    NO2:
+      :date: 2024-02-26 10:00:00.000000000 +01:00
+      :time: 2024-04-23 10:00:00.000000000 +02:00
+      :display: false
+      :concentration: 61.74 μg/m3
+      :css_class: good
+      :aqi: '30'
+    CO: {}
+    O3:
+      :date: 2024-02-26 10:00:00.000000000 +01:00
+      :time: 2024-04-23 10:00:00.000000000 +02:00
+      :display: false
+      :concentration: 10.96 μg/m3
+      :css_class: good
+      :aqi: '5'
+    PM10:
+      :date: 2024-02-26 10:00:00.000000000 +01:00
+      :time: 2024-04-23 10:00:00.000000000 +02:00
+      :display: false
+      :concentration: 86.42 μg/m3
+      :css_class: moderate
+      :aqi: '67'
+    PM2.5: {}
+  Ilidža:
+    :name: ilidza
+    :latitude: 43.83
+    :longitude: 18.31
+    SO2:
+      :date: 2023-05-07 02:00:00.000000000 +02:00
+      :time: 2024-04-23 02:00:00.000000000 +02:00
+      :display: false
+      :concentration: 6.88 μg/m3
+      :css_class: good
+      :aqi: '4'
+    NO2:
+      :date: 2023-05-07 02:00:00.000000000 +02:00
+      :time: 2024-04-23 02:00:00.000000000 +02:00
+      :display: false
+      :concentration: 9.04 μg/m3
+      :css_class: good
+      :aqi: '4'
+    CO: {}
+    O3: {}
+    PM10:
+      :date: 2023-05-07 02:00:00.000000000 +02:00
+      :time: 2024-04-23 02:00:00.000000000 +02:00
+      :display: false
+      :concentration: 13.87 μg/m3
+      :css_class: good
+      :aqi: '13'
+    PM2.5:
+      :date: 2023-05-07 02:00:00.000000000 +02:00
+      :time: 2024-04-23 02:00:00.000000000 +02:00
+      :display: false
+      :concentration: 9.67 μg/m3
+      :css_class: good
+      :aqi: '40'
+  Vogošća:
+    :name: vogosca
+    :latitude: 43.9
+    :longitude: 18.342
+    SO2:
+      :date: 2024-01-29 14:00:00.000000000 +01:00
+      :time: 2024-04-23 14:00:00.000000000 +02:00
+      :display: false
+      :concentration: 16.37 μg/m3
+      :css_class: good
+      :aqi: '9'
+    NO2:
+      :date: 2024-01-29 14:00:00.000000000 +01:00
+      :time: 2024-04-23 14:00:00.000000000 +02:00
+      :display: false
+      :concentration: 18.66 μg/m3
+      :css_class: good
+      :aqi: '9'
+    CO: {}
+    O3: {}
+    PM10:
+      :date: 2024-01-29 14:00:00.000000000 +01:00
+      :time: 2024-04-23 14:00:00.000000000 +02:00
+      :display: false
+      :concentration: 32.54 μg/m3
+      :css_class: good
+      :aqi: '30'
+    PM2.5:
+      :date: 2024-01-29 14:00:00.000000000 +01:00
+      :time: 2024-04-23 14:00:00.000000000 +02:00
+      :display: false
+      :concentration: 20.89 μg/m3
+      :css_class: moderate
+      :aqi: '69'
+  Ilijaš:
+    :name: ilijas
+    :latitude: 43.96
+    :longitude: 18.269
+    SO2:
+      :date: 2024-04-10 17:00:00.000000000 +02:00
+      :time: 2024-04-23 17:00:00.000000000 +02:00
+      :display: false
+      :concentration: 4.70 μg/m3
+      :css_class: good
+      :aqi: '3'
+    NO2:
+      :date: 2024-04-10 17:00:00.000000000 +02:00
+      :time: 2024-04-23 17:00:00.000000000 +02:00
+      :display: false
+      :concentration: 2.42 μg/m3
+      :css_class: good
+      :aqi: '1'
+    CO: {}
+    O3: {}
+    PM10:
+      :date: 2024-04-10 17:00:00.000000000 +02:00
+      :time: 2024-04-23 17:00:00.000000000 +02:00
+      :display: false
+      :concentration: 31.09 μg/m3
+      :css_class: good
+      :aqi: '29'
+    PM2.5: {}
+- {}

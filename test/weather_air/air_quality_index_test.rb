@@ -71,7 +71,31 @@ class AirQualityIndexTest < TestCase
     I18n.locale = :bs
 
     result = @script.aqi_by_ks
-    assert_equal("9.42 μg/m3", result['Vijećnica']["SO2"][:concentration])
+    assert_equal("9.42 μg/m3", result[0]['Vijećnica']["SO2"][:concentration])
+  end
+
+  def test_aqi_by_ks
+    stub_request(:get, "https://aqms.live/kvalitetzraka/st.php?st=vijecnica").
+      to_return(status: 200, body: "", headers: {})
+    
+    stub_request(:get, "https://aqms.live/kvalitetzraka/st.php?st=otoka").
+      to_return(status: 200, body: "", headers: {})
+
+    stub_request(:get, "https://aqms.live/kvalitetzraka/st.php?st=ilidza").
+      to_return(status: 200, body: "", headers: {})
+
+    stub_request(:get, "https://aqms.live/kvalitetzraka/st.php?st=vogosca").
+      to_return(status: 200, body: "", headers: {})
+
+    stub_request(:get, "https://aqms.live/kvalitetzraka/st.php?st=ilijas").
+      to_return(status: 200, body: "", headers: {})  
+    
+    I18n.locale = :bs
+
+    result = @script.aqi_by_ks
+    expected = { error: { en: 'Error: No current air quality index data available from Sarajevo Canton Ministry of Communal Industry, Infrastructure, Physical Planning, Construction and Environmental Protection. Please visit <a href="https://aqms.live/kvalitetzraka/index.php">mkipgo.ks.gov.ba</a> for more information.', 
+                          bs: 'Greška: Nedostupni podaci o indeksu kvalitete zraka sa webstranice Ministarstva komunalne privrede, infrastrukture, prostornog uređenja, građenja i zaštite okoliša Kantona Sarajevo! Posjetite <a href="https://aqms.live/kvalitetzraka/index.php">mkipgo.ks.gov.ba</a> za više informacija.' } }
+    assert_equal(expected, result)
   end
 
   def test_aqi_by_ekoakcija
