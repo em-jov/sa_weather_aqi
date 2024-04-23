@@ -18,6 +18,7 @@ bs:
   source: Izvor podataka
   aqi_quality_index: Indeks kvalitete zraka
   aqi_ks: Ministarstva prostornog uređenja, građenja i zaštite okoliša Kantona Sarajevo
+  no_relevant_data: Trenutno nema relevantnih podataka. Zastarjele podatke možete pogledati pod rubrikom "Neobrađeni podaci".
   aqi_eko_akcija: zrak.ekoakcija.org
   aqi_eko_akcija_disclaimer: Za pojedinačne polutanate prikazana je vrijednost njihove koncentracije umjesto indeksa kvalitete zraka. 
   aqi_more: Podaci o indeksu kvalitete zraka iz drugih izvora

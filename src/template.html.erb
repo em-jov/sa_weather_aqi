@@ -363,10 +363,10 @@
           <p class="error"><%= ekoakcija_aqi[:error][I18n.locale] %></p>
         <% else %>
           <% (eko_akcija, ea_city_aqi_value, ea_city_aqi_class) = ekoakcija_aqi %>
-        <h4>
-          <%= I18n.t(:data_provided_by) %><br>  
-          <a href="https://zrak.ekoakcija.org/sarajevo" target=”_blank”><%= I18n.t(:aqi_eko_akcija) %></a>
-        </h4>
+          <h4>
+            <%= I18n.t(:data_provided_by) %><br>  
+            <a href="https://zrak.ekoakcija.org/sarajevo" target=”_blank”><%= I18n.t(:aqi_eko_akcija) %></a>
+          </h4>
           <h3 class="<%= ea_city_aqi_class %> city_aqi_main"><%= I18n.t(:aqi) %>: <%= I18n.t(ea_city_aqi_class + ".name") %> (<%= ea_city_aqi_value %>)</h3>
           <p class="small">*<%= I18n.t(:aqi_eko_akcija_disclaimer) %></p>
           <table class="stations_aqi centered-table">
@@ -425,66 +425,78 @@
         <% end %>  
 
         <br><hr>
-        <h4>
-          <%= I18n.t(:data_provided_by) %><br>  
-          <a href="https://aqms.live/kvalitetzraka/index.php" target=”_blank”><%= I18n.t(:aqi_ks) %></a>
-        </h4>
-          <details>
-            <summary><%= I18n.t(:raw_data) %></summary>
-            <br>
-            <table class="stations_aqi centered-table">
-            <tr>
-              <th><%= I18n.t(:station) %> </th>
-              <th>SO<sub>2</sub></th>
-              <th>NO<sub>2</sub></th>
-              <th>O<sub>3</sub></th>
-              <th>CO</th>
-              <th>PM<sub>10</sub></th>
-              <th>PM<sub>2.5</sub></th>
-            </tr>
-            <% ks_aqi.each do |station, values| %>
-            <tr>
-              <td class="ks_station"> <%= station %> </td>
-              <% %w[SO2 NO2 O3 CO PM10 PM2.5].each do |pollutant| %>
-                <% if values.key?(pollutant) %>
-                  <td class="<%= values[pollutant][:css_class] %>">
-                    <b><%= values[pollutant][:concentration] %></b>
-                    <% unless values[pollutant][:date].nil? %>
-                      <%= I18n.localize(values[pollutant][:date], format: :normal) %>
-                      <%= I18n.localize(values[pollutant][:time], format: :hm) %>
+
+        <% if ks_aqi.is_a?(Hash) %>
+            <p class="error"><%= ks_aqi[:error][I18n.locale] %></p>
+          <% else %>
+            <% (stations_raw_data, relevant_data) = ks_aqi %>
+
+            <h4>
+              <%= I18n.t(:data_provided_by) %><br>  
+              <a href="https://aqms.live/kvalitetzraka/index.php" target=”_blank”><%= I18n.t(:aqi_ks) %></a>
+            </h4>
+
+            <% if relevant_data == {} %>
+              <p><%= I18n.t(:no_relevant_data) %></p>
+            <% else %>
+              <table class="stations_aqi centered-table">
+                <tr>
+                  <th><%= I18n.t(:station) %> </th>
+                  <th>SO<sub>2</sub></th>
+                  <th>NO<sub>2</sub></th>
+                  <th>O<sub>3</sub></th>
+                  <th>CO</th>
+                  <th>PM<sub>10</sub></th>
+                  <th>PM<sub>2.5</sub></th>
+                </tr>
+                <% relevant_data.each do |station, values| %>
+                <tr>
+                  <td class="ks_station"> <%= station %> </td>
+                  <% %w[SO2 NO2 O3 CO PM10 PM2.5].each do |pollutant| %>
+                    <td class="<%= values[pollutant][:css_class] %>">
+                      <%= values[pollutant][:aqi] %>
+                    </td> 
+                  <% end %>
+                </tr>
+                <% end %>
+              </table>
+            <% end %>   
+
+            <details>
+              <summary><%= I18n.t(:raw_data) %></summary>
+              <br>
+              <table class="stations_aqi centered-table">
+                <tr>
+                  <th><%= I18n.t(:station) %> </th>
+                  <th>SO<sub>2</sub></th>
+                  <th>NO<sub>2</sub></th>
+                  <th>O<sub>3</sub></th>
+                  <th>CO</th>
+                  <th>PM<sub>10</sub></th>
+                  <th>PM<sub>2.5</sub></th>
+                </tr>
+                <% stations_raw_data.each do |station, values| %>
+                <tr>
+                  <td class="ks_station"> <%= station %> </td>
+                  <% %w[SO2 NO2 O3 CO PM10 PM2.5].each do |pollutant| %>
+                    <% if values.key?(pollutant) %>
+                      <td class="<%= values[pollutant][:css_class] %>">
+                        <b><%= values[pollutant][:concentration] %></b>
+                        <% unless values[pollutant][:date].nil? %>
+                          <%= I18n.localize(values[pollutant][:date], format: :normal) %>
+                          <%= I18n.localize(values[pollutant][:time], format: :hm) %>
+                        <% end %>
+                      </td>
                     <% end %>
-                  </td>
+                  <% end %>
+                </tr>
                 <% end %>
-              <% end %>
-            </tr>
-            <% end %>
-          </table>
-          </details>
-          <br>
-          <table class="stations_aqi centered-table">
-            <tr>
-              <th><%= I18n.t(:station) %> </th>
-              <th>SO<sub>2</sub></th>
-              <th>NO<sub>2</sub></th>
-              <th>O<sub>3</sub></th>
-              <th>CO</th>
-              <th>PM<sub>10</sub></th>
-              <th>PM<sub>2.5</sub></th>
-            </tr>
-            <% ks_aqi.each do |station, values| %>
-            <tr>
-              <td class="ks_station"> <%= station %> </td>
-              <% %w[SO2 NO2 O3 CO PM10 PM2.5].each do |pollutant| %>
-                <% if values.key?(pollutant) && values[pollutant][:date] != nil && I18n.localize(values[pollutant][:date], format: :normal) ==  I18n.localize(Time.now, format: :normal) %>
-                  <td class="<%= values[pollutant][:css_class] %>">
-                    <%= values[pollutant][:aqi] %>
-                  </td> 
-                <% end %>
-              <% end %>
-            </tr>
-            <% end %>
-          </table>        
+              </table>
+            </details>
+
+        <% end %>        
       </div>
+
       <div id="weather_forecast" class="section">
         <h2><%= I18n.t(:weather_forecast) %></h2>
         <% if own_weather_forecast.has_key?(:error) %>

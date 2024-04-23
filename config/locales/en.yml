@@ -17,7 +17,8 @@ en:
   legend: Chart legend
   source: Source
   aqi_quality_index: Air quality index
-  aqi_ks: MKIPGO KS
+  aqi_ks: Sarajevo Canton Ministry of Communal Industry, Infrastructure, Physical Planning, Construction and Environmental Protection
+  no_relevant_data: No relevant data is available at the moment. To access outdated data, please refer to the section titled 'Raw Data'.
   aqi_eko_akcija: zrak.ekoakcija.org
   aqi_eko_akcija_disclaimer: The individual pollutant values are presented in terms of concentration rather than the air quality index.
   aqi_more: Air Quality Index data form other sources
