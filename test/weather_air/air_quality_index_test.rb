@@ -16,17 +16,14 @@ class AirQualityIndexTest < TestCase
   end
 
   def test_aqi_by_fhmz
-    skip
     stub_request(:get, "https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php").
       to_return(status: 200, body: File.read('test/fixtures/fhmzbih.html'), headers: {})
           
     result = @script.aqi_by_fhmz
-    pp result
     assert_equal({:value=>"3", :class=>:moderate_eea}, result['otoka'][:o3])
   end
 
   def test_aqi_by_fhmz_no_data
-    # skip
     stub_request(:get, "https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php").
     to_return(status: 200, body: File.read('test/fixtures/fhmzbih_no_data.html'), headers: {})
 
@@ -37,7 +34,6 @@ class AirQualityIndexTest < TestCase
   end
 
   def test_aqi_by_fhmz_one_station_data
-    skip
     stub_request(:get, "https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php").
     to_return(status: 200, body: File.read('test/fixtures/fhmzbih_some_data.html'), headers: {})
 
@@ -47,7 +43,6 @@ class AirQualityIndexTest < TestCase
   end
 
   def test_aqi_by_fhmz_empty_html
-    # skip
     stub_request(:get, "https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php").
     to_return(status: 200, body: File.read('test/fixtures/fhmzbih_empty.html'), headers: {})
 
@@ -58,7 +53,6 @@ class AirQualityIndexTest < TestCase
   end
 
   def test_aqi_by_ks
-    # skip
     stub_request(:get, "https://aqms.live/kvalitetzraka/st.php?st=vijecnica").
       to_return(status: 200, body: File.read('test/fixtures/ks_aqi_vijecnica.html'), headers: {})
     
@@ -81,7 +75,6 @@ class AirQualityIndexTest < TestCase
   end
 
   def test_aqi_by_ekoakcija
-    # skip
     stub_request(:get, "https://zrak.ekoakcija.org/sarajevo").
       to_return(status: 200, body: File.read("test/fixtures/ekoakcija_aqi.html"), headers: {})
 
@@ -96,7 +89,6 @@ class AirQualityIndexTest < TestCase
   end
 
   def test_aqi_by_ekoakcija_no_data
-    # skip
     stub_request(:get, "https://zrak.ekoakcija.org/sarajevo").
       to_return(status: 403, body: "", headers: {})
 
@@ -108,7 +100,6 @@ class AirQualityIndexTest < TestCase
   end
 
   def test_citywide_aqi_by_fhmz_no_values
-    # skip
     stations_pollutants = { "vijecnica" => { :so2 => nil, :no2 => nil, :co => nil, :o3 => nil, :pm10 => nil, :pm2_5 => nil, :pm => nil, :aqi => nil },
                             "bjelave" => { :so2 => nil, :no2 => nil, :co => nil, :o3 => nil, :pm10 => nil, :pm2_5 => nil, :pm => nil, :aqi => nil },
                             "embassy" => { :so2 => nil, :no2 => nil, :co => nil, :o3 => nil, :pm10 => nil, :pm2_5 => nil, :pm => nil, :aqi => nil },
@@ -124,7 +115,6 @@ class AirQualityIndexTest < TestCase
   end
 
   def test_citywide_aqi_by_fhmz
-    # skip
     @script.expects(:aqi_by_fhmz).returns(@stations_pollutants)
     result = @script.citywide_aqi_by_fhmz
 

@@ -39,9 +39,9 @@ module WeatherAir
           stations.delete(station)
         end
       end
-      @aqi_by_fhmz = stations
-
       raise 'No fhmzbih data.' if stations == {}
+
+      @aqi_by_fhmz = stations      
     rescue StandardError => exception
       ExceptionNotifier.notify(exception)  
       { error: { en: 'Error: No current air quality index data available from Federal Hydro-Meteorological Institute! Please visit <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php">fhmzbih.gov.ba</a> for more information.', 
