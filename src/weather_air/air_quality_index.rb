@@ -39,7 +39,7 @@ module WeatherAir
           stations.delete(station)
         end
       end
-      raise 'No fhmzbih data.' if stations == {}
+      raise 'No fhmzbih AQI data.' if stations == {}
 
       @aqi_by_fhmz = stations      
     rescue StandardError => exception
@@ -76,13 +76,14 @@ module WeatherAir
       ea_table.each do |x|
         aqi_values << x[4].to_i
       end
+      raise "No ekoakcija AQI data" if ea_table == []
       city_aqi_value =  aqi_values.max
-      city_aqi_desc = AQI.find{|key, value| value.include?(city_aqi_value)}.first.to_s
+      city_aqi_desc = AQI.find{|key, value| value.include?(city_aqi_value)}&.first&.to_s
       [ea_table, city_aqi_value, city_aqi_desc]
     rescue StandardError => exception
       ExceptionNotifier.notify(exception)  
-      { error: { en: 'Error: No current data available from zrak.ekoakcija.org.', 
-                 bs: 'Greška: Nedostupni podaci sa stranice zrak.ekoakcija.org.' } }  
+      { error: { en: 'Error: No current air quality index data available from ekoakcija.org. Please visit <a href="https://zrak.ekoakcija.org/sarajevo">zrak.ekoakcija.org</a> for more information.', 
+                 bs: 'Greška: Nedostupni podaci o indeksu kvalitete zraka sa webstranice ekoakcija.org! Posjetite <a href="https://zrak.ekoakcija.org/sarajevo">zrak.ekoakcija.org</a> za više informacija.' } }  
     end
 
     def citywide_aqi_by_fhmz
@@ -90,7 +91,7 @@ module WeatherAir
 
       citywide_aqi[:value] = citywide_aqi.max_by{|k,v| v}[1]
       citywide_aqi[:class] = EUAQI.key(citywide_aqi[:value])
-
+ 
       citywide_aqi
     end
 

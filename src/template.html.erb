@@ -120,7 +120,7 @@
             </div>
             <div class="other_info float-child">
               <span><label><%= I18n.t(:humidity) %>: </label><%= yr_current_weather[:relative_humidity] %>%</span>
-              <% if yr_current_weather[:precipitation_amount] != 0.0 && interval[:precipitation_amount] == nil %>
+              <% if yr_current_weather[:precipitation_amount] != 0.0 && yr_current_weather[:precipitation_amount] == nil %>
                 <span class="rain"><label class="rain"><%= I18n.t(:rain) %>: </label><%= yr_current_weather[:precipitation_amount] %>mm</span>
               <% end %>
               <span><label><%= I18n.t(:wind) %>: </label><label id="speed"><%= yr_current_weather[:wind_speed] %> m/s </label></span>
@@ -360,7 +360,7 @@
         <h3><%= I18n.t(:aqi_more) %></h3>
 
         <% if ekoakcija_aqi.is_a?(Hash) %>
-          <p><%= ekoakcija_aqi[:error][I18n.locale] %></p>
+          <p class="error"><%= ekoakcija_aqi[:error][I18n.locale] %></p>
         <% else %>
           <% (eko_akcija, ea_city_aqi_value, ea_city_aqi_class) = ekoakcija_aqi %>
         <h4>

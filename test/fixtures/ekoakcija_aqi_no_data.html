@@ -1,0 +1,868 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="lt-ie9 lt-ie8 lt-ie7" lang="bs" dir="ltr"><![endif]-->
+<!--[if IE 7]><html class="lt-ie9 lt-ie8" lang="bs" dir="ltr"><![endif]-->
+<!--[if IE 8]><html class="lt-ie9" lang="bs" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="bs" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/ dc: http://purl.org/dc/terms/ foaf: http://xmlns.com/foaf/0.1/ og: http://ogp.me/ns# rdfs: http://www.w3.org/2000/01/rdf-schema# sioc: http://rdfs.org/sioc/ns# sioct: http://rdfs.org/sioc/types# skos: http://www.w3.org/2004/02/skos/core# xsd: http://www.w3.org/2001/XMLSchema#"><!--<![endif]-->
+<head>
+<meta charset="utf-8" />
+<meta name="Generator" content="Drupal 7 (http://drupal.org)" />
+<link rel="shortcut icon" href="https://zrak.ekoakcija.org/sites/default/files/favicon_0.ico" type="image/vnd.microsoft.icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="1" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<title>Kvalitet zraka u Sarajevu | Kvalitet zraka u bh. gradovima</title>
+<style type="text/css" media="all">
+@import url("https://zrak.ekoakcija.org/modules/system/system.base.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/modules/system/system.menus.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/modules/system/system.messages.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/modules/system/system.theme.css?s82ei7");
+</style>
+<style type="text/css" media="screen">
+@import url("https://zrak.ekoakcija.org/sites/all/libraries/leaflet_markercluster/dist/MarkerCluster.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/sites/all/libraries/leaflet_markercluster/dist/MarkerCluster.Default.css?s82ei7");
+</style>
+<style type="text/css" media="all">
+@import url("https://zrak.ekoakcija.org/modules/comment/comment.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/sites/all/modules/date/date_api/date.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/sites/all/modules/date/date_popup/themes/datepicker.1.7.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/modules/field/theme/field.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/sites/all/modules/forena/forena_query.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/modules/node/node.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/modules/search/search.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/modules/user/user.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/sites/all/modules/views/css/views.css?s82ei7");
+</style>
+<style type="text/css" media="all">
+@import url("https://zrak.ekoakcija.org/sites/all/modules/ctools/css/ctools.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/sites/all/modules/panels/css/panels.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/sites/all/modules/views_table_highlighter/views_table_highlighter.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/sites/all/modules/content_type_extras/css/content_type_extras.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/sites/all/modules/panels_extra_layouts/plugins/layouts/sutro/sutro.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/sites/all/libraries/leaflet_markercluster/dist/MarkerCluster.Aggregations.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/sites/all/modules/ip_geoloc/css/ip_geoloc_leaflet_controls.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/sites/all/libraries/leaflet/leaflet.css?s82ei7");
+</style>
+<style type="text/css" media="all">
+@import url("https://zrak.ekoakcija.org/sites/all/modules/ip_geoloc/css/ip_geoloc_leaflet_markers.css?s82ei7");
+</style>
+<style type="text/css" media="all">
+<!--/*--><![CDATA[/*><!--*/
+.MnFcIqXEHasMUjWnxNNFDRILOXWSRVRzPQCQNTgJJCEvcRzxZdgSNCTsHBttqcQS{width:0;height:0;overflow:hidden;}
+
+/*]]>*/-->
+</style>
+<style type="text/css" media="all">
+@import url("https://zrak.ekoakcija.org/sites/all/libraries/superfish/css/superfish.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/sites/all/libraries/superfish/css/superfish-smallscreen.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/sites/all/libraries/superfish/style/white.css?s82ei7");
+</style>
+<style type="text/css" media="screen">
+@import url("https://zrak.ekoakcija.org/sites/all/themes/adaptivetheme/at_core/css/at.settings.style.headings.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/sites/all/themes/adaptivetheme/at_core/css/at.settings.style.image.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/sites/all/themes/adaptivetheme/at_core/css/at.layout.css?s82ei7");
+</style>
+<style type="text/css" media="all">
+@import url("https://zrak.ekoakcija.org/sites/all/themes/corolla/css/html-elements.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/sites/all/themes/corolla/css/forms.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/sites/all/themes/corolla/css/tables.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/sites/all/themes/corolla/css/page.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/sites/all/themes/corolla/css/articles.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/sites/all/themes/corolla/css/comments.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/sites/all/themes/corolla/css/fields.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/sites/all/themes/corolla/css/blocks.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/sites/all/themes/corolla/css/navigation.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/sites/all/themes/corolla/css/corolla.settings.style.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/sites/default/files/color/corolla-3febb219/colors.css?s82ei7");
+@import url("https://zrak.ekoakcija.org/sites/all/themes/corolla/css/styles.custom.css?s82ei7");
+</style>
+<style type="text/css" media="print">
+@import url("https://zrak.ekoakcija.org/sites/all/themes/corolla/css/print.css?s82ei7");
+</style>
+<link type="text/css" rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" media="all" />
+<link type="text/css" rel="stylesheet" href="https://zrak.ekoakcija.org/sites/default/files/adaptivetheme/corolla_files/corolla.responsive.layout.css?s82ei7" media="only screen" />
+<style type="text/css" media="screen">
+@import url("https://zrak.ekoakcija.org/sites/default/files/adaptivetheme/corolla_files/corolla.fonts.css?s82ei7");
+</style>
+<link type="text/css" rel="stylesheet" href="https://zrak.ekoakcija.org/sites/all/themes/corolla/css/responsive.smartphone.portrait.css?s82ei7" media="only screen and (max-width:320px)" />
+<link type="text/css" rel="stylesheet" href="https://zrak.ekoakcija.org/sites/all/themes/corolla/css/responsive.smartphone.landscape.css?s82ei7" media="only screen and (min-width:321px) and (max-width:480px)" />
+<link type="text/css" rel="stylesheet" href="https://zrak.ekoakcija.org/sites/all/themes/corolla/css/responsive.tablet.portrait.css?s82ei7" media="only screen and (min-width:481px) and (max-width:768px)" />
+<link type="text/css" rel="stylesheet" href="https://zrak.ekoakcija.org/sites/all/themes/corolla/css/responsive.tablet.landscape.css?s82ei7" media="only screen and (min-width:769px) and (max-width:1024px)" />
+<link type="text/css" rel="stylesheet" href="https://zrak.ekoakcija.org/sites/all/themes/corolla/css/responsive.desktop.css?s82ei7" media="only screen and (min-width:1025px)" />
+
+<!--[if lt IE 9]>
+<style type="text/css" media="screen">
+@import url("https://zrak.ekoakcija.org/sites/default/files/adaptivetheme/corolla_files/corolla.lt-ie9.layout.css?s82ei7");
+</style>
+<![endif]-->
+
+<!--[if lte IE 9]>
+<style type="text/css" media="screen">
+@import url("https://zrak.ekoakcija.org/sites/all/themes/corolla/css/ie-lte-9.css?s82ei7");
+</style>
+<![endif]-->
+<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+window.jQuery || document.write("<script src='/sites/all/modules/jquery_update/replace/jquery/1.10/jquery.min.js'>\x3C/script>")
+//--><!]]>
+</script>
+<script type="text/javascript" src="https://zrak.ekoakcija.org/sites/default/files/js/js_Hfha9RCTNm8mqMDLXriIsKGMaghzs4ZaqJPLj2esi7s.js"></script>
+<script type="text/javascript" src="https://zrak.ekoakcija.org/sites/default/files/js/js_DPc2xf-G0jlgSNRE8IgAxRpdZQqLTroIyFzdCRB-bK0.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+L_ROOT_URL = "/sites/all/libraries/leaflet/";
+//--><!]]>
+</script>
+<script type="text/javascript" src="https://zrak.ekoakcija.org/sites/default/files/js/js_tJwjiDQo2SVBlfD4u6IPkoskEsAc1l0DD0qEOKtSaB0.js"></script>
+<script type="text/javascript" src="https://zrak.ekoakcija.org/sites/all/libraries/leaflet_markercluster/dist/leaflet.markercluster-regionbound.min.js?v=0.4"></script>
+<script type="text/javascript" src="https://zrak.ekoakcija.org/sites/default/files/js/js_3GDfWv23jNtA_y2wXgrQBCJfsDpU56C1Us3xZ0WwiT0.js"></script>
+<script type="text/javascript" src="https://zrak.ekoakcija.org/sites/default/files/js/js_LLYYUdgdGZB-SABbEtN79tcl5h-KUR2MnkHXkLAtJiE.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+L.Icon.Default.imagePath = "/sites/all/libraries/leaflet/images/";
+//--><!]]>
+</script>
+<script type="text/javascript" src="https://zrak.ekoakcija.org/sites/default/files/js/js_b5ZwqoEaU11lmZUzzBXGhPf3gQKOlFxzHxE3w2Vv8_o.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+window.CKEDITOR_BASEPATH = '/sites/all/libraries/ckeditor/'
+//--><!]]>
+</script>
+<script type="text/javascript" src="https://zrak.ekoakcija.org/sites/default/files/js/js_gPqjYq7fqdMzw8-29XWQIVoDSWTmZCGy9OqaHppNxuQ.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+(function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,"script","//www.google-analytics.com/analytics.js","ga");ga("create", "UA-503144-11", {"cookieDomain":"auto"});ga("send", "pageview");
+//--><!]]>
+</script>
+<script type="text/javascript" src="https://zrak.ekoakcija.org/sites/default/files/js/js_8HuPNZbwPrqrTCivrTcAKw4agkJAjmzYQfFlcELtyUA.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","setHasJsCookie":0,"ajaxPageState":{"theme":"corolla","theme_token":"nMvt3a3GGwjUrVi3gaNpbZ2Yy4LOOo0l5dg0WudxOTc","jquery_version":"1.10","js":{"sites\/all\/modules\/ip_geoloc\/js\/ip_geoloc_leaflet_goto_content_on_click.js":1,"\/\/code.jquery.com\/jquery-1.10.2.min.js":1,"0":1,"misc\/jquery-extend-3.4.0.js":1,"misc\/jquery-html-prefilter-3.5.0-backport.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"sites\/all\/modules\/jquery_update\/replace\/ui\/external\/jquery.cookie.js":1,"sites\/all\/modules\/jquery_update\/replace\/misc\/jquery.form.min.js":1,"sites\/all\/libraries\/highcharts\/js\/highcharts.js":1,"sites\/all\/modules\/charts\/modules\/charts_highcharts\/charts_highcharts.js":1,"1":1,"sites\/all\/libraries\/leaflet\/leaflet.js":1,"sites\/all\/libraries\/leaflet_markercluster\/dist\/leaflet.markercluster-regionbound.min.js":1,"misc\/form-single-submit.js":1,"misc\/ajax.js":1,"sites\/all\/modules\/jquery_update\/js\/jquery_update.js":1,"public:\/\/languages\/bs_54zblD1YY0WFLGmwaYg_jq21YxAk60NHIYAqc8k_G1I.js":1,"sites\/all\/modules\/mojzrak\/js\/hello.js":1,"sites\/all\/modules\/views\/js\/base.js":1,"misc\/progress.js":1,"sites\/all\/modules\/views\/js\/ajax_view.js":1,"sites\/all\/modules\/leaflet\/leaflet.drupal.js":1,"2":1,"misc\/tableheader.js":1,"3":1,"sites\/all\/modules\/google_analytics\/googleanalytics.js":1,"4":1,"sites\/all\/modules\/captcha\/captcha.js":1,"sites\/all\/modules\/ip_geoloc\/js\/ip_geoloc_leaflet_controls.js":1,"sites\/all\/modules\/leaflet_markercluster\/leaflet_markercluster.drupal.js":1,"sites\/all\/modules\/leaflet_more_maps\/leaflet_more_maps.js":1,"sites\/all\/modules\/ip_geoloc\/js\/ip_geoloc_leaflet_tagged_marker.js":1,"sites\/all\/libraries\/superfish\/jquery.hoverIntent.minified.js":1,"sites\/all\/libraries\/superfish\/sftouchscreen.js":1,"sites\/all\/libraries\/superfish\/sfsmallscreen.js":1,"sites\/all\/libraries\/superfish\/supposition.js":1,"sites\/all\/libraries\/superfish\/superfish.js":1,"sites\/all\/libraries\/superfish\/supersubs.js":1,"sites\/all\/modules\/superfish\/superfish.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"sites\/all\/libraries\/leaflet_markercluster\/dist\/MarkerCluster.Default.ie.css":1,"sites\/all\/libraries\/leaflet_markercluster\/dist\/MarkerCluster.css":1,"sites\/all\/libraries\/leaflet_markercluster\/dist\/MarkerCluster.Default.css":1,"modules\/comment\/comment.css":1,"sites\/all\/modules\/date\/date_api\/date.css":1,"sites\/all\/modules\/date\/date_popup\/themes\/datepicker.1.7.css":1,"modules\/field\/theme\/field.css":1,"sites\/all\/modules\/forena\/forena_query.css":1,"modules\/node\/node.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/panels\/css\/panels.css":1,"sites\/all\/modules\/views_table_highlighter\/views_table_highlighter.css":1,"sites\/all\/modules\/content_type_extras\/css\/content_type_extras.css":1,"sites\/all\/modules\/panels_extra_layouts\/plugins\/layouts\/sutro\/sutro.css":1,"sites\/all\/libraries\/leaflet_markercluster\/dist\/MarkerCluster.Aggregations.css":1,"sites\/all\/modules\/ip_geoloc\/css\/ip_geoloc_leaflet_controls.css":1,"sites\/all\/libraries\/leaflet\/leaflet.css":1,"sites\/all\/libraries\/leaflet\/leaflet.ie.css":1,"sites\/all\/modules\/ip_geoloc\/css\/ip_geoloc_leaflet_markers.css":1,"0":1,"sites\/all\/libraries\/superfish\/css\/superfish.css":1,"sites\/all\/libraries\/superfish\/css\/superfish-smallscreen.css":1,"sites\/all\/libraries\/superfish\/style\/white.css":1,"sites\/all\/themes\/adaptivetheme\/at_core\/css\/at.settings.style.headings.css":1,"sites\/all\/themes\/adaptivetheme\/at_core\/css\/at.settings.style.image.css":1,"sites\/all\/themes\/adaptivetheme\/at_core\/css\/at.layout.css":1,"sites\/all\/themes\/corolla\/css\/html-elements.css":1,"sites\/all\/themes\/corolla\/css\/forms.css":1,"sites\/all\/themes\/corolla\/css\/tables.css":1,"sites\/all\/themes\/corolla\/css\/page.css":1,"sites\/all\/themes\/corolla\/css\/articles.css":1,"sites\/all\/themes\/corolla\/css\/comments.css":1,"sites\/all\/themes\/corolla\/css\/fields.css":1,"sites\/all\/themes\/corolla\/css\/blocks.css":1,"sites\/all\/themes\/corolla\/css\/navigation.css":1,"sites\/all\/themes\/corolla\/css\/fonts.css":1,"sites\/all\/themes\/corolla\/css\/corolla.settings.style.css":1,"sites\/all\/themes\/corolla\/color\/colors.css":1,"sites\/all\/themes\/corolla\/css\/styles.custom.css":1,"sites\/all\/themes\/corolla\/css\/print.css":1,"https:\/\/use.fontawesome.com\/releases\/v5.11.2\/css\/all.css":1,"public:\/\/adaptivetheme\/corolla_files\/corolla.responsive.layout.css":1,"public:\/\/adaptivetheme\/corolla_files\/corolla.fonts.css":1,"sites\/all\/themes\/corolla\/css\/responsive.smartphone.portrait.css":1,"sites\/all\/themes\/corolla\/css\/responsive.smartphone.landscape.css":1,"sites\/all\/themes\/corolla\/css\/responsive.tablet.portrait.css":1,"sites\/all\/themes\/corolla\/css\/responsive.tablet.landscape.css":1,"sites\/all\/themes\/corolla\/css\/responsive.desktop.css":1,"public:\/\/adaptivetheme\/corolla_files\/corolla.lt-ie9.layout.css":1,"sites\/all\/themes\/corolla\/css\/ie-lte-9.css":1}},"views":{"ajax_path":"\/views\/ajax","ajaxViews":{"views_dom_id:8ded6aec13128478386697ba8c89d1f0":{"view_name":"sarajevo_latest","view_display_id":"page_3","view_args":"","view_path":"sarajevo","view_base_path":"lat_sarajevow","view_dom_id":"8ded6aec13128478386697ba8c89d1f0","pager_element":0},"views_dom_id:ed11a9f024b273d50c5db406db7c1e95":{"view_name":"24h_sarajevo_bj_graph","view_display_id":"default","view_args":"","view_path":"sarajevo","view_base_path":"vijecnica","view_dom_id":"ed11a9f024b273d50c5db406db7c1e95","pager_element":0},"views_dom_id:b9f45eeff6c8625dbf2ac46169bf02b3":{"view_name":"24h_sarajevo_bj_graph","view_display_id":"page_2","view_args":"","view_path":"sarajevo","view_base_path":"bjelave","view_dom_id":"b9f45eeff6c8625dbf2ac46169bf02b3","pager_element":0},"views_dom_id:aa1c095b603ee2f8bcfd6b6b0865e958":{"view_name":"24h_sarajevo_bj_graph","view_display_id":"page_3","view_args":"","view_path":"sarajevo","view_base_path":"24gsa_ambasadaSAD","view_dom_id":"aa1c095b603ee2f8bcfd6b6b0865e958","pager_element":0},"views_dom_id:f5315bc0d687a320f3a4bf7bdbcced85":{"view_name":"24h_sarajevo_otoka_graph","view_display_id":"default","view_args":"","view_path":"sarajevo","view_base_path":"otoka","view_dom_id":"f5315bc0d687a320f3a4bf7bdbcced85","pager_element":0},"views_dom_id:55a88f3173aa5d4efe852784fcb4f76f":{"view_name":"24h_sarajevo_ilidza_graph","view_display_id":"default","view_args":"","view_path":"sarajevo","view_base_path":"ilidza","view_dom_id":"55a88f3173aa5d4efe852784fcb4f76f","pager_element":0}}},"urlIsAjaxTrusted":{"\/views\/ajax":true,"\/search\/node":true},"better_exposed_filters":{"views":{"sarajevo_latest":{"displays":{"page_3":{"filters":[]}}},"24h_sarajevo_bj_graph":{"displays":{"default":{"filters":[]},"page_2":{"filters":[]},"page_3":{"filters":[]}}},"24h_sarajevo_otoka_graph":{"displays":{"default":{"filters":[]}}},"24h_sarajevo_ilidza_graph":{"displays":{"default":{"filters":[]}}},"avg_values_30_days_sarajevo":{"displays":{"default":{"filters":[]}}},"avg_values_30_days_sarajevo_pm10_":{"displays":{"default":{"filters":[]}}},"test_stations":{"displays":{"page_1":{"filters":[]}}},"query_by_stations":{"displays":{"page_1":{"filters":[]}}},"seven_average_values_Sarajevo":{"displays":{"default":{"filters":[]}}},"aqicategorypanel":{"displays":{"default":{"filters":[]}}}}},"leaflet":[{"mapId":"ip-geoloc-map-of-view-test_stations-page_1-29cd5e6cf89b6975073b9eef58fa8023","map":{"label":"Google terrain","description":"Custom defined map with layer switcher","layers":{"google-high-res terrain":{"type":"google","urlTemplate":"\/\/mt{s}.googleapis.com\/vt?lyrs=t,r\u0026x={x}\u0026y={y}\u0026z={z}","options":{"attribution":"Map data \u0026copy; \u003Ca target=\u0022attr\u0022 href=\u0022http:\/\/googlemaps.com\u0022\u003EGoogle\u003C\/a\u003E","detectRetina":true,"subdomains":[0,1,2,3]}}},"settings":{"layerControl":false,"attributionControl":true,"closePopupOnClick":true,"doubleClickZoom":true,"dragging":true,"fadeAnimation":true,"maxZoom":18,"minZoom":0,"scrollWheelZoom":false,"touchZoom":true,"trackResize":true,"zoomAnimation":true,"zoomControl":true,"zoom":12,"revertLastMarkerOnMapOut":false,"maxClusterRadius":70,"disableClusteringAtZoom":"9","addRegionToolTips":true,"hullHugFactor":-1,"touchMode":"auto","animateAddingMarkers":true,"clusterAggregationFunction":"maximum","clusterAggregateRanges":{"small":"50","medium":"250","large":"1000"},"clusterAggregatePrecision":"","zoomIndicator":false,"zoomOnClick":0,"resetControl":{"label":"R"},"clusterControl":false,"scaleControl":{"metric":true,"imperial":false},"openBalloonsOnHover":true,"gotoContentOnClick":false},"center":{"lat":"43.85111726","lon":"18.38098526","force":true}},"features":[{"type":"point","lat":43.348,"lon":17.794,"feature_id":"419","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Mostar\u0022\u003EMostar\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003E25\u003C\/td\u003E\n    \u003Ctd\u003E8\u003C\/td\u003E\n    \u003Ctd\u003E6\u003C\/td\u003E\n    \u003Ctd\u003E20\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-04-23T12:00:00+02:00\u0022\u003E23.04.2024. u 12h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Mostar\n25","regions":["","25"],"aggregationValue":25,"tag":"\u003Cstrong\u003E25\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_green.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":44.53222222,"lon":18.655,"feature_id":"34","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/BKC\u0022\u003EBKC\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003E72\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n    \u003Ctd\u003E29\u003C\/td\u003E\n    \u003Ctd\u003E52\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-04-23T15:00:00+02:00\u0022\u003E23.04.2024. u 15h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"BKC\n72","regions":["","72"],"aggregationValue":72,"tag":"\u003Cstrong\u003E72\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_yellow.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":44.22555556,"lon":17.89111111,"feature_id":"40","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Tetovo\u0022\u003ETetovo\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003E83\u003C\/td\u003E\n    \u003Ctd\u003E32\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n    \u003Ctd\u003E60\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-04-23T12:00:00+02:00\u0022\u003E23.04.2024. u 12h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Tetovo\n83","regions":["","83"],"aggregationValue":83,"tag":"\u003Cstrong\u003E83\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_yellow.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":44.19527778,"lon":17.93194444,"feature_id":"39","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Radakovo\u0022\u003ERadakovo\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003E70\u003C\/td\u003E\n    \u003Ctd\u003E23\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n    \u003Ctd\u003E15\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-04-23T12:00:00+02:00\u0022\u003E23.04.2024. u 12h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Radakovo\n70","regions":["","70"],"aggregationValue":70,"tag":"\u003Cstrong\u003E70\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_yellow.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":44.19894,"lon":17.912535,"feature_id":"38","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Centar\u0022\u003ECentar\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003E68\u003C\/td\u003E\n    \u003Ctd\u003E22\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n    \u003Ctd\u003E20\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-04-23T12:00:00+02:00\u0022\u003E23.04.2024. u 12h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Centar\n68","regions":["","68"],"aggregationValue":68,"tag":"\u003Cstrong\u003E68\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_yellow.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":44.20222222,"lon":17.90055556,"feature_id":"37","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Brist\u0022\u003EBrist\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003Ex\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n    \u003Ctd\u003E41\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-04-23T12:00:00+02:00\u0022\u003E23.04.2024. u 12h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Brist\n","regions":["",""],"aggregationValue":0,"tag":"\u003Cstrong\u003Ex\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_nodata.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":44.523742,"lon":18.600512,"feature_id":"36","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Bukinje\u0022\u003EBukinje\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003E132\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n    \u003Ctd\u003E56\u003C\/td\u003E\n    \u003Ctd\u003E130\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-04-23T14:00:00+02:00\u0022\u003E23.04.2024. u 14h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Bukinje\n132","regions":["","132"],"aggregationValue":132,"tag":"\u003Cstrong\u003E132\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_orange.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":44.541021,"lon":18.673618,"feature_id":"35","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Skver\u0022\u003ESkver\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003E101\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n    \u003Ctd\u003E43\u003C\/td\u003E\n    \u003Ctd\u003E21\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-04-23T14:00:00+02:00\u0022\u003E23.04.2024. u 14h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Skver\n101","regions":["","101"],"aggregationValue":101,"tag":"\u003Cstrong\u003E101\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_orange.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":44.53333333,"lon":18.53472222,"feature_id":"33","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Lukavac\u0022\u003ELukavac\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003E94\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n    \u003Ctd\u003E31\u003C\/td\u003E\n    \u003Ctd\u003E71\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-04-23T13:00:00+02:00\u0022\u003E23.04.2024. u 13h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Lukavac\n94","regions":["","94"],"aggregationValue":94,"tag":"\u003Cstrong\u003E94\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_yellow.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":43.960413,"lon":18.269215,"feature_id":"42","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Ilija\u0161\u0022\u003EIlija\u0161\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003E122\u003C\/td\u003E\n    \u003Ctd\u003E49\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n    \u003Ctd\u003E3\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-04-23T12:00:00+02:00\u0022\u003E23.04.2024. u 12h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Ilija\u0161\n122","regions":["","122"],"aggregationValue":122,"tag":"\u003Cstrong\u003E122\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_orange.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":43.66166667,"lon":18.97777778,"feature_id":"32","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Rasadnik\u0022\u003ERasadnik\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003Ex\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n    \u003Ctd\u003E14\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-01-14T06:00:00+01:00\u0022\u003E14.01.2024. u 06h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Rasadnik\n","regions":["",""],"aggregationValue":0,"tag":"\u003Cstrong\u003Ex\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_nodata.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":44.34305556,"lon":17.26805556,"feature_id":"31","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Harmani\u0022\u003EHarmani\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003E137\u003C\/td\u003E\n    \u003Ctd\u003E49\u003C\/td\u003E\n    \u003Ctd\u003E15\u003C\/td\u003E\n    \u003Ctd\u003E20\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222023-05-18T12:00:00+02:00\u0022\u003E18.05.2023. u 12h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Harmani\n137","regions":["","137"],"aggregationValue":137,"tag":"\u003Cstrong\u003E137\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_orange.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":43.75095495,"lon":18.03621143,"feature_id":"30","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Ivan Sedlo\u0022\u003EIvan Sedlo\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003E17\u003C\/td\u003E\n    \u003Ctd\u003E7\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n    \u003Ctd\u003E7\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-04-23T12:00:00+02:00\u0022\u003E23.04.2024. u 12h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Ivan Sedlo\n17","regions":["","17"],"aggregationValue":17,"tag":"\u003Cstrong\u003E17\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_green.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":43.83045777,"lon":18.31021115,"feature_id":"29","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Ilid\u017ea\u0022\u003EIlid\u017ea\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003E46\u003C\/td\u003E\n    \u003Ctd\u003E13\u003C\/td\u003E\n    \u003Ctd\u003E28\u003C\/td\u003E\n    \u003Ctd\u003E7\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-04-23T12:00:00+02:00\u0022\u003E23.04.2024. u 12h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Ilid\u017ea\n46","regions":["","46"],"aggregationValue":46,"tag":"\u003Cstrong\u003E46\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_green.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":43.86775146,"lon":18.42282638,"feature_id":"28","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Bjelave\u0022\u003EBjelave\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003E60\u003C\/td\u003E\n    \u003Ctd\u003E18\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n    \u003Ctd\u003E13\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-04-23T12:00:00+02:00\u0022\u003E23.04.2024. u 12h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Bjelave\n60","regions":["","60"],"aggregationValue":60,"tag":"\u003Cstrong\u003E60\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_yellow.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":43.859046665462,"lon":18.434767910786,"feature_id":"27","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Vije\u0107nica\u0022\u003EVije\u0107nica\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003E33\u003C\/td\u003E\n    \u003Ctd\u003E9\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n    \u003Ctd\u003E3\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-04-23T12:00:00+02:00\u0022\u003E23.04.2024. u 12h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Vije\u0107nica\n33","regions":["","33"],"aggregationValue":33,"tag":"\u003Cstrong\u003E33\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_green.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":44.11472222,"lon":18.12055556,"feature_id":"41","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Doboj\u0022\u003EDoboj\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003E42\u003C\/td\u003E\n    \u003Ctd\u003E11\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-04-23T12:00:00+02:00\u0022\u003E23.04.2024. u 12h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Doboj\n42","regions":["","42"],"aggregationValue":42,"tag":"\u003Cstrong\u003E42\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_green.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":45.129801,"lon":17.989147,"feature_id":"43","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Brod\u0022\u003EBrod\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003Ex\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222018-01-14T13:00:00+01:00\u0022\u003E14.01.2018. u 13h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Brod\n","regions":["",""],"aggregationValue":0,"tag":"\u003Cstrong\u003Ex\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_nodata.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":43.9,"lon":18.342,"feature_id":"418","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Vogo\u0161\u0107a\u0022\u003EVogo\u0161\u0107a\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003E55\u003C\/td\u003E\n    \u003Ctd\u003E32\u003C\/td\u003E\n    \u003Ctd\u003E28\u003C\/td\u003E\n    \u003Ctd\u003E1\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-04-23T12:00:00+02:00\u0022\u003E23.04.2024. u 12h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Vogo\u0161\u0107a\n55","regions":["","55"],"aggregationValue":55,"tag":"\u003Cstrong\u003E55\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_yellow.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":43.822676023926,"lon":18.200729535207,"feature_id":"394","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Had\u017ei\u0107i\u0022\u003EHad\u017ei\u0107i\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003Ex\u003C\/td\u003E\n    \u003Ctd\u003E68\u003C\/td\u003E\n    \u003Ctd\u003E0\u003C\/td\u003E\n    \u003Ctd\u003E12\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-03-06T18:00:00+01:00\u0022\u003E06.03.2024. u 18h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Had\u017ei\u0107i\n","regions":["",""],"aggregationValue":0,"tag":"\u003Cstrong\u003Ex\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_nodata.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":43.994,"lon":18.175,"feature_id":"414","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Visoko\u0022\u003EVisoko\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003E33\u003C\/td\u003E\n    \u003Ctd\u003E9\u003C\/td\u003E\n    \u003Ctd\u003E8\u003C\/td\u003E\n    \u003Ctd\u003E25\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-04-22T08:00:00+02:00\u0022\u003E22.04.2024. u 08h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Visoko\n33","regions":["","33"],"aggregationValue":33,"tag":"\u003Cstrong\u003E33\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_green.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":44.225,"lon":17.667,"feature_id":"412","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Travnik\u0022\u003ETravnik\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003E62\u003C\/td\u003E\n    \u003Ctd\u003E19\u003C\/td\u003E\n    \u003Ctd\u003E17\u003C\/td\u003E\n    \u003Ctd\u003E13\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-04-23T12:00:00+02:00\u0022\u003E23.04.2024. u 12h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Travnik\n62","regions":["","62"],"aggregationValue":62,"tag":"\u003Cstrong\u003E62\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_yellow.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":44.124,"lon":18.115,"feature_id":"411","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Centar\u0022\u003ECentar\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003E57\u003C\/td\u003E\n    \u003Ctd\u003E17\u003C\/td\u003E\n    \u003Ctd\u003E15\u003C\/td\u003E\n    \u003Ctd\u003E44\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-04-23T12:00:00+02:00\u0022\u003E23.04.2024. u 12h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Centar\n57","regions":["","57"],"aggregationValue":57,"tag":"\u003Cstrong\u003E57\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_yellow.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":44.773661546467,"lon":17.1855329549,"feature_id":"397","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Banjaluka\u0022\u003EBanjaluka\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003E105\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n    \u003Ctd\u003E39\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-04-23T06:00:00+02:00\u0022\u003E23.04.2024. u 06h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Banjaluka\n105","regions":["","105"],"aggregationValue":105,"tag":"\u003Cstrong\u003E105\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_orange.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":44.544846612306,"lon":18.098537635384,"feature_id":"396","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Maglaj\u0022\u003EMaglaj\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003E74\u003C\/td\u003E\n    \u003Ctd\u003E25\u003C\/td\u003E\n    \u003Ctd\u003E23\u003C\/td\u003E\n    \u003Ctd\u003E50\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-04-23T12:00:00+02:00\u0022\u003E23.04.2024. u 12h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Maglaj\n74","regions":["","74"],"aggregationValue":74,"tag":"\u003Cstrong\u003E74\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_yellow.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":44.619701360997,"lon":17.990585456973,"feature_id":"395","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Te\u0161anj\u0022\u003ETe\u0161anj\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003E55\u003C\/td\u003E\n    \u003Ctd\u003E16\u003C\/td\u003E\n    \u003Ctd\u003E14\u003C\/td\u003E\n    \u003Ctd\u003E22\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-04-23T12:00:00+02:00\u0022\u003E23.04.2024. u 12h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Te\u0161anj\n55","regions":["","55"],"aggregationValue":55,"tag":"\u003Cstrong\u003E55\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_yellow.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":43.823186887704,"lon":17.001407484626,"feature_id":"393","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Livno\u0022\u003ELivno\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003E4\u003C\/td\u003E\n    \u003Ctd\u003E1\u003C\/td\u003E\n    \u003Ctd\u003E1\u003C\/td\u003E\n    \u003Ctd\u003E5\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-04-22T08:00:00+02:00\u0022\u003E22.04.2024. u 08h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Livno\n4","regions":["","4"],"aggregationValue":4,"tag":"\u003Cstrong\u003E4\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_green.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":44.684956,"lon":18.967815,"feature_id":"44","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Ugljevik\u0022\u003EUgljevik\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003Ex\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n    \u003Ctd\u003E0\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222017-12-25T10:00:00+01:00\u0022\u003E25.12.2017. u 10h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Ugljevik\n","regions":["",""],"aggregationValue":0,"tag":"\u003Cstrong\u003Ex\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_nodata.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":44.808537989815,"lon":15.866915503696,"feature_id":"392","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Biha\u0107\u0022\u003EBiha\u0107\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003E66\u003C\/td\u003E\n    \u003Ctd\u003E22\u003C\/td\u003E\n    \u003Ctd\u003E19\u003C\/td\u003E\n    \u003Ctd\u003E5\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-04-23T12:00:00+02:00\u0022\u003E23.04.2024. u 12h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Biha\u0107\n66","regions":["","66"],"aggregationValue":66,"tag":"\u003Cstrong\u003E66\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_yellow.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":44.289701853717,"lon":17.907345383433,"feature_id":"118","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Vranduk\u0022\u003EVranduk\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003Ex\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n    \u003Ctd\u003E0\u003C\/td\u003E\n    \u003Ctd\u003E27\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-04-23T12:00:00+02:00\u0022\u003E23.04.2024. u 12h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Vranduk\n","regions":["",""],"aggregationValue":0,"tag":"\u003Cstrong\u003Ex\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_nodata.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":43.85774774,"lon":18.40078579,"feature_id":"117","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Ambasada SAD\u0022\u003EAmbasada SAD\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003E106\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n    \u003Ctd\u003E38\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-04-23T12:00:00+02:00\u0022\u003E23.04.2024. u 12h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Ambasada SAD\n106","regions":["","106"],"aggregationValue":106,"tag":"\u003Cstrong\u003E106\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_orange.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":44.7043396,"lon":18.310107,"feature_id":"47","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Gra\u010danica (mobilna)\u0022\u003EGra\u010danica (mobilna)\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003E66\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n    \u003Ctd\u003E20\u003C\/td\u003E\n    \u003Ctd\u003E71\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-04-23T15:00:00+02:00\u0022\u003E23.04.2024. u 15h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Gra\u010danica (mobilna)\n66","regions":["","66"],"aggregationValue":66,"tag":"\u003Cstrong\u003E66\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_yellow.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":44.45416667,"lon":18.64861111,"feature_id":"46","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/\u017divinice\u0022\u003E\u017divinice\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003Ex\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n    \u003Ctd\u003E0\u003C\/td\u003E\n    \u003Ctd\u003E56\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-04-23T15:00:00+02:00\u0022\u003E23.04.2024. u 15h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"\u017divinice\n","regions":["",""],"aggregationValue":0,"tag":"\u003Cstrong\u003Ex\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_nodata.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":44.972058,"lon":16.712881,"feature_id":"45","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Prijedor\u0022\u003EPrijedor\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003Ex\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n    \u003Ctd\u003E\u003C\/td\u003E\n    \u003Ctd\u003E5\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222020-01-24T11:00:00+01:00\u0022\u003E24.01.2020. u 11h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Prijedor\n","regions":["",""],"aggregationValue":0,"tag":"\u003Cstrong\u003Ex\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_nodata.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}},{"type":"point","lat":43.848422195099,"lon":18.363773504835,"feature_id":"25","popup":"\u003Cstrong\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/Otoka\u0022\u003EOtoka\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\u003Ctable\u003E\n\u003Ctr\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/view\/aqioverview\u0022 target=\u0022_blank\u0022\u003EAQI\u003C\/a\u003E\u003C\/th\u003E\n    \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM10\u003C\/a\u003E\u003C\/th\u003E\n  \u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003EPM2,5\u003C\/a\u003E\u003C\/th\u003E  \n\u003Cth\u003E\u003Ca href=\u0022http:\/\/zrak.ekoakcija.org\/content\/koje-su-zagadujuce-materije-u-zraku-stetne-po-zdravlje\u0022 target=\u0022_blank\u0022\u003ESO2\u003C\/a\u003E\u003C\/th\u003E\n  \u003C\/tr\u003E\n\u003Ctr\u003E\n    \u003Ctd\u003E64\u003C\/td\u003E\n    \u003Ctd\u003E26\u003C\/td\u003E\n    \u003Ctd\u003E69\u003C\/td\u003E\n    \u003Ctd\u003E11\u003C\/td\u003E\n  \u003C\/tr\u003E\n\u003C\/table\u003E\n\u003Cstrong\u003E\u003Csmall\u003EVrijednosti izmjerene \u003Cspan class=\u0022date-display-single\u0022 property=\u0022dc:date\u0022 datatype=\u0022xsd:dateTime\u0022 content=\u00222024-04-23T12:00:00+02:00\u0022\u003E23.04.2024. u 12h\u003C\/span\u003E\u003C\/small\u003E\u003C\/strong\u003E","tooltip":"Otoka\n64","regions":["","64"],"aggregationValue":64,"tag":"\u003Cstrong\u003E64\u003C\/strong\u003E","cssClass":"tag-inside-marker","icon":{"iconUrl":"https:\/\/zrak.ekoakcija.org\/sites\/all\/modules\/ip_geoloc\/amarkers\/aiq_yellow.png","iconSize":{"x":32,"y":42},"iconAnchor":{"x":16,"y":42},"popupAnchor":{"x":0,"y":-43}}}]}],"googleanalytics":{"trackOutbound":1,"trackMailto":1,"trackDownload":1,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"superfish":{"1":{"id":"1","sf":{"animation":{"opacity":"show","height":"show"}},"plugins":{"touchscreen":{"mode":"always_active"},"smallscreen":{"mode":"window_width","breakpointUnit":"px","title":"Main menu"},"supposition":true,"supersubs":true}}},"adaptivetheme":{"corolla":{"layout_settings":{"bigscreen":"three-col-grail","tablet_landscape":"three-col-grail","tablet_portrait":"one-col-vert","smalltouch_landscape":"one-col-vert","smalltouch_portrait":"one-col-stack"},"media_query_settings":{"bigscreen":"only screen and (min-width:1025px)","tablet_landscape":"only screen and (min-width:769px) and (max-width:1024px)","tablet_portrait":"only screen and (min-width:481px) and (max-width:768px)","smalltouch_landscape":"only screen and (min-width:321px) and (max-width:480px)","smalltouch_portrait":"only screen and (max-width:320px)"}}}});
+//--><!]]>
+</script>
+<!--[if lt IE 9]>
+<script src="https://zrak.ekoakcija.org/sites/all/themes/adaptivetheme/at_core/scripts/html5.js?s82ei7"></script>
+<![endif]-->
+</head>
+<body class="html not-front not-logged-in no-sidebars page-sarajevo i18n-bs site-name-hidden atr-7.x-3.x atv-7.x-3.1 lang-bs site-name-kvalitet-zraka-u-bh-gradovima section-sarajevo page-panels color-scheme-custom corolla bs-n bb-n mb-dd rc-6 rct-4">
+  <div id="skip-link" class="nocontent">
+    <a href="#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+    <div id="page-wrapper">
+  <div id="page" class="page ssc-n ssw-n ssa-l sss-n btc-n btw-b bta-l bts-n ntc-n ntw-b nta-l nts-n ctc-n ctw-b cta-l cts-n ptc-n ptw-b pta-l pts-n">
+
+          <div id="menu-bar-wrapper">
+        <div class="container clearfix">
+          <div id="menu-bar" class="nav clearfix"><nav id="block-superfish-1" class="block block-superfish no-title menu-wrapper menu-bar-wrapper clearfix odd first last block-count-1 block-region-menu-bar block-1" >  
+  
+  <ul  id="superfish-1" class="menu sf-menu sf-main-menu sf-horizontal sf-style-white sf-total-items-8 sf-parent-items-3 sf-single-items-5"><li id="menu-219-1" class="first odd sf-item-1 sf-depth-1 sf-no-children"><a href="/" title="" class="menu_icon menu-219 sf-depth-1"><i class="fa fa-home" aria-hidden="true"></i></a></li><li id="menu-2839-1" class="active-trail middle even sf-item-2 sf-depth-1 sf-total-children-21 sf-parent-children-10 sf-single-children-11 menuparent"><a href="http://zrak.ekoakcija.org" title="" class="sf-depth-1 menuparent">Gradovi</a><ul><li id="menu-2296-1" class="active-trail first odd sf-item-1 sf-depth-2 sf-total-children-6 sf-parent-children-1 sf-single-children-5 menuparent"><a href="/sarajevo" title="" class="sf-depth-2 menuparent active">Sarajevo</a><ul><li id="menu-2308-1" class="first odd sf-item-1 sf-depth-3 sf-no-children"><a href="/bjelave" title="" class="sf-depth-3">Mjerna stanica Bjelave</a></li><li id="menu-2311-1" class="middle even sf-item-2 sf-depth-3 sf-no-children"><a href="/vijecnica" title="" class="sf-depth-3">Mjerna stanica Vijećnica</a></li><li id="menu-2310-1" class="middle odd sf-item-3 sf-depth-3 sf-no-children"><a href="/otoka" title="" class="sf-depth-3">Mjerna stanica Otoka</a></li><li id="menu-2309-1" class="middle even sf-item-4 sf-depth-3 sf-no-children"><a href="/ilidza" title="" class="sf-depth-3">Mjerna stanica Ilidža</a></li><li id="menu-2743-1" class="middle odd sf-item-5 sf-depth-3 sf-no-children"><a href="/stanice/sarajevo" title="" class="sf-depth-3">Posljednja 24 sata</a></li><li id="menu-3315-1" class="last even sf-item-6 sf-depth-3 sf-total-children-8 sf-parent-children-0 sf-single-children-8 menuparent"><span title="Pregled po godinama" class="sf-depth-3 menuparent nolink">Pregled po godinama</span><ul><li id="menu-6206-1" class="first odd sf-item-1 sf-depth-4 sf-no-children"><a href="/2020a/Sarajevo" title="Pregled kvaliteta zraka u 2020. " class="sf-depth-4">2020</a></li><li id="menu-5688-1" class="middle even sf-item-2 sf-depth-4 sf-no-children"><a href="/2019a/Sarajevo" title="Pregled kvaliteta zraka u 2019. " class="sf-depth-4">2019</a></li><li id="menu-3585-1" class="middle odd sf-item-3 sf-depth-4 sf-no-children"><a href="/2018a/Sarajevo" title="Pregled kvaliteta zraka u 2018. " class="sf-depth-4">2018</a></li><li id="menu-3329-1" class="middle even sf-item-4 sf-depth-4 sf-no-children"><a href="/2017a/Sarajevo" title="Pregled kvaliteta zraka u 2017. " class="sf-depth-4">2017</a></li><li id="menu-3330-1" class="middle odd sf-item-5 sf-depth-4 sf-no-children"><a href="/2016a/Sarajevo" title="Pregled kvaliteta zraka u 2016. " class="sf-depth-4">2016</a></li><li id="menu-3331-1" class="middle even sf-item-6 sf-depth-4 sf-no-children"><a href="/2015a/Sarajevo" title="" class="sf-depth-4">2015</a></li><li id="menu-3332-1" class="middle odd sf-item-7 sf-depth-4 sf-no-children"><a href="/2014a/Sarajevo" title="Pregled kvaliteta zraka u 2014. " class="sf-depth-4">2014</a></li><li id="menu-3333-1" class="last even sf-item-8 sf-depth-4 sf-no-children"><a href="/all/pm10graph/Sarajevo" title="" class="sf-depth-4">Od 2014 do danas</a></li></ul></li></ul></li><li id="menu-7058-1" class="middle even sf-item-2 sf-depth-2 sf-no-children"><a href="/banjaluka" title="" class="sf-depth-2">Banjaluka</a></li><li id="menu-2297-1" class="middle odd sf-item-3 sf-depth-2 sf-total-children-5 sf-parent-children-1 sf-single-children-4 menuparent"><a href="/tuzla" title="" class="sf-depth-2 menuparent">Tuzla</a><ul><li id="menu-2312-1" class="first odd sf-item-1 sf-depth-3 sf-no-children"><a href="/bkc" title="" class="sf-depth-3">Mjerna stanica BKC</a></li><li id="menu-2314-1" class="middle even sf-item-2 sf-depth-3 sf-no-children"><a href="/bukinje" title="" class="sf-depth-3">Mjerna stanica Bukinje</a></li><li id="menu-2313-1" class="middle odd sf-item-3 sf-depth-3 sf-no-children"><a href="/skver" title="" class="sf-depth-3">Mjerna stanica Skver</a></li><li id="menu-2754-1" class="middle even sf-item-4 sf-depth-3 sf-no-children"><a href="/stanice/tuzla" title="" class="sf-depth-3">Posljednja 24 sata</a></li><li id="menu-3318-1" class="last odd sf-item-5 sf-depth-3 sf-total-children-6 sf-parent-children-0 sf-single-children-6 menuparent"><span title="Pregled kvaliteta zraka po godinama" class="sf-depth-3 menuparent nolink">Pregled po godinama</span><ul><li id="menu-3590-1" class="first odd sf-item-1 sf-depth-4 sf-no-children"><a href="/2018b/Tuzla" title="Kvalitet zraka u 2018." class="sf-depth-4">2018</a></li><li id="menu-3334-1" class="middle even sf-item-2 sf-depth-4 sf-no-children"><a href="/2017b/Tuzla" title="Pregled kvaliteta zraka u 2017." class="sf-depth-4">2017</a></li><li id="menu-3335-1" class="middle odd sf-item-3 sf-depth-4 sf-no-children"><a href="/2016b/Tuzla" title="Pregled kvaliteta zraka u 2016." class="sf-depth-4">2016</a></li><li id="menu-3336-1" class="middle even sf-item-4 sf-depth-4 sf-no-children"><a href="/2015b/Tuzla" title="Pregled kvaliteta zraka u 2015." class="sf-depth-4">2015</a></li><li id="menu-3337-1" class="middle odd sf-item-5 sf-depth-4 sf-no-children"><a href="/2014b/Tuzla" title="" class="sf-depth-4">2014</a></li><li id="menu-3338-1" class="last even sf-item-6 sf-depth-4 sf-no-children"><a href="/all/pm25graph/Tuzla" title="Pregled kvaliteta zraka u Tuzli od 2014. do danas" class="sf-depth-4">Pregled od 2014. do danas</a></li></ul></li></ul></li><li id="menu-2298-1" class="middle even sf-item-4 sf-depth-2 sf-total-children-6 sf-parent-children-1 sf-single-children-5 menuparent"><a href="/zenica" title="" class="sf-depth-2 menuparent">Zenica</a><ul><li id="menu-2316-1" class="first odd sf-item-1 sf-depth-3 sf-no-children"><a href="/brist" title="" class="sf-depth-3">Mjerna stanica Brist</a></li><li id="menu-2315-1" class="middle even sf-item-2 sf-depth-3 sf-no-children"><a href="/centar" title="" class="sf-depth-3">Mjerna stanica Centar</a></li><li id="menu-2317-1" class="middle odd sf-item-3 sf-depth-3 sf-no-children"><a href="/radakovo" title="" class="sf-depth-3">Mjerna stanica Radakovo</a></li><li id="menu-2318-1" class="middle even sf-item-4 sf-depth-3 sf-no-children"><a href="/tetovo" title="" class="sf-depth-3">Mjerna stanica Tetovo</a></li><li id="menu-2744-1" class="middle odd sf-item-5 sf-depth-3 sf-no-children"><a href="/stanice/zenica" title="" class="sf-depth-3">Posljednja 24 sata</a></li><li id="menu-3339-1" class="last even sf-item-6 sf-depth-3 sf-total-children-7 sf-parent-children-0 sf-single-children-7 menuparent"><span title="" class="sf-depth-3 menuparent nolink">Pregled po godinama</span><ul><li id="menu-5690-1" class="first odd sf-item-1 sf-depth-4 sf-no-children"><a href="/2019a/Zenica" title="Pregled kvaliteta zraka u 2019." class="sf-depth-4">2019</a></li><li id="menu-3586-1" class="middle even sf-item-2 sf-depth-4 sf-no-children"><a href="/2018a/Zenica" title="Pregled kvaliteta zraka u 2018." class="sf-depth-4">2018</a></li><li id="menu-3340-1" class="middle odd sf-item-3 sf-depth-4 sf-no-children"><a href="/2017a/Zenica" title="Pregled kvaliteta zraka u 2017." class="sf-depth-4">2017</a></li><li id="menu-3341-1" class="middle even sf-item-4 sf-depth-4 sf-no-children"><a href="/2016a/Zenica" title="Pregled kvaliteta zraka u 2016." class="sf-depth-4">2016</a></li><li id="menu-3342-1" class="middle odd sf-item-5 sf-depth-4 sf-no-children"><a href="/2015a/Zenica" title="Pregled kvaliteta zraka u 2015." class="sf-depth-4">2015</a></li><li id="menu-3343-1" class="middle even sf-item-6 sf-depth-4 sf-no-children"><a href="/2014a/Zenica" title="Pregled kvaliteta zraka u 2014." class="sf-depth-4">2014</a></li><li id="menu-3344-1" class="last odd sf-item-7 sf-depth-4 sf-no-children"><a href="/all/pm10graph/Zenica" title="Pregled kvaliteta zraka od 2014. do danas" class="sf-depth-4">Pregled od 2014. do danas</a></li></ul></li></ul></li><li id="menu-2299-1" class="middle odd sf-item-5 sf-depth-2 sf-total-children-2 sf-parent-children-1 sf-single-children-1 menuparent"><a href="/lukavac" title="" class="sf-depth-2 menuparent">Lukavac</a><ul><li id="menu-2828-1" class="first odd sf-item-1 sf-depth-3 sf-no-children"><a href="/st_lukavac" title="" class="sf-depth-3">Detaljan pregled</a></li><li id="menu-3317-1" class="last even sf-item-2 sf-depth-3 sf-total-children-5 sf-parent-children-0 sf-single-children-5 menuparent"><span title="Pregled kvaliteta zraka po godinama" class="sf-depth-3 menuparent nolink">Pregled po godinama</span><ul><li id="menu-3591-1" class="first odd sf-item-1 sf-depth-4 sf-no-children"><a href="/2018b/Lukavac" title="" class="sf-depth-4">2018</a></li><li id="menu-3345-1" class="middle even sf-item-2 sf-depth-4 sf-no-children"><a href="/2017b/Lukavac" title="Pregled kvaliteta zraka u 2017." class="sf-depth-4">2017</a></li><li id="menu-3346-1" class="middle odd sf-item-3 sf-depth-4 sf-no-children"><a href="/2016b/Lukavac" title="Pregled kvaliteta zraka u 2016." class="sf-depth-4">2016</a></li><li id="menu-3347-1" class="middle even sf-item-4 sf-depth-4 sf-no-children"><a href="/2015b/Lukavac" title="Pregled kvaliteta zraka u 2015." class="sf-depth-4">2015</a></li><li id="menu-3348-1" class="last odd sf-item-5 sf-depth-4 sf-no-children"><a href="/all/pm25graph/Lukavac" title="Pregled kvaliteta zraka od 2015. do danas" class="sf-depth-4">Pregled od 2015. do danas</a></li></ul></li></ul></li><li id="menu-2300-1" class="middle even sf-item-6 sf-depth-2 sf-total-children-2 sf-parent-children-0 sf-single-children-2 menuparent"><a href="/prijedor" title="" class="sf-depth-2 menuparent">Prijedor</a><ul><li id="menu-2881-1" class="first odd sf-item-1 sf-depth-3 sf-no-children"><a href="/st_prijedor" title="" class="sf-depth-3">Detaljan pregled</a></li><li id="menu-3324-1" class="last even sf-item-2 sf-depth-3 sf-no-children"><a href="/2017/prijedor" title="" class="sf-depth-3">2017</a></li></ul></li><li id="menu-2301-1" class="middle odd sf-item-7 sf-depth-2 sf-total-children-2 sf-parent-children-1 sf-single-children-1 menuparent"><a href="/gorazde" title="" class="sf-depth-2 menuparent">Goražde</a><ul><li id="menu-2882-1" class="first odd sf-item-1 sf-depth-3 sf-no-children"><a href="/st_gorazde" title="" class="sf-depth-3">Detaljan pregled</a></li><li id="menu-3323-1" class="last even sf-item-2 sf-depth-3 sf-total-children-3 sf-parent-children-0 sf-single-children-3 menuparent"><span title="Pregled kvaliteta zraka po godinama" class="sf-depth-3 menuparent nolink">Pregled po godinama</span><ul><li id="menu-3587-1" class="first odd sf-item-1 sf-depth-4 sf-no-children"><a href="/2018a/Gorazde" title="Pregled kvaliteta zraka u 2018." class="sf-depth-4">2018</a></li><li id="menu-3355-1" class="middle even sf-item-2 sf-depth-4 sf-no-children"><a href="/2017a/Gora%C5%BEde" title="Pregled kvaliteta zraka u 2017." class="sf-depth-4">2017</a></li><li id="menu-3356-1" class="last odd sf-item-3 sf-depth-4 sf-no-children"><a href="/2016a/Gora%C5%BEde" title="" class="sf-depth-4">2016</a></li></ul></li></ul></li><li id="menu-2302-1" class="middle even sf-item-8 sf-depth-2 sf-total-children-2 sf-parent-children-1 sf-single-children-1 menuparent"><a href="/jajce" title="" class="sf-depth-2 menuparent">Jajce</a><ul><li id="menu-2892-1" class="first odd sf-item-1 sf-depth-3 sf-no-children"><a href="/st_jajce" title="" class="sf-depth-3">Detaljan pregled</a></li><li id="menu-3349-1" class="last even sf-item-2 sf-depth-3 sf-total-children-6 sf-parent-children-0 sf-single-children-6 menuparent"><span title="Pregleda kvaliteta zraka u 2017." class="sf-depth-3 menuparent nolink">Pregled po godinama</span><ul><li id="menu-3588-1" class="first odd sf-item-1 sf-depth-4 sf-no-children"><a href="/2018a/Jajce" title="Pregled kvaliteta zraka u 2018." class="sf-depth-4">2018</a></li><li id="menu-3350-1" class="middle even sf-item-2 sf-depth-4 sf-no-children"><a href="/2017a/Jajce" title="Pregled kvaliteta zraka u 2017." class="sf-depth-4">2017</a></li><li id="menu-3351-1" class="middle odd sf-item-3 sf-depth-4 sf-no-children"><a href="/2016a/Jajce" title="Pregled kvaliteta zraka u 2016." class="sf-depth-4">2016</a></li><li id="menu-3352-1" class="middle even sf-item-4 sf-depth-4 sf-no-children"><a href="/2015a/Jajce" title="Pregled kvaliteta zraka u 2015." class="sf-depth-4">2015</a></li><li id="menu-3353-1" class="middle odd sf-item-5 sf-depth-4 sf-no-children"><a href="/2014a/Jajce" title="Pregled kvaliteta zraka u 2014." class="sf-depth-4">2014</a></li><li id="menu-3354-1" class="last even sf-item-6 sf-depth-4 sf-no-children"><a href="/all/pm10graph/Jajce" title="Pregled kvaliteta zraka od 2014. do danas" class="sf-depth-4">Pregled od 2014. do danas</a></li></ul></li></ul></li><li id="menu-2449-1" class="middle odd sf-item-9 sf-depth-2 sf-total-children-2 sf-parent-children-1 sf-single-children-1 menuparent"><a href="/zivinice" title="" class="sf-depth-2 menuparent">Živinice</a><ul><li id="menu-2833-1" class="first odd sf-item-1 sf-depth-3 sf-no-children"><a href="/st_zivinice" title="" class="sf-depth-3">Detaljan pregled</a></li><li id="menu-3593-1" class="last even sf-item-2 sf-depth-3 sf-total-children-2 sf-parent-children-0 sf-single-children-2 menuparent"><span title="Pregled kvaliteta zraka po godinama" class="sf-depth-3 menuparent nolink">Pregled po godinama</span><ul><li id="menu-3592-1" class="first odd sf-item-1 sf-depth-4 sf-no-children"><a href="/2018b/Zivinice" title="Kvalitet zraka u 2018." class="sf-depth-4">2018</a></li><li id="menu-3319-1" class="last even sf-item-2 sf-depth-4 sf-no-children"><a href="/2017/Zivinice" title="Pregled - 2017." class="sf-depth-4">2017</a></li></ul></li></ul></li><li id="menu-5692-1" class="middle even sf-item-10 sf-depth-2 sf-total-children-1 sf-parent-children-1 sf-single-children-0 menuparent"><a href="/Ilija%C5%A1" title="" class="sf-depth-2 menuparent">Ilijaš</a><ul><li id="menu-5693-1" class="firstandlast odd sf-item-1 sf-depth-3 sf-total-children-2 sf-parent-children-0 sf-single-children-2 menuparent"><span title="" class="sf-depth-3 menuparent nolink">Pregled po godinama</span><ul><li id="menu-5691-1" class="first odd sf-item-1 sf-depth-4 sf-no-children"><a href="/2019a/Ilija%C5%A1" title="Pregled kvaliteta zraka u 2019." class="sf-depth-4">2019</a></li><li id="menu-5694-1" class="last even sf-item-2 sf-depth-4 sf-no-children"><a href="/2018a/Ilija%C5%A1" title="" class="sf-depth-4">2018</a></li></ul></li></ul></li><li id="menu-3313-1" class="middle odd sf-item-11 sf-depth-2 sf-total-children-1 sf-parent-children-1 sf-single-children-0 menuparent"><a href="/kakanj" title="" class="sf-depth-2 menuparent">Kakanj</a><ul><li id="menu-3357-1" class="firstandlast odd sf-item-1 sf-depth-3 sf-total-children-4 sf-parent-children-0 sf-single-children-4 menuparent"><span title="Pregled kvaliteta zraka po godinama" class="sf-depth-3 menuparent nolink">Pregled po godinama</span><ul><li id="menu-3589-1" class="first odd sf-item-1 sf-depth-4 sf-no-children"><a href="/2018a/Kakanj" title="Pregled kvaliteta zraka u 2018." class="sf-depth-4">2018</a></li><li id="menu-3358-1" class="middle even sf-item-2 sf-depth-4 sf-no-children"><a href="/2017a/Kakanj" title="Pregled kvaliteta zraka u 2017." class="sf-depth-4">2017</a></li><li id="menu-3359-1" class="middle odd sf-item-3 sf-depth-4 sf-no-children"><a href="/2016a/Kakanj" title="Pregled kvaliteta zraka u 2016." class="sf-depth-4">2016</a></li><li id="menu-3360-1" class="last even sf-item-4 sf-depth-4 sf-no-children"><a href="/2015a/Kakanj" title="Kvalitet zraka u 2015." class="sf-depth-4">2015</a></li></ul></li></ul></li><li id="menu-6982-1" class="middle even sf-item-12 sf-depth-2 sf-no-children"><a href="/hadzici" title="" class="sf-depth-2">Hadžići</a></li><li id="menu-7119-1" class="middle odd sf-item-13 sf-depth-2 sf-no-children"><a href="/vogosca" title="" class="sf-depth-2">Vogošća</a></li><li id="menu-2305-1" class="middle even sf-item-14 sf-depth-2 sf-no-children"><a href="/srebrenik" title="" class="sf-depth-2">Srebrenik</a></li><li id="menu-6981-1" class="middle odd sf-item-15 sf-depth-2 sf-no-children"><a href="/bihac" title="" class="sf-depth-2">Bihać</a></li><li id="menu-7120-1" class="middle even sf-item-16 sf-depth-2 sf-no-children"><a href="/travnik" title="" class="sf-depth-2">Travnik</a></li><li id="menu-8398-1" class="middle odd sf-item-17 sf-depth-2 sf-no-children"><a href="/mostar" title="" class="sf-depth-2">Mostar</a></li><li id="menu-6987-1" class="middle even sf-item-18 sf-depth-2 sf-no-children"><a href="/maglaj" title="" class="sf-depth-2">Maglaj</a></li><li id="menu-6988-1" class="middle odd sf-item-19 sf-depth-2 sf-no-children"><a href="/tesanj" title="" class="sf-depth-2">Tešanj</a></li><li id="menu-5695-1" class="middle even sf-item-20 sf-depth-2 sf-no-children"><a href="/Visoko" title="" class="sf-depth-2">Visoko</a></li><li id="menu-7061-1" class="last odd sf-item-21 sf-depth-2 sf-no-children"><a href="/ivansedlo" title="" class="sf-depth-2">Ivan Sedlo</a></li></ul></li><li id="menu-2306-1" class="middle odd sf-item-3 sf-depth-1 sf-total-children-5 sf-parent-children-2 sf-single-children-3 menuparent"><a href="/pregled" title="" class="sf-depth-1 menuparent">Pregled</a><ul><li id="menu-3522-1" class="first odd sf-item-1 sf-depth-2 sf-no-children"><a href="/map/bih" title="" class="sf-depth-2">Mapa kvaliteta zraka u gradovima BiH</a></li><li id="menu-6989-1" class="middle even sf-item-2 sf-depth-2 sf-no-children"><a href="/pregled_zraka" title="" class="sf-depth-2">Kvalitet zraka - tokom prethodnog dana i posljednja mjerenja</a></li><li id="menu-5696-1" class="middle odd sf-item-3 sf-depth-2 sf-total-children-1 sf-parent-children-1 sf-single-children-0 menuparent"><span title="" class="sf-depth-2 menuparent nolink">Epizode zagađenja zraka</span><ul><li id="menu-5697-1" class="firstandlast odd sf-item-1 sf-depth-3 sf-total-children-1 sf-parent-children-0 sf-single-children-1 menuparent"><span title="" class="sf-depth-3 menuparent nolink">Visoko</span><ul><li id="menu-5698-1" class="firstandlast odd sf-item-1 sf-depth-4 sf-no-children"><a href="/visoko/191209" title="" class="sf-depth-4">9. decembar 2019.</a></li></ul></li></ul></li><li id="menu-3104-1" class="middle even sf-item-4 sf-depth-2 sf-no-children"><a href="/48hTuzla" title="" class="sf-depth-2">Tuzlanska regija - posljednjih 48 sati</a></li><li id="menu-4622-1" class="last odd sf-item-5 sf-depth-2 sf-total-children-6 sf-parent-children-0 sf-single-children-6 menuparent"><span title="" class="sf-depth-2 menuparent nolink">Vrijeme</span><ul><li id="menu-4623-1" class="first odd sf-item-1 sf-depth-3 sf-no-children"><a href="/vrijeme/bjelave" title="" class="sf-depth-3">Sarajevo </a></li><li id="menu-4627-1" class="middle even sf-item-2 sf-depth-3 sf-no-children"><a href="/vrijeme/zenica" title="" class="sf-depth-3">Zenica</a></li><li id="menu-4624-1" class="middle odd sf-item-3 sf-depth-3 sf-no-children"><a href="/vrijeme/bjelasnica" title="" class="sf-depth-3">Bjelašnica</a></li><li id="menu-4625-1" class="middle even sf-item-4 sf-depth-3 sf-no-children"><a href="/vrijeme/ivan%20sedlo" title="" class="sf-depth-3">Ivan Sedlo</a></li><li id="menu-7027-1" class="middle odd sf-item-5 sf-depth-3 sf-no-children"><a href="/vrijeme/%C4%8Demerno" title="" class="sf-depth-3">Čemerno</a></li><li id="menu-7139-1" class="last even sf-item-6 sf-depth-3 sf-no-children"><a href="/vrijeme/babin%20do" title="" class="sf-depth-3">Babin Do</a></li></ul></li></ul></li><li id="menu-3436-1" class="middle even sf-item-4 sf-depth-1 sf-no-children"><a href="/zdravlje" title="" class="sf-depth-1">Utjecaj na zdravlje</a></li><li id="menu-2717-1" class="middle odd sf-item-5 sf-depth-1 sf-no-children"><a href="/mobilna" class="sf-depth-1">Mobilna aplikacija</a></li><li id="menu-2792-1" class="middle even sf-item-6 sf-depth-1 sf-total-children-3 sf-parent-children-0 sf-single-children-3 menuparent"><a href="/qa/pitanja-i-odgovori" title="" class="sf-depth-1 menuparent">Pitanja i odgovori</a><ul><li id="menu-2793-1" class="first odd sf-item-1 sf-depth-2 sf-no-children"><a href="/qa/indeks-kvaliteta-zraka" class="sf-depth-2">Kako se izračunava Indeks kvaliteta zraka?</a></li><li id="menu-4626-1" class="middle even sf-item-2 sf-depth-2 sf-no-children"><a href="/content/kako-se-ponasati-kada-je-zrak-opasno-zagaden" class="sf-depth-2">Kako se ponašati kada je zrak „opasno” zagađen?</a></li><li id="menu-2794-1" class="last odd sf-item-3 sf-depth-2 sf-no-children"><a href="/qa/maske" class="sf-depth-2">Zaštitne maske, koje i kada?</a></li></ul></li><li id="menu-6748-1" class="middle odd sf-item-7 sf-depth-1 sf-no-children"><a href="/node/add/prijava-zagadjivaca" title="" class="sf-depth-1">Prijava zagađivača</a></li><li id="menu-3601-1" class="last even sf-item-8 sf-depth-1 sf-no-children"><a href="http://www.ekoakcija.org" title="" class="sf-depth-1">ekoakcija.org</a></li></ul>
+  </nav></div>        </div>
+      </div>
+    
+    <div id="header-wrapper">
+      <div class="container clearfix">
+
+        <header class="clearfix" role="banner">
+
+                      <div id="branding" class="branding-elements clearfix">
+
+              
+                              <div class="element-invisible h-group" id="name-and-slogan">
+
+                                      <h1 class="element-invisible" id="site-name"><a href="/" title="Home page">Kvalitet zraka u bh. gradovima</a></h1>
+                  
+                  
+                </div>
+              
+            </div>
+          
+          
+        </header>
+
+      </div>
+    </div>
+
+    
+    
+    
+    <div id="content-wrapper">
+      <div class="container">
+
+        <div id="columns">
+          <div class="columns-inner clearfix">
+
+            <div id="content-column">
+              <div class="content-inner">
+
+                
+                <section id="main-content" role="main">
+
+                  
+                  <div class="content-margin">
+                    <div class="content-style">
+
+                      
+                      
+                      
+                                              <header class="clearfix">
+                          <h1 id="page-title">
+                            Kvalitet zraka u Sarajevu                          </h1>
+                        </header>
+                      
+                      
+                      
+                      <div id="content">
+                        <div class="region region-content"><div id="block-system-main" class="block block-system no-title odd first last block-count-2 block-region-content block-main" >  
+  
+  
+<div class="panel-display sutro clearfix " >
+
+  <div class="sutro-container sutro-header clearfix panel-panel">
+    <div class="sutro-container-inner sutro-header-inner panel-panel-inner">
+          </div>
+  </div>
+  
+  <div class="sutro-container sutro-column-content clearfix">
+    <div class="sutro-column-content-region sutro-column1 sutro-column panel-panel">
+      <div class="sutro-column-content-region-inner sutro-column1-inner sutro-column-inner panel-panel-inner">
+        <section class="panel-pane pane-views pane-sarajevo-latest block">
+  <div class="block-inner clearfix">
+    
+              <h2 class="pane-title block-title">Najnovije informacije o kvalitetu zraka</h2>
+        
+    
+    <div class="block-content">
+      <div class="view view-sarajevo-latest view-id-sarajevo_latest view-display-id-page_3 view-dom-id-8ded6aec13128478386697ba8c89d1f0">
+        
+  
+  
+  
+  
+  
+  
+  
+  
+</div>    </div>
+
+    
+    
+  </div>
+</section>
+<div class="panel-separator"></div><section class="panel-pane pane-views pane-24h-sarajevo-bj-graph block">
+  <div class="block-inner clearfix">
+    
+              <h2 class="pane-title block-title"><a href="/vijecnica">Stanica Vijećnica - posljednja 24 sata</a></h2>
+        
+    
+    <div class="block-content">
+      <div class="view view-24h-sarajevo-bj-graph view-id-24h_sarajevo_bj_graph view-display-id-default view-dom-id-ed11a9f024b273d50c5db406db7c1e95">
+        
+  
+  
+      <div class="view-content">
+      <div  class="charts-highchart chart" data-chart="{&quot;chart&quot;:{&quot;type&quot;:&quot;column&quot;,&quot;style&quot;:{&quot;fontFamily&quot;:&quot;Arial&quot;,&quot;fontSize&quot;:12},&quot;backgroundColor&quot;:&quot;transparent&quot;,&quot;height&quot;:180},&quot;title&quot;:{&quot;text&quot;:&quot;&quot;,&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;,&quot;fontSize&quot;:14}},&quot;colors&quot;:[&quot;#2f7ed8&quot;,&quot;#0d233a&quot;,&quot;#8bbc21&quot;,&quot;#910000&quot;,&quot;#1aadce&quot;,&quot;#492970&quot;,&quot;#f28f43&quot;,&quot;#77a1e5&quot;,&quot;#c42525&quot;,&quot;#a6c96a&quot;],&quot;plotOptions&quot;:{&quot;series&quot;:{&quot;dataLabels&quot;:{&quot;enabled&quot;:false}}},&quot;tooltip&quot;:{&quot;enabled&quot;:true,&quot;useHTML&quot;:false},&quot;legend&quot;:{&quot;enabled&quot;:true,&quot;title&quot;:{&quot;style&quot;:{&quot;fontWeight&quot;:&quot;bold&quot;,&quot;fontStyle&quot;:&quot;normal&quot;}},&quot;verticalAlign&quot;:&quot;top&quot;,&quot;layout&quot;:&quot;horizontal&quot;,&quot;itemStyle&quot;:{&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;}},&quot;credits&quot;:{&quot;enabled&quot;:false},&quot;xAxis&quot;:[{&quot;type&quot;:&quot;linear&quot;,&quot;title&quot;:{&quot;text&quot;:false,&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;,&quot;fontSize&quot;:12}},&quot;categories&quot;:[&quot;16h&quot;,&quot;17h&quot;,&quot;18h&quot;,&quot;19h&quot;,&quot;20h&quot;,&quot;21h&quot;,&quot;22h&quot;,&quot;23h&quot;,&quot;00h&quot;,&quot;01h&quot;,&quot;02h&quot;,&quot;03h&quot;,&quot;04h&quot;,&quot;05h&quot;,&quot;06h&quot;,&quot;07h&quot;,&quot;08h&quot;,&quot;09h&quot;,&quot;10h&quot;,&quot;11h&quot;,&quot;12h&quot;],&quot;labels&quot;:{&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;},&quot;rotation&quot;:0},&quot;gridLineColor&quot;:&quot;#ccc&quot;,&quot;lineColor&quot;:&quot;#ccc&quot;,&quot;minorGridLineColor&quot;:&quot;#e0e0e0&quot;,&quot;opposite&quot;:false}],&quot;yAxis&quot;:[{&quot;type&quot;:&quot;linear&quot;,&quot;title&quot;:{&quot;text&quot;:false,&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;,&quot;fontSize&quot;:12}},&quot;labels&quot;:{&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;},&quot;rotation&quot;:0},&quot;gridLineColor&quot;:&quot;#ccc&quot;,&quot;lineColor&quot;:&quot;#ccc&quot;,&quot;minorGridLineColor&quot;:&quot;#e0e0e0&quot;,&quot;min&quot;:0,&quot;opposite&quot;:false}],&quot;series&quot;:[{&quot;name&quot;:&quot;Indeks kvaliteta zraka&quot;,&quot;color&quot;:&quot;#000791&quot;,&quot;marker&quot;:{&quot;radius&quot;:3},&quot;showInLegend&quot;:true,&quot;connectNulls&quot;:true,&quot;tooltip&quot;:[],&quot;data&quot;:[33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33]}]}" id="chart-24h-sarajevo-bj-graph--default"></div>    </div>
+  
+  
+  
+  
+  
+  
+</div>    </div>
+
+    
+    
+  </div>
+</section>
+<div class="panel-separator"></div><section class="panel-pane pane-views pane-24h-sarajevo-bj-graph block">
+  <div class="block-inner clearfix">
+    
+              <h2 class="pane-title block-title"><a href="/bjelave">Stanica Bjelave - posljednja 24 sata</a></h2>
+        
+    
+    <div class="block-content">
+      <div class="view view-24h-sarajevo-bj-graph view-id-24h_sarajevo_bj_graph view-display-id-page_2 view-dom-id-b9f45eeff6c8625dbf2ac46169bf02b3">
+        
+  
+  
+      <div class="view-content">
+      <div  class="charts-highchart chart" data-chart="{&quot;chart&quot;:{&quot;type&quot;:&quot;column&quot;,&quot;style&quot;:{&quot;fontFamily&quot;:&quot;Arial&quot;,&quot;fontSize&quot;:12},&quot;backgroundColor&quot;:&quot;transparent&quot;,&quot;height&quot;:180},&quot;title&quot;:{&quot;text&quot;:&quot;&quot;,&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;,&quot;fontSize&quot;:14}},&quot;colors&quot;:[&quot;#2f7ed8&quot;,&quot;#0d233a&quot;,&quot;#8bbc21&quot;,&quot;#910000&quot;,&quot;#1aadce&quot;,&quot;#492970&quot;,&quot;#f28f43&quot;,&quot;#77a1e5&quot;,&quot;#c42525&quot;,&quot;#a6c96a&quot;],&quot;plotOptions&quot;:{&quot;series&quot;:{&quot;dataLabels&quot;:{&quot;enabled&quot;:false}}},&quot;tooltip&quot;:{&quot;enabled&quot;:true,&quot;useHTML&quot;:false},&quot;legend&quot;:{&quot;enabled&quot;:true,&quot;title&quot;:{&quot;style&quot;:{&quot;fontWeight&quot;:&quot;bold&quot;,&quot;fontStyle&quot;:&quot;normal&quot;}},&quot;verticalAlign&quot;:&quot;top&quot;,&quot;layout&quot;:&quot;horizontal&quot;,&quot;itemStyle&quot;:{&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;}},&quot;credits&quot;:{&quot;enabled&quot;:false},&quot;xAxis&quot;:[{&quot;type&quot;:&quot;linear&quot;,&quot;title&quot;:{&quot;text&quot;:false,&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;,&quot;fontSize&quot;:12}},&quot;categories&quot;:[&quot;16h&quot;,&quot;17h&quot;,&quot;18h&quot;,&quot;19h&quot;,&quot;20h&quot;,&quot;21h&quot;,&quot;22h&quot;,&quot;23h&quot;,&quot;00h&quot;,&quot;01h&quot;,&quot;02h&quot;,&quot;03h&quot;,&quot;04h&quot;,&quot;05h&quot;,&quot;06h&quot;,&quot;07h&quot;,&quot;08h&quot;,&quot;09h&quot;,&quot;10h&quot;,&quot;11h&quot;,&quot;12h&quot;],&quot;labels&quot;:{&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;},&quot;rotation&quot;:0},&quot;gridLineColor&quot;:&quot;#ccc&quot;,&quot;lineColor&quot;:&quot;#ccc&quot;,&quot;minorGridLineColor&quot;:&quot;#e0e0e0&quot;,&quot;opposite&quot;:false}],&quot;yAxis&quot;:[{&quot;type&quot;:&quot;linear&quot;,&quot;title&quot;:{&quot;text&quot;:false,&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;,&quot;fontSize&quot;:12}},&quot;labels&quot;:{&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;},&quot;rotation&quot;:0},&quot;gridLineColor&quot;:&quot;#ccc&quot;,&quot;lineColor&quot;:&quot;#ccc&quot;,&quot;minorGridLineColor&quot;:&quot;#e0e0e0&quot;,&quot;min&quot;:0,&quot;opposite&quot;:false}],&quot;series&quot;:[{&quot;name&quot;:&quot;Indeks kvaliteta zraka&quot;,&quot;color&quot;:&quot;#000791&quot;,&quot;marker&quot;:{&quot;radius&quot;:3},&quot;showInLegend&quot;:true,&quot;connectNulls&quot;:true,&quot;tooltip&quot;:[],&quot;data&quot;:[60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60]}]}" id="chart-24h-sarajevo-bj-graph--page-2"></div>    </div>
+  
+  
+  
+  
+  
+  
+</div>    </div>
+
+    
+    
+  </div>
+</section>
+<div class="panel-separator"></div><section class="panel-pane pane-views pane-24h-sarajevo-bj-graph block">
+  <div class="block-inner clearfix">
+    
+              <h2 class="pane-title block-title">Stanica Ambasade SAD - posljednja 24 sata</h2>
+        
+    
+    <div class="block-content">
+      <div class="view view-24h-sarajevo-bj-graph view-id-24h_sarajevo_bj_graph view-display-id-page_3 view-dom-id-aa1c095b603ee2f8bcfd6b6b0865e958">
+        
+  
+  
+      <div class="view-content">
+      <div  class="charts-highchart chart" data-chart="{&quot;chart&quot;:{&quot;type&quot;:&quot;column&quot;,&quot;style&quot;:{&quot;fontFamily&quot;:&quot;Arial&quot;,&quot;fontSize&quot;:12},&quot;backgroundColor&quot;:&quot;transparent&quot;,&quot;height&quot;:180},&quot;title&quot;:{&quot;text&quot;:&quot;&quot;,&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;,&quot;fontSize&quot;:14}},&quot;colors&quot;:[&quot;#2f7ed8&quot;,&quot;#0d233a&quot;,&quot;#8bbc21&quot;,&quot;#910000&quot;,&quot;#1aadce&quot;,&quot;#492970&quot;,&quot;#f28f43&quot;,&quot;#77a1e5&quot;,&quot;#c42525&quot;,&quot;#a6c96a&quot;],&quot;plotOptions&quot;:{&quot;series&quot;:{&quot;dataLabels&quot;:{&quot;enabled&quot;:false}}},&quot;tooltip&quot;:{&quot;enabled&quot;:true,&quot;useHTML&quot;:false},&quot;legend&quot;:{&quot;enabled&quot;:true,&quot;title&quot;:{&quot;style&quot;:{&quot;fontWeight&quot;:&quot;bold&quot;,&quot;fontStyle&quot;:&quot;normal&quot;}},&quot;verticalAlign&quot;:&quot;top&quot;,&quot;layout&quot;:&quot;horizontal&quot;,&quot;itemStyle&quot;:{&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;}},&quot;credits&quot;:{&quot;enabled&quot;:false},&quot;xAxis&quot;:[{&quot;type&quot;:&quot;linear&quot;,&quot;title&quot;:{&quot;text&quot;:false,&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;,&quot;fontSize&quot;:12}},&quot;categories&quot;:[&quot;16h&quot;,&quot;17h&quot;,&quot;18h&quot;,&quot;19h&quot;,&quot;20h&quot;,&quot;21h&quot;,&quot;22h&quot;,&quot;23h&quot;,&quot;00h&quot;,&quot;01h&quot;,&quot;02h&quot;,&quot;03h&quot;,&quot;04h&quot;,&quot;05h&quot;,&quot;06h&quot;,&quot;07h&quot;,&quot;08h&quot;,&quot;09h&quot;,&quot;10h&quot;,&quot;11h&quot;,&quot;12h&quot;],&quot;labels&quot;:{&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;},&quot;rotation&quot;:0},&quot;gridLineColor&quot;:&quot;#ccc&quot;,&quot;lineColor&quot;:&quot;#ccc&quot;,&quot;minorGridLineColor&quot;:&quot;#e0e0e0&quot;,&quot;opposite&quot;:false}],&quot;yAxis&quot;:[{&quot;type&quot;:&quot;linear&quot;,&quot;title&quot;:{&quot;text&quot;:false,&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;,&quot;fontSize&quot;:12}},&quot;labels&quot;:{&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;},&quot;rotation&quot;:0},&quot;gridLineColor&quot;:&quot;#ccc&quot;,&quot;lineColor&quot;:&quot;#ccc&quot;,&quot;minorGridLineColor&quot;:&quot;#e0e0e0&quot;,&quot;min&quot;:0,&quot;opposite&quot;:false}],&quot;series&quot;:[{&quot;name&quot;:&quot;Indeks kvaliteta zraka&quot;,&quot;color&quot;:&quot;#000791&quot;,&quot;marker&quot;:{&quot;radius&quot;:3},&quot;showInLegend&quot;:true,&quot;connectNulls&quot;:true,&quot;tooltip&quot;:[],&quot;data&quot;:[70,71,71,66,71,70,79,79,83,81,84,86,95,103,109,113,110,108,117,106,106]}]}" id="chart-24h-sarajevo-bj-graph--page-3"></div>    </div>
+  
+  
+  
+  
+  
+  
+</div>    </div>
+
+    
+    
+  </div>
+</section>
+<div class="panel-separator"></div><section class="panel-pane pane-views pane-24h-sarajevo-otoka-graph block">
+  <div class="block-inner clearfix">
+    
+              <h2 class="pane-title block-title"><a href="/otoka">Stanica Otoka - posljednja 24 sata</a></h2>
+        
+    
+    <div class="block-content">
+      <div class="view view-24h-sarajevo-otoka-graph view-id-24h_sarajevo_otoka_graph view-display-id-default view-dom-id-f5315bc0d687a320f3a4bf7bdbcced85">
+        
+  
+  
+      <div class="view-content">
+      <div  class="charts-highchart chart" data-chart="{&quot;chart&quot;:{&quot;type&quot;:&quot;column&quot;,&quot;style&quot;:{&quot;fontFamily&quot;:&quot;Arial&quot;,&quot;fontSize&quot;:12},&quot;backgroundColor&quot;:&quot;transparent&quot;,&quot;height&quot;:180},&quot;title&quot;:{&quot;text&quot;:&quot;&quot;,&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;,&quot;fontSize&quot;:14}},&quot;colors&quot;:[&quot;#2f7ed8&quot;,&quot;#0d233a&quot;,&quot;#8bbc21&quot;,&quot;#910000&quot;,&quot;#1aadce&quot;,&quot;#492970&quot;,&quot;#f28f43&quot;,&quot;#77a1e5&quot;,&quot;#c42525&quot;,&quot;#a6c96a&quot;],&quot;plotOptions&quot;:{&quot;series&quot;:{&quot;dataLabels&quot;:{&quot;enabled&quot;:false}}},&quot;tooltip&quot;:{&quot;enabled&quot;:true,&quot;useHTML&quot;:false},&quot;legend&quot;:{&quot;enabled&quot;:true,&quot;title&quot;:{&quot;style&quot;:{&quot;fontWeight&quot;:&quot;bold&quot;,&quot;fontStyle&quot;:&quot;normal&quot;}},&quot;verticalAlign&quot;:&quot;top&quot;,&quot;layout&quot;:&quot;horizontal&quot;,&quot;itemStyle&quot;:{&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;}},&quot;credits&quot;:{&quot;enabled&quot;:false},&quot;xAxis&quot;:[{&quot;type&quot;:&quot;linear&quot;,&quot;title&quot;:{&quot;text&quot;:false,&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;,&quot;fontSize&quot;:12}},&quot;categories&quot;:[&quot;16h&quot;,&quot;17h&quot;,&quot;18h&quot;,&quot;19h&quot;,&quot;20h&quot;,&quot;21h&quot;,&quot;22h&quot;,&quot;23h&quot;,&quot;00h&quot;,&quot;01h&quot;,&quot;02h&quot;,&quot;03h&quot;,&quot;04h&quot;,&quot;05h&quot;,&quot;06h&quot;,&quot;07h&quot;,&quot;08h&quot;,&quot;09h&quot;,&quot;10h&quot;,&quot;11h&quot;,&quot;12h&quot;],&quot;labels&quot;:{&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;},&quot;rotation&quot;:0},&quot;gridLineColor&quot;:&quot;#ccc&quot;,&quot;lineColor&quot;:&quot;#ccc&quot;,&quot;minorGridLineColor&quot;:&quot;#e0e0e0&quot;,&quot;opposite&quot;:false}],&quot;yAxis&quot;:[{&quot;type&quot;:&quot;linear&quot;,&quot;title&quot;:{&quot;text&quot;:false,&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;,&quot;fontSize&quot;:12}},&quot;labels&quot;:{&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;},&quot;rotation&quot;:0},&quot;gridLineColor&quot;:&quot;#ccc&quot;,&quot;lineColor&quot;:&quot;#ccc&quot;,&quot;minorGridLineColor&quot;:&quot;#e0e0e0&quot;,&quot;min&quot;:0,&quot;opposite&quot;:false}],&quot;series&quot;:[{&quot;name&quot;:&quot;Indeks kvaliteta zraka&quot;,&quot;color&quot;:&quot;#000791&quot;,&quot;marker&quot;:{&quot;radius&quot;:3},&quot;showInLegend&quot;:true,&quot;connectNulls&quot;:true,&quot;tooltip&quot;:[],&quot;data&quot;:[64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64]}]}" id="chart-24h-sarajevo-otoka-graph--default"></div>    </div>
+  
+  
+  
+  
+  
+  
+</div>    </div>
+
+    
+    
+  </div>
+</section>
+<div class="panel-separator"></div><section class="panel-pane pane-views pane-24h-sarajevo-ilidza-graph block">
+  <div class="block-inner clearfix">
+    
+              <h2 class="pane-title block-title"><a href="/ilidza">Stanica Ilidža - posljednja 24 sata</a></h2>
+        
+    
+    <div class="block-content">
+      <div class="view view-24h-sarajevo-ilidza-graph view-id-24h_sarajevo_ilidza_graph view-display-id-default view-dom-id-55a88f3173aa5d4efe852784fcb4f76f">
+        
+  
+  
+      <div class="view-content">
+      <div  class="charts-highchart chart" data-chart="{&quot;chart&quot;:{&quot;type&quot;:&quot;column&quot;,&quot;style&quot;:{&quot;fontFamily&quot;:&quot;Arial&quot;,&quot;fontSize&quot;:12},&quot;backgroundColor&quot;:&quot;transparent&quot;,&quot;height&quot;:180},&quot;title&quot;:{&quot;text&quot;:&quot;&quot;,&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;,&quot;fontSize&quot;:14}},&quot;colors&quot;:[&quot;#2f7ed8&quot;,&quot;#0d233a&quot;,&quot;#8bbc21&quot;,&quot;#910000&quot;,&quot;#1aadce&quot;,&quot;#492970&quot;,&quot;#f28f43&quot;,&quot;#77a1e5&quot;,&quot;#c42525&quot;,&quot;#a6c96a&quot;],&quot;plotOptions&quot;:{&quot;series&quot;:{&quot;dataLabels&quot;:{&quot;enabled&quot;:false}}},&quot;tooltip&quot;:{&quot;enabled&quot;:true,&quot;useHTML&quot;:false},&quot;legend&quot;:{&quot;enabled&quot;:true,&quot;title&quot;:{&quot;style&quot;:{&quot;fontWeight&quot;:&quot;bold&quot;,&quot;fontStyle&quot;:&quot;normal&quot;}},&quot;verticalAlign&quot;:&quot;top&quot;,&quot;layout&quot;:&quot;horizontal&quot;,&quot;itemStyle&quot;:{&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;}},&quot;credits&quot;:{&quot;enabled&quot;:false},&quot;xAxis&quot;:[{&quot;type&quot;:&quot;linear&quot;,&quot;title&quot;:{&quot;text&quot;:false,&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;,&quot;fontSize&quot;:12}},&quot;categories&quot;:[&quot;16h&quot;,&quot;17h&quot;,&quot;18h&quot;,&quot;19h&quot;,&quot;20h&quot;,&quot;21h&quot;,&quot;22h&quot;,&quot;23h&quot;,&quot;00h&quot;,&quot;01h&quot;,&quot;02h&quot;,&quot;03h&quot;,&quot;04h&quot;,&quot;05h&quot;,&quot;06h&quot;,&quot;07h&quot;,&quot;08h&quot;,&quot;09h&quot;,&quot;10h&quot;,&quot;11h&quot;,&quot;12h&quot;],&quot;labels&quot;:{&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;},&quot;rotation&quot;:0},&quot;gridLineColor&quot;:&quot;#ccc&quot;,&quot;lineColor&quot;:&quot;#ccc&quot;,&quot;minorGridLineColor&quot;:&quot;#e0e0e0&quot;,&quot;opposite&quot;:false}],&quot;yAxis&quot;:[{&quot;type&quot;:&quot;linear&quot;,&quot;title&quot;:{&quot;text&quot;:false,&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;,&quot;fontSize&quot;:12}},&quot;labels&quot;:{&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;},&quot;rotation&quot;:0},&quot;gridLineColor&quot;:&quot;#ccc&quot;,&quot;lineColor&quot;:&quot;#ccc&quot;,&quot;minorGridLineColor&quot;:&quot;#e0e0e0&quot;,&quot;min&quot;:0,&quot;opposite&quot;:false}],&quot;series&quot;:[{&quot;name&quot;:&quot;Indeks kvaliteta zraka&quot;,&quot;color&quot;:&quot;#000791&quot;,&quot;marker&quot;:{&quot;radius&quot;:3},&quot;showInLegend&quot;:true,&quot;connectNulls&quot;:true,&quot;tooltip&quot;:[],&quot;data&quot;:[46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46]}]}" id="chart-24h-sarajevo-ilidza-graph--default"></div>    </div>
+  
+  
+  
+  
+  
+  
+</div>    </div>
+
+    
+    
+  </div>
+</section>
+<div class="panel-separator"></div><section class="panel-pane pane-views pane-avg-values-30-days-sarajevo block">
+  <div class="block-inner clearfix">
+    
+              <h2 class="pane-title block-title">Posljednjih 30 dana</h2>
+        
+    
+    <div class="block-content">
+      <div class="view view-avg-values-30-days-sarajevo view-id-avg_values_30_days_sarajevo view-display-id-default view-dom-id-7717d95fc1db56c6506f7da47177f63c">
+        
+  
+  
+      <div class="view-content">
+      <div  class="charts-highchart chart" data-chart="{&quot;chart&quot;:{&quot;type&quot;:&quot;column&quot;,&quot;style&quot;:{&quot;fontFamily&quot;:&quot;Arial&quot;,&quot;fontSize&quot;:12},&quot;backgroundColor&quot;:&quot;transparent&quot;,&quot;height&quot;:250},&quot;title&quot;:{&quot;text&quot;:&quot;&quot;,&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;,&quot;fontSize&quot;:14}},&quot;colors&quot;:[&quot;#2f7ed8&quot;,&quot;#0d233a&quot;,&quot;#8bbc21&quot;,&quot;#910000&quot;,&quot;#1aadce&quot;,&quot;#492970&quot;,&quot;#f28f43&quot;,&quot;#77a1e5&quot;,&quot;#c42525&quot;,&quot;#a6c96a&quot;],&quot;plotOptions&quot;:{&quot;series&quot;:{&quot;dataLabels&quot;:{&quot;enabled&quot;:false}}},&quot;tooltip&quot;:{&quot;enabled&quot;:true,&quot;useHTML&quot;:false},&quot;legend&quot;:{&quot;enabled&quot;:true,&quot;title&quot;:{&quot;style&quot;:{&quot;fontWeight&quot;:&quot;bold&quot;,&quot;fontStyle&quot;:&quot;normal&quot;}},&quot;verticalAlign&quot;:&quot;top&quot;,&quot;layout&quot;:&quot;horizontal&quot;,&quot;itemStyle&quot;:{&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;}},&quot;credits&quot;:{&quot;enabled&quot;:false},&quot;xAxis&quot;:[{&quot;type&quot;:&quot;linear&quot;,&quot;title&quot;:{&quot;text&quot;:false,&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;,&quot;fontSize&quot;:12}},&quot;categories&quot;:[&quot;24.03.&quot;,&quot;25.03.&quot;,&quot;26.03.&quot;,&quot;27.03.&quot;,&quot;28.03.&quot;,&quot;29.03.&quot;,&quot;30.03.&quot;,&quot;31.03.&quot;,&quot;01.04.&quot;,&quot;02.04.&quot;,&quot;03.04.&quot;,&quot;04.04.&quot;,&quot;05.04.&quot;,&quot;06.04.&quot;,&quot;07.04.&quot;,&quot;08.04.&quot;,&quot;09.04.&quot;,&quot;10.04.&quot;,&quot;11.04.&quot;,&quot;12.04.&quot;,&quot;13.04.&quot;,&quot;14.04.&quot;,&quot;15.04.&quot;,&quot;16.04.&quot;,&quot;17.04.&quot;,&quot;18.04.&quot;,&quot;19.04.&quot;,&quot;20.04.&quot;,&quot;21.04.&quot;,&quot;22.04.&quot;],&quot;labels&quot;:{&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;},&quot;rotation&quot;:30,&quot;align&quot;:&quot;left&quot;},&quot;gridLineColor&quot;:&quot;#ccc&quot;,&quot;lineColor&quot;:&quot;#ccc&quot;,&quot;minorGridLineColor&quot;:&quot;#e0e0e0&quot;,&quot;opposite&quot;:false}],&quot;yAxis&quot;:[{&quot;type&quot;:&quot;linear&quot;,&quot;title&quot;:{&quot;text&quot;:false,&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;,&quot;fontSize&quot;:12}},&quot;labels&quot;:{&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;},&quot;rotation&quot;:0},&quot;gridLineColor&quot;:&quot;#ccc&quot;,&quot;lineColor&quot;:&quot;#ccc&quot;,&quot;minorGridLineColor&quot;:&quot;#e0e0e0&quot;,&quot;opposite&quot;:false}],&quot;series&quot;:[{&quot;name&quot;:&quot;Indeks kvaliteta zraka&quot;,&quot;color&quot;:&quot;#000791&quot;,&quot;marker&quot;:{&quot;radius&quot;:3},&quot;showInLegend&quot;:true,&quot;connectNulls&quot;:true,&quot;tooltip&quot;:[],&quot;data&quot;:[96,100,96,166,60,104,66,116,156,66,70,68,77,83,87,79,74,79,85,100,98,77,77,87,85,91,83,89,85,83]}]}" id="chart-avg-values-30-days-sarajevo--default"></div>    </div>
+  
+  
+  
+  
+  
+  
+</div>    </div>
+
+    
+    
+  </div>
+</section>
+<div class="panel-separator"></div><div class="panel-pane pane-views pane-avg-values-30-days-sarajevo-pm10 no-title block">
+  <div class="block-inner clearfix">
+    
+            
+    
+    <div class="block-content">
+      <div class="view view-avg-values-30-days-sarajevo-pm10- view-id-avg_values_30_days_sarajevo_pm10_ view-display-id-default view-dom-id-9b4aeeb4092059075275972ea03ba787">
+        
+  
+  
+      <div class="view-content">
+      <div  class="charts-highchart chart" data-chart="{&quot;chart&quot;:{&quot;type&quot;:&quot;column&quot;,&quot;style&quot;:{&quot;fontFamily&quot;:&quot;Arial&quot;,&quot;fontSize&quot;:12},&quot;backgroundColor&quot;:&quot;transparent&quot;,&quot;height&quot;:250},&quot;title&quot;:{&quot;text&quot;:&quot;&quot;,&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;,&quot;fontSize&quot;:14}},&quot;colors&quot;:[&quot;#2f7ed8&quot;,&quot;#0d233a&quot;,&quot;#8bbc21&quot;,&quot;#910000&quot;,&quot;#1aadce&quot;,&quot;#492970&quot;,&quot;#f28f43&quot;,&quot;#77a1e5&quot;,&quot;#c42525&quot;,&quot;#a6c96a&quot;],&quot;plotOptions&quot;:{&quot;series&quot;:{&quot;dataLabels&quot;:{&quot;enabled&quot;:false}}},&quot;tooltip&quot;:{&quot;enabled&quot;:true,&quot;useHTML&quot;:false},&quot;legend&quot;:{&quot;enabled&quot;:true,&quot;title&quot;:{&quot;style&quot;:{&quot;fontWeight&quot;:&quot;bold&quot;,&quot;fontStyle&quot;:&quot;normal&quot;}},&quot;verticalAlign&quot;:&quot;top&quot;,&quot;layout&quot;:&quot;horizontal&quot;,&quot;itemStyle&quot;:{&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;}},&quot;credits&quot;:{&quot;enabled&quot;:false},&quot;xAxis&quot;:[{&quot;type&quot;:&quot;linear&quot;,&quot;title&quot;:{&quot;text&quot;:false,&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;,&quot;fontSize&quot;:12}},&quot;categories&quot;:[&quot;24.03.&quot;,&quot;25.03.&quot;,&quot;26.03.&quot;,&quot;27.03.&quot;,&quot;28.03.&quot;,&quot;29.03.&quot;,&quot;30.03.&quot;,&quot;31.03.&quot;,&quot;01.04.&quot;,&quot;02.04.&quot;,&quot;03.04.&quot;,&quot;04.04.&quot;,&quot;05.04.&quot;,&quot;06.04.&quot;,&quot;07.04.&quot;,&quot;08.04.&quot;,&quot;09.04.&quot;,&quot;10.04.&quot;,&quot;11.04.&quot;,&quot;12.04.&quot;,&quot;13.04.&quot;,&quot;14.04.&quot;,&quot;15.04.&quot;,&quot;16.04.&quot;,&quot;17.04.&quot;,&quot;18.04.&quot;,&quot;19.04.&quot;,&quot;20.04.&quot;,&quot;21.04.&quot;,&quot;22.04.&quot;],&quot;labels&quot;:{&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;},&quot;rotation&quot;:30,&quot;align&quot;:&quot;left&quot;},&quot;gridLineColor&quot;:&quot;#ccc&quot;,&quot;lineColor&quot;:&quot;#ccc&quot;,&quot;minorGridLineColor&quot;:&quot;#e0e0e0&quot;,&quot;opposite&quot;:false}],&quot;yAxis&quot;:[{&quot;type&quot;:&quot;linear&quot;,&quot;title&quot;:{&quot;text&quot;:false,&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;,&quot;fontSize&quot;:12}},&quot;labels&quot;:{&quot;style&quot;:{&quot;color&quot;:&quot;#000&quot;,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontStyle&quot;:&quot;normal&quot;},&quot;rotation&quot;:0},&quot;gridLineColor&quot;:&quot;#ccc&quot;,&quot;lineColor&quot;:&quot;#ccc&quot;,&quot;minorGridLineColor&quot;:&quot;#e0e0e0&quot;,&quot;opposite&quot;:false}],&quot;series&quot;:[{&quot;name&quot;:&quot;PM10&quot;,&quot;color&quot;:&quot;#000791&quot;,&quot;marker&quot;:{&quot;radius&quot;:3},&quot;showInLegend&quot;:true,&quot;connectNulls&quot;:true,&quot;tooltip&quot;:[],&quot;data&quot;:[37,39,42,117,18,41,21,56,98,21,23,22,27,31,32,32,27,28,31,39,38,27,27,34,31,34,30,33,31,30]}]}" id="chart-avg-values-30-days-sarajevo-pm10---default"></div>    </div>
+  
+  
+  
+  
+  
+  
+</div>    </div>
+
+    
+    
+  </div>
+</div>
+      </div>
+    </div>
+    <div class="sutro-column-content-region sutro-column2 sutro-column panel-panel">
+      <div class="sutro-column-content-region-inner sutro-column2-inner sutro-column-inner panel-panel-inner">
+        <section class="panel-pane pane-views pane-test-stations block">
+  <div class="block-inner clearfix">
+    
+              <h2 class="pane-title block-title">Trenutni kvalitet zraka u Sarajevu</h2>
+        
+    
+    <div class="block-content">
+      <div class="view view-test-stations view-id-test_stations view-display-id-page_1 view-dom-id-bc9955f2e3d112e0a591b44b99c06a16">
+        
+  
+  
+      <div class="view-content">
+      <div class="ip-geoloc-map leaflet-view amarkers">
+  <div id="ip-geoloc-map-of-view-test_stations-page_1-29cd5e6cf89b6975073b9eef58fa8023"  style="height:250px"></div>
+</div>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>    </div>
+
+    
+    
+  </div>
+</section>
+<div class="panel-separator"></div><section class="panel-pane pane-views pane-query-by-stations block">
+  <div class="block-inner clearfix">
+    
+              <h2 class="pane-title block-title">Mjerne stanice</h2>
+        
+    
+    <div class="block-content">
+      <div class="view view-query-by-stations view-id-query_by_stations view-display-id-page_1 td-size view-dom-id-c73e1dd338d855ea1a9b918b26c4cf7f">
+        
+  
+  
+      <div class="view-content">
+      <table class="views-table cols-6" >
+         <thead>
+      <tr>
+                  <th class="views-field views-field-location"  scope="col">
+            Mjerna stanica          </th>
+                  <th class="views-field views-field-pm10"  scope="col">
+            PM10          </th>
+                  <th class="views-field views-field-pm25"  scope="col">
+            PM2.5          </th>
+                  <th class="views-field views-field-so2"  scope="col">
+            SO2          </th>
+                  <th class="views-field views-field-ncaqi"  scope="col">
+            <a href="/sarajevo?order=ncaqi&amp;sort=desc" title="sort by Indeks kvaliteta zraka" class="active">Indeks kvaliteta zraka</a>          </th>
+                  <th class="views-field views-field-description"  scope="col">
+            Opis          </th>
+              </tr>
+    </thead>
+    <tbody>
+      </tbody>
+</table>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>    </div>
+
+    
+    
+  </div>
+</section>
+<div class="panel-separator"></div><section class="panel-pane pane-views pane-seven-average-values-sarajevo block">
+  <div class="block-inner clearfix">
+    
+              <h2 class="pane-title block-title">Kvalitet zraka zadnjih 7 dana </h2>
+        
+    
+    <div class="block-content">
+      <div class="view view-seven-average-values-Sarajevo view-id-seven_average_values_Sarajevo view-display-id-default view-dom-id-90164eca2e2d2a838fbf83747cfe298c">
+        
+  
+  
+      <div class="view-content">
+      <table class="views-table cols-4" >
+         <thead>
+      <tr>
+                  <th class="views-field views-field-date"  scope="col">
+            <a href="/sarajevo?order=date&amp;sort=asc" title="sort by Datum" class="active">Datum</a>          </th>
+                  <th class="views-field views-field-pm25"  scope="col">
+            PM2,5          </th>
+                  <th class="views-field views-field-epaaqi views-align-right"  scope="col">
+            <a href="/sarajevo?order=epaaqi&amp;sort=asc" title="sort by Indeks" class="active">Indeks</a>          </th>
+                  <th class="views-field views-field-description"  scope="col">
+            Opis          </th>
+              </tr>
+    </thead>
+    <tbody>
+          <tr class="odd views-row-first">
+                  <td class="views-field views-field-date fix-width-10" >
+            <strong>22.04.24</strong>          </td>
+                  <td class="views-field views-field-pm25" >
+            27          </td>
+                  <td class="views-field views-field-epaaqi views-align-right fix-width-10" >
+            <strong>83</strong>          </td>
+                  <td class="views-field views-field-description" >
+            <strong>
+ 	<div class ="aiq-desc2">
+	Umjereno zagađen 
+ 
+
+
+
+
+
+
+
+</strong>          </td>
+              </tr>
+          <tr class="even">
+                  <td class="views-field views-field-date fix-width-10" >
+            <strong>21.04.24</strong>          </td>
+                  <td class="views-field views-field-pm25" >
+            28          </td>
+                  <td class="views-field views-field-epaaqi views-align-right fix-width-10" >
+            <strong>85</strong>          </td>
+                  <td class="views-field views-field-description" >
+            <strong>
+ 	<div class ="aiq-desc2">
+	Umjereno zagađen 
+ 
+
+
+
+
+
+
+
+</strong>          </td>
+              </tr>
+          <tr class="odd">
+                  <td class="views-field views-field-date fix-width-10" >
+            <strong>20.04.24</strong>          </td>
+                  <td class="views-field views-field-pm25" >
+            30          </td>
+                  <td class="views-field views-field-epaaqi views-align-right fix-width-10" >
+            <strong>89</strong>          </td>
+                  <td class="views-field views-field-description" >
+            <strong>
+ 	<div class ="aiq-desc2">
+	Umjereno zagađen 
+ 
+
+
+
+
+
+
+
+</strong>          </td>
+              </tr>
+          <tr class="even">
+                  <td class="views-field views-field-date fix-width-10" >
+            <strong>19.04.24</strong>          </td>
+                  <td class="views-field views-field-pm25" >
+            27          </td>
+                  <td class="views-field views-field-epaaqi views-align-right fix-width-10" >
+            <strong>83</strong>          </td>
+                  <td class="views-field views-field-description" >
+            <strong>
+ 	<div class ="aiq-desc2">
+	Umjereno zagađen 
+ 
+
+
+
+
+
+
+
+</strong>          </td>
+              </tr>
+          <tr class="odd">
+                  <td class="views-field views-field-date fix-width-10" >
+            <strong>18.04.24</strong>          </td>
+                  <td class="views-field views-field-pm25" >
+            31          </td>
+                  <td class="views-field views-field-epaaqi views-align-right fix-width-10" >
+            <strong>91</strong>          </td>
+                  <td class="views-field views-field-description" >
+            <strong>
+ 	<div class ="aiq-desc2">
+	Umjereno zagađen 
+ 
+
+
+
+
+
+
+
+</strong>          </td>
+              </tr>
+          <tr class="even">
+                  <td class="views-field views-field-date fix-width-10" >
+            <strong>17.04.24</strong>          </td>
+                  <td class="views-field views-field-pm25" >
+            28          </td>
+                  <td class="views-field views-field-epaaqi views-align-right fix-width-10" >
+            <strong>85</strong>          </td>
+                  <td class="views-field views-field-description" >
+            <strong>
+ 	<div class ="aiq-desc2">
+	Umjereno zagađen 
+ 
+
+
+
+
+
+
+
+</strong>          </td>
+              </tr>
+          <tr class="odd views-row-last">
+                  <td class="views-field views-field-date fix-width-10" >
+            <strong>16.04.24</strong>          </td>
+                  <td class="views-field views-field-pm25" >
+            29          </td>
+                  <td class="views-field views-field-epaaqi views-align-right fix-width-10" >
+            <strong>87</strong>          </td>
+                  <td class="views-field views-field-description" >
+            <strong>
+ 	<div class ="aiq-desc2">
+	Umjereno zagađen 
+ 
+
+
+
+
+
+
+
+</strong>          </td>
+              </tr>
+      </tbody>
+</table>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>    </div>
+
+    
+    
+  </div>
+</section>
+<div class="panel-separator"></div><section class="panel-pane pane-views pane-aqicategorypanel block">
+  <div class="block-inner clearfix">
+    
+              <h2 class="pane-title block-title"><a href="/view/aqioverview">Indeks kvaliteta zraka</a></h2>
+        
+    
+    <div class="block-content">
+      <div class="view view-aqicategorypanel view-id-aqicategorypanel view-display-id-default view-dom-id-142a38f7b755836893c168f26b323e3e">
+        
+  
+  
+      <div class="view-content">
+      <table class="views-table sticky-enabled cols-2" >
+         <thead>
+      <tr>
+                  <th class="views-field views-field-range"  scope="col">
+            Vrijednost Indeksa u rasponu ...          </th>
+                  <th class="views-field views-field-description"  scope="col">
+            Kvalitet zraka je ...          </th>
+              </tr>
+    </thead>
+    <tbody>
+          <tr class="odd views-row-first">
+                  <td class="views-field views-field-range fix-width-5" >
+            300+          </td>
+                  <td class="views-field views-field-description fix-width-25" >
+            <strong>
+ 	<div class ="aiq-desc6">
+	Opasan 
+ 
+
+
+
+
+
+
+
+</strong>          </td>
+              </tr>
+          <tr class="even">
+                  <td class="views-field views-field-range fix-width-5" >
+            201-300          </td>
+                  <td class="views-field views-field-description fix-width-25" >
+            <strong>
+ 	<div class ="aiq-desc5">
+	Vrlo nezdrav 
+ 
+
+
+
+
+
+
+
+</strong>          </td>
+              </tr>
+          <tr class="odd">
+                  <td class="views-field views-field-range fix-width-5" >
+            151-200          </td>
+                  <td class="views-field views-field-description fix-width-25" >
+            <strong>
+ 	<div class ="aiq-desc4">
+	Nezdrav 
+ 
+
+
+
+
+
+
+
+</strong>          </td>
+              </tr>
+          <tr class="even">
+                  <td class="views-field views-field-range fix-width-5" >
+            101-150          </td>
+                  <td class="views-field views-field-description fix-width-25" >
+            <strong>
+ 	<div class ="aiq-desc3">
+	Nezdrav za osjetljive grupe 
+ 
+
+
+
+
+
+
+
+</strong>          </td>
+              </tr>
+          <tr class="odd">
+                  <td class="views-field views-field-range fix-width-5" >
+            51-100          </td>
+                  <td class="views-field views-field-description fix-width-25" >
+            <strong>
+ 	<div class ="aiq-desc2">
+	Umjereno zagađen 
+ 
+
+
+
+
+
+
+
+</strong>          </td>
+              </tr>
+          <tr class="even views-row-last">
+                  <td class="views-field views-field-range fix-width-5" >
+            0-50          </td>
+                  <td class="views-field views-field-description fix-width-25" >
+            <strong>
+ 	<div class ="aiq-desc1">
+	Dobar 
+ 
+
+
+
+
+
+
+
+</strong>          </td>
+              </tr>
+      </tbody>
+</table>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>    </div>
+
+    
+    
+  </div>
+</section>
+      </div>
+    </div>
+  </div>
+  
+  <div class="sutro-container sutro-footer clearfix panel-panel">
+    <div class="sutro-container-inner sutro-footer-inner panel-panel-inner">
+          </div>
+  </div>
+  
+</div><!-- /.sutro -->
+
+  </div></div>                      </div>
+
+                      
+                    </div>
+                  </div>
+
+                </section>
+
+                
+              </div>
+            </div>
+
+                        
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    
+    
+    
+  </div>
+</div>
+  <script type="text/javascript" src="https://zrak.ekoakcija.org/sites/default/files/js/js_43fKr1TeIEPUqLYbSG8_8s_LeXk_DB17eEEETOiML34.js"></script>
+</body>
+</html>
