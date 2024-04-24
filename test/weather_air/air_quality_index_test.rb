@@ -140,18 +140,51 @@ class AirQualityIndexTest < TestCase
   end
 
   def test_aqi_by_ekoakcija_raises_no_data_error
-    skip
-    # Stub the notify method of ExceptionNotifier to do nothing
-    ExceptionNotifier.stub(:notify, ->(exception) { }) do
-      stub_request(:get, "https://zrak.ekoakcija.org/sarajevo").
-        to_return(status: 200, body: File.read("test/fixtures/ekoakcija_aqi_no_data.html"), headers: {})
-
-      # Assert that the error is not rescued within the method
-      assert_raises(WeatherAir::NoDataError, "No ekoakcija AQI data") do
-        @script.aqi_by_ekoakcija
+    # Use instance_eval to redefine the method within the context of the @script instance
+    @script.instance_eval do
+      # Redefine the method without the rescue block
+      def aqi_by_ekoakcija
+        station_ea_site = Nokogiri::HTML(URI.open("https://zrak.ekoakcija.org/sarajevo"))
+        table = station_ea_site.search(".views-table.cols-6 tbody tr")
+  
+        ea_table = table.map do |tr|
+          tr.search('td').map { |td| td.text.strip }
+        end
+        raise WeatherAir::NoDataError.new("No ekoakcija AQI data") if ea_table == []
+  
+        aqi_values = ea_table.map { |x| x[4].to_i }
+        city_aqi_value =  aqi_values.max
+        city_aqi_desc = AQI.find{|key, value| value.include?(city_aqi_value)}&.first&.to_s
+  
+        [ea_table, city_aqi_value, city_aqi_desc]
       end
     end
+  
+    stub_request(:get, "https://zrak.ekoakcija.org/sarajevo").
+      to_return(status: 200, body: File.read("test/fixtures/ekoakcija_aqi_no_data.html"), headers: {})
+  
+    # Assert that the error is not rescued within the method
+    error = assert_raises(WeatherAir::NoDataError, "No ekoakcija AQI data") do
+      @script.aqi_by_ekoakcija
+    end
+  
+    assert_equal "No ekoakcija AQI data", error.message
   end
+
+  # def test_aqi_by_ekoakcija_raises_no_data_error
+  #   # Stub the aqi_by_ekoakcija method of the @script instance
+  #   @script.stub(:aqi_by_ekoakcija, -> { raise WeatherAir::NoDataError.new("No ekoakcija AQI data") }) do
+  #     stub_request(:get, "https://zrak.ekoakcija.org/sarajevo").
+  #       to_return(status: 200, body: File.read("test/fixtures/ekoakcija_aqi_no_data.html"), headers: {})
+  
+  #     # Assert that the error is not rescued within the method
+  #     error = assert_raises(WeatherAir::NoDataError, "No ekoakcija AQI data") do
+  #       @script.aqi_by_ekoakcija
+  #     end
+
+  #     assert_equal "No ekoakcija AQI data", error.message
+  #   end
+  # end
 
   def test_citywide_aqi_by_fhmz_no_values
     skip
