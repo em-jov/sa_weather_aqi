@@ -39,7 +39,7 @@ module WeatherAir
           stations.delete(station)
         end
       end
-      raise 'No fhmzbih AQI data.' if stations == {}
+      raise WeatherAir::NoDataError.new('No fhmzbih AQI data.') if stations == {}
 
       @aqi_by_fhmz = stations      
     rescue StandardError => exception
@@ -96,19 +96,15 @@ module WeatherAir
       station_ea_site = Nokogiri::HTML(URI.open("https://zrak.ekoakcija.org/sarajevo"))
       table = station_ea_site.search(".views-table.cols-6 tbody tr")
 
-      ea_table = []
-      table.each do |tr|
-        ea_table << tr.search('td').each_with_object([]) do |td, n|
-          n << td.text.strip 
-        end
+      ea_table = table.map do |tr|
+        tr.search('td').map { |td| td.text.strip }
       end
-      aqi_values = []
-      ea_table.each do |x|
-        aqi_values << x[4].to_i
-      end
-      raise "No ekoakcija AQI data" if ea_table == []
+      raise WeatherAir::NoDataError.new("No ekoakcija AQI data") if ea_table == []
+
+      aqi_values = ea_table.map { |x| x[4].to_i }
       city_aqi_value =  aqi_values.max
       city_aqi_desc = AQI.find{|key, value| value.include?(city_aqi_value)}&.first&.to_s
+
       [ea_table, city_aqi_value, city_aqi_desc]
     rescue StandardError => exception
       ExceptionNotifier.notify(exception)  

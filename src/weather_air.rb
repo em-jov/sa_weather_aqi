@@ -15,7 +15,15 @@ module WeatherAir
   class << self
     def run
       logger = AppLogger.instance.logger
-      Sentry.init
+      Sentry.init do |config|
+        config.before_send = lambda do |event, hint|
+          if hint[:exception].is_a?(NoDataError)
+            nil
+          else
+            event
+          end
+        end
+      end
       I18n.load_path += Dir[File.expand_path("config/locales") + "/*.yml"]
       I18n.config.available_locales = %i[en bs]
       I18n.default_locale = :en
