@@ -1,5 +1,5 @@
 module WeatherAir
-  class AirQualityIndex
+  class AirQualityIndexClient
     # AQI range descriptors
     AQI = { good: 0..50, 
             moderate: 51..100,   
