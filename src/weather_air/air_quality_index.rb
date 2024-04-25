@@ -93,7 +93,12 @@ module WeatherAir
     end
 
     def aqi_by_ekoakcija
-      station_ea_site = Nokogiri::HTML(URI.open("https://zrak.ekoakcija.org/sarajevo"))
+      conn = Faraday.new(
+        url: 'https://zrak.ekoakcija.org/sarajevo') do |f|
+          f.use WeatherAir::CustomErrors
+      end
+
+      station_ea_site = Nokogiri::HTML(conn.get.body)
       table = station_ea_site.search(".views-table.cols-6 tbody tr")
 
       ea_table = table.map do |tr|
@@ -115,7 +120,12 @@ module WeatherAir
     private
 
     def fetch_pollutants_from_ks_website(station)
-      station_ks_site = Nokogiri::HTML(URI.open("https://aqms.live/kvalitetzraka/st.php?st=#{station}"))
+      conn = Faraday.new(
+        url: "https://aqms.live/kvalitetzraka/st.php?st=#{station}") do |f|
+          f.use WeatherAir::CustomErrors
+      end
+
+      station_ks_site = Nokogiri::HTML(conn.get.body)
       table = station_ks_site.search(".table.table-hover").first
 
       table.elements[1].children.each do |el|
@@ -162,7 +172,12 @@ module WeatherAir
     end
 
     def fetch_fhmzbih_data
-      fhmzbih_website = Nokogiri::HTML(URI.open('https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php'))
+      conn = Faraday.new(
+        url: 'https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php') do |f|
+          f.use WeatherAir::CustomErrors
+      end
+
+      fhmzbih_website = Nokogiri::HTML(conn.get.body)
       
       # !!! hard-coded (table), potential problems if source HTML changes
       table = fhmzbih_website&.css('table table').first
