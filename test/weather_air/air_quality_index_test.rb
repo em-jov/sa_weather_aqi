@@ -27,6 +27,7 @@ class AirQualityIndexTest < TestCase
     stub_request(:get, "https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php").
     to_return(status: 200, body: File.read('test/fixtures/fhmzbih_no_data.html'), headers: {})
 
+    ExceptionNotifier.expects(:notify)  
     result = @script.aqi_by_fhmz
     expected = {:error=>{:en=>'Error: No current air quality index data available from Federal Hydro-Meteorological Institute! Please visit <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php">fhmzbih.gov.ba</a> for more information.', 
                          :bs=>'Greška: Nedostupni podaci o indeksu kvalitete zraka Federalnog hidrometeoroloskog zavoda! Posjetite <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php">fhmzbih.gov.ba</a> za više informacija.'}}
@@ -38,7 +39,6 @@ class AirQualityIndexTest < TestCase
     to_return(status: 200, body: File.read('test/fixtures/fhmzbih_some_data.html'), headers: {})
 
     result = @script.aqi_by_fhmz
-    pp result
     assert_equal({:value=>"4", :class=>:poor_eea}, result["bjelave"][:aqi])
   end
 
@@ -46,6 +46,7 @@ class AirQualityIndexTest < TestCase
     stub_request(:get, "https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php").
     to_return(status: 200, body: File.read('test/fixtures/fhmzbih_empty.html'), headers: {})
 
+    ExceptionNotifier.expects(:notify)  
     result = @script.aqi_by_fhmz
     expected = {:error=>{:en=>'Error: No current air quality index data available from Federal Hydro-Meteorological Institute! Please visit <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php">fhmzbih.gov.ba</a> for more information.', 
                          :bs=>'Greška: Nedostupni podaci o indeksu kvalitete zraka Federalnog hidrometeoroloskog zavoda! Posjetite <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php">fhmzbih.gov.ba</a> za više informacija.'}}
@@ -91,7 +92,8 @@ class AirQualityIndexTest < TestCase
       to_return(status: 200, body: "", headers: {})  
     
     I18n.locale = :bs
-
+    
+    ExceptionNotifier.expects(:notify) 
     result = @script.aqi_by_ks
     expected = { error: { en: 'Error: No current air quality index data available from Sarajevo Canton Ministry of Communal Industry, Infrastructure, Physical Planning, Construction and Environmental Protection. Please visit <a href="https://aqms.live/kvalitetzraka/index.php">mkipgo.ks.gov.ba</a> for more information.', 
                           bs: 'Greška: Nedostupni podaci o indeksu kvalitete zraka sa webstranice Ministarstva komunalne privrede, infrastrukture, prostornog uređenja, građenja i zaštite okoliša Kantona Sarajevo! Posjetite <a href="https://aqms.live/kvalitetzraka/index.php">mkipgo.ks.gov.ba</a> za više informacija.' } }
@@ -114,13 +116,21 @@ class AirQualityIndexTest < TestCase
 
   def test_aqi_by_ekoakcija_no_data
     stub_request(:get, "https://zrak.ekoakcija.org/sarajevo").
-      to_return(status: 403, body: File.read("test/fixtures/ekoakcija_aqi_no_data.html"), headers: {})
+      to_return(status: 403, body: "", headers: {})
 
     ExceptionNotifier.expects(:notify)  
     result = @script.aqi_by_ekoakcija
     expected = {:error=>{:en=>'Error: No current air quality index data available from ekoakcija.org. Please visit <a href="https://zrak.ekoakcija.org/sarajevo">zrak.ekoakcija.org</a> for more information.', 
                          :bs=>'Greška: Nedostupni podaci o indeksu kvalitete zraka sa webstranice ekoakcija.org! Posjetite <a href="https://zrak.ekoakcija.org/sarajevo">zrak.ekoakcija.org</a> za više informacija.'}}
     assert_equal(expected, result)
+  end
+
+  def test_aqi_by_ekoakcija_raises_no_data_error
+    stub_request(:get, "https://zrak.ekoakcija.org/sarajevo").
+      to_return(status: 200, body: File.read("test/fixtures/ekoakcija_aqi_no_data.html"), headers: {})
+    
+      ExceptionNotifier.expects(:notify).with(instance_of(WeatherAir::NoDataError))  
+      @script.aqi_by_ekoakcija
   end
 
   def test_citywide_aqi_by_fhmz_no_values
