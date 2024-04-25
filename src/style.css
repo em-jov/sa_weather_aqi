@@ -3,6 +3,10 @@
   color: red;
 }
 
+#weather span.temp_now {
+  font-size: 100%;
+}
+
 #meteoalarms h4{
   margin: 0.3em;
 }

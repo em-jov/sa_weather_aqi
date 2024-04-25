@@ -138,7 +138,12 @@
         <div class="yr_forecast_table">
           <% yr_weather_forecast.each do |key, values| %>             
           <details <%= "open=true" if values[:name]=="Sarajevo" %>>
-            <summary><%= values[:name] %></summary>
+            <summary>
+              <% if values[:name]!="Sarajevo" %>
+                <img src="<%= icon_path("mountains") %>" width="36"/>
+              <% end %>
+              <%= values[:name] %>
+            </summary>
             <% if values[:forecast].is_a?(Hash) %>
               <p class="error"><%= values[:forecast][:error][I18n.locale] %></p>
             <% else %>
@@ -148,7 +153,7 @@
                     <td class="yr_td">
                       <span>
                         <% if index == 0 %>
-                          <p>Now</p>
+                          <span class="temp_now">Now</span>
                         <% else %>
                           <%= I18n.localize(interval[:time], format: :hm ) %>
                         <% end %>  
