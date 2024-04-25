@@ -5,6 +5,6 @@ class ExceptionNotifier
     logger = AppLogger.instance.logger
     logger.error(exception.message)
     logger.error(exception.backtrace.join("\n"))
-    Sentry.capture_exception(exception) #unless ENV['DEVELOPMENT']
+    Sentry.capture_exception(exception) unless ENV['DEVELOPMENT']
   end
 end

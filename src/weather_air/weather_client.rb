@@ -10,12 +10,6 @@ module WeatherAir
                  uv_very_high: 7..10,
                  uv_extreme: 10.. }
 
-    class CustomErrors < Faraday::Middleware
-      def on_complete(env)
-        raise RuntimeError.new(env[:response_body]) if env[:status].to_i != 200
-      end
-    end
-
     def meteoalarms
       [current_alarms, future_alarms]
     end
@@ -128,7 +122,7 @@ module WeatherAir
         params: { lat: LAT, lon: LON, appid: ENV['API_KEY'] },
         headers: { 'Content-Type' => 'application/json' }) do |f|
         f.response :json
-        f.use CustomErrors
+        f.use WeatherAir::CustomErrors
       end
     end
 
@@ -141,7 +135,7 @@ module WeatherAir
         params: { altitude: altitude, lat: lat, lon: lon },
         headers: { 'Content-Type' => 'application/json', 'User-Agent' => sitename }) do |f|
         f.response :json
-        f.use CustomErrors
+        f.use WeatherAir::CustomErrors
       end
 
       yr_response = conn.get()

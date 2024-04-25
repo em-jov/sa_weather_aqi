@@ -16,8 +16,6 @@ class AirQualityIndexTest < TestCase
   end
 
   def test_aqi_by_fhmz
-    skip
-
     stub_request(:get, "https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php").
       to_return(status: 200, body: File.read('test/fixtures/fhmzbih.html'), headers: {})
           
@@ -26,11 +24,10 @@ class AirQualityIndexTest < TestCase
   end
 
   def test_aqi_by_fhmz_no_data
-    skip
-
     stub_request(:get, "https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php").
     to_return(status: 200, body: File.read('test/fixtures/fhmzbih_no_data.html'), headers: {})
 
+    ExceptionNotifier.expects(:notify)  
     result = @script.aqi_by_fhmz
     expected = {:error=>{:en=>'Error: No current air quality index data available from Federal Hydro-Meteorological Institute! Please visit <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php">fhmzbih.gov.ba</a> for more information.', 
                          :bs=>'Greška: Nedostupni podaci o indeksu kvalitete zraka Federalnog hidrometeoroloskog zavoda! Posjetite <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php">fhmzbih.gov.ba</a> za više informacija.'}}
@@ -38,22 +35,18 @@ class AirQualityIndexTest < TestCase
   end
 
   def test_aqi_by_fhmz_one_station_data
-    skip
-
     stub_request(:get, "https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php").
     to_return(status: 200, body: File.read('test/fixtures/fhmzbih_some_data.html'), headers: {})
 
     result = @script.aqi_by_fhmz
-    pp result
     assert_equal({:value=>"4", :class=>:poor_eea}, result["bjelave"][:aqi])
   end
 
   def test_aqi_by_fhmz_empty_html
-    skip
-
     stub_request(:get, "https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php").
     to_return(status: 200, body: File.read('test/fixtures/fhmzbih_empty.html'), headers: {})
 
+    ExceptionNotifier.expects(:notify)  
     result = @script.aqi_by_fhmz
     expected = {:error=>{:en=>'Error: No current air quality index data available from Federal Hydro-Meteorological Institute! Please visit <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php">fhmzbih.gov.ba</a> for more information.', 
                          :bs=>'Greška: Nedostupni podaci o indeksu kvalitete zraka Federalnog hidrometeoroloskog zavoda! Posjetite <a href="https://www.fhmzbih.gov.ba/latinica/ZRAK/AQI-satne.php">fhmzbih.gov.ba</a> za više informacija.'}}
@@ -61,8 +54,6 @@ class AirQualityIndexTest < TestCase
   end
 
   def test_aqi_by_ks
-    skip
-
     stub_request(:get, "https://aqms.live/kvalitetzraka/st.php?st=vijecnica").
       to_return(status: 200, body: File.read('test/fixtures/ks_aqi_vijecnica.html'), headers: {})
     
@@ -85,8 +76,6 @@ class AirQualityIndexTest < TestCase
   end
 
   def test_aqi_by_ks
-    skip
-
     stub_request(:get, "https://aqms.live/kvalitetzraka/st.php?st=vijecnica").
       to_return(status: 200, body: "", headers: {})
     
@@ -103,7 +92,8 @@ class AirQualityIndexTest < TestCase
       to_return(status: 200, body: "", headers: {})  
     
     I18n.locale = :bs
-
+    
+    ExceptionNotifier.expects(:notify) 
     result = @script.aqi_by_ks
     expected = { error: { en: 'Error: No current air quality index data available from Sarajevo Canton Ministry of Communal Industry, Infrastructure, Physical Planning, Construction and Environmental Protection. Please visit <a href="https://aqms.live/kvalitetzraka/index.php">mkipgo.ks.gov.ba</a> for more information.', 
                           bs: 'Greška: Nedostupni podaci o indeksu kvalitete zraka sa webstranice Ministarstva komunalne privrede, infrastrukture, prostornog uređenja, građenja i zaštite okoliša Kantona Sarajevo! Posjetite <a href="https://aqms.live/kvalitetzraka/index.php">mkipgo.ks.gov.ba</a> za više informacija.' } }
@@ -111,8 +101,6 @@ class AirQualityIndexTest < TestCase
   end
 
   def test_aqi_by_ekoakcija
-    skip
-
     stub_request(:get, "https://zrak.ekoakcija.org/sarajevo").
       to_return(status: 200, body: File.read("test/fixtures/ekoakcija_aqi.html"), headers: {})
 
@@ -127,10 +115,8 @@ class AirQualityIndexTest < TestCase
   end
 
   def test_aqi_by_ekoakcija_no_data
-    skip
-
     stub_request(:get, "https://zrak.ekoakcija.org/sarajevo").
-      to_return(status: 403, body: File.read("test/fixtures/ekoakcija_aqi_no_data.html"), headers: {})
+      to_return(status: 403, body: "", headers: {})
 
     ExceptionNotifier.expects(:notify)  
     result = @script.aqi_by_ekoakcija
@@ -140,55 +126,14 @@ class AirQualityIndexTest < TestCase
   end
 
   def test_aqi_by_ekoakcija_raises_no_data_error
-    # Use instance_eval to redefine the method within the context of the @script instance
-    @script.instance_eval do
-      # Redefine the method without the rescue block
-      def aqi_by_ekoakcija
-        station_ea_site = Nokogiri::HTML(URI.open("https://zrak.ekoakcija.org/sarajevo"))
-        table = station_ea_site.search(".views-table.cols-6 tbody tr")
-  
-        ea_table = table.map do |tr|
-          tr.search('td').map { |td| td.text.strip }
-        end
-        raise WeatherAir::NoDataError.new("No ekoakcija AQI data") if ea_table == []
-  
-        aqi_values = ea_table.map { |x| x[4].to_i }
-        city_aqi_value =  aqi_values.max
-        city_aqi_desc = AQI.find{|key, value| value.include?(city_aqi_value)}&.first&.to_s
-  
-        [ea_table, city_aqi_value, city_aqi_desc]
-      end
-    end
-  
     stub_request(:get, "https://zrak.ekoakcija.org/sarajevo").
       to_return(status: 200, body: File.read("test/fixtures/ekoakcija_aqi_no_data.html"), headers: {})
-  
-    # Assert that the error is not rescued within the method
-    error = assert_raises(WeatherAir::NoDataError, "No ekoakcija AQI data") do
+    
+      ExceptionNotifier.expects(:notify).with(instance_of(WeatherAir::NoDataError))  
       @script.aqi_by_ekoakcija
-    end
-  
-    assert_equal "No ekoakcija AQI data", error.message
   end
 
-  # def test_aqi_by_ekoakcija_raises_no_data_error
-  #   # Stub the aqi_by_ekoakcija method of the @script instance
-  #   @script.stub(:aqi_by_ekoakcija, -> { raise WeatherAir::NoDataError.new("No ekoakcija AQI data") }) do
-  #     stub_request(:get, "https://zrak.ekoakcija.org/sarajevo").
-  #       to_return(status: 200, body: File.read("test/fixtures/ekoakcija_aqi_no_data.html"), headers: {})
-  
-  #     # Assert that the error is not rescued within the method
-  #     error = assert_raises(WeatherAir::NoDataError, "No ekoakcija AQI data") do
-  #       @script.aqi_by_ekoakcija
-  #     end
-
-  #     assert_equal "No ekoakcija AQI data", error.message
-  #   end
-  # end
-
   def test_citywide_aqi_by_fhmz_no_values
-    skip
-
     stations_pollutants = { "vijecnica" => { :so2 => nil, :no2 => nil, :co => nil, :o3 => nil, :pm10 => nil, :pm2_5 => nil, :pm => nil, :aqi => nil },
                             "bjelave" => { :so2 => nil, :no2 => nil, :co => nil, :o3 => nil, :pm10 => nil, :pm2_5 => nil, :pm => nil, :aqi => nil },
                             "embassy" => { :so2 => nil, :no2 => nil, :co => nil, :o3 => nil, :pm10 => nil, :pm2_5 => nil, :pm => nil, :aqi => nil },
@@ -204,8 +149,6 @@ class AirQualityIndexTest < TestCase
   end
 
   def test_citywide_aqi_by_fhmz
-    skip
-
     @script.expects(:aqi_by_fhmz).returns(@stations_pollutants)
     result = @script.citywide_aqi_by_fhmz
 
