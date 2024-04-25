@@ -1,9 +1,9 @@
 require_relative '../test_helper'
 
-class AirQualityIndexTest < TestCase
+class AirQualityIndexClientTest < TestCase
   def setup 
     super
-    @script = WeatherAir::AirQualityIndex.new
+    @script = WeatherAir::AirQualityIndexClient.new
     @stations_pollutants = {
     "vijecnica"=>{:aqi=>{:value=>"1", :class=>:good_eea}, :so2=>{:value=>"1", :class=>:good_eea}, :no2=>{:value=>"1", :class=>:good_eea}, :o3=>{:value=>"", :class=>nil}, :pm10=>{:value=>"", :class=>nil}, :pm25=>{:value=>"", :class=>nil}, :name=>"Vijećnica", :latitude=>43.859, :longitude=>18.434},
     "bjelave"=>{:aqi=>{:value=>"3", :class=>:moderate_eea}, :so2=>{:value=>"1", :class=>:good_eea}, :no2=>{:value=>"1", :class=>:good_eea}, :o3=>{:value=>"3", :class=>:moderate_eea}, :pm10=>{:value=>"1", :class=>:good_eea}, :pm25=>{:value=>"1", :class=>:good_eea}, :name=>"Bjelave", :latitude=>43.867, :longitude=>18.42},

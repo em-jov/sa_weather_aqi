@@ -41,7 +41,7 @@ module WeatherAir
       yr_current_weather = yr_current_weather.first if yr_current_weather.is_a?(Array)
      
       # air quality index
-      aqi = WeatherAir::AirQualityIndex.new
+      aqi = WeatherAir::AirQualityIndexClient.new
       # fhmzbih.gov.ba
       fhmz_aqi = aqi.aqi_by_fhmz
       fhmz_citywide_aqi = aqi.citywide_aqi_by_fhmz
