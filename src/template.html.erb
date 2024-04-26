@@ -140,7 +140,26 @@
           <details <%= "open=true" if values[:name]=="Sarajevo" %>>
             <summary>
               <% if values[:name]!="Sarajevo" %>
-                <img src="<%= icon_path("mountains") %>" width="36"/>
+                <img class="mountain_icon" src="" width="36"/>
+                <script>
+                  function colorScheme(){
+                    if (window.matchMedia) {
+                      if(window.matchMedia('(prefers-color-scheme: dark)').matches){
+                        // Dark
+                        var images = document.getElementsByClassName("mountain_icon")
+                        Array.from(images).forEach(element => {
+                          element.src = "<%= icon_path('mountains_black_bg') %>"
+                        }); 
+                      } else {
+                        // Light
+                        var images = document.getElementsByClassName("mountain_icon")
+                        Array.from(images).forEach(element => {
+                          element.src = "<%= icon_path('mountains_light_bg') %>"
+                        }); 
+                      }
+                    } 
+                  }
+                </script>
               <% end %>
               <%= values[:name] %>
             </summary>
@@ -154,6 +173,7 @@
                       <span>
                         <% if index == 0 %>
                           <span class="temp_now">Now</span>
+                          <%= "<br><br>" if I18n.locale == :en %>
                         <% else %>
                           <%= I18n.localize(interval[:time], format: :hm ) %>
                         <% end %>  
@@ -558,5 +578,6 @@
         <p>JSON: <a href="/sa_aqi.json"><%= I18n.t(:sa_aqi) %></a> | <a href="/ms_aqi.json"><%= I18n.t(:ms_aqi) %></a> | <a href="/feed.json"><%= I18n.t(:all_data) %></a></p>
       </div>
     </footer>
+    <script> window.onload = colorScheme; </script>
   </body>
 </html>
