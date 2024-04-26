@@ -6,9 +6,6 @@
     <title>Sarajevo meteo</title>
     <style><%= style %></style>
     <script><%= scrollBtn_script %></script>
-    <% if I18n.locale == :en %>
-      <script><%= js_script %></script>
-    <% end %>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
      crossorigin=""/>
@@ -141,25 +138,6 @@
             <summary>
               <% if values[:name]!="Sarajevo" %>
                 <img class="mountain_icon" src="" width="36"/>
-                <script>
-                  function colorScheme(){
-                    if (window.matchMedia) {
-                      if(window.matchMedia('(prefers-color-scheme: dark)').matches){
-                        // Dark
-                        var images = document.getElementsByClassName("mountain_icon")
-                        Array.from(images).forEach(element => {
-                          element.src = "<%= icon_path('mountains_black_bg') %>"
-                        }); 
-                      } else {
-                        // Light
-                        var images = document.getElementsByClassName("mountain_icon")
-                        Array.from(images).forEach(element => {
-                          element.src = "<%= icon_path('mountains_light_bg') %>"
-                        }); 
-                      }
-                    } 
-                  }
-                </script>
               <% end %>
               <%= values[:name] %>
             </summary>
@@ -259,37 +237,6 @@
         <% end %>
 
         <div id="map"></div>
-
-        <script>
-
-          // Initialize Leaflet map
-          var map = L.map('map').setView([43.8560, 18.390], 12);
-
-          // Add OpenStreetMap as the base layer
-          L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-              maxZoom: 19,
-              attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          }).addTo(map);
-
-          <% fhmz_aqi.each do |_station, values| %>
-            <% next if values[:aqi][:value].nil? %>
-            
-            // Define a custom HTML for the marker
-            var customMarkerHtml = '<div class="custom-marker <%= values[:aqi][:class] %>"><%= values[:aqi][:value] %></div>';
-
-            // Create a custom divIcon with the HTML
-            var customIcon = L.divIcon({
-                className: 'custom-div-icon',
-                html: customMarkerHtml,
-                iconSize: [30, 30]
-            });
-
-            // Add a marker with the custom icon
-            L.marker([<%= values[:latitude] %>, <%= values[:longitude] %>], { icon: customIcon }).addTo(map).bindPopup('<%= values[:name] %>');
-            
-          <% end %>  
-
-        </script>
 
         <table class="stations_aqi centered-table">
           <tr>
@@ -578,6 +525,5 @@
         <p>JSON: <a href="/sa_aqi.json"><%= I18n.t(:sa_aqi) %></a> | <a href="/ms_aqi.json"><%= I18n.t(:ms_aqi) %></a> | <a href="/feed.json"><%= I18n.t(:all_data) %></a></p>
       </div>
     </footer>
-    <script> window.onload = colorScheme; </script>
   </body>
 </html>
