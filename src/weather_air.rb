@@ -51,8 +51,7 @@ module WeatherAir
       ekoakcija_aqi = aqi.aqi_by_ekoakcija
 
       style = File.read("src/style.css")
-      js_script = File.read('src/script.js')
-      scrollBtn_script =  File.read('src/scrollBtnScript.js')
+      scrollBtn_script =   ERB.new(File.read('src/script.js')).result(binding)
       template = ERB.new(File.read('src/template.html.erb'))
       english = template.result(binding)
 
@@ -61,6 +60,7 @@ module WeatherAir
       ms_aqi = { fhmz_aqi: }.to_json
 
       I18n.locale = :bs
+      scrollBtn_script =   ERB.new(File.read('src/script.js')).result(binding)
       own_weather_forecast = weather.owm_weather_forecast
       bosnian = template.result(binding) 
       [bosnian, english, feed, sa_aqi, ms_aqi]
